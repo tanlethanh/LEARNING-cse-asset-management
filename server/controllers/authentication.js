@@ -10,21 +10,10 @@ const saltRounds = 10;
 
 exports.signup = (req, res) => {
 
-    // console.log(req)
-    console.log(req.body)
-    // res.json({
-    //     mess:"hello"
-    // })
-    /* add email verification */
     const password = req.body.password
-
-    console.log(password)
 
     bcrypt.hash(password, saltRounds).then(function(hash) {
         // Store hash in your password DB.
-
-        console.log("hello")
-
 
         newUser = new User({
             isAdmin: req.body.isAdmin,
@@ -34,6 +23,10 @@ exports.signup = (req, res) => {
             email: req.body.email,
             hash_password: hash
         })
+
+        if (req.body.enable == "true") {
+            newUser.enable = true;
+        }
 
         newUser.save((err, user) => {
             if (err) {
@@ -61,34 +54,38 @@ exports.signin = (req, res) => {
 
     User.findOne({email}, (err, user) => {
         if (err || !user) {
-            return res.status(400).json({
+            res.status(400).json({
                 error: "Email was not found"
             })
         }
-        
-        if (user.enable == false) {
-            return res.status(400).json({
+        else if (user.enable == false) {
+            res.status(400).json({
                 error: "Account is not active"
             })
         }
-
-        bcrypt.compare(password, user.hash_password).then(function(equal) {
-            // result == true
-            if (equal) {
-                // sign in
-            }
-            else {
-                return res.status(400).json({
-                    error: "Password is wrong"
-                })
-            }
-        });
+        else { // check password - account in database, it's enable
+            bcrypt.compare(password, user.hash_password).then(function(equal) {
+                // result == true
+                if (equal) {
+                    // sign in
+                    return res.json({
+                        mess: "sign in successfully",
+                        user
+                    })
+                }
+                else {
+                    return res.status(400).json({
+                        error: "Password is wrong"
+                    })
+                }
+            });
+        }
 
     })
     
-    bcrypt.compare(myPlaintextPassword, hash).then(function(result) {
-        // result == true
-    });
+    // bcrypt.compare(myPlaintextPassword, hash).then(function(result) {
+    //     // result == true
+    // });
 }
 
 exports.signout = (req, res) => {

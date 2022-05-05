@@ -29,8 +29,7 @@ app.get("/", function (req, res) {
 const authenRoutes = require("./routes/authentication")
 
 // Using routes
-app.use("/authentication" , authenRoutes)
-
+app.use("/api/authentication" , authenRoutes)
 
 
 
