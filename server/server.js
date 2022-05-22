@@ -27,11 +27,11 @@ app.get("/", function (req, res) {
 
 // Import routes
 const authenRoutes = require("./routes/authentication")
+const adminRoutes = require("./routes/admin")
 
 // Using routes
 app.use("/api/authentication" , authenRoutes)
-
-
+app.use("/api/admin", adminRoutes)
 
 // Starting server
 const port = process.env.PORT || 3000

@@ -1,0 +1,310 @@
+/* reset css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Poppins', sans-serif;
+    --height-nav: 70px;
+    --width-menu: 270px;
+    
+}
+
+body {
+    background-color: #fff;
+}
+
+
+/* Header section */
+
+#header {
+    width: 100%;
+    height: var(--height-nav);
+    left: 0px;
+    top: 0px;
+    background: #6171A9;
+    border-bottom: 1px solid #fff;
+    position: fixed;
+    z-index: 10;
+}
+
+#header li {
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+#header .header-left {
+
+}
+
+#header .header-right {
+    position: absolute;
+    right: 20px;
+}
+
+.text-logo {
+    padding: 0 100px;
+    text-decoration: none;
+    line-height: var(--height-nav);
+}
+
+.text-logo em {
+    font-size: 2rem;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.text-logo .text-logo-1 {
+    color: #212C58;
+    margin-right: 10px;
+
+}
+
+.text-logo .text-logo-2 {
+    color: #C0CFFA;
+}
+
+.nav-btn {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: var(--height-nav);
+    padding: 0 24px;
+    height: 100%;
+}
+
+.nav-btn:hover {
+    background-color: #48578E;
+    color: #fff;
+}
+
+.nav-btn i {
+    font-size: 1.5em;
+    padding: 0 28px;
+}
+
+/* Header section > Information */
+
+#information {
+    position: relative;
+    height: calc(250px + var(--height-nav));
+    padding-top: var(--height-nav);
+    background: #6171A9;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+#information>div {
+    display: inline-block;
+}
+
+#information .title {
+    position: absolute;
+    top: calc(50px + var(--height-nav));  
+    left: 150px;
+}
+
+#information .title .name {
+    font-size: 3em;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+#information .detail {
+    position: absolute;
+    top: calc(50px + var(--height-nav)); 
+    right: 200px;
+}
+
+#content {
+    background-color: #000;
+    height: calc(100vh - var(--height-nav)) ;
+    background-color: #ccc;
+    position: relative;
+}
+
+#menu {
+    background-color: #48578E;
+    width: var(--width-menu);
+    height: 100%;
+    position: absolute;
+    padding: 20px 15px;
+}
+
+.menu_title {
+    color: #fff;
+    margin: 10px auto;
+}
+
+.menu_list {
+    border: none;
+    /* position: absolute; */
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    margin-top: 10px;
+    border-radius: 15px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 1em;
+    color: #000 ;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.menu_list:hover {
+    background-color: #6171A9;
+    color: #fff;
+}
+
+.menu_list.chosen {
+    background: #212C58 !important;
+    color: #fff !important;
+}
+
+#list {
+    background-color: #fff;
+    position: absolute;
+    right: 0;
+    left: var(--width-menu);
+    height: 100%;
+}
+
+.list-search {
+    margin: 15px;
+    padding: 0 10px;
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    border: #000 solid 1px;
+    font-size: 1rem;
+    
+    display: flex;
+    justify-content: center;
+}
+
+.list-search i {
+    display: flex;
+    align-items: center;
+}
+
+.list-search input {
+    border: none;
+}
+
+.list-search input:focus {
+    outline: none;
+}
+
+.list-item {
+    height: 45px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.list-item-title {
+    height: 35px !important;
+    font-weight: 700; 
+}
+
+.list-item-odd {
+    background-color: #F7F6FE !important;
+}
+
+.list-item-col {
+    width: 130px;
+    padding: 0 15px;
+    /* border: #000 solid 1px; */
+    flex-grow: 1;
+    flex-shrink: 0;
+    
+    /* for child */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-col-name {
+    width: 300px;
+    flex-grow: 3 !important;
+    text-align: left !important;
+    justify-content: left !important;
+}
+
+.list-item-col .fa-solid{
+    font-size: 1.3em;
+    padding: 0 28px;
+}
+
+.accept{
+    color: green;
+}
+
+.list-item-col .accept_status {
+    background-color: #EBF9F1;
+    color: #1F9254;
+    padding: 4px 15px;
+    border-radius: 15px;
+    font-style: normal;
+}
+
+.list-item-col .denied_status {
+    background-color: #FBE7E8;
+    color: #A30D11;
+    padding: 4px 15px;
+    border-radius: 15px;
+    font-style: normal;
+}
+
+.list-item-col .pending_status {
+    background-color: #FEF2E5;
+    color: #CD6200;
+    padding: 4px 15px;
+    border-radius: 15px;
+    font-style: normal;
+}
+
+.list-end {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    margin-top: 50px;
+}
+
+.move-list {
+    border: none;
+    background-color: #fff;
+    font-weight: 500;
+    font-size: 1em;
+    color: #ccc;
+    margin: 0 10px;
+}
+
+.list-number button {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 8px;
+    margin: 0 10px;
+    font-weight: 400;
+    font-size: 1em;
+}
+
+.list-number .chosen {
+    color: #fff !important;
+    background-color: #48578E !important;
+}
+
+.list-number button:hover {
+    background-color: #6171A9;
+    color: #fff;
+}
+
+
+#footer {}

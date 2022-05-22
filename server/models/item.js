@@ -8,9 +8,10 @@ const itemSchema = new mongoose.Schema({
     },
     quantity: {
         type: Number,
+        require: true,
         min: 1,
     },
-    category: [String],
+    category: String,
     image: {
         data: Buffer,
         contentType: String
@@ -22,7 +23,7 @@ const itemSchema = new mongoose.Schema({
     borrowerList: [
         {
             id: {
-                type: mongoose.ObjectID,
+                type: mongoose.Schema.Types.ObjectId,
                 require: true
             },
             quantity: {

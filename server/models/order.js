@@ -1,11 +1,11 @@
 const mongoose = require("mongoose")
 
-const oderSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema({
     index: {
-        type: Number
+        type: Number,
     },
     idItem: {
-        type: mongoose.Schema.Types.ObjectId 
+        type: mongoose.Schema.Types.ObjectId
     },
     quantity: {
         type: Number,
@@ -20,4 +20,4 @@ const oderSchema = new mongoose.Schema({
     
 })
 
-module.exports = mongoose.model("Oder", oderSchema)
+module.exports = mongoose.model("Order", orderSchema)
