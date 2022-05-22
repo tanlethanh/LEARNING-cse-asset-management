@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homepage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="device-width, initial-scale=1">
+    <link rel="stylesheet" href="asset.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script> 
+    <script src="asset.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+</head>
+
+
+<body>
+    <div style="height: 59px; width: 100%;">
+        <nav class="fixed-top">
+            <div style="float:left" title="logo" class="navbar">
+                <a class="navbar-brand" href="#" style="margin-top: 1px;">
+                  <img src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" style="margin-left: 28px; width: 184px; height: 38px">
+                </a>
+            </div>
+            
+            <a href="#checklist" class="buttonNav" style="padding: 5.5px 8px; margin-right: 5.5px; float:right;" >
+                <img src="checklist.png" alt="Checklist box" width="45" height="45" onclick="openCloseChecklist()">
+            </a>
+
+            <div class="form-popup form-container" id="checkList" >
+              <div class="row" style="padding: 10px;">
+                <p class="col" style="font-size: 25px; margin-top: 20px; margin-left: 10px; color: #FFFFFF; width: 50%"><b>CHECKLIST</b></p>
+                <div class="col" >
+                  <img src="checkList_pic.png" style="float: right; width: 65px; height: 65px; margin-top: none; margin-right: 10px">
+                </div>
+              </div>
+              
+              <div class="scrollChecklist" id="checkList" style="padding: 10px;">
+                <div class="card mb-3" style="width: 300px; height: 120px; border-radius: 20px; margin-top: 10px;">
+                  <div class="row g-0">
+                    <div class="col-md-5">
+                      <img src="..." class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-7">
+                      <div>
+                        <p style="font-size: 14px; margin-top: 10px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                        <p style="font-size: 12px; margin-top: 0;">Note: </p>
+                        <button class="buttonChecklist"><i class="fa-solid fa-trash-can"></i></button>
+                        <button class="buttonChecklist"><i class="fa-solid fa-minus"></i></button>
+                        <p style="font-size: 14px; float: right; color: black; padding-top: 10px; padding-right: 10px;"><b>1</b></p>
+                        <button class="buttonChecklist"><i class="fa-solid fa-plus"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card mb-3" style="width: 300px; height: 120px; border-radius: 20px; margin-top: 10px;">
+                  <div class="row g-0">
+                    <div class="col-md-5">
+                      <img src="..." class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-7">
+                      <div>
+                        <p style="font-size: 14px; margin-top: 10px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                        <p style="font-size: 12px; margin-top: 0;">Note: </p>
+                        <button class="buttonChecklist"><i class="fa-solid fa-trash-can"></i></button>
+                        <button class="buttonChecklist"><i class="fa-solid fa-minus"></i></button>
+                        <p style="font-size: 14px; float: right; color: black; padding-top: 10px; padding-right: 10px;"><b>1</b></p>
+                        <button class="buttonChecklist"><i class="fa-solid fa-plus"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card mb-3" style="width: 300px; height: 120px; border-radius: 20px; margin-top: 10px;">
+                  <div class="row g-0">
+                    <div class="col-md-5">
+                      <img src="..." class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-7">
+                      <div>
+                        <p style="font-size: 14px; margin-top: 10px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                        <p style="font-size: 12px; margin-top: 0;">Note: </p>
+                        <button class="buttonChecklist"><i class="fa-solid fa-trash-can"></i></button>
+                        <button class="buttonChecklist"><i class="fa-solid fa-minus"></i></button>
+                        <p style="font-size: 14px; float: right; color: black; padding-top: 10px; padding-right: 10px;"><b>1</b></p>
+                        <button class="buttonChecklist"><i class="fa-solid fa-plus"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card mb-3" style="width: 300px; height: 120px; border-radius: 20px; margin-top: 10px;">
+                  <div class="row g-0">
+                    <div class="col-md-5">
+                      <img src="..." class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-7">
+                      <div>
+                        <p style="font-size: 14px; margin-top: 10px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                        <p style="font-size: 12px; margin-top: 0;">Note: </p>
+                        <button class="buttonChecklist"><i class="fa-solid fa-trash-can"></i></button>
+                        <button class="buttonChecklist"><i class="fa-solid fa-minus"></i></button>
+                        <p style="font-size: 14px; float: right; color: black; padding-top: 10px; padding-right: 10px;"><b>1</b></p>
+                        <button class="buttonChecklist"><i class="fa-solid fa-plus"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="width: 100%; height: 90px; background-color: #757575; border-radius: 30px; padding: none;position: relative;">
+                <div class="row">
+                  <div class="col-6">
+                    <p style="font-size: 14px; color:white; top:25%; position: absolute; left:10%">Quantity:</p>
+                    <p style="font-size: 20px; color:white; top: 45%; position: absolute; left:10%">4</p>
+                  </div>
+
+                  <div class="col-6">
+                    <button class="center" style="width: 111px; height: 41px; border: none; background-color: #334173; color: white; font-size: 12px; border-radius: 30px;">
+                      <b>SUBMIT</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a href="#profile" class="buttonNav" style="float: right;">PROFILE</a>
+            <a href="#home" class="buttonSelect" style="float: right;">HOME</a>
+        </nav>      
+    </div>
+    <div style="background-image: linear-gradient(180deg, #6171A9, #FFFFFF); height: 293px; width:100%; position: relative;">
+        <h1 style="font-size: 34px; text-align: center; padding-top: 11px; color: white">CATEGORIES</h1>
+        <div style="white-space: nowrap; width: 100%; overflow: hidden; position: relative;">
+          <div class="categories" style="margin-left:-130px"><img src="..." class="img-fluid rounded-start" alt="..."></div>
+          <div class="categories"><img src="..." class="img-fluid rounded-start" alt="..."></div>
+          <div class="categories"><img src="..." class="img-fluid rounded-start" alt="..."></div>
+          <div class="categories"><img src="..." class="img-fluid rounded-start" alt="..."></div>
+          <div class="categories"><img src="..." class="img-fluid rounded-start" alt="..."></div>
+          <div class="categories"><img src="..." class="img-fluid rounded-start" alt="..."></div>
+        </div>
+    </div>
+
+    <hr style="height:3px; width:80%; margin:auto; border-width:0; color: #000000; background-color:black">
+
+    <div>
+      <h1 style="font-size: 28.13px; margin-left: 28.13px; margin-top: 42px"><b>AVAILABLE DEVICE</b></h1>
+        
+      <div title="searchBox" class="container-fluid" style="margin-left: 20px; width: auto;">
+          <form class="d-flex" role="search">
+            <input class="searchInput" type="search" placeholder="Search..." aria-label="Search">
+            <!-- <button class="btn btn-outline-success" type="submit">Search</button>-->
+          </form>
+      </div>
+
+      <div class="container" style="margin:auto; margin-top: 23px;">
+        <div class="row g-5" style="margin-bottom: 11px;">
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #97A5D0; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #334173; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #97A5D0; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #334173; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #97A5D0; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #334173; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-5" style="margin-bottom: 11px;">
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #97A5D0; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #334173; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #97A5D0; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #334173; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #97A5D0; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #334173; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-5" style="margin-bottom: 11px;">
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #97A5D0; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #334173; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #97A5D0; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #334173; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #97A5D0; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #334173; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>
+
+    <hr style="height:3px; width:80%; margin:auto; border-width:0; color: #000000; background-color:black">
+
+    <div>
+      <h1 style="font-size: 28.13px; margin-left: 28.13px; margin-top: 42px"><b>UNAVAILABLE DEVICE</b></h1>
+
+      <div class="container" style="margin:auto; margin-top: 23px;">
+        <div class="row g-5" style="margin-bottom: 11px;">
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #DADADA; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #757575; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #DADADA; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #757575; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #DADADA; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #757575; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-5" style="margin-bottom: 11px;">
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #DADADA; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #757575; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #DADADA; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #757575; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card mb-3" style="max-width: 350px;  border: none;">
+              <div class="row g-0">
+                <div class="col-md-6" style="background-color: #DADADA; width: 50%; height: auto;">
+                  <img src="..." class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>DEVICE NAME</b></p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Available quantity</p>
+                    <p style="font-size: 10px; padding-left: 11px; margin-bottom: 5px;">Place</p>
+                    <p style="font-size: 10px; padding-left: 11px">Date</p>
+                    <button type="button" style="width: 111px; height: 41px; border: none; background-color: #757575; color: white; font-size: 10px;">
+                      <b>REGISTER</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>     
+    </div>
+
+    <footer style="width:100%; height: 200px; background-color: #212C58; color: white">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-6" style="margin-top: 41px; margin-left: 28px; font-size: 14px;">
+            <b>INFORMATION</b>
+            <p style="font-size: 18px;">...</p>
+          </div>
+          <div class="col-3" style="margin-top: 41px; font-size: 14px;">
+            <b>NAVIGATION</b>
+            <p style="font-size: 10px; margin-top: 10px;"><i class="fa-solid fa-angle-right"></i>&ensp; Homepage</p>
+            <p style="font-size: 10px;"><i class="fa-solid fa-angle-right"></i>&ensp;Profile</p>
+          </div>
+          <div class="col-2" style="margin-top: 41px; font-size: 14px; margin-right: 28px;">
+            <b>CONTACT US</b>
+            <p style="font-size: 10px; margin-top: 10px;"><i class="fa-solid fa-location-dot"></i>&ensp;602H6</p>
+            <p style="font-size: 10px;"><i class="fa-solid fa-envelope"></i>&ensp; admin@hcmut.edu.vn</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    
+</body>
+</html>
