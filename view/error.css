@@ -1,0 +1,191 @@
+/* reset css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Poppins', sans-serif;
+    --height-nav: 100px;
+    --height-content: 500px;
+}
+
+body {
+    background-color: #fff;
+}
+
+/* Header section */
+
+#header {
+    width: 100%;
+    height: var(--height-nav);
+    left: 0px;
+    top: 0px;
+    background: #6171A9;
+    border-bottom: 1px solid #fff;
+    position: fixed;
+    z-index: 10;
+}
+
+#header li {
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+#header .header-left {
+
+}
+
+#header .header-right {
+    position: absolute;
+    right: 20px;
+}
+
+.text-logo {
+    padding: 0 100px;
+    text-decoration: none;
+    line-height: var(--height-nav);
+}
+
+.text-logo em {
+    font-size: 2rem;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.text-logo .text-logo-1 {
+    color: #212C58;
+    margin-right: 10px;
+
+}
+
+.text-logo .text-logo-2 {
+    color: #C0CFFA;
+}
+
+.nav-btn {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: var(--height-nav);
+    padding: 0 24px;
+    height: 100%;
+}
+
+.nav-btn:hover {
+    background-color: #48578E;
+    color: #fff;
+}
+
+.nav-btn i {
+    font-size: 1.5em;
+    /* padding: 0 28px; */
+}
+
+.content {
+    padding-top: var(--height-nav);
+    height: var(--height-content);
+    width: 100%;
+    background-color: #6F7DB0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error {
+    margin-top: 70px;
+    font-size: 80px;
+    font-weight: 900;
+    color: #fff;
+}
+.error_content {
+    font-size: 25px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.footer {
+    width: 100vw;
+    height: calc(100vh - var(--height-content));
+    background-color: #212C58;
+    color: #fff;
+    position: relative;
+}
+
+.top_footer {
+    position: relative;
+    padding-top: 30px;
+}
+
+.top_footer a {
+    text-decoration: none;
+    color: #fff;
+    margin-top: 8px;
+}
+
+.top_footer .item {
+    display: flex;
+    align-items: center;
+}
+
+.info {
+    position: absolute;
+    left: 100px;
+    
+}
+
+.navi {
+    position: absolute;
+    right: 500px;
+}
+
+.item i {
+    margin-right: 15px;
+    color: #757575;
+}
+
+.contact {
+    position: absolute;
+    right: 100px;
+}
+
+.bot_footer {
+    margin-top: 100px;
+}
+
+.bot_footer .social {
+    display: flex;
+    margin-left: 100px;
+    margin-bottom: 20px;
+}
+
+.bot_footer .social i {
+    margin-right: 10px;
+    font-size: 1.3em;
+}
+
+.bot_footer .another {
+    position: relative;
+    padding: 0 100px;
+    width: 100%;
+}
+
+.another h4 {
+    display: inline-block;
+}
+
+.another .left {
+    position: absolute;
+}
+
+.another .right{
+    position: absolute;
+    right: 100px;
+}
+
+.another .right h4 {
+    margin-left: 100px;
+}

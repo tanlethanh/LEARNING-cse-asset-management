@@ -6,6 +6,11 @@ const itemSchema = new mongoose.Schema({
         require: true,
         unique: true
     },
+    available: {
+        type: Number,
+        require: true,
+        min: 1,
+    },
     quantity: {
         type: Number,
         require: true,

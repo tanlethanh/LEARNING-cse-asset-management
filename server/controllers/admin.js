@@ -1,10 +1,15 @@
 const User = require("../models/user")
 const Item = require("../models/item")
 const Order = require("../models/order")
-const { request } = require("express")
 
+exports.adminInfor = (req, res) => {
+    res.json({
+        mess: "Hello world"
+    })
+}
+
+// manage item
 exports.addItem = (req, res) => {
-
     Item.findOne({ name: req.body.name }, (err, item) => {
         if (!err && item) {
             res.json({ "mess": "This name already exists in list of items" })
@@ -13,6 +18,7 @@ exports.addItem = (req, res) => {
             // Add new item
             const newItem = new Item({
                 name: req.body.name,
+                available: req.body.quantity,
                 quantity: req.body.quantity,
                 category: req.body.category,
                 desciption: req.body.desciption,
@@ -37,46 +43,34 @@ exports.addItem = (req, res) => {
     })
 
 }
-
 exports.removeItem = (req, res) => {
-
-    Item.findOne({ name: req.body.name }, (err, item) => {
-        if (!err && !item) {
-            res.json({ "mess": "This item doesn't exist yet" })
-        }
-        else {
-            console.log(item)
-            User.deleteOne({ name: req.body.name }, (err, result) => {
-                console.log(result)
-                if (err) {
-                    console.log(err)
-                    res.json({
-                        "mess": `Unable to remove ${req.body.name}`
-                    })
-                }
-                else {
-                    res.json({
-                        "mess": `Remove ${req.body.name} successfully!`
-                    })
-                }
+    Item.findOneAndDelete({ name: req.body.name }, (err, item) => {
+        if (err) {
+            res.json({
+                "mess": "cannot delete"
             })
         }
+        else {
+            res.json({
+                    item: item
+            })
+        }
+
     })
-    
+
 }
-
 exports.editItem = (req, res) => {
-
     Item.findOneAndUpdate({ name: req.body.name }, {
         name: req.body.newName,
         quantity: req.body.newQuantity,
         category: req.body.newCategory,
         desciption: req.body.newDesciption,
-    }, {new: true}, (err, item) => {
-        if(err) {
+    }, { new: true }, (err, item) => {
+        if (err) {
             console.log(err)
             res.json({
-                "mess": `Unable to edit ${req.body.name}`
+                "mess": `Unable to edit ${req.body.name}`,
+                "codeName": err.codeName
             })
         }
         else {
@@ -85,5 +79,39 @@ exports.editItem = (req, res) => {
                 item
             })
         }
+    })
+}
+
+// manage user
+exports.acceptMember = (req, res) => {
+    res.json({
+        mess: "Hello world"
+    })
+}
+exports.removeMember = (req, res) => {
+    res.json({
+        mess: "Hello world"
+    })
+}
+exports.enableAdmin = (req, res) => {
+    res.json({
+        mess: "Hello world"
+    })
+}
+
+// manage order
+exports.acceptOrder = (req, res) => {
+    res.json({
+        mess: "Hello world"
+    })
+}
+exports.deniedOrder = (req, res) => {
+    res.json({
+        mess: "Hello world"
+    })
+}
+exports.doneOder = (req, res) => {
+    res.json({
+        mess: "Hello world"
     })
 }

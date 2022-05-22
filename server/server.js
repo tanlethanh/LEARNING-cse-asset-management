@@ -28,10 +28,14 @@ app.get("/", function (req, res) {
 // Import routes
 const authenRoutes = require("./routes/authentication")
 const adminRoutes = require("./routes/admin")
+const memberRoutes = require("./routes/member")
+const mainRoutes = require("./routes/main") 
 
 // Using routes
+app.use("/api/main", mainRoutes)
 app.use("/api/authentication" , authenRoutes)
 app.use("/api/admin", adminRoutes)
+app.use("/api/member", memberRoutes)
 
 // Starting server
 const port = process.env.PORT || 3000

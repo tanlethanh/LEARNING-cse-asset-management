@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    basket: {
+        id: mongoose.Schema.Types.ObjectId,
+        quantity: Number,
+    },
     waitingList: [
         {
             id: mongoose.Schema.Types.ObjectId,
