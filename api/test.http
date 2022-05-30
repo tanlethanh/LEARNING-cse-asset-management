@@ -1,0 +1,97 @@
+GET http://localhost:3000/api/
+
+
+### auth - register new user
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+    "password": "123456",
+    "fullName": "member13",
+    "studentCode": "0013",
+    "phoneNumber":"0013",
+    "email": "member13@gmail.com"
+}
+
+###  auth -  login
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "password": "123456",
+    "email": "member1@gmail.com"
+}
+
+
+###  auth -  logout
+POST http://localhost:3000/api/auth/logout
+
+### item - get all of items
+GET http://localhost:3000/api/item/
+
+### item - get item by id
+GET http://localhost:3000/api/item/6290b766372ca2ed6ff00c8c
+
+### item - add new item 
+POST http://localhost:3000/api/item
+Content-Type: application/json
+
+{
+    "name" : "item10",
+    "quantity" : "99",
+    "category" : "aaaa",
+    "description" : "hello world"
+}
+
+### item - update item by id
+PATCH http://localhost:3000/api/item/6290b766372ca2ed6ff00c8c
+Content-Type: application/json
+
+{
+    "category" : "bc"
+}
+
+### item - delete item by id
+DELETE http://localhost:3000/api/item/628f3d17d4d47d5dab57be3f
+
+### user - get all of users
+GET http://localhost:3000/api/user/
+
+### user - get user by id
+GET http://localhost:3000/api/user/6290976c0591c3ff4bac225f
+
+### user - toggle enable permission
+PATCH http://localhost:3000/api/user/629096ce0591c3ff4bac224d?togglePermission=enable
+
+### user - toggle admin permission admin
+PATCH http://localhost:3000/api/user/629096ce0591c3ff4bac224d?togglePermission=admin
+
+### user - toggle fail
+PATCH http://localhost:3000/api/user/628e5e98cac47ecceb92e2d8?togglePermission=f
+
+
+### user - delete user by id
+DELETE http://localhost:3000/api/user/6290976c0591c3ff4bac225f
+
+
+### order - get all of order
+GET http://localhost:3000/api/order/
+
+
+### order - get order by id
+GET http://localhost:3000/api/order/6290976c0591c3ff4bac225f
+
+
+### order - create new order 
+POST http://localhost:3000/api/order/
+Content-Type: application/json
+
+{
+    "quantity": "9",
+    "idItem": "6290b766372ca2ed6ff00c8c",
+    "returnDate": "2022-12-30"
+}
+
+
+### order - update state of order
+PATCH http://localhost:3000/api/order/6290bbc299aa53690473526c?action=confirm

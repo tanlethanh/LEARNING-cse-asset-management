@@ -1,0 +1,4 @@
+> use admin
+> db.shutdownServer();
+
+https://stackoverflow.com/questions/5535610/mongoose-unique-index-not-working
