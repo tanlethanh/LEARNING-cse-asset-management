@@ -1,0 +1,338 @@
+html {
+    font-family: 'Poppins', sans-serif;
+    --height-nav: 15vh;
+    --height-content: 85vh;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    background-color: #6f7db0;
+}
+
+/* head of the web*/
+
+#header {
+    width: 100%;
+    height: var(--height-nav);
+    border-bottom: 1px solid #fff;
+    position: fixed;
+}
+
+#header li {
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+#header .header-left {
+    width: auto;
+}
+
+#header .header-right {
+    position: absolute;
+    right: 20px;
+}
+
+.text-logo {
+    padding: 0 75px;
+    text-decoration: none;
+    line-height: var(--height-nav);
+    position: relative;
+}
+
+.text-logo em {
+    font-size: 2em;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.text-logo .text-logo-1 {
+    color: #212C58;
+    margin-right: 10px;
+}
+
+.text-logo .text-logo-2 {
+    color: #C0CFFA;
+}
+
+#header .text-logo .contact {
+    display: inline-block;
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: 700;
+    line-height: var(--height-nav);
+    padding: 0 20px;
+    height: 100%;
+}
+
+.contact:hover, h5:hover {
+    background-color: #334173;;
+}
+
+.log:hover {
+    background-color: #757575;
+}
+
+
+/* left body*/
+
+#body {
+    width: 100%;
+    height: var(--height-content);
+    display: flex;
+    flex-direction: column;
+}
+
+.common {
+    margin-top: 1%;
+}
+
+#welcome {
+    position: relative;
+    font-style: normal;
+    text-transform: uppercase;
+    color: #3F3F3F;
+    width: 20vw;
+    height: 2.4vh;
+    left: 5vw;
+    top: 26vh;
+    font-weight: 720;
+    font-size: 1.2em;
+    line-height: 2.4vh;
+    letter-spacing: 0.056em;
+}
+
+p {
+    position: absolute;
+    margin-top: 1%;
+    font-style: normal;
+    color: #FFFFFF;
+    width: 30vw;
+    height: 2.4vh;
+    left: 5vw;
+    top: 29vh;
+    font-weight: 720;
+    font-size: 1.9em;
+    line-height: 7.2vh;
+    letter-spacing: 0.056em;
+}
+
+.space1 {
+    top: 36vh;
+}
+
+.space2 {
+    top: 43vh;
+}
+
+h4 {    
+    position: absolute;
+    font-style: normal;
+    color: #FFF;
+    width: 416px;
+    height: 48px;
+    left: 5vw;
+    top: 55vh;
+    font-weight: 320;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+h5 {
+    position: absolute;
+    font-style: normal;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    width: 136px;
+    height: 40px;
+    top: 68vh;
+    font-weight: 640;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.08em;
+    padding-top: 8px;
+}
+
+.log {
+    left: 5vw;
+    background-color: #334173;
+}
+
+.sign {
+    left: 34vh;
+    background-color: #75757575;
+}
+
+/* site for login*/
+
+.sitelogin {
+    position: absolute;
+    width: 30vw;
+    height: 63vh;
+    left: 110vh;
+    top: 23vh;
+    background: #FFFFFF;
+    box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+}
+
+h1 {
+    position: absolute;
+    width: 5vw;
+    height: 4vh;
+    left: 2vw;
+    top: 3vh;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 56px;
+    color: #212C58;
+    padding-right: 5vw;
+}
+
+.col {
+    left: 7vw;
+    color: #6171A9;
+}
+
+.account {
+    position: absolute;
+    width: 10vw;
+    height: 10vh;
+    left: 2vw;
+    top: 12vh;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 19px;
+    text-transform: none;
+    color: #1A374D;
+}
+
+#signup {
+    left: 12vw;
+    font-weight: 1000;
+    color: #6171A9;
+}
+
+label {
+    position: absolute;
+    left: 2vw;
+    right: 74.46%;
+    top: 18vh;
+    width: 10vw;
+    bottom: 64.52%;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #50544A;
+}
+
+input {
+    box-sizing: border-box;
+    position: absolute;
+    width: 25vw;
+    height: 4vh;
+    left: 2vw;
+    top: 22vh;
+    background: #F4F4F4;
+    border: 1px solid #F8F8F8;
+    box-shadow: inset 0px 4px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.pass {
+    top: 29vh;
+}
+
+.enterpass {
+    top: 33vh;
+}
+
+.line {
+    position: absolute;
+    width: 11vw;
+    height: 0px;
+    left: 2vw;
+    top: 41vh;
+    border: 1px solid #757575;
+}
+
+#place {
+    width: 14.87px;
+    height: 16.36px;
+    left: 14vw;
+    top: 39vh;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #354126;
+}
+
+#place2 {
+    left: 34vh;
+}
+
+.gg {
+    position: absolute;
+    left: 3vw;
+    height: 5vh;
+    width: 23vw;
+    top: 44vh;
+    background-color: #FFFFFF;
+    border: 1px solid #F3F3F3;
+    border-radius: 5px;
+}
+
+.login {
+    position: absolute;
+    font-style: normal;
+    width: 10vw;
+    height: 4vh;
+    left: 10vw;
+    top: 50vh;
+    font-weight: 100;
+    font-size: 12px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.08em;
+    padding-top: 3px;
+    background-color: #48578E;
+    border-radius: 83px;
+}
+
+.problem {
+    position: absolute;
+    font-style: normal;
+    width: 20vw;
+    height: 3vh;
+    left: 12.5vw;
+    top: 350px;
+    font-weight: 100;
+    font-size: 11px;
+    color: #6171A9;
+}
+
+@media only screen and (max-width: 84em) {
+    html {
+        --height-nav: 15vh;
+        --height-content: 85vh;
+    }
+    #body .common {
+        display: none;
+    }
+    #body .sitelogin {
+        align-items: center;
+        left: 50%;
+    }
+}

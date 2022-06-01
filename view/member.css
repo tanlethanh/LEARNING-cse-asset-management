@@ -9,13 +9,11 @@ html {
     font-family: 'Poppins', sans-serif;
     --height-nav: 70px;
     --width-menu: 270px;
-    
 }
 
 body {
     background-color: #fff;
 }
-
 
 /* Header section */
 
@@ -45,9 +43,10 @@ body {
 }
 
 .text-logo {
-    padding: 0 100px;
+    padding: 0 75px;
     text-decoration: none;
     line-height: var(--height-nav);
+    position: relative;
 }
 
 .text-logo em {
@@ -59,7 +58,6 @@ body {
 .text-logo .text-logo-1 {
     color: #212C58;
     margin-right: 10px;
-
 }
 
 .text-logo .text-logo-2 {
@@ -98,7 +96,7 @@ body {
     color: #fff;
 }
 
-#information>div {
+#information > div {
     display: inline-block;
 }
 
@@ -306,5 +304,59 @@ body {
     color: #fff;
 }
 
+/* responsive */
 
-#footer {}
+#header .phone-tablet {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 20px;
+}
+
+.phone-tablet .pandt {
+    position: relative;
+    text-decoration: none;
+    display: none;
+    color: #fff;
+    font-weight: 700;
+    line-height: var(--height-nav);
+    padding: 0 24px;
+    height: 100%;
+    font-size: 2.5em;
+}
+
+/* tablet */
+
+@media only screen and (max-width: 64em) {
+    #information, #header .header-right, #content #menu {
+        display: none;
+    }
+    .phone-tablet .pandt {
+        display: inline-block;
+    }
+    #content #list {
+        margin-top: 1em;
+        width: 100%;
+        left: 0;
+    }
+    @media only screen and (max-width: 48em) {
+        .list-item-col {
+            width: 50px;
+        }
+    }
+    @media only screen and (max-width: 37.5em) {
+        #header {
+            font-size: 1em;
+        }
+    }
+}
+
+/* phone */
+
+@media only screen and (max-width: 25.875em) {
+    #header {
+        font-size: 0.8em;
+        padding: 0 50px;
+    }   
+    
+}
