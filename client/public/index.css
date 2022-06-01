@@ -1,0 +1,18 @@
+/* reset css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Poppins', sans-serif;
+    --height-nav: 70px;
+    --width-menu: 270px;
+    --height-footer: 250px;
+    --height-temp: 700px;
+}
+
+body {
+    background-color: #fff;
+}

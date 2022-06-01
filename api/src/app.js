@@ -8,12 +8,15 @@ const session = require('express-session')
 const { v4: uuidv4 } = require('uuid')
 const setupMongoose = require('./helpers/connect_mongoose.js')
 const createAdmin = require('./helpers/createAdmin')
+const isAuthenticated = require('./helpers/isAuth')
 require('dotenv').config()
 
 
 // use middleware
 const app = express()
-app.use(cors())
+app.use(cors(
+    {credentials: true, origin: 'http://localhost:3000'}
+))
 app.use(morgan())
 app.use(helmet())
 app.use(express.json())
@@ -51,7 +54,7 @@ const itemsRoute = require('./routers/router.item')
 const usersRoute = require('./routers/router.user')
 const ordersRoute = require('./routers/router.order')
 
-app.get('/api/', (req, res, next) => {
+app.get('/api/', isAuthenticated, async (req, res, next) => {
     console.log(req.session.userId)
     res.json(req.session.userId)
 })
@@ -83,7 +86,7 @@ process.on('SIGINT', () => async () => {
 })
 
 // Starting server
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 8266
 app.listen(port, function (err) {
     if (err) {
         console.log(err)

@@ -1,0 +1,17 @@
+fetch(loginUrl, {
+  credentials: 'same-origin',
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(this.state),
+})
+
+
+fetch("http://localhost:3006/addUser", {
+      method: "POST",
+      credentials: 'include',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email, password: password }),
+})

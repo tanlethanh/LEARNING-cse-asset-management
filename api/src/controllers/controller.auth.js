@@ -1,8 +1,28 @@
 const bcrypt = require("bcrypt")
 const User = require('../models/model.user')
-const isAuthenticated = require('../helpers/isAuth.js')
+// const isAuthenticated = require('../helpers/isAuth.js')
 
 const saltRounds = 10;
+
+exports.getAuth = async (req, res) => {
+
+    try {
+        console.log(req.session.userId)
+        const user = await User.findById(req.session.userId)
+
+        if (!user) {
+            return res.status(404).json({ status: 404, messages: "Not found this user!", user: null })
+        }
+        else {
+            return res.status(200).json({ status: 200, messages: "Get user by id successfully!", user })
+        }
+
+    } catch (error) {
+        console.error(error)
+        return res.status(406).json({ status: 406, messages: error.message, user: null })
+    }
+    
+}
 
 /* 
  * We need to use validation to ensure that body is valid
@@ -44,7 +64,7 @@ exports.login = async (req, res) => {
         if (!user) {
             return res.status(201).json({ status: 201, message: "User is not registered", user: null })
         }
-        
+
         if (user.enable == false) {
             return res.status(201).json({ status: 201, message: "User is not enable", user: null })
         }

@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
     "password": "123456",
-    "email": "member1@gmail.com"
+    "email": "member5@gmail.com"
 }
 
 
@@ -61,10 +61,10 @@ GET http://localhost:3000/api/user/
 GET http://localhost:3000/api/user/6290976c0591c3ff4bac225f
 
 ### user - toggle enable permission
-PATCH http://localhost:3000/api/user/629096ce0591c3ff4bac224d?togglePermission=enable
+PATCH http://localhost:3000/api/user/629097230591c3ff4bac2251?togglePermission=enable
 
 ### user - toggle admin permission admin
-PATCH http://localhost:3000/api/user/629096ce0591c3ff4bac224d?togglePermission=admin
+PATCH http://localhost:3000/api/user/629097230591c3ff4bac2251?togglePermission=admin
 
 ### user - toggle fail
 PATCH http://localhost:3000/api/user/628e5e98cac47ecceb92e2d8?togglePermission=f
