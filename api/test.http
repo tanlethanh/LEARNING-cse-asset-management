@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ###  auth -  login
-POST http://localhost:3000/api/auth/login
+POST http://localhost:8266/api/auth/login
 Content-Type: application/json
 
 {
@@ -79,15 +79,14 @@ GET http://localhost:3000/api/order/
 
 
 ### order - get order by id
-GET http://localhost:3000/api/order/6290976c0591c3ff4bac225f
-
+GET http://localhost:8266/api/order/629864ec6bac7b8340bce3d8
 
 ### order - create new order 
-POST http://localhost:3000/api/order/
+POST http://localhost:8266/api/order/
 Content-Type: application/json
 
 {
-    "quantity": "9",
+    "quantity": "5",
     "idItem": "6290b766372ca2ed6ff00c8c",
     "returnDate": "2022-12-30"
 }

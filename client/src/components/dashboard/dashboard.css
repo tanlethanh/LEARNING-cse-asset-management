@@ -3,7 +3,7 @@
     padding-top: 200px; */
     background-color: #fff;
     width: 100vw;
-    height: var(--height-temp);
+    /* height: var(--height-temp); */
 }
 
 .member_container {
@@ -13,7 +13,6 @@
 }
 
 .admin_container {
-    padding-left: 50px;
     background-color: #fff;
     width: 100%;
 }
