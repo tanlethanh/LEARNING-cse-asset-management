@@ -207,7 +207,7 @@ color: #fff !important;
 
 /* tablet */
 
-@media only screen and (max-width: 64em) {
+/* @media only screen and (max-width: 64em) {
     #information, #header .header-right, #content #menu {
         display: none;
     }
@@ -229,14 +229,14 @@ color: #fff !important;
             font-size: 1em;
         }
     }
-}
+} */
 
 /* phone */
 
-@media only screen and (max-width: 25.875em) {
+/* @media only screen and (max-width: 25.875em) {
     #header {
         font-size: 0.8em;
         padding: 0 50px;
     }   
     
-}
+} */
