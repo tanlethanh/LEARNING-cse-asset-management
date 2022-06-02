@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import './member.css';
-import Table from './memberTable';
+import Waiting from './member/memberWaiting';
+import Borrow from './member/memberBorrow';
+import Returned from './member/memberReturn';
 
 
 export default function Member(props) {
@@ -30,11 +32,12 @@ export default function Member(props) {
                     }
                 });
         });
-        setWaitingList(arrWait);
-        setBorrowList(arrBorrow);
-        setReturnList(arrReturn);
+        setWaitingList(arrWait)
+        setBorrowList(arrBorrow)
+        setReturnList(arrReturn)
     }, [])
     
+  
 
     return (
         <div className="content">
@@ -44,7 +47,7 @@ export default function Member(props) {
                     <button
                         key={tab}
                         className={currentTab === tab ? "menu_list chosen" : "menu_list"}
-                        onClick={() => setCurrentTab(tab)}
+                        onClick={() => {setCurrentTab(tab)}}
                     >
                         {tab}
                     </button>
@@ -52,29 +55,17 @@ export default function Member(props) {
             </div>
 
             <div id="list">
-            
                 <div class="list-search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search item"/>
                 </div>
-                
-                <div class="list-item list-item-title">
-                    <div class="list-item-col">Category</div>
-                    <div class="list-item-col item-col-name">Item</div>
-                    <div class="list-item-col">Quantity</div>
-                    <div class="list-item-col">Date</div>
-                    <div class="list-item-col">Permission</div>
-                    <div class="list-item-col">Status</div>
-                </div>
-                
-                {console.log(waitingList)}
-                
-                {currentTab === "Waiting list" &&
-                    <Table currentList = {waitingList} setCurrentList = {setWaitingList} />}
-                {currentTab === "Borrowing list" &&
-                    <Table currentList = {borrowList} setCurrentList = {setBorrowList} />}
+
+                {currentTab == "Waiting list" &&
+                    <Waiting currentList = {waitingList} setCurrentList = {setWaitingList} />}
+                {currentTab == "Borrowing list" &&
+                    <Borrow currentList = {borrowList} setCurrentList = {setBorrowList} />}
                 {currentTab == "Returned" &&
-                    <Table currentList = {returnList} setCurrentList = {setReturnList} />}
+                    <Returned currentList = {returnList} setCurrentList = {setReturnList} />}
             </div>
         </div>
         
