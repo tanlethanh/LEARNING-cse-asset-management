@@ -20,8 +20,7 @@ exports.getAllOrder = async (req, res) => {
 }
 
 exports.getOrderById = async (req, res) => {
-    if (await isAdmin(req.session.userId)) {
-        console.log("Get user By Id")
+    console.log("Get user By Id")
         try {
             const order = await Order.findById(mongoose.Types.ObjectId(req.params.id))
             if (!order) {
@@ -34,10 +33,6 @@ exports.getOrderById = async (req, res) => {
             console.error(error)
             res.status(406).json({ status: 406, messages: error.message, order: null })
         }
-    }
-    else {
-        res.status(403).json({ status: 403, messages: "Forbidden!", order: null })
-    }
 }
 
 exports.createNewOrder = async (req, res) => {

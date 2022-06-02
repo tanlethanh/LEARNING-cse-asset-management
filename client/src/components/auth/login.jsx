@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import './auth.css'
 
 export default function Login(props) {
-
+    let navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -18,27 +19,11 @@ export default function Login(props) {
             console.log(response.data.message)
 
             if (response.data.user) {
-                props.setIsLogined(true)
+                props.setUser(response.data.user)
+                // props.setIsLogined(true)
+                navigate("../dashboard", { replace: true })
             }
         });
-
-
-        // fetch("http://localhost:8266/api/auth/login", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify({
-        //         "password": password,
-        //         "email": email
-        //     }),
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log(data.message);
-        //         if (data.user) {
-        //             props.setIsLogined(true)
-        //         }
-        //     })
-
 
     }
 

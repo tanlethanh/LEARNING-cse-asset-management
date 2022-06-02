@@ -1,6 +1,57 @@
 .dashboard_container {
-    padding-top: 200px;
-    background-color: aqua;
-    width: 100%;
+    /* padding-left: 50px;
+    padding-top: 200px; */
+    background-color: #fff;
+    width: 100vw;
     height: var(--height-temp);
+}
+
+.member_container {
+    padding-left: 50px;
+    background-color: #fff;
+    width: 100%;
+}
+
+.admin_container {
+    padding-left: 50px;
+    background-color: #fff;
+    width: 100%;
+}
+
+/* Information */
+
+#information {
+    position: relative;
+    height: calc(250px + var(--height-nav));
+    padding-top: var(--height-nav);
+    background: #6171A9;
+    color: #fff;
+}
+
+#information > div {
+    display: inline-block;
+}
+
+#information .title {
+    position: absolute;
+    top: calc(50px + var(--height-nav));  
+    left: 200px;
+}
+
+#information .title .name {
+    text-transform: uppercase;
+    font-size: 3em;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+#information .detail {
+    position: absolute;
+    top: calc(30px + var(--height-nav)); 
+    right: 300px;
+}
+
+.item-infor {
+    margin-bottom: 8px;
+    list-style-type: none;
 }

@@ -1,6 +1,7 @@
 .homepage-container {
+    padding-left: 50px;
     padding-top: 200px;
     background-color: bisque;
-    width: 100%;
+    width: 100vw;
     height: var(--height-temp);
 }
