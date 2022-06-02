@@ -21,18 +21,18 @@ exports.getAllOrder = async (req, res) => {
 
 exports.getOrderById = async (req, res) => {
     console.log("Get user By Id")
-        try {
-            const order = await Order.findById(mongoose.Types.ObjectId(req.params.id))
-            if (!order) {
-                res.status(404).json({ status: 404, messages: "Not found this order!", order: null })
-            }
-            else {
-                res.status(200).json({ status: 200, messages: "Get order by id successfully!", order })
-            }
-        } catch (error) {
-            console.error(error)
-            res.status(406).json({ status: 406, messages: error.message, order: null })
+    try {
+        const order = await Order.findById(mongoose.Types.ObjectId(req.params.id))
+        if (!order) {
+            return res.status(404).json({ status: 404, messages: "Not found this order!", order: null })
         }
+        else {
+            return res.status(200).json({ status: 200, messages: "Get order by id successfully!", order })
+        }
+    } catch (error) {
+        console.error(error)
+        return res.status(406).json({ status: 406, messages: error.message, order: null })
+    }
 }
 
 exports.createNewOrder = async (req, res) => {
@@ -55,6 +55,8 @@ exports.createNewOrder = async (req, res) => {
 
         // New order will be saved into database if all of fields are valid
         const newOrder = new Order({
+            nameItem: item.name,
+            categoryItem: item.category,
             quantity: req.body.quantity,
             idItem: req.body.idItem,
             idUser: req.session.userId,

@@ -1,130 +1,16 @@
-/* reset css */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* admin */
+.isAdmin {
+    color: green;
+    font-size: 0.7em;
+    margin-left: 3px;
 }
-
-html {
-    font-family: 'Poppins', sans-serif;
-    --height-nav: 70px;
-    --width-menu: 270px;
-}
-
-body {
-    background-color: #fff;
-}
-
-/* Header section */
-
-#header {
-    width: 100%;
-    height: var(--height-nav);
-    left: 0px;
-    top: 0px;
-    background: #6171A9;
-    border-bottom: 1px solid #fff;
-    position: fixed;
-    z-index: 10;
-}
-
-#header li {
-    display: inline-block;
-    text-transform: uppercase;
-}
-
-#header .header-left {
-
-}
-
-#header .header-right {
-    position: absolute;
-    right: 20px;
-}
-
-.text-logo {
-    padding: 0 75px;
-    text-decoration: none;
-    line-height: var(--height-nav);
-    position: relative;
-}
-
-.text-logo em {
-    font-size: 2rem;
-    font-weight: 700;
-    font-style: normal;
-}
-
-.text-logo .text-logo-1 {
-    color: #212C58;
-    margin-right: 10px;
-}
-
-.text-logo .text-logo-2 {
-    color: #C0CFFA;
-}
-
-.nav-btn {
-    display: inline-block;
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 700;
-    line-height: var(--height-nav);
-    padding: 0 24px;
-    height: 100%;
-}
-
-.nav-btn:hover {
-    background-color: #48578E;
-    color: #fff;
-}
-
-.nav-btn i {
-    font-size: 1.5em;
-    /* padding: 0 28px; */
-}
-
-/* Header section > Information */
-
-#information {
-    position: relative;
-    height: calc(250px + var(--height-nav));
-    padding-top: var(--height-nav);
-    background: #6171A9;
-    text-transform: uppercase;
-    color: #fff;
-}
-
-#information > div {
-    display: inline-block;
-}
-
-#information .title {
-    position: absolute;
-    top: calc(50px + var(--height-nav));  
-    left: 150px;
-}
-
-#information .title .name {
-    font-size: 3em;
-    font-weight: 900;
-    margin-bottom: 20px;
-}
-
-#information .detail {
-    position: absolute;
-    top: calc(50px + var(--height-nav)); 
-    right: 200px;
-}
-
-/* content */
 
 #content {
     background-color: #000;
-    height: calc(100vh - var(--height-nav)) ;
+    min-height: calc(100vh - var(--height-nav) + var(--height-footer)) ;
     background-color: #ccc;
     position: relative;
+    padding-bottom: 300px;
 }
 
 #menu {
@@ -229,11 +115,37 @@ body {
     align-items: center;
 }
 
+
+/* For User page */
+
+.user_email_col {
+    width: 270px;
+    flex-grow: 1 !important;
+    text-align: left !important;
+    justify-content: left !important;
+    padding-left: 30px;
+}
+.user_name_col {
+    text-align: left !important;
+    justify-content: left !important;
+    width: 160px;
+}
+.user_code_col {
+    width: 160px;
+}
+.user_phone_col {
+    width: 160px;
+}
+
+
+/* For User page */
+
 .item-col-name {
-    width: 300px;
+    width: 100px;
     flex-grow: 3 !important;
     text-align: left !important;
     justify-content: left !important;
+    padding-left: 30px;
 }
 
 .list-item-col .fa-solid{
@@ -304,61 +216,4 @@ body {
 .list-number button:hover {
     background-color: #6171A9;
     color: #fff;
-}
-
-/* responsive */
-
-#header .phone-tablet {
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin-right: 20px;
-}
-
-.phone-tablet .pandt {
-    position: relative;
-    text-decoration: none;
-    display: none;
-    color: #fff;
-    font-weight: 700;
-    line-height: var(--height-nav);
-    padding: 0 24px;
-    height: 100%;
-    font-size: 2.5em;
-}
-
-/* tablet */
-
-@media only screen and (max-width: 64em) {
-    #information, #header .header-right, #content #menu {
-        display: none;
-    }
-    .phone-tablet .pandt {
-        display: inline-block;
-    }
-    #content #list {
-        margin-top: 1em;
-        width: 100%;
-        left: 0;
-    }
-    @media only screen and (max-width: 48em) {
-        .list-item-col {
-            width: 50px;
-        }
-    }
-    @media only screen and (max-width: 37.5em) {
-        #header {
-            font-size: 1em;
-        }
-    }
-}
-
-/* phone */
-
-@media only screen and (max-width: 25.875em) {
-    #header {
-        font-size: 0.8em;
-        padding: 0 50px;
-    }   
-    
 }

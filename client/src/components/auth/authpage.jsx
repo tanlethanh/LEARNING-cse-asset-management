@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom'
-import Axios from 'axios'
 import Login from './login';
 import './auth.css'
 
 export default function AuthPage(props) {
 
+    const navigate = useNavigate()
     const [openLogin, setOpenLogin] = useState(false)
 
     const handleLoginButtonClick = () => {
@@ -13,7 +13,6 @@ export default function AuthPage(props) {
     }
 
     const handleSignupButtonClick = () => {
-        let navigate = useNavigate()
         navigate("../signup", { replace: true })
     }
 

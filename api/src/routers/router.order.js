@@ -7,7 +7,7 @@ const {getAllOrder, getOrderById, createNewOrder, updateStateOrder} = require('.
 
 router
     .get('/', isAuthenticated, getAllOrder)
-    .get('/:id', isAuthenticated, getOrderById)
+    .get('/:id', getOrderById)
     .post('/', isAuthenticated, createNewOrder)
     .patch('/:id', isAuthenticated, updateStateOrder)
 
