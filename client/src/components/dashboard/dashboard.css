@@ -7,7 +7,6 @@
 }
 
 .member_container {
-    padding-left: 50px;
     background-color: #fff;
     width: 100%;
 }
@@ -41,7 +40,8 @@
     text-transform: uppercase;
     font-size: 3em;
     font-weight: 900;
-    margin-bottom: 20px;
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 #information .detail {
