@@ -17,9 +17,8 @@ export default function Member(props) {
 
     useEffect(() => {
         props.user.orders.map((orderid) => {
-            Axios.get(`http://192.168.1.45:8266/api/order/${orderid}`)
+            Axios.get(`http://localhost:8266/api/order/${orderid}`)
                 .then((response) => {
-                    console.log(response.data)
                     const testWait = response.data.order.status != "done" && currentTab === "Waiting list"
                     const testBorrow = response.data.order.status != "denied" && response.data.order.status != "done" && currentTab === "Borrowing list" 
                     if (testWait) {
@@ -70,12 +69,12 @@ export default function Member(props) {
                 
                 {console.log(waitingList)}
                 
-                {currentTab === 'Waiting list' ? (
-                    <Table currentList = {waitingList} setCurrentList = {setWaitingList} />
-                ) : (
-                    <Table currentList = {borrowList} setCurrentList = {borrowList} />
-                )}
-                
+                {currentTab === "Waiting list" &&
+                    <Table currentList = {waitingList} setCurrentList = {setWaitingList} />}
+                {currentTab === "Borrowing list" &&
+                    <Table currentList = {borrowList} setCurrentList = {setBorrowList} />}
+                {currentTab == "Returned" &&
+                    <Table currentList = {returnList} setCurrentList = {setReturnList} />}
             </div>
         </div>
         
