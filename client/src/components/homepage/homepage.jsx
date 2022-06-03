@@ -21,16 +21,16 @@ export default function Homepage(props) {
     
     const Item = props => {
         return (
-            <div className='card'>
-                <div className='leftcard'>
+            <div className='hp_card'>
+                <div className='hp_leftcard'>
                     <img src="..." class="img-fluid rounded-start" alt="..." />
                 </div>
-                <div className='rightcard'>
-                    <p className='info' id='name'><b>{props.name}</b></p>
-                    <p className='info'>{props.quantity}</p>
-                    <p className='info'>{props.category}</p>
-                    <p className='info' id='des'>{props.description}</p>
-                    <button type='button' className='reg'><b>REGISTER</b></button>
+                <div className='hp_rightcard'>
+                    <p className='hp_info' id='hp_name'><b>{props.name}</b></p>
+                    <p className='hp_info'>{props.quantity}</p>
+                    <p className='hp_info'>{props.category}</p>
+                    <p className='hp_info' id='hp_des'>{props.description}</p>
+                    <button type='button' className='hp_reg'><b>REGISTER</b></button>
                 </div>
             </div>            
         )
@@ -38,13 +38,13 @@ export default function Homepage(props) {
 
     return (
         <div className='homepage-container'> 
-            <h1><b>AVAILABLE DEVICE</b></h1>
-            <div title="searchBox" className="container-fluid" id='Search'>
+            <h1 className='hp_h1'><b>AVAILABLE DEVICE</b></h1>
+            <div title="searchBox" className="container-fluid" id='hp_search'>
                 <form className="d-flex" role="search">
                     <input className="searchInput" type="search" placeholder="Search..." aria-label="Search" />
                 </form>
             </div>
-            <div className='container'> {
+            <div className='hp_container'> {
                     items.map((item) => {
                         return (
                             <Item
@@ -58,9 +58,9 @@ export default function Homepage(props) {
                     })
                 }      
             </div> 
-            <hr></hr>
+            <hr className='hp_line'></hr>
             <div>
-                <h1><b>UNAVAILABLE DEVICE</b></h1>
+                <h1 className='hp_h1'><b>UNAVAILABLE DEVICE</b></h1>
             </div>
         </div>
     )
