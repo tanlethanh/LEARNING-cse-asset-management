@@ -3,6 +3,7 @@ import Axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import '../../styles/admin.css'
 import '../../styles/dashboard.css'
+import './dashboard.css'
 import Admin from './admin';
 import Member from './member';
 
@@ -37,7 +38,8 @@ export default function Dashboard(props) {
                         <li className="item-infor">Full name: {props.user.fullName}</li>
                         <li className="item-infor">Student code: {props.user.studentCode}</li>
                         <li className="item-infor">Phone number: {props.user.phoneNumber}</li>
-                        <button className="" onClick={handleLogoutButtonClick}>Log out</button>
+                        <button className="button-info" onClick={handleLogoutButtonClick}>Edit</button>
+                        <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>
                     </ul>
                 </div>
             </div>
