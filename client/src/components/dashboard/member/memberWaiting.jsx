@@ -35,8 +35,7 @@ export default function Waiting(props){
                     {item.status == "pending" &&
                         <div className="list-item-col"><i class="accept_status">Process</i></div>}
                     {item.status == "denined" &&
-                        <div className="list-item-col"><i class="fa-solid fa-download"></i></div>}
-                    {item.status == "denined" &&  
+                        <div className="list-item-col"><i class="fa-solid fa-download"></i></div> &&
                         <div className="list-item-col"><i class="accept_status">Canceled</i></div>}
                 </div>
             ))}
