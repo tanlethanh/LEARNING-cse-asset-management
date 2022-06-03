@@ -10,6 +10,7 @@ export default function Admin() {
     const [items, setItems] = useState([])
     const [users, setUsers] = useState([])
     const [orders, setOrders] = useState({})
+    const [changeItems, setChangeItems] = useState(false)
     const [changeUsers, setChangeUsers] = useState(false)
     const [changeOrders, setChangeOrders] = useState(false)
 
@@ -20,7 +21,7 @@ export default function Admin() {
                     setItems(response.data.items)
                 }
             })
-    }, [])
+    }, [changeItems])
 
     useEffect(() => {
         Axios.get("http://localhost:8266/api/user")
@@ -104,7 +105,11 @@ export default function Admin() {
                 <div id="list">
 
                     {currentList === "items" &&
-                        <Items items={items} />
+                        <Items
+                            items={items}
+                            setChangeItems={setChangeItems}
+                            changeItems={changeItems}
+                        />
                     }
                     {currentList.substring(0, currentList.indexOf("_")) === "users" &&
                         <Users
@@ -114,7 +119,7 @@ export default function Admin() {
                             changeUsers={changeUsers}
                         />
                     }
-                    {console.log("Order props here" , orders)}
+                    {console.log("Order props here", orders)}
                     {currentList.substring(0, currentList.indexOf("_")) === "orders" &&
                         <Orders
                             orders={orders}

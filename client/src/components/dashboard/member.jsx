@@ -17,31 +17,34 @@ export default function Member(props) {
     const [returnList, setReturnList] = useState([])
     const [change, setChange] = useState(Boolean)
 
-    useEffect(() =>{
-        setChange(!change)
-    },[arrWait, arrBorrow, arrReturn])
+    useEffect(() => {
+        // setChange(!change)
+    }, [returnList])
 
     useEffect(() => {
-        props.user.orders.map((orderid) => {
+        props.user.orders.map((orderid, index) => {
             Axios.get(`http://localhost:8266/api/order/${orderid}`)
                 .then((response) => {
                     const testWait = response.data.order.status != "done" && currentTab === "Waiting list"
-                    const testBorrow = response.data.order.status == "ok" && currentTab === "Borrowing list" 
+                    const testBorrow = response.data.order.status == "ok" && currentTab === "Borrowing list"
                     if (testWait) {
                         arrWait.push(response.data.order)
-                    } else if (testBorrow){
+                    } else if (testBorrow) {
                         arrBorrow.push(response.data.order)
                     } else {
                         arrReturn.push(response.data.order)
                     }
+                    if (index === props.user.orders.length - 1) {
+                        setWaitingList(arrWait)
+                        setBorrowList(arrBorrow)
+                        setReturnList(arrReturn)
+                    }
                 });
         });
-        setWaitingList(arrWait)
-        setBorrowList(arrBorrow)
-        setReturnList(arrReturn)
+
     }, [])
-    
-  
+
+
 
     return (
         <div className="content">
@@ -51,7 +54,7 @@ export default function Member(props) {
                     <button
                         key={tab}
                         className={currentTab === tab ? "menu_list chosen" : "menu_list"}
-                        onClick={() => {setCurrentTab(tab)}}
+                        onClick={() => { setCurrentTab(tab) }}
                     >
                         {tab}
                     </button>
@@ -61,17 +64,17 @@ export default function Member(props) {
             <div id="list">
                 <div class="list-search">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Search item"/>
+                    <input type="text" placeholder="Search item" />
                 </div>
 
                 {currentTab == "Waiting list" &&
-                    <Waiting currentList = {waitingList} setCurrentList = {setWaitingList} />}
+                    <Waiting currentList={waitingList} setCurrentList={setWaitingList} />}
                 {currentTab == "Borrowing list" &&
-                    <Borrow currentList = {borrowList} setCurrentList = {setBorrowList} />}
+                    <Borrow currentList={borrowList} setCurrentList={setBorrowList} />}
                 {currentTab == "Returned list" &&
-                    <Returned currentList = {returnList} setCurrentList = {setReturnList} />}
+                    <Returned currentList={returnList} setCurrentList={setReturnList} />}
             </div>
         </div>
-        
+
     )
 }

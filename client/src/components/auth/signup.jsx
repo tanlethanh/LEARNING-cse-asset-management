@@ -14,7 +14,7 @@ export default function Signup() {
 
     const register = () => {
 
-        Axios.post("http://localhost:8266/api/auth/login", {
+        Axios.post("http://localhost:8266/api/auth/register", {
             password: password,
             fullName: fullName,
             studentCode: studentCode,

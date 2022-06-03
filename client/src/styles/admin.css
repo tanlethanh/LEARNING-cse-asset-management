@@ -7,7 +7,7 @@
 
 #content {
     background-color: #000;
-    min-height: calc(100vh - var(--height-nav) + var(--height-footer)) ;
+    min-height: calc(100vh - var(--height-nav) + var(--height-footer));
     background-color: #ccc;
     position: relative;
     padding-bottom: 300px;
@@ -37,7 +37,7 @@
     font-family: 'Poppins';
     font-weight: 500;
     font-size: 1em;
-    color: #000 ;
+    color: #000;
     text-align: left;
     padding-left: 20px;
 }
@@ -68,7 +68,7 @@
     border-radius: 10px;
     border: #000 solid 1px;
     font-size: 1rem;
-    
+
     display: flex;
     justify-content: center;
 }
@@ -95,7 +95,7 @@
 
 .list-item-title {
     height: 35px !important;
-    font-weight: 700; 
+    font-weight: 700;
 }
 
 .list-item-odd {
@@ -108,12 +108,50 @@
     /* border: #000 solid 1px; */
     flex-grow: 1;
     flex-shrink: 0;
-    
+
     /* for child */
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+/* For Item page */
+.item_add {
+    margin-left: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.item_add_button {
+    height: 30px;
+    width: 30px;
+    font-size: 1.5em;
+    border-radius: 5px;
+    margin-left: 20px;
+}
+
+.item_add_form {
+    left: 300px;
+    position: absolute;
+    z-index: 1;
+    height: 400px;
+    width: 300px;
+    background-color: #ccc;
+}
+
+.item_add_body {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.item_delete_chosen {
+    color: red;
+}
+
 
 
 /* For User page */
@@ -125,14 +163,17 @@
     justify-content: left !important;
     padding-left: 30px;
 }
+
 .user_name_col {
     text-align: left !important;
     justify-content: left !important;
     width: 160px;
 }
+
 .user_code_col {
     width: 160px;
 }
+
 .user_phone_col {
     width: 160px;
 }
@@ -148,12 +189,12 @@
     padding-left: 30px;
 }
 
-.list-item-col .fa-solid{
+.list-item-col .fa-solid {
     font-size: 1.3em;
     padding: 0 28px;
 }
 
-.accept{
+.accept {
     color: green;
 }
 
