@@ -15,14 +15,18 @@ export default function Member(props) {
     const [waitingList, setWaitingList] = useState([])
     const [borrowList, setBorrowList] = useState([])
     const [returnList, setReturnList] = useState([])
+    const [change, setChange] = useState(Boolean)
 
+    useEffect(() =>{
+        setChange(!change)
+    },[arrWait, arrBorrow, arrReturn])
 
     useEffect(() => {
         props.user.orders.map((orderid) => {
             Axios.get(`http://localhost:8266/api/order/${orderid}`)
                 .then((response) => {
                     const testWait = response.data.order.status != "done" && currentTab === "Waiting list"
-                    const testBorrow = response.data.order.status != "denied" && response.data.order.status != "done" && currentTab === "Borrowing list" 
+                    const testBorrow = response.data.order.status == "ok" && currentTab === "Borrowing list" 
                     if (testWait) {
                         arrWait.push(response.data.order)
                     } else if (testBorrow){
@@ -64,7 +68,7 @@ export default function Member(props) {
                     <Waiting currentList = {waitingList} setCurrentList = {setWaitingList} />}
                 {currentTab == "Borrowing list" &&
                     <Borrow currentList = {borrowList} setCurrentList = {setBorrowList} />}
-                {currentTab == "Returned" &&
+                {currentTab == "Returned list" &&
                     <Returned currentList = {returnList} setCurrentList = {setReturnList} />}
             </div>
         </div>
