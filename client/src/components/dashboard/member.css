@@ -14,35 +14,35 @@
 }
 
 .menu_title {
-color: #fff;
-margin: 10px auto;
+    color: #fff;
+    margin: 10px auto;
 }
 
 .menu_list {
-border: none;
-/* position: absolute; */
-width: 100%;
-height: 50px;
-background-color: #fff;
-margin-top: 10px;
-border-radius: 15px;
-font-family: 'Poppins';
-font-weight: 500;
-font-size: 1em;
-color: #000 ;
-text-align: left;
-padding-left: 20px;
-cursor: pointer;
+    border: none;
+    /* position: absolute; */
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    margin-top: 10px;
+    border-radius: 15px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 1em;
+    color: #000 ;
+    text-align: left;
+    padding-left: 20px;
+    cursor: pointer;
 }
 
 .menu_list:hover {
-background-color: #6171A9;
-color: #fff;
+    background-color: #6171A9;
+    color: #fff;
 }
 
 .menu_list.chosen {
-background: #212C58 !important;
-color: #fff !important;
+    background: #212C58 !important;
+    color: #fff !important;
 }
 
 #list {

@@ -19,10 +19,10 @@ export default function Member(props) {
 
     useEffect(() =>{
         setChange(!change)
-    },[arrWait, arrBorrow, arrReturn])
+    },[returnList])
 
     useEffect(() => {
-        props.user.orders.map((orderid) => {
+        props.user.orders.map((orderid, index) => {
             Axios.get(`http://localhost:8266/api/order/${orderid}`)
                 .then((response) => {
                     const testWait = response.data.order.status != "done" && currentTab === "Waiting list"
@@ -34,11 +34,14 @@ export default function Member(props) {
                     } else {
                         arrReturn.push(response.data.order)
                     }
+
+                    if (index == props.user.orders.length-1){
+                        setWaitingList(arrWait)
+                        setBorrowList(arrBorrow)
+                        setReturnList(arrReturn)
+                    }
                 });
         });
-        setWaitingList(arrWait)
-        setBorrowList(arrBorrow)
-        setReturnList(arrReturn)
     }, [])
     
   
