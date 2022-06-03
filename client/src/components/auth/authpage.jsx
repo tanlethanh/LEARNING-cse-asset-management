@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 import Login from './login';
-import './auth.css'
+import '../../styles/auth.css'
 
 export default function AuthPage(props) {
 
