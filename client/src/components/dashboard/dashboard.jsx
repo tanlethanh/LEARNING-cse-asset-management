@@ -1,7 +1,8 @@
 import React from 'react';
 import Axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import './dashboard.css'
+import '../../styles/admin.css'
+import '../../styles/dashboard.css'
 import Admin from './admin';
 import Member from './member';
 
@@ -12,7 +13,7 @@ export default function Dashboard(props) {
     const handleLogoutButtonClick = () => {
         Axios.post("http://localhost:8266/api/auth/logout")
             .then((response) => {
-                console.log(response.data)
+                console.log("Hello logout", response.data)
                 props.setUser({})
                 navigate("../dashboard", { replace: true })
             })

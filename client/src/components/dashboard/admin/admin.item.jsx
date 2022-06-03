@@ -7,9 +7,10 @@ export default function Items(props) {
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input type="text" placeholder="Search item" />
-
             </div>
 
+            
+            
             <div className="list-item list-item-title">
                 <div className="list-item-col item-col-name">Name of item</div>
                 <div className="list-item-col">Category</div>

@@ -217,3 +217,35 @@
     background-color: #6171A9;
     color: #fff;
 }
+
+/* for orders page */
+.order_accept_button {
+    font-weight: 700;
+    background-color: #fff;
+    border: 2px solid green;
+    border-radius: 15px;
+    color: green;
+    width: 70px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.order_accept_button.chosen {
+    background-color: green;
+    color: #fff;
+}
+
+.order_deny_button {
+    font-weight: 700;
+    background-color: #fff;
+    border: 2px solid red;
+    border-radius: 15px;
+    color: red;
+    width: 70px;
+    height: 40px;
+}
+
+.order_deny_button.chosen {
+    background-color: red;
+    color: #fff;
+}

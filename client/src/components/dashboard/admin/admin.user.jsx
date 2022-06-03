@@ -6,6 +6,11 @@ export default function Users(props) {
     const [users_register, setUsers_register] = useState([])
     const [users_enable, setUsers_enable] = useState([])
 
+    useEffect(() => {
+        console.log("hello users")
+        setUsers_register(props.users.filter(user => user.enable === false))
+        setUsers_enable(props.users.filter(user => user.enable === true))
+    }, [props.users])
 
     const handleChecked = ((index, usersType) => {
 
@@ -32,10 +37,11 @@ export default function Users(props) {
                     Axios.patch(`http://localhost:8266/api/user/${user._id}?togglePermission=enable`)
                         .then((response) => {
                             console.log(`Enable of ${response.data.user} is ${response.data.user.enable}`)
+                            props.setChangeUsers(!props.changeUsers)
                         })
                 }
             })
-            props.setChangeUsers(!props.changeUsers)
+            
         }
         else if (usersType === 'enable') {
             users_enable.map((user) => {
@@ -43,26 +49,24 @@ export default function Users(props) {
                     Axios.patch(`http://localhost:8266/api/user/${user._id}?togglePermission=enable`)
                         .then((response) => {
                             console.log(`Enable of ${response.data.user} is ${response.data.user.enable}`)
+                            props.setChangeUsers(!props.changeUsers)
                         })
                 }
             })
-            props.setChangeUsers(!props.changeUsers)
+            
         }
 
     }
 
-    useEffect(() => {
-        console.log("hello users")
-        setUsers_register(props.users.filter(user => user.enable === false))
-        setUsers_enable(props.users.filter(user => user.enable === true))
-    }, [props.users])
+    
 
 
     // Component of user who is not enable
     function UsersRender(props) {
         return (
             <div>
-                <h1>Hello users_register</h1>
+                {console.log("rerender UsersRender")}
+                <h1>Hello {props.type === 'register' ? "users_register" : "users_enable"}</h1>
                 <div className="list-search">
                     <i className="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search item" />
