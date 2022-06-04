@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt")
 const User = require('../models/model.user')
 // const isAuthenticated = require('../helpers/isAuth.js')
+const mongoose = require("mongoose")
 
 const saltRounds = 10;
 
@@ -21,7 +22,7 @@ exports.getAuth = async (req, res) => {
         console.error(error)
         return res.status(406).json({ status: 406, messages: error.message, user: null })
     }
-    
+
 }
 
 /* 
@@ -120,4 +121,25 @@ exports.logout = async (req, res) => {
     // this will ensure that re-using the old session id
     // does not have a logged in user
 
+}
+
+
+exports.changePassword = async (req, res) => {
+    try {
+        // create new hash password
+        const hashPassword = await bcrypt.hash(req.body.newPassword, saltRounds)
+
+        const user = await User.findOneAndUpdate(
+            { _id: mongoose.Types.ObjectId(req.session.userId) },
+            { hash_password: hashPassword },
+            { new: true }
+        )
+
+        await req.session.destroy()
+        res.status(201).json({ status: 201, message: "Change password successfully!", user })
+
+    } catch (error) {
+        console.error(error)
+        res.status(400).json({ status: 400, message: error.message })
+    }
 }
