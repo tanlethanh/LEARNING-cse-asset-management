@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import '../../styles/admin.css'
@@ -6,10 +6,14 @@ import '../../styles/dashboard.css'
 import './dashboard.css'
 import Admin from './admin';
 import Member from './member';
+import EditInfo from './editInfo';
 
 export default function Dashboard(props) {
 
     const navigate = useNavigate()
+    const [editButton, setEditButton]= useState(true)
+    const [saveButton, setSaveButton] = useState(false)
+    const [logoutButton, setLogoutButton] = useState(true)
 
     const handleLogoutButtonClick = () => {
         Axios.post("http://localhost:8266/api/auth/logout")
@@ -18,6 +22,12 @@ export default function Dashboard(props) {
                 props.setUser({})
                 navigate("../dashboard", { replace: true })
             })
+    }
+
+    const handleEditButtonClick = () => {
+        setEditButton(!editButton)
+        setSaveButton(!saveButton)
+        setLogoutButton(!logoutButton)
     }
 
     return (
@@ -38,8 +48,9 @@ export default function Dashboard(props) {
                         <li className="item-infor">Full name: {props.user.fullName}</li>
                         <li className="item-infor">Student code: {props.user.studentCode}</li>
                         <li className="item-infor">Phone number: {props.user.phoneNumber}</li>
-                        <button className="button-info" onClick={handleLogoutButtonClick}>Edit</button>
-                        <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>
+                        {editButton && <button className="button-info" onClick={handleEditButtonClick}>Edit</button>}
+                        {saveButton && <button className="button-info" onClick={handleEditButtonClick}>Save</button>}
+                        {logoutButton && <button className="button-info">Log out</button>}
                     </ul>
                 </div>
             </div>
