@@ -42,11 +42,11 @@ export default function Dashboard(props) {
                 if (response.data.message == "Login successfully!" && newPassword == confirmPassword) {
                     setError(false)
                     setEditButton(true)
-                    Axios.post("http://localhost:8266/api/auth/change", {
+                    Axios.post("http://localhost:8266/api/auth/password", {
                     newPassword: newPassword,
                     })
                     .then((response) => {
-                        console.log(response.data.status)
+                        console.log("succeed")
                     });
                 } else {
                     setError(true)
