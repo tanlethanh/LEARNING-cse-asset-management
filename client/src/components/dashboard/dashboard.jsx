@@ -33,19 +33,22 @@ export default function Dashboard(props) {
 
     const handleSaveButtonClick = () => {
         if (!editButton) {
-            console.log("ok")
             Axios.post("http://localhost:8266/api/auth/login", {
             email: props.user.email,
             password: oldPassword,
             })
             
             .then((response) => {
-                if (response.data.status == 201 && newPassword == confirmPassword) {
-                    console.log("ok")
+                if (response.data.message == "Login successfully!" && newPassword == confirmPassword) {
                     setError(false)
                     setEditButton(true)
+                    Axios.post("http://localhost:8266/api/auth/change", {
+                    newPassword: newPassword,
+                    })
+                    .then((response) => {
+                        console.log(response.data.status)
+                    });
                 } else {
-                    console.log("not ok")
                     setError(true)
                     setEditButton(false)
                 }
