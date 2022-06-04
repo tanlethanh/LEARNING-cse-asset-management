@@ -136,7 +136,14 @@ exports.updateStateOrder = async (req, res) => {
 
                 // Add new borrower into borrowerList of item 
                 const newBorrowerOfItem = { idUser: order.idUser, idOrder: order._id, quantity: order.quantity, date: order.date }
-                await Item.findByIdAndUpdate(order.idItem, { $push: { borrowerList: newBorrowerOfItem } }, { new: true })
+                await Item.findByIdAndUpdate(
+                    order.idItem,
+                    {
+                        $push: { borrowerList: newBorrowerOfItem },
+                        available: item.available - order.quantity
+                    },
+                    { new: true }
+                )
 
                 // Update order
                 updatedOrder = await Order.findByIdAndUpdate(id, { status: "ok" }, { new: true })
