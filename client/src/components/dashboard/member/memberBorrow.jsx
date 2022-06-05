@@ -2,11 +2,6 @@ import React from 'react';
 import '../member.css';
 
 export default function Borrow(props){
-    const setTime = (date) => {
-        var e = new Date(date);
-        return (e.getDate()-1) + '/' + (e.getMonth()+1) + '/' + e.getFullYear();
-    }
-
     return (
         <div>
             <div class="list-item list-item-title">
@@ -22,8 +17,12 @@ export default function Borrow(props){
                     <div className="list-item-col">{item.categoryItem}</div>
                     <div className="list-item-col item-col-name">{item.nameItem}</div>
                     <div className="list-item-col">{item.quantity}</div>
-                    <div className="list-item-col">{setTime(item.updatedAt)}</div>
-                    <div className="list-item-col">{setTime(item.returndAt)}</div>
+                    <div className="list-item-col">
+                        {item.returnDate.substring(0, item.returnDate.indexOf('T'))}
+                    </div>
+                    <div className="list-item-col">
+                        {item.updatedAt.substring(0, item.updatedAt.indexOf('T'))}
+                    </div>
                 </div>
             ))}
 

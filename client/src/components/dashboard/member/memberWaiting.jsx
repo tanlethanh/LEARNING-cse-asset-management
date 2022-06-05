@@ -1,13 +1,8 @@
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 import '../member.css';
 
 
 export default function Waiting(props){
-    const setTime = (date) => {
-        var e = new Date(date);
-        return (e.getDate()-1) + '/' + (e.getMonth()+1) + '/' + e.getFullYear();
-    }
-
     return (
         <div>
             <div class="list-item list-item-title">
@@ -25,19 +20,21 @@ export default function Waiting(props){
                     <div className="list-item-col">{item.categoryItem}</div>
                     <div className="list-item-col item-col-name">{item.nameItem}</div>
                     <div className="list-item-col">{item.quantity}</div>
-                    <div className="list-item-col">{setTime(item.updatedAt)}</div>
+                    <div className="list-item-col">
+                        {item.createdAt.substring(0, item.createdAt.indexOf('T'))}
+                    </div>
                     {item.status == "ok" &&
                         <div className="list-item-col accept"><i class="fa-solid fa-download"></i></div>}
                     {item.status == "ok" &&
                         <div className="list-item-col"><i class="accept_status">Accept</i></div>}
                     {item.status == "pending" &&
-                        <div className="list-item-col"><i class="fa-solid fa-download"></i></div> }
+                        <div className="list-item-col "><i class="fa-solid fa-download"></i></div> }
                     {item.status == "pending" &&
-                        <div className="list-item-col"><i class="accept_status">Process</i></div>}
-                    {item.status == "denined" &&
+                        <div className="list-item-col"><i class="pending_status">Process</i></div>}
+                    {item.status == "denied" &&
                         <div className="list-item-col"><i class="fa-solid fa-download"></i></div>}
-                    {item.status == "denined" &&  
-                        <div className="list-item-col"><i class="accept_status">Canceled</i></div>}
+                    {item.status == "denied" &&  
+                        <div className="list-item-col"><i class="denied_status">Denied</i></div>}
                 </div>
             ))}
 

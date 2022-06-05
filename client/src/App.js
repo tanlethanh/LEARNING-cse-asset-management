@@ -35,12 +35,13 @@ function App() {
 
     }, [])
 
+    const [checklist, setChecklist] = useState(false)
     return (
         <div>
-            <Header />
+            <Header checklist={checklist} setChecklist={setChecklist}/>
             <Routes>
                 {console.log(user, "In route")}
-                <Route path="/" element={<Homepage />} />
+                <Route path="/" element={<Homepage checklist={checklist} setChecklist={setChecklist}/>} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/dashboard" element={user.email ? <Dashboard setUser={setUser} user={user}/> : <Authpage setUser={setUser}/>} />
             </Routes>

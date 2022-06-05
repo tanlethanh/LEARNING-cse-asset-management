@@ -6,11 +6,11 @@ import '../../styles/dashboard.css'
 import './dashboard.css'
 import Admin from './admin';
 import Member from './member';
-import EditInfo from './editInfo';
 
 export default function Dashboard(props) {
 
     const navigate = useNavigate()
+
     const [error, setError] = useState(false)
     const [editButton, setEditButton]= useState(true)
     const [oldPassword, setOldPassword] = useState('')
@@ -39,22 +39,22 @@ export default function Dashboard(props) {
             })
             
             .then((response) => {
-                if (response.data.message == "Login successfully!" && newPassword == confirmPassword) {
+                if (response.data.user && newPassword == confirmPassword) {
                     setError(false)
                     setEditButton(true)
                     Axios.post("http://localhost:8266/api/auth/password", {
                     newPassword: newPassword,
                     })
                     .then((response) => {
-                        console.log("succeed")
+                        console.log(response.data.message)
+                        navigate("../dashboard", { replace: true })
                     });
                 } else {
                     setError(true)
                     setEditButton(false)
                 }
             });
-        }
-        
+        }    
     }
 
     return (
