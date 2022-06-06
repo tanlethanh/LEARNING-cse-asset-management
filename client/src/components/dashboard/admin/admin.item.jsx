@@ -20,6 +20,9 @@ export default function Items({ items, setChangeItems, changeItems }) {
     }
 
     const handleDeleteClick = (index) => {
+
+        // 
+
         items[index].deleteChosen = !items[index].deleteChosen
         setChange(!change)
     }

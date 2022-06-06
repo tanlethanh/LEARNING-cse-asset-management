@@ -20,14 +20,14 @@ export default function Member(props) {
         props.user.orders.map((orderid, index) => {
             Axios.get(`http://localhost:8266/api/order/${orderid}`)
                 .then((response) => {
-                    if (response.data.order.status != "done") {
+                    if (response.data.order.status !== "done") {
                         arrWait.push(response.data.order)
-                        if (response.data.order.status == "ok") {
+                        if (response.data.order.status === "ok") {
                             arrBorrow.push(response.data.order)
                     }} else {
                         arrReturn.push(response.data.order)
                     }
-                    if (index == props.user.orders.length -1) {
+                    if (index === props.user.orders.length -1) {
                         setWaitingList(arrWait)
                         setBorrowList(arrBorrow)
                         setReturnList(arrReturn)
@@ -52,16 +52,16 @@ export default function Member(props) {
             </div>
 
             <div id="list">
-                <div class="list-search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                <div className="list-search">
+                    <i className="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search item" />
                 </div>
 
-                {currentTab == "Waiting list" &&
+                {currentTab === "Waiting list" &&
                     <Waiting currentList={waitingList} setCurrentList={setWaitingList} />}
-                {currentTab == "Borrowing list" &&
+                {currentTab === "Borrowing list" &&
                     <Borrow currentList={borrowList} setCurrentList={setBorrowList} />}
-                {currentTab == "Returned list" &&
+                {currentTab === "Returned list" &&
                     <Returned currentList={returnList} setCurrentList={setReturnList} />}
             </div>
         </div>

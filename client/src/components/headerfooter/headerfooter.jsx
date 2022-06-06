@@ -15,7 +15,15 @@ export function Header(props) {
                 <li className="header-right">
                     <Link className="nav-btn" to={'/'}>Home</Link>
                     <Link className="nav-btn" to={'/dashboard'}>Dash board</Link>
-                    <a className="nav-btn" onClick={()=>{props.setChecklist(!props.checklist)}}><i className="fa-solid fa-box-open"></i></a>
+                    <a 
+                    className="nav-btn" 
+                    onClick={
+                        ()=>{
+                            props.setChecklist(!props.checklist)
+                            }
+                            }>
+                            <i className="fa-solid fa-box-open"></i>
+                            </a>
                 </li>
             </ul>
         </header>

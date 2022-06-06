@@ -4,16 +4,16 @@ import '../member.css';
 export default function Borrow(props){
     return (
         <div>
-            <div class="list-item list-item-title">
-                <div class="list-item-col">Category</div>
-                <div class="list-item-col item-col-name">Item</div>
-                <div class="list-item-col">Quantity</div>
-                <div class="list-item-col">Date</div>
-                <div class="list-item-col">Return date</div>
+            <div className="list-item list-item-title">
+                <div className="list-item-col">Category</div>
+                <div className="list-item-col item-col-name">Item</div>
+                <div className="list-item-col">Quantity</div>
+                <div className="list-item-col">Date</div>
+                <div className="list-item-col">Return date</div>
             </div>
 
             {props.currentList.map((item, index) => (
-                <div className={"list-item " + (index % 2 === 0 && "list-item-odd")}>
+                <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={item._id}>
                     <div className="list-item-col">{item.categoryItem}</div>
                     <div className="list-item-col item-col-name">{item.nameItem}</div>
                     <div className="list-item-col">{item.quantity}</div>

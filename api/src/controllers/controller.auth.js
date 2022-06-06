@@ -127,6 +127,7 @@ exports.logout = async (req, res) => {
 exports.changePassword = async (req, res) => {
     try {
         // create new hash password
+        console.log(req.body.newPassword)
         const hashPassword = await bcrypt.hash(req.body.newPassword, saltRounds)
 
         const user = await User.findOneAndUpdate(
