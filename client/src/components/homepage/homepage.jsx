@@ -1,7 +1,6 @@
 import './homepage.css'
 import React, { useState, useEffect } from 'react';
 import Axios from "axios";
-import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import AvaiItem from './homepageItem/homeAvai';
 import UnavaiItem from './homepageItem/homeUnavai';
 
@@ -40,17 +39,17 @@ export default function Homepage(props) {
         <div>
             
             <div className='homepage-container'>
-                <p className='homepage-title'><b>AVAILABLE DEVICE</b></p>
+                <div className='homepage-title'>AVAILABLE DEVICE</div>
                 <div class="list-search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search item" />
                 </div>
-                <div className='hp_container'>
+                <div className='homepage-item-container'>
                     <AvaiItem avai = {avai} checklist={props.checklist} setChecklist={props.setChecklist}/>           
                 </div> 
                 
-                <hr className='hp_line'></hr>
-                <p className='homepage-title'><b>UNAVAILABLE DEVICE</b></p>
+                <hr className='homepage-line'></hr>
+                <p className='homepage-title un-title'>UNAVAILABLE DEVICE</p>
                 <div className='hp_container'> 
                     {unavai.map((item) => {
                         return(

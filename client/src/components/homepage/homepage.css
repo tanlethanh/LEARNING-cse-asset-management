@@ -3,21 +3,29 @@
 }
 
 .homepage-title {
+    font-weight: bold;
     font-size: 30px; 
     margin-left: 30px; 
     margin-top: 80px;
 }
-div#hp_search {
-    margin-left: 28.13px; 
-    width: auto;
+
+.un-title {
+    margin-top: 30px !important;
 }
-div.hp_container {
+
+.list-search i {
+    display: flex;
+    align-items: center;
+}
+
+.homepage-item-container {
     position: relative;
     margin:auto; 
     margin-top: 23px;
+    
 }
-div.hp_card {
-    border: none;
+/* div.hp_card {
+    border: solid;
     position: relative;
     width: 25%;
     display: inline-flex;
@@ -50,8 +58,8 @@ button.hp_reg {
     left: 80%;
     top: 120%;
     background-color: #737373;
-}
-hr.hp_line {
+}*/
+.homepage-line {
     height:3px; 
     width:80%; 
     margin:auto; 
