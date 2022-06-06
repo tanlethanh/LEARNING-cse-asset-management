@@ -56,45 +56,48 @@ export default function Admin() {
         <div className="admin_container">
             <div id="content">
                 <div id="menu">
-                    <h1 className="menu_title" >LIST</h1>
+                    <h1 className="menu_title" >DASH BOARD</h1>
 
+                    <h3 className='menu_list_title'>Items, devices</h3>
                     <button
-                        className={"menu_list " + (currentList === "items" && "chosen")}
+                        className={"menu_list_admin " + (currentList === "items" && "chosen")}
                         onClick={() => handleClickButton("items")}
                     >
                         Items
                     </button>
 
+                    <h3 className='menu_list_title'>Users</h3>
                     <button
-                        className={"menu_list " + (currentList === "users_register" && "chosen")}
+                        className={"menu_list_admin " + (currentList === "users_register" && "chosen")}
                         onClick={() => handleClickButton("users_register")}
                     >
                         Register users
                     </button>
 
                     <button
-                        className={"menu_list " + (currentList === "users_all" && "chosen")}
+                        className={"menu_list_admin " + (currentList === "users_all" && "chosen")}
                         onClick={() => handleClickButton("users_all")}
                     >
                         All of users
                     </button>
 
+                    <h3 className='menu_list_title'>Oders</h3>
                     <button
-                        className={"menu_list " + (currentList === "orders_pending" && "chosen")}
+                        className={"menu_list_admin " + (currentList === "orders_pending" && "chosen")}
                         onClick={() => handleClickButton("orders_pending")}
                     >
                         Pending orders
                     </button>
 
                     <button
-                        className={"menu_list " + (currentList === "orders_ok" && "chosen")}
+                        className={"menu_list_admin " + (currentList === "orders_ok" && "chosen")}
                         onClick={() => handleClickButton("orders_ok")}
                     >
                         Processing orders
                     </button>
 
                     <button
-                        className={"menu_list " + (currentList === "orders_complete" && "chosen")}
+                        className={"menu_list_admin " + (currentList === "orders_complete" && "chosen")}
                         onClick={() => handleClickButton("orders_complete")}
                     >
                         Complete order
