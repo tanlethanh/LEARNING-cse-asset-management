@@ -22,18 +22,19 @@ export default function AvaiItem(props) {
         <div>
             {props.avai.map((item) => {
                 return (
-                    <div className='hp_card' key={item._id}>
-                        <div className='hp_leftcard'>
+                    <div className='homepage_card' key={item._id}>
+                        <div className='homepage_leftcard'>
                             <img src="..." className="img-fluid rounded-start" alt="..." />
                         </div>
-                        <div className='hp_rightcard'>
-                            <p className='hp_info' id='hp_name'><b>{item.name}</b></p>
-                            <p className='hp_info'>{item.quantity}</p>
-                            <p className='hp_info'>{item.category}</p>
-                            <p className='hp_info' id='hp_des'>{item.description}</p>
-                            <button type='button' className='hp_reg'
-                                onClick={() => { handleRegister(item) }}>
-                                <b>REGISTER</b>
+                        <div className='homepage_rightcard'>
+                            <p className='homepage_name'>{item.name}</p>
+                            <ul>
+                                <li className='homepage_info'>Quantity: {item.available}/{item.quantity}</li>
+                                <li className='homepage_info'>Category: {item.category}</li>
+                                <li className='homepage_info' id='hp_des'>Des: {item.description}</li>
+                            </ul>
+                            <button className='homepage_reg' onClick={() => { handleRegister(item) }}>
+                                REGISTER
                             </button>
                         </div>
                     </div>

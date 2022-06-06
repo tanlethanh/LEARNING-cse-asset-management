@@ -47,14 +47,15 @@ export default function Homepage(props) {
                 </div> 
                 
                 <hr className='homepage-line'></hr>
+
                 <p className='homepage-title un-title'>UNAVAILABLE DEVICE</p>
                 <div className='homepage-item-container'> 
                     {unavai.map((item) => {
                         return(
                             <UnavaiItem
-                                key={item._id}
                                 name={item.name}
-                                quantity={item.available}
+                                available = {item.available}
+                                quantity={item.quantity}
                                 category={item.category}
                                 description={item.description}
                             />
