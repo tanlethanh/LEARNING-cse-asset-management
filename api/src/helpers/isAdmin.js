@@ -1,4 +1,3 @@
-const mongoose = require('mongoose')
 const User = require('../models/model.user.js')
 
 isAdmin = async (userid) => {

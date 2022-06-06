@@ -4,8 +4,8 @@ isAuthenticated = (req, res, next) => {
         next()
     }
     else {
-        res.status(401).json({status: 401, message: 'Unauthorized'})
-        next('route')}
+        return res.status(401).json({status: 401, message: 'Unauthorized'})    
+    }
 }
 
 module.exports = isAuthenticated

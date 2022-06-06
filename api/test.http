@@ -1,8 +1,8 @@
-GET http://localhost:3000/api/
+GET http://localhost:8266/api/
 
 
 ### auth - register new user
-POST http://localhost:3000/api/auth/register
+POST http://localhost:8266/api/auth/register
 Content-Type: application/json
 
 {
@@ -19,21 +19,29 @@ Content-Type: application/json
 
 {
     "password": "123456",
-    "email": "member5@gmail.com"
+    "email": "member1@gmail.com"
 }
 
 
 ###  auth -  logout
-POST http://localhost:3000/api/auth/logout
+POST http://localhost:8266/api/auth/password
+Content-Type: application/json
+
+{
+    "newPassword": "1234567"
+}
+
+###  auth -  logout
+POST http://localhost:8266/api/auth/logout
 
 ### item - get all of items
-GET http://localhost:3000/api/item/
+GET http://localhost:8266/api/item/
 
 ### item - get item by id
-GET http://localhost:3000/api/item/6290b766372ca2ed6ff00c8c
+GET http://localhost:8266/api/item/6290b766372ca2ed6ff00c8c
 
 ### item - add new item 
-POST http://localhost:3000/api/item
+POST http://localhost:8266/api/item
 Content-Type: application/json
 
 {
@@ -44,7 +52,7 @@ Content-Type: application/json
 }
 
 ### item - update item by id
-PATCH http://localhost:3000/api/item/6290b766372ca2ed6ff00c8c
+PATCH http://localhost:8266/api/item/6290b766372ca2ed6ff00c8c
 Content-Type: application/json
 
 {
@@ -52,30 +60,30 @@ Content-Type: application/json
 }
 
 ### item - delete item by id
-DELETE http://localhost:3000/api/item/628f3d17d4d47d5dab57be3f
+DELETE http://localhost:8266/api/item/628f3d17d4d47d5dab57be3f
 
 ### user - get all of users
-GET http://localhost:3000/api/user/
+GET http://localhost:8266/api/user/
 
 ### user - get user by id
-GET http://localhost:3000/api/user/6290976c0591c3ff4bac225f
+GET http://localhost:8266/api/user/6290976c0591c3ff4bac225f
 
 ### user - toggle enable permission
-PATCH http://localhost:3000/api/user/629097230591c3ff4bac2251?togglePermission=enable
+PATCH http://localhost:8266/api/user/629097230591c3ff4bac2251?togglePermission=enable
 
 ### user - toggle admin permission admin
-PATCH http://localhost:3000/api/user/629097230591c3ff4bac2251?togglePermission=admin
+PATCH http://localhost:8266/api/user/629097230591c3ff4bac2251?togglePermission=admin
 
 ### user - toggle fail
-PATCH http://localhost:3000/api/user/628e5e98cac47ecceb92e2d8?togglePermission=f
+PATCH http://localhost:8266/api/user/628e5e98cac47ecceb92e2d8?togglePermission=f
 
 
 ### user - delete user by id
-DELETE http://localhost:3000/api/user/6290976c0591c3ff4bac225f
+DELETE http://localhost:8266/api/user/6290976c0591c3ff4bac225f
 
 
 ### order - get all of order
-GET http://localhost:3000/api/order/
+GET http://localhost:8266/api/order/
 
 
 ### order - get order by id
@@ -93,4 +101,4 @@ Content-Type: application/json
 
 
 ### order - update state of order
-PATCH http://localhost:3000/api/order/6290bbc299aa53690473526c?action=confirm
+PATCH http://localhost:8266/api/order/6290bbc299aa53690473526c?action=confirm
