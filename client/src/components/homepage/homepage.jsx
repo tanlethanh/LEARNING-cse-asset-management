@@ -17,12 +17,12 @@ export default function Homepage(props) {
             .then((response) => {
                 if (response.data.items) {
                     response.data.items.map((item, index) => {
-                        {if (item.available != 0) {
+                        {if (item.available !== 0) {
                             arrAvai.push(item)
                         } else {
                             arrUnavai.push(item)
                         }}
-                        if (index == response.data.items.length -1) {
+                        if (index === response.data.items.length -1) {
                             setAvai(arrAvai)
                             setUnavai(arrUnavai)
                         }

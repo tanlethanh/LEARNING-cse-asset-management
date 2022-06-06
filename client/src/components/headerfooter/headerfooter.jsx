@@ -7,23 +7,23 @@ export function Header(props) {
         <header id="header">
             <ul>
                 <li className="header-left">
-                    <button className="text-logo">
+                    <a className="text-logo">
                         <em className="text-logo-1">Asset</em>
                         <em className="text-logo-2">cse</em>
-                    </button>
+                    </a>
                 </li>
                 <li className="header-right">
                     <Link className="nav-btn" to={'/'}>Home</Link>
                     <Link className="nav-btn" to={'/dashboard'}>Dash board</Link>
-                    <button
-                        className="nav-btn"
-                        onClick={
-                            () => {
-                                props.setChecklist(!props.checklist)
+                    <a 
+                    className="nav-btn" 
+                    onClick={
+                        ()=>{
+                            props.setChecklist(!props.checklist)
                             }
-                        }>
-                        <i className="fa-solid fa-box-open"></i>
-                    </button>
+                            }>
+                            <i className="fa-solid fa-box-open"></i>
+                            </a>
                 </li>
             </ul>
         </header>
@@ -51,14 +51,14 @@ export function Footer() {
                 </div>
                 <div className="contact">
                     <h3 className="footer-title">Contact</h3>
-                    <button className="item">
+                    <a className="item">
                         <i className="fa-solid fa-location-dot"></i>
                         <p>602 H6</p>
-                    </button>
-                    <button className="item">
+                    </a>
+                    <a className="item">
                         <i className="fa-solid fa-envelope"></i>
                         <p>admin@hcmut.edu.vn</p>
-                    </button>
+                    </a>
                 </div>
             </div>
             <div className="bot_footer">
