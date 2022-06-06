@@ -8,14 +8,12 @@ import UnavaiItem from './homepageItem/homeUnavai';
 
 export default function Homepage(props) {
 
-    const [items,setItems] = useState([])
     const arrUnavai = []
     const arrAvai = [] 
     const [avai, setAvai] = useState([])
     const [unavai, setUnavai] = useState([])
     
     useEffect(() => {
-        console.log("Get login")
         Axios.get("http://localhost:8266/api/item")
             .then((response) => {
                 if (response.data.items) {
@@ -41,8 +39,8 @@ export default function Homepage(props) {
             
             <div className='homepage-container'>
                 <p className='homepage-title'><b>AVAILABLE DEVICE</b></p>
-                <div class="list-search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                <div className="list-search">
+                    <i className="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search item" />
                 </div>
                 <div className='hp_container'>

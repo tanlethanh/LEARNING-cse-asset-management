@@ -7,15 +7,23 @@ export function Header(props) {
         <header id="header">
             <ul>
                 <li className="header-left">
-                    <a className="text-logo">
+                    <button className="text-logo">
                         <em className="text-logo-1">Asset</em>
                         <em className="text-logo-2">cse</em>
-                    </a>
+                    </button>
                 </li>
                 <li className="header-right">
                     <Link className="nav-btn" to={'/'}>Home</Link>
                     <Link className="nav-btn" to={'/dashboard'}>Dash board</Link>
-                    <a className="nav-btn" onClick={()=>{props.setChecklist(!props.checklist)}}><i className="fa-solid fa-box-open"></i></a>
+                    <button
+                        className="nav-btn"
+                        onClick={
+                            () => {
+                                props.setChecklist(!props.checklist)
+                            }
+                        }>
+                        <i className="fa-solid fa-box-open"></i>
+                    </button>
                 </li>
             </ul>
         </header>
@@ -43,14 +51,14 @@ export function Footer() {
                 </div>
                 <div className="contact">
                     <h3 className="footer-title">Contact</h3>
-                    <a className="item">
+                    <button className="item">
                         <i className="fa-solid fa-location-dot"></i>
                         <p>602 H6</p>
-                    </a>
-                    <a className="item">
+                    </button>
+                    <button className="item">
                         <i className="fa-solid fa-envelope"></i>
                         <p>admin@hcmut.edu.vn</p>
-                    </a>
+                    </button>
                 </div>
             </div>
             <div className="bot_footer">

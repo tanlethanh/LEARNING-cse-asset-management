@@ -33,7 +33,7 @@ export default function Users(props) {
     const handleSubmit = (usersType) => {
         if (usersType === 'register') {
             users_register.map((user) => {
-                if (user.enable == true) {
+                if (user.enable === true) {
                     Axios.patch(`http://localhost:8266/api/user/${user._id}?togglePermission=enable`)
                         .then((response) => {
                             console.log(`Enable of ${response.data.user} is ${response.data.user.enable}`)
@@ -45,7 +45,7 @@ export default function Users(props) {
         }
         else if (usersType === 'enable') {
             users_enable.map((user) => {
-                if (user.enable == false) {
+                if (user.enable === false) {
                     Axios.patch(`http://localhost:8266/api/user/${user._id}?togglePermission=enable`)
                         .then((response) => {
                             console.log(`Enable of ${response.data.user} is ${response.data.user.enable}`)

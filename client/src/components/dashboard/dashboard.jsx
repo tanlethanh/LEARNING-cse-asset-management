@@ -6,10 +6,6 @@ import '../../styles/dashboard.css'
 import './dashboard.css'
 import Admin from './admin';
 import Member from './member';
-<<<<<<< HEAD
-// import EditInfo from './editInfo';
-=======
->>>>>>> 022b6edf581db36825d2776a3a5a6a0905b9bb15
 
 export default function Dashboard(props) {
 
