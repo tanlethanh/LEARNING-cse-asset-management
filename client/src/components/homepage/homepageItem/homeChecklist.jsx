@@ -11,6 +11,7 @@ export default function Checklist(props) {
 
   const handleTrash =(e) =>{
     props.setRegisterItem(props.registerItem.filter(item => item.item._id != e))
+    props.setItemPick(props.itemPick.filter(item => item._id != e))
     setTest(!test)
   }
 

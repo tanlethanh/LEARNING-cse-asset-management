@@ -7,19 +7,23 @@ import './homeChecklist.css'
 export default function AvaiItem(props) {
     
     const [registerItem, setRegisterItem] = useState([])
-    const arrPick = []
+    const [itemPick, setItemPick] = useState([])
+
     const handleRegister = (e)=>{
-        setRegisterItem([...registerItem, {
-            item: e,
-            quantity: 1
-        }])    
+        if (!itemPick.includes(e)){
+            setRegisterItem([...registerItem, {
+                item: e,
+                quantity: 1
+            }])
+            setItemPick([...itemPick, e])    
+        }
     }
 
     return (
         <div>
             {props.avai.map((item) => {
             return(
-                <div className='hp_card'>
+                <div className='homepage_card'>
                     <div className='hp_leftcard'>
                         <img src="..." class="img-fluid rounded-start" alt="..." />
                     </div>
@@ -36,7 +40,12 @@ export default function AvaiItem(props) {
                 </div>
             )
             })}
-            {props.checklist && <Checklist registerItem = {registerItem} setRegisterItem={setRegisterItem} checklist={props.checklist} setChecklist={props.setChecklist}/>}
+            {props.checklist && 
+                <Checklist 
+                registerItem = {registerItem} setRegisterItem={setRegisterItem} 
+                checklist={props.checklist} setChecklist={props.setChecklist}
+                itemPick = {itemPick} setItemPick = {setItemPick}/>
+            }
                      
             
         </div>            

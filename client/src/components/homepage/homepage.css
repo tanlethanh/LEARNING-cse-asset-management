@@ -13,28 +13,29 @@
     margin-top: 30px !important;
 }
 
-.list-search i {
+.list-search  {
     display: flex;
     align-items: center;
+    margin-left: 30px; 
 }
 
 .homepage-item-container {
     position: relative;
     margin:auto; 
     margin-top: 23px;
-    
+    margin-left: 5%;
+    margin-right: 5%;
 }
-/* div.hp_card {
+.homepage_card {
     border: solid;
     position: relative;
     width: 25%;
+    height: 160px;
     display: inline-flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    height: 160px;
-    margin: 10px 20px;
 }
-div.hp_leftcard {
+
+/*div.hp_leftcard {
     position: absolute;
     width: 60%;
     height: 100%;

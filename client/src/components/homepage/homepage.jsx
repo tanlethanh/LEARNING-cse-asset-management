@@ -50,7 +50,7 @@ export default function Homepage(props) {
                 
                 <hr className='homepage-line'></hr>
                 <p className='homepage-title un-title'>UNAVAILABLE DEVICE</p>
-                <div className='hp_container'> 
+                <div className='homepage-item-container'> 
                     {unavai.map((item) => {
                         return(
                             <UnavaiItem
