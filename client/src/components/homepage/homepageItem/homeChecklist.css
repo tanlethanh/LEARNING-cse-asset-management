@@ -1,0 +1,132 @@
+.checklist-container {
+    width: 325px;
+    height: 510px;
+    border-radius: 0px 0px 30px 30px;
+    background-color: #6F7DB0;
+    position: fixed;
+    top: 70px;
+    right: 0;
+    border: none;
+    z-index: 1;
+}
+
+.scrollChecklist{
+    overflow-y: scroll; 
+    height: 350px; 
+    overflow-x: hidden;
+    padding: 10px;
+}
+
+
+#checkList::-webkit-scrollbar {
+    width: 5px;
+}
+
+#checkList:-webkit-scrollbar-track {
+    background: none; 
+}
+
+#checkList::-webkit-scrollbar-thumb {
+    background: none
+}
+
+#checkList::-webkit-scrollbar-thumb:hover {
+    background: white; 
+    border-radius: 10px; 
+}
+
+.checklist-title {
+    font-size: 25px; 
+    margin-top: 20px; 
+    margin-left: 10px; 
+    color: #FFFFFF; 
+    width: 50%;
+}
+
+.checklist-card{
+    width: 300px; 
+    height: 120px; 
+    background-color: #fff;
+    border-radius: 20px; 
+    margin-top: 10px;
+}
+
+.checklist-name {
+    font-size: 14px; 
+    margin-top: 10px; 
+    margin-bottom: 5px;
+}
+
+.checklist-note {
+    font-size: 12px;
+}
+
+.buttonChecklist {
+    background-color: #EEF1F4;
+    border-radius: 8px; 
+    border: none; 
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-top: 5px;
+    float: right;
+    margin-right: 10px;
+}
+
+.trash {
+    background-color: #FF0000;
+    color: #fff;
+}
+
+.trash:hover {
+    background-color: #DD0000 !important;
+}
+
+.limit {
+    background-color: #DADADA !important;
+    color: #757575 !important;
+}
+
+.buttonChecklist:hover {
+    background-color: #DADADA;
+}
+
+.checklist-quantity {
+    font-size: 14px; 
+    float: right; 
+    color: black; 
+    padding-top: 10px; 
+    padding-right: 10px;
+}
+
+.checklist-submit {
+    width: 100%; 
+    height: 100px; 
+    background-color: #757575; 
+    border-radius: 30px; 
+    padding: none;
+    position: relative;
+}
+
+.checklist-item-quantity {
+    font-size: 14px; 
+    color:white; 
+    top:25%; 
+    position: absolute; 
+    left:10%
+}
+
+.checklist-submit-button {
+    width: 111px; 
+    height: 41px; 
+    border: none; 
+    background-color: #334173; 
+    color: white; 
+    font-size: 12px; 
+    border-radius: 30px;
+    position:absolute;
+}
+
+.checklist-submit-button {
+    cursor: pointer;
+}
