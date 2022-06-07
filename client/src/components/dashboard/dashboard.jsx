@@ -69,23 +69,35 @@ export default function Dashboard(props) {
                     </h2>
                 </div>
                 <div className="detail">
-                    <ul className="title_list-infor">
-                        <li className="title_item-infor">ID: </li>
-                        <li className="title_item-infor">Email: </li>
-                        <li className="title_item-infor">Full name: </li>
-                        <li className="title_item-infor">Student code: </li>
-                        <li className="title_item-infor">Phone number: </li>
-                    </ul>
+                    {editButton && 
                     <ul className="list-infor">
-                        <li className="item-infor">{props.user._id}</li>
-                        <li className="item-infor">{props.user.email}</li>
-                        <li className="item-infor">{props.user.fullName}</li>
-                        <li className="item-infor">{props.user.studentCode}</li>
-                        <li className="item-infor">{props.user.phoneNumber}</li>
-                        {editButton && <button className="button-info" onClick={handleEditButtonClick}>Edit</button>}
-                        {saveButton && <button className="button-info" onClick={handleEditButtonClick}>Save</button>}
-                        {logoutButton && <button className="button-info">Log out</button>}
-                    </ul>
+                        <li className="item-infor">ID: {props.user._id}</li>
+                        <li className="item-infor">Email: {props.user.email}</li>
+                        <li className="item-infor">Full name: {props.user.fullName}</li>
+                        <li className="item-infor">Student code: {props.user.studentCode}</li>
+                        <li className="item-infor">Phone number: {props.user.phoneNumber}</li>
+                    </ul>}
+                    {!editButton && 
+                    <ul className="list-infor edit-pass">
+                        <li className="item-infor">
+                        <label>Old password: </label>
+                        <input type="text" onChange={e =>setOldPassword(e.target.value)}/>
+                        </li>
+
+                        <li className="item-infor">
+                        <label>New password: </label>
+                        <input type="text" onChange={e =>setNewPassword(e.target.value)}/>
+                        </li>
+
+                        <li className="item-infor">
+                        <label>Confirm password: </label>
+                        <input type="text" onChange={e =>setConfirmPassword(e.target.value)}/>
+                        </li> 
+                    </ul>}
+                    {error && <div>Wrong old password or confirm password.<br/>Please type again!</div>}
+                    {editButton && <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>}
+                    {editButton && <button className="button-info" onClick={handleEditButtonClick}>Edit</button>}
+                    {!editButton && <button className="button-info" onClick={handleSaveButtonClick}>Save</button>}
                 </div>
             </div>
             {
