@@ -32,45 +32,69 @@ export default function Signup() {
     }
 
     return (
-        <div className="signup_background">
-            <h1 className="">{`Hi ${fullName}`}</h1>
-            <div className="signup_container">
-                <label>full name</label>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setFullName(e.target.value);
-                    }}
-                />
-                <label>email</label>
-                <input
-                    type='email'
-                    onChange={(e) => {
-                        setEmail(e.target.value);
-                    }}
-                />
-                <label>password</label>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setPassword(e.target.value);
-                    }}
-                />
-                <label>student code</label>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setStudentCode(e.target.value);
-                    }}
-                />
-                <label>phone</label>
-                <input
-                    type="number"
-                    onChange={(e) => {
-                        setPhoneNumber(e.target.value);
-                    }}
-                />
-                <button onClick={register}> Register </button>
+        <div className="signup_background_container_container">
+            <div className="signup_background_container">
+
+                    {/* left */}
+                    <div className="signup_background_left">
+                        <img src="C:\Users\LAPTOP MSI\Desktop\Sign_up\CSE-Asset-Manager\client\src\components\auth\image\imgg.png" alt="" />
+                        <h1>ASSET CSE</h1>
+                        <p>A powerful website for asset management</p>
+                    </div>
+
+                    {/* right */}
+                    <div className="signup_background_right">
+                        <div className="title_signup_background_right">
+                            <h1>Sign up</h1>
+                        </div>
+                        
+                        {/* <h1 className="">{`Hi ${fullName}`}</h1> */}
+
+                        <div className="signup_alhave">
+                            <p>Already have an acount?</p> <a id="link_signin" href="">Sign in</a>
+                        </div>                  
+                                <label>Full name</label>
+                                <input
+                                    className="input_signup_background_right"
+                                    type="text"
+                                    onChange={(e) => {
+                                        setFullName(e.target.value);
+                                    }}
+                                />                                                  
+                                <label>Email</label>
+                                <input
+                                    className="input_signup_background_right"
+                                    type='email'
+                                    onChange={(e) => {
+                                        setEmail(e.target.value);
+                                    }}
+                                />                                        
+                                <label>Password</label>
+                                <input
+                                    className="input_signup_background_right"
+                                    type="text"
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                    }}
+                                />                                              
+                                <label>Student code</label>
+                                <input
+                                    className="input_signup_background_right"
+                                    type="text"
+                                    onChange={(e) => {
+                                        setStudentCode(e.target.value);
+                                    }}
+                                />                         
+                                <label>Phone</label>
+                                <input
+                                    className="input_signup_background_right"
+                                    type="number"
+                                    onChange={(e) => {
+                                        setPhoneNumber(e.target.value);
+                                    }}
+                                />
+                            <button className="button_signup_container" onClick={register}> Register </button>
+                    </div>
             </div>
         </div>
     )

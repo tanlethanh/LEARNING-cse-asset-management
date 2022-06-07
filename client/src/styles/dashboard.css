@@ -16,6 +16,65 @@
     width: 100%;
 }
 
+.item_submit_button {
+    border: none;
+    width: 90px;
+    height: 40px;
+    background-color: #48578E;
+    border-radius: 30px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 1em;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+
+.item_submit {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 4%;
+}
+
+.order_submit_button {
+    border: none;
+    width: 90px;
+    height: 40px;
+    background-color: #48578E;
+    border-radius: 30px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 1em;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+
+.order_submit {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 4%;
+}
+
+.user_enable_submit_button {
+    border: none;
+    width: 220px;
+    height: 40px;
+    background-color: #48578E;
+    border-radius: 30px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 1em;
+    color: #fff;
+    text-align: center;
+}
+
+.user_enable_submit {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 4%;
+}
+
 /* Information */
 
 #information {

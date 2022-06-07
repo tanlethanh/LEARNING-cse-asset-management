@@ -42,18 +42,22 @@ export default function Login(props) {
                 </div>
 
                 <div className="login_title">
-                    <h1>Login</h1>
+                    <h1>Log In</h1>
+                    <div className="login_donthave">
+                        <p>Don't have an account?</p>
+                        <a href="#" onClick={this}>Sign up now</a>
+                    </div>
                 </div>
 
                 <div className="login_body">
 
-                    <label>email</label>
-                    <input type="text" onChange={e => {
+                    <label className="label_login_body">Email Address</label>
+                    <input className="input_login_body" type="text" onChange={e => {
                         setEmail(e.target.value)
                     }} />
 
-                    <label>password</label>
-                    <input type="password" onChange={e => {
+                    <label className="label_login_body">Password</label>
+                    <input className="input_login_body" type="password" onChange={e => {
                         setPassword(e.target.value)
                     }} />
 
