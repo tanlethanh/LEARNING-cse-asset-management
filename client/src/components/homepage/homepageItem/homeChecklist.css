@@ -39,25 +39,31 @@
     font-size: 25px; 
     margin-top: 20px; 
     margin-left: 10px; 
-    color: #FFFFFF; 
+    color: #FFF; 
     width: 50%;
 }
 
 .checklist-card{
     width: 300px; 
-    height: 120px; 
+    height: 100px; 
     background-color: #fff;
     border-radius: 20px; 
     margin-top: 10px;
 }
 
 .checklist-name {
+    position: relative;
+    left: 20px;
+    top: 18px;
     font-size: 14px; 
     margin-top: 10px; 
     margin-bottom: 5px;
 }
 
 .checklist-note {
+    left: 20px;
+    top: 20px;
+    position: relative;
     font-size: 12px;
 }
 
@@ -119,6 +125,8 @@
 .checklist-submit-button {
     width: 111px; 
     height: 41px; 
+    right: 20px;
+    bottom: 45px;
     border: none; 
     background-color: #fff; 
     color: #212C58; 

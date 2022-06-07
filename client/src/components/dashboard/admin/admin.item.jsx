@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
-
+import './admin.item.css'
 export default function Items({ items, setChangeItems, changeItems }) {
 
     const [addItem, setAddItem] = useState(false)
@@ -102,7 +102,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
     }
 
     return (
-        <div>
+        <div className='scrollItem' id='scroll'>
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input type="text" placeholder="Search item" />
