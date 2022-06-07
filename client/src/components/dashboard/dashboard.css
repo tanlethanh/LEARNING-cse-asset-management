@@ -48,11 +48,19 @@
     position: absolute;
     top: calc(30px + var(--height-nav)); 
     right: 300px;
+    display: flex;
 }
 
 .item-infor {
     margin-bottom: 8px;
     list-style-type: none;
+}
+
+.title_item-infor {
+    margin-bottom: 8px;
+    list-style-type: none;
+    margin-right: 20px;
+    text-align: right;
 }
 
 .button-info {
