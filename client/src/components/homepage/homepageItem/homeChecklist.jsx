@@ -45,7 +45,7 @@ export default function Checklist(props) {
         {props.registerItem.map((item) => {
           return (
             <div className="checklist-card" key={item._id}>
-              <p className="checklist-name"><b>{item.item.name}</b></p>
+              <p className="checklist-name">{item.item.name}</p>
               <p className="checklist-note">Note: {item.item.decription}</p>
               <button className="buttonChecklist trash" onClick={() => { handleTrash(item.item._id) }}>
                 <i class="fa-solid fa-trash-can"></i></button>
@@ -54,7 +54,7 @@ export default function Checklist(props) {
                   <i class="fa-solid fa-minus"></i></button>}
               {item.quantity === 1 &&
                 <button className="buttonChecklist limit"><i class="fa-solid fa-minus"></i></button>}
-              <p className="checklist-quantity"><b>{item.quantity}</b></p>
+              <p className="checklist-quantity">{item.quantity}</p>
               {item.quantity < item.item.available &&
                 <button className="buttonChecklist" onClick={() => { item.quantity++; setTest(!test) }}>
                   <i class="fa-solid fa-plus"></i></button>}

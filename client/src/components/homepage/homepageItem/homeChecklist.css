@@ -53,16 +53,16 @@
 
 .checklist-name {
     position: relative;
+    font-weight: bold;
     left: 20px;
-    top: 18px;
+    top: 15px;
     font-size: 14px; 
-    margin-top: 10px; 
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .checklist-note {
     left: 20px;
-    top: 20px;
+    top: 10px;
     position: relative;
     font-size: 12px;
 }
@@ -74,7 +74,7 @@
     width: 30px;
     height: 30px;
     cursor: pointer;
-    margin-top: 5px;
+    margin-top: 10px;
     float: right;
     margin-right: 10px;
 }
@@ -101,8 +101,10 @@
     font-size: 14px; 
     float: right; 
     color: black; 
-    padding-top: 10px; 
+    padding-top: 5px; 
     padding-right: 10px;
+    margin-top: 10px;
+    font-weight: bold;
 }
 
 .checklist-submit {
@@ -123,10 +125,10 @@
 }
 
 .checklist-submit-button {
-    width: 111px; 
-    height: 41px; 
+    width: 120px; 
+    height: 50px; 
     right: 20px;
-    bottom: 45px;
+    top: 30%;
     border: none; 
     background-color: #fff; 
     color: #212C58; 
