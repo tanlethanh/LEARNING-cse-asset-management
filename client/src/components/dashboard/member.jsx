@@ -15,36 +15,26 @@ export default function Member(props) {
     const [waitingList, setWaitingList] = useState([])
     const [borrowList, setBorrowList] = useState([])
     const [returnList, setReturnList] = useState([])
-    const [change, setChange] = useState(Boolean)
-
-    useEffect(() => {
-        // setChange(!change)
-    }, [returnList])
 
     useEffect(() => {
         props.user.orders.map((orderid, index) => {
             Axios.get(`http://localhost:8266/api/order/${orderid}`)
                 .then((response) => {
-                    const testWait = response.data.order.status != "done" && currentTab === "Waiting list"
-                    const testBorrow = response.data.order.status == "ok" && currentTab === "Borrowing list"
-                    if (testWait) {
+                    if (response.data.order.status !== "done") {
                         arrWait.push(response.data.order)
-                    } else if (testBorrow) {
-                        arrBorrow.push(response.data.order)
-                    } else {
+                        if (response.data.order.status === "ok") {
+                            arrBorrow.push(response.data.order)
+                    }} else {
                         arrReturn.push(response.data.order)
                     }
-                    if (index === props.user.orders.length - 1) {
+                    if (index === props.user.orders.length -1) {
                         setWaitingList(arrWait)
                         setBorrowList(arrBorrow)
                         setReturnList(arrReturn)
                     }
                 });
         });
-
     }, [])
-
-
 
     return (
         <div className="content">
@@ -62,16 +52,16 @@ export default function Member(props) {
             </div>
 
             <div id="list">
-                <div class="list-search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                <div className="list-search">
+                    <i className="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search item" />
                 </div>
 
-                {currentTab == "Waiting list" &&
+                {currentTab === "Waiting list" &&
                     <Waiting currentList={waitingList} setCurrentList={setWaitingList} />}
-                {currentTab == "Borrowing list" &&
+                {currentTab === "Borrowing list" &&
                     <Borrow currentList={borrowList} setCurrentList={setBorrowList} />}
-                {currentTab == "Returned list" &&
+                {currentTab === "Returned list" &&
                     <Returned currentList={returnList} setCurrentList={setReturnList} />}
             </div>
         </div>

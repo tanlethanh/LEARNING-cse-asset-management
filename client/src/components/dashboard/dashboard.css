@@ -66,6 +66,7 @@
 .button-info {
     border: none;
     /* position: absolute; */
+    float: right;
     width: 90px;
     height: 40px;
     background-color: #48578E;
@@ -83,3 +84,4 @@
     background-color: #334173;
     color: #fff;
 }
+

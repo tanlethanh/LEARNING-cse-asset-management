@@ -1,0 +1,145 @@
+.checklist-container {
+    width: 325px;
+    height: 510px;
+    border-radius: 0px 0px 30px 30px;
+    background-color: #6F7DB0;
+    position: fixed;
+    top: 70px;
+    right: 0;
+    border: none;
+    z-index: 1;
+}
+
+.scrollChecklist{
+    overflow-y: scroll; 
+    height: 350px; 
+    overflow-x: hidden;
+    padding: 10px;
+}
+
+
+#checkList::-webkit-scrollbar {
+    width: 5px;
+}
+
+#checkList:-webkit-scrollbar-track {
+    background: none; 
+}
+
+#checkList::-webkit-scrollbar-thumb {
+    background: none
+}
+
+#checkList::-webkit-scrollbar-thumb:hover {
+    background: white; 
+    border-radius: 10px; 
+}
+
+.checklist-title {
+    font-size: 25px; 
+    margin-top: 20px; 
+    margin-left: 10px; 
+    color: #FFF; 
+    width: 50%;
+}
+
+.checklist-card{
+    width: 300px; 
+    height: 100px; 
+    background-color: #fff;
+    border-radius: 20px; 
+    margin-top: 10px;
+}
+
+.checklist-name {
+    position: relative;
+    font-weight: bold;
+    left: 20px;
+    top: 15px;
+    font-size: 14px; 
+    margin-bottom: 10px;
+}
+
+.checklist-note {
+    left: 20px;
+    top: 10px;
+    position: relative;
+    font-size: 12px;
+}
+
+.buttonChecklist {
+    background-color: #EEF1F4;
+    border-radius: 8px; 
+    border: none; 
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-top: 10px;
+    float: right;
+    margin-right: 10px;
+}
+
+.trash {
+    background-color: #FF0000;
+    color: #fff;
+}
+
+.trash:hover {
+    background-color: #DD0000 !important;
+}
+
+.limit {
+    background-color: #DADADA !important;
+    color: #757575 !important;
+}
+
+.buttonChecklist:hover {
+    background-color: #DADADA;
+}
+
+.checklist-quantity {
+    font-size: 14px; 
+    float: right; 
+    color: black; 
+    padding-top: 5px; 
+    padding-right: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.checklist-submit {
+    width: 100%; 
+    height: 110px; 
+    background-color: #334173; 
+    border-radius: 30px; 
+    padding: none;
+    position: relative;
+}
+
+.checklist-item-quantity {
+    font-size: 14px; 
+    color:white; 
+    top:25%; 
+    position: absolute; 
+    left:10%
+}
+
+.checklist-submit-button {
+    width: 120px; 
+    height: 50px; 
+    right: 20px;
+    top: 30%;
+    border: none; 
+    background-color: #fff; 
+    color: #212C58; 
+    font-size: 14px; 
+    text-align: center;
+    border-radius: 30px;
+    position:absolute;
+}
+
+.checklist-submit-button:hover {
+    cursor: pointer;
+    background-color: #212C58;
+    color: #fff
+}

@@ -1,59 +1,104 @@
 .homepage-container {
-    background-color: #FFF;
     width: 100vw;
-    height: 1200px;
 }
 
-h1.hp_h1 {
-    font-size: 28.13px; 
-    margin-left: 28.13px; 
+.homepage-title {
+    font-weight: bold;
+    font-size: 30px; 
+    margin-left: 30px; 
     margin-top: 80px;
 }
-div#hp_search {
-    margin-left: 28.13px; 
-    width: auto;
+
+.un-title {
+    margin-top: 30px !important;
 }
-div.hp_container {
+
+.list-search  {
+    display: flex;
+    align-items: center;
+    margin-left: 30px; 
+}
+
+.homepage-item-container {
     position: relative;
     margin:auto; 
     margin-top: 23px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
-div.hp_card {
-    border: none;
+.homepage_card {
     position: relative;
-    width: 25%;
+    width: 30%;
+    height: 180px;
     display: inline-flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    height: 160px;
-    margin: 10px 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
-div.hp_leftcard {
-    position: absolute;
-    width: 60%;
+
+.homepage_leftcard {
+    width: 50%;
     height: 100%;
-    background-color: #3b6bb4;
+    background-color: #97A5D0;
 }
-div.hp_rightcard {
-    position: relative;
+.homepage_rightcard {
     display: block;
+    margin-left: 10px;
+    margin-top: 3%;
+    margin-bottom: 3%;
 }
-p.hp_info {
-    position: absolute;
-    margin-bottom: 2px;
-    left: 220%;
-    text-align: center;
-    top: -5px;
+
+.un-leftcard {
+    background-color: #DADADA !important;
 }
-.hp_info#hp_name {
+
+.homepage_name {
     text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 20px;
 }
-button.hp_reg {
-    left: 80%;
-    top: 120%;
-    background-color: #737373;
+
+.homepage_info {
+    margin-left: 20px !important;
+    font-size: 14px;
+    padding-top: 2px;
+    color: #606060;
 }
-hr.hp_line {
+
+.homepage_reg {
+    font-weight: bold;
+    width: 111px; 
+    height: 41px; 
+    border: none; 
+    background-color: #334173; 
+    color: #fff; 
+    font-size: 12px; 
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 10%;
+}
+
+.homepage_reg:hover {
+    cursor: pointer;
+    background-color: #212C58;
+    color: #fff;
+}
+
+.homepage-un-button {
+    font-weight: bold;
+    width: 111px; 
+    height: 41px; 
+    border: none; 
+    font-size: 12px; 
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 10%;
+    background-color: #757575;
+    color: #fff;
+}
+
+.homepage-line {
     height:3px; 
     width:80%; 
     margin:auto; 

@@ -10,9 +10,13 @@ import Member from './member';
 export default function Dashboard(props) {
 
     const navigate = useNavigate()
+
+    const [error, setError] = useState(false)
     const [editButton, setEditButton]= useState(true)
-    const [saveButton, setSaveButton] = useState(false)
-    const [logoutButton, setLogoutButton] = useState(true)
+    const [oldPassword, setOldPassword] = useState('')
+    const [newPassword, setNewPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    
 
     const handleLogoutButtonClick = () => {
         Axios.post("http://localhost:8266/api/auth/logout")
@@ -24,9 +28,33 @@ export default function Dashboard(props) {
     }
 
     const handleEditButtonClick = () => {
-        setEditButton(!editButton)
-        setSaveButton(!saveButton)
-        setLogoutButton(!logoutButton)
+        setEditButton(false)
+    }
+
+    const handleSaveButtonClick = () => {
+        if (!editButton) {
+            Axios.post("http://localhost:8266/api/auth/login", {
+            email: props.user.email,
+            password: oldPassword,
+            })
+            
+            .then((response) => {
+                if (response.data.user && newPassword == confirmPassword) {
+                    setError(false)
+                    setEditButton(true)
+                    Axios.post("http://localhost:8266/api/auth/password", {
+                    newPassword: newPassword,
+                    })
+                    .then((response) => {
+                        console.log(response.data.message)
+                        navigate("../dashboard", { replace: true })
+                    });
+                } else {
+                    setError(true)
+                    setEditButton(false)
+                }
+            });
+        }    
     }
 
     return (
