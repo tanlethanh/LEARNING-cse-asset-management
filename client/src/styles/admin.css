@@ -128,9 +128,19 @@
     justify-content: space-between;
 }
 
+.list-item:hover {
+    padding-left: 10px;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
 .list-item-title {
     height: 35px !important;
     font-weight: 700;
+    height: 45px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .list-item-odd {
@@ -296,32 +306,33 @@
 
 /* for orders page */
 .order_accept_button {
-    font-weight: 700;
-    background-color: #fff;
-    border: 2px solid green;
+    font-weight: 600;
+    background-color: #EBF9F1;
+    color: #1F9254;
+    border: 1.5px solid #1F9254;
     border-radius: 15px;
-    color: green;
+    color: #1F9254;
     width: 70px;
     height: 40px;
     margin-right: 10px;
 }
 
 .order_accept_button.chosen {
-    background-color: green;
-    color: #fff;
+    background-color: #1F9254;
+    color: #EBF9F1;
 }
 
 .order_deny_button {
-    font-weight: 700;
+    font-weight: 600;
     background-color: #fff;
-    border: 2px solid red;
+    border: 1.5px solid #A30D11;
     border-radius: 15px;
-    color: red;
+    color: #A30D11;
     width: 70px;
     height: 40px;
 }
 
 .order_deny_button.chosen {
-    background-color: red;
-    color: #fff;
+    background-color: #A30D11;
+    color: #FBE7E8;
 }

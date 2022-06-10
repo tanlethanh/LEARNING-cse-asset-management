@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Axios from "axios";
-
 import { Header, Footer } from './components/headerfooter/headerfooter';
 import Signup from './components/auth/signup'
 import Dashboard from './components/dashboard/dashboard'
 import Homepage from './components/homepage/homepage'
 import Authpage from './components/auth/authpage'
+import DetailUser from './components/dashboard/admin/admin.user.detail';
+import DetailItem from './components/dashboard/admin/admin.item.detail'
 
 function App() {
     // To ensure that use cookies and sessions
@@ -51,6 +52,18 @@ function App() {
                         <Authpage setUser={setUser} />
                     }
 
+                />
+                <Route
+                    path="/user/detail/:id"
+                    element={
+                        <DetailUser/>
+                    }
+                />
+                <Route
+                    path="/item/detail/:id"
+                    element={
+                        <DetailItem/>
+                    }
                 />
             </Routes>
             <Footer />

@@ -167,7 +167,8 @@ exports.updateStateOrder = async (req, res) => {
                     {
                         $set: {
                             "borrowerList.$.status": "done"
-                        }
+                        },
+                        $inc: {'available': order.quantity }
                     }
                 )
 

@@ -114,7 +114,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
                 {addItem && <AddNewItem />}
             </div>
 
-            <div className="list-item list-item-title">
+            <div className="list-item-title">
                 <div className="list-item-col item-col-name">Name of item</div>
                 <div className="list-item-col">Category</div>
                 <div className="list-item-col">Available</div>

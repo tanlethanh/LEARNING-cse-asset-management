@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 export default function Users(props) {
 
+    const navigate = useNavigate()
     const [users_register, setUsers_register] = useState([])
     const [users_enable, setUsers_enable] = useState([])
 
@@ -13,14 +15,11 @@ export default function Users(props) {
     }, [props.users])
 
     const handleChecked = ((index, usersType) => {
-
         if (usersType === 'register') {
             users_register[index].enable = !users_register[index].enable
-            console.log(users_register[index].enable)
         }
         else if (usersType === 'enable') {
             users_enable[index].enable = !users_enable[index].enable
-            console.log(users_enable[index].enable)
         }
 
     })
@@ -41,7 +40,7 @@ export default function Users(props) {
                         })
                 }
             })
-            
+
         }
         else if (usersType === 'enable') {
             users_enable.map((user) => {
@@ -53,25 +52,27 @@ export default function Users(props) {
                         })
                 }
             })
-            
+
         }
 
     }
 
-    
+    const openUserDetail = (user) => {
+        navigate("../user/detail/" + user._id, { state: { user: user } })
+    }
+
+
 
 
     // Component of user who is not enable
     function UsersRender(props) {
         return (
             <div>
-                {console.log("rerender UsersRender")}
-                <h1>Hello {props.type === 'register' ? "users_register" : "users_enable"}</h1>
                 <div className="list-search">
                     <i className="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search item" />
                 </div>
-                <div className="list-item list-item-title">
+                <div className="list-item-title">
                     <div className="list-item-col user_email_col">Email</div>
                     <div className="list-item-col user_name_col">Full Name</div>
                     <div className="list-item-col user_code_col">Student Code</div>
@@ -81,7 +82,12 @@ export default function Users(props) {
                 {
                     props.users.map((user, index) => {
                         return (
-                            <div key={user._id} className={"list-item " + (index % 2 === 0 && "list-item-odd")}>
+                            <div
+
+                                key={user._id}
+                                className={"list-item " + (index % 2 === 0 && "list-item-odd")}
+                                onClick={() => openUserDetail(user)}
+                            >
                                 <div className="list-item-col user_email_col">{user.email}</div>
                                 <div className="list-item-col user_name_col">
                                     {user.fullName}

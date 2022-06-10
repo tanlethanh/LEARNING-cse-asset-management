@@ -1,13 +1,14 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
-// import '../admin.css'
+import { useNavigate } from 'react-router-dom';
 
-export default function Orders({orders, nameList, setChangeOrders, changeOrders}) {
+export default function Orders({ orders, items, users, nameList, setChangeOrders, changeOrders }) {
     // orders are list of order which all has the same status (nameList)
     // nameList is type of chosen list in menu bar, its equal to status of any order in 'orders'
     const [change, setChange] = useState(false)
+    const navigate = useNavigate()
 
-    useEffect(()=>{}, [orders])
+    useEffect(() => { }, [orders])
 
     const handleButton = (index, nextStatus) => {
         if (orders[nameList][index].status !== nextStatus) {
@@ -27,21 +28,37 @@ export default function Orders({orders, nameList, setChangeOrders, changeOrders}
                 else if (order.status === 'denied') action = 'deny'
                 else if (order.status === 'done') action = 'confirm'
                 Axios.patch(`http://localhost:8266/api/order/${order._id}?action=${action}`)
-                    .then(response=>{
+                    .then(response => {
                         setChangeOrders(!changeOrders)
-                    }) 
+                    })
             }
-        })   
+        })
+    }
+
+    const handleClickItem = (idItem) => {
+        items.forEach(item => {
+            if (item._id === idItem) {
+                return navigate("../item/detail/" + item._id, { state: { item: item } })
+            }
+        })
+
+    }
+
+    const handleClickUser = (idUser) => {
+        users.forEach(user => {
+            if (user._id === idUser) {
+                return navigate("../user/detail/" + user._id, { state: { user: user } })
+            }
+        })
     }
 
     return (
         <div>
-            <h1>Hello orders</h1>
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input type="text" placeholder="Search item" />
             </div>
-            <div className="list-item list-item-title">
+            <div className="list-item-title">
                 <div className="list-item-col order_name_item">Name of item</div>
                 <div className="list-item-col order_quantity">Quantity</div>
                 <div className="list-item-col order_return_date">Return date</div>
@@ -56,24 +73,42 @@ export default function Orders({orders, nameList, setChangeOrders, changeOrders}
                 orders[nameList].map((order, index) => {
                     return (
                         <div key={order._id} className={"list-item " + (index % 2 === 0 && "list-item-odd")}>
-                            <div className="list-item-col order_name_item">{order.nameItem}</div>
+
+                            <div
+                                className="list-item-col order_name_item"
+                                onClick={() => {
+                                    handleClickItem(order.idItem)
+                                }}
+                            >
+                                {order.nameItem}
+                            </div>
+
                             <div className="list-item-col order_quantity">{order.quantity}</div>
                             <div className="list-item-col order_return_date">
                                 {order.returnDate.substring(0, order.returnDate.indexOf('T'))}
                             </div>
-                            <div className="list-item-col order_name_user">{order.nameUser}</div>
+
+                            <div
+                                className="list-item-col order_name_user"
+                                onClick={() => {
+                                    handleClickUser(order.idUser)
+                                }}
+                            >
+                                {order.nameUser}
+                            </div>
+
                             <div className="list-item-col">
                                 {
                                     nameList === 'pending' &&
                                     <div>
                                         <button
-                                            className={"order_accept_button " + (order.status === 'ok' ? "chosen": "")}
+                                            className={"order_accept_button " + (order.status === 'ok' ? "chosen" : "")}
                                             onClick={() => { handleButton(index, 'ok') }}
                                         >
                                             Accept
                                         </button>
                                         <button
-                                            className={"order_deny_button " + (order.status === 'denied' ? "chosen": "")}
+                                            className={"order_deny_button " + (order.status === 'denied' ? "chosen" : "")}
                                             onClick={() => { handleButton(index, 'denied') }}
                                         >
                                             Deny
@@ -86,7 +121,10 @@ export default function Orders({orders, nameList, setChangeOrders, changeOrders}
                                 }
                                 {
                                     nameList === 'complete' &&
-                                    <div>{order.status}</div>
+                                    <div className=
+                                        {order.status === 'denied' ? 'denied_status' : 'accept_status'}
+
+                                    >{order.status}</div>
                                 }
 
                             </div>

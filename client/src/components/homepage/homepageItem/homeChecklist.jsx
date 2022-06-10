@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import './homeChecklist.css'
-import AuthPage from "../../auth/authpage";
+import Alert from "../../alert";
 
 export default function Checklist(props) {
   const [change, setChange] = useState()
   const [test, setTest] = useState(true)
 
-  const handleTrash =(e) =>{
+  // For alert
+  const [alert, setAlert] = useState(false)
+  const [alertMess, setAlertMess] = useState('')
+
+  const handleTrash = (e) => {
     props.setRegisterItem(props.registerItem.filter(item => item.item._id != e))
     props.setItemPick(props.itemPick.filter(item => item._id != e))
     setTest(!test)
@@ -20,13 +24,17 @@ export default function Checklist(props) {
         "idItem": item.item._id,
         "returnDate": new Date(),
       })
-
         .then((response) => {
-          if (response.data.status === 401) {
-            return (<AuthPage />)
-          }
           props.setRegisterItem([])
           props.setChecklist(!props.checklist)
+        })
+        .catch((error) => {
+          if (error.response.data.status === 401) {
+            console.log("Hereee")
+            setAlertMess("You are not logged in!")
+            setAlert(false)
+            setAlert(true)
+          }
         })
     })
   }
@@ -37,6 +45,14 @@ export default function Checklist(props) {
 
   return (
     <div className="checklist-container">
+      <Alert
+        type="warning"
+        message={alertMess}
+        alert={alert}
+        setAlert={setAlert}
+      />
+
+
       <div>
         <p className="checklist-title"><b>CHECKLIST</b></p>
       </div>

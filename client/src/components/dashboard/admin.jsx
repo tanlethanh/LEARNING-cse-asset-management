@@ -126,6 +126,8 @@ export default function Admin() {
                     {currentList.substring(0, currentList.indexOf("_")) === "orders" &&
                         <Orders
                             orders={orders}
+                            items={items}
+                            users={users}
                             nameList={currentList.substring(currentList.indexOf("_") + 1, currentList.length)}
                             setChangeOrders={setChangeOrders}
                             changeOrders={changeOrders}

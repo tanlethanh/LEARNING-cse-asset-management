@@ -3,7 +3,7 @@ import '../styles/alert.css'
 
 export default function Alert({ type, message, alert, setAlert }) {
 
-    if (type === "error" || type === "success") {
+    if (type === "error" || type === "success" || type === "warning") {
         return (
             alert && 
             <div className={'alert_container ' + type}>
@@ -11,6 +11,7 @@ export default function Alert({ type, message, alert, setAlert }) {
                     {/* <i>Hello</i> */}
                     {type === 'error' && <i class="fa-solid fa-circle-exclamation"></i>}
                     {type === 'success' && <i class="fa-solid fa-circle-check"></i>}
+                    {type === 'warning' && <i class="fa-solid fa-triangle-exclamation"></i>}
                 </div>
                 <div className='alert_content'>
                     <h3 className='alert_content_title'>
@@ -24,7 +25,7 @@ export default function Alert({ type, message, alert, setAlert }) {
                 {
                     setTimeout(function () {
                         setAlert(false)
-                    }, 1000)
+                    }, 10000)
                 }
                 </div>
                 
