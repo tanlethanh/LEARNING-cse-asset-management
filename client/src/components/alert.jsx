@@ -25,7 +25,7 @@ export default function Alert({ type, message, alert, setAlert }) {
                 {
                     setTimeout(function () {
                         setAlert(false)
-                    }, 10000)
+                    }, 1000)
                 }
                 </div>
                 
