@@ -8,13 +8,25 @@ export default function AvaiItem(props) {
     const [registerItem, setRegisterItem] = useState([])
     const [itemPick, setItemPick] = useState([])
 
-    const handleRegister = (e)=>{
-        if (!itemPick.includes(e)){
+    const handleRegister = (e) => {
+        if (!itemPick.includes(e)) {
             setRegisterItem([...registerItem, {
                 item: e,
                 quantity: 1
             }])
-            setItemPick([...itemPick, e])    
+            setItemPick([...itemPick, e])
+        }
+    }
+
+    const handleRemove = (e) => {
+        if (itemPick.includes(e)) {
+            setRegisterItem(registerItem.filter((element) => {
+                return element.item != e
+            }))
+
+            setItemPick(registerItem.filter((element) => {
+                return element != e
+            }))
         }
     }
 
@@ -33,21 +45,29 @@ export default function AvaiItem(props) {
                                 <li className='homepage_info'>Category: {item.category}</li>
                                 <li className='homepage_info' id='hp_des'>Des: {item.description}</li>
                             </ul>
-                            <button className='homepage_reg' onClick={() => { handleRegister(item) }}>
-                                REGISTER
-                            </button>
+
+                            {
+                                !itemPick.includes(item) ?
+                                    <button className='homepage_reg' onClick={() => { handleRegister(item) }}>
+                                        REGISTER
+                                    </button> :
+                                    <button className='homepage_added' onClick={() => { handleRemove(item) }}>
+                                        ADDED
+                                    </button>
+                            }
+
                         </div>
                     </div>
                 )
             })}
-            {props.checklist && 
-                <Checklist 
-                registerItem = {registerItem} setRegisterItem={setRegisterItem} 
-                checklist={props.checklist} setChecklist={props.setChecklist}
-                itemPick = {itemPick} setItemPick = {setItemPick}/>
+            {props.checklist &&
+                <Checklist
+                    registerItem={registerItem} setRegisterItem={setRegisterItem}
+                    checklist={props.checklist} setChecklist={props.setChecklist}
+                    itemPick={itemPick} setItemPick={setItemPick} />
             }
-                     
-            
-        </div>            
+
+
+        </div>
     )
 }

@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import './headerfooter.css'
+import { useNavigate } from 'react-router-dom';
 
 export function Header(props) {
+    const navigate = useNavigate();
+
     return (
         <header id="header">
             <ul>
@@ -13,17 +15,24 @@ export function Header(props) {
                     </a>
                 </li>
                 <li className="header-right">
-                    <Link className="nav-btn" to={'/'}>Home</Link>
-                    <Link className="nav-btn" to={'/dashboard'}>Dash board</Link>
-                    <a 
-                    className="nav-btn" 
-                    onClick={
-                        ()=>{
-                            props.setChecklist(!props.checklist)
+
+                    <div className="nav-btn" onClick={() => {
+                        navigate("../", { replace: true })
+                    }}>Home</div>
+
+                    <div className="nav-btn" onClick={() => {
+                        navigate("../dashboard", { replace: true })
+                    }}>Dash board</div>
+
+                    <a
+                        className="nav-btn"
+                        onClick={
+                            () => {
+                                props.setChecklist(!props.checklist)
                             }
-                            }>
-                            <i className="fa-solid fa-box-open"></i>
-                            </a>
+                        }>
+                        <i className="fa-solid fa-box-open"></i>
+                    </a>
                 </li>
             </ul>
         </header>
@@ -31,6 +40,7 @@ export function Header(props) {
 }
 
 export function Footer() {
+    const navigate = useNavigate();
     return (
         <footer className="footer">
             <div className="top_footer">
@@ -40,14 +50,18 @@ export function Footer() {
                 </div>
                 <div className="navi">
                     <h3 className="footer-title">Navigation</h3>
-                    <Link className="item" to={'/'}>
+                    <div className="item item_btn" onClick={() => {
+                        navigate("../", { replace: true })
+                    }}>
                         <i className="fa-solid fa-angle-right"></i>
                         <p>Home page</p>
-                    </Link>
-                    <Link className="item" to={'/dashboard'}>
+                    </div>
+                    <div className="item item_btn" onClick={() => {
+                        navigate("../dashboard", { replace: true })
+                    }}>
                         <i className="fa-solid fa-angle-right"></i>
                         <p>Dash board </p>
-                    </Link>
+                    </div>
                 </div>
                 <div className="contact">
                     <h3 className="footer-title">Contact</h3>

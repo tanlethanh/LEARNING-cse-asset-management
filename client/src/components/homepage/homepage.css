@@ -76,12 +76,34 @@
     text-align: center;
     margin-top: 20px;
     margin-left: 10%;
+    border-radius: 15px;
 }
 
 .homepage_reg:hover {
     cursor: pointer;
     background-color: #212C58;
     color: #fff;
+}
+
+.homepage_added {
+    font-weight: bold;
+    width: 111px; 
+    height: 41px; 
+    border: 1px solid 334173;
+    background-color: #fff; 
+    color: #334173; 
+    font-size: 12px; 
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 10%;
+    border-radius: 15px;
+}
+
+.homepage_added:hover {
+    cursor: pointer;
+    background-color: #fff;
+    color: red;
+    border: 1px solid red;
 }
 
 .homepage-un-button {

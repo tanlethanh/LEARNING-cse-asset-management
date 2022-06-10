@@ -52,6 +52,7 @@
     line-height: var(--height-nav);
     padding: 0 24px;
     height: 100%;
+    cursor: pointer;
 }
 
 .nav-btn:hover {
@@ -104,6 +105,10 @@
 .item i {
     margin-right: 15px;
     color: #757575;
+}
+
+.item_btn {
+    cursor: pointer;
 }
 
 .contact {

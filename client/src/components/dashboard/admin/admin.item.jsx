@@ -119,7 +119,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
                 <div className="list-item-col">Category</div>
                 <div className="list-item-col">Available</div>
                 <div className="list-item-col">Quantity</div>
-                <div className="list-item-col">Description</div>
+                <div className="list-item-col text_left">Description</div>
                 <div className="list-item-col">Delete</div>
             </div>
 
@@ -132,7 +132,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
                             <div className="list-item-col">{item.category}</div>
                             <div className="list-item-col">{item.available}</div>
                             <div className="list-item-col">{item.quantity}</div>
-                            <div className="list-item-col">{item.description}</div>
+                            <div className="list-item-col text_left">{item.description}</div>
                             <div className="list-item-col">
                                 <i
                                     className={"fa-solid fa-trash-can " + (item.deleteChosen === true ? " item_delete_chosen" : "")}

@@ -17,5 +17,11 @@ body {
   background-color: #fff;
 }
 
+.display_none {
+  display: none;
+  /* remove the element from page and DOM. */
+  visibility: hidden;
+  /* remove only from page. */
+}
 
 /*  */

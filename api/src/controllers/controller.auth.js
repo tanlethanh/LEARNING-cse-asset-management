@@ -48,8 +48,23 @@ exports.register = async (req, res) => {
         res.status(201).json({ status: 201, message: "Register successfully!", user })
 
     } catch (error) {
-        console.error(error)
-        res.status(400).json({ status: 400, message: error.message })
+        let errorMess = "Register failed"
+
+        console.log(error)
+
+        if (error.code == 11000) {
+            if (error.keyValue.email && error.keyValue.studentCode) {
+                errorMess = "Email or Student code is already exist"
+            }
+            else if (error.keyValue.email) {
+                errorMess = "Email is already registered"
+            }
+            else if (error.keyValue.studentCode) {
+                errorMess = "Student code is already registered"
+            }
+        }
+
+        res.status(400).json({ status: 400, message: errorMess })
     }
 
 }

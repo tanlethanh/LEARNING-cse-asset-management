@@ -53,15 +53,19 @@ exports.createNewOrder = async (req, res) => {
             })
         }
 
+        const user = await User.findById(idUser)
+
         // New order will be saved into database if all of fields are valid
         const newOrder = new Order({
             nameItem: item.name,
+            nameUser: user.fullName,
             categoryItem: item.category,
             quantity: req.body.quantity,
             idItem: req.body.idItem,
             idUser: req.session.userId,
             returnDate: req.body.returnDate
         })
+
         const order = await newOrder.save()
 
         // Update new order for user

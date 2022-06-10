@@ -4,25 +4,34 @@ const bcrypt = require("bcrypt")
 
 createAdmin = async () => {
 
-    const hash_password = await bcrypt.hash("admin123", 10)
+    try {
+        const users = await User.find()
 
-    const admin = new User({
-        "enable": true,
-        "isAdmin": true,
-        "hash_password": hash_password,
-        "fullName": "admin",
-        "studentCode": "000",
-        "phoneNumber":"000",
-        "email": "admin@gmail.com"
-    })
+        if (users.length === 0) {
+            const hash_password = await bcrypt.hash("123456", 10)
 
-    await admin.save((err, user) => {
-        if (err) {
-            console.error(err)
-            return null
+            const admin = new User({
+                "enable": true,
+                "isAdmin": true,
+                "hash_password": hash_password,
+                "fullName": "admin",
+                "studentCode": "000",
+                "phoneNumber": "000",
+                "email": "admin@gmail.com"
+            })
+
+            await admin.save((err, user) => {
+                if (err) {
+                    console.error(err)
+                    return null
+                }
+                return { email: user.email, password: user.password }
+            })
+
         }
-        return {email: user.email, password: user.password}
-    })
+    } catch (error) {
+        console.log(error)
+    }
 
 }
 

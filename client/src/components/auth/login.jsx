@@ -1,26 +1,31 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+import Alert from '../alert'
 
 export default function Login(props) {
     let navigate = useNavigate();
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [alert, setAlert] = useState(false)
+    const [alertMess, setAlertMess] = useState('')
 
     const login = () => {
-        console.log(email, password)
+        
 
         Axios.post("http://localhost:8266/api/auth/login", {
-            email: email,
+            email: username + "@hcmut.edu.vn",
             password: password,
         }).then((response) => {
-
-            console.log(response.data.message)
-
+            console.log(response.data)
             if (response.data.user) {
                 props.setUser(response.data.user)
-                // props.setIsLogined(true)
                 navigate("../dashboard", { replace: true })
+            }
+            else {
+                setAlertMess(response.data.message)
+                setAlert(false)
+                setAlert(true)
             }
         });
 
@@ -29,6 +34,14 @@ export default function Login(props) {
 
     return (
         <div className="login_background">
+            {
+                <Alert
+                    type="error"
+                    message={alertMess}
+                    alert={alert}
+                    setAlert={setAlert}
+                />
+            }
             <div className="login_container">
 
                 <div className="titleCloseBtn">
@@ -42,24 +55,33 @@ export default function Login(props) {
                 </div>
 
                 <div className="login_title">
-                    <h1>Log In</h1>
+                    <h1 className='login_title_top'>Log in</h1>
                     <div className="login_donthave">
                         <p>Don't have an account?</p>
-                        <a href="#" onClick={this}>Sign up now</a>
+                        <p onClick={()=>{
+                            navigate("../signup", { replace: true })
+                        }} id="link_login">Sign up now</p>
                     </div>
                 </div>
 
                 <div className="login_body">
 
-                    <label className="label_login_body">Email Address</label>
+                    <label className="label_login_body">User name</label>
+                    <p className={"signup_input_invalid"}>
+                        Prefix of your hcmut email!
+                    </p>
                     <input className="input_login_body" type="text" onChange={e => {
-                        setEmail(e.target.value)
+                        setUsername(e.target.value)
                     }} />
 
                     <label className="label_login_body">Password</label>
-                    <input className="input_login_body" type="password" onChange={e => {
-                        setPassword(e.target.value)
-                    }} />
+                    <input
+                        className="input_login_body"
+                        type="password"
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                        }}
+                    />
 
                 </div>
 
@@ -75,6 +97,7 @@ export default function Login(props) {
                     </button>
 
                     <button type="submit" onClick={login}>Login</button>
+
                 </div>
 
             </div>

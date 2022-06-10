@@ -46,7 +46,7 @@ app.use(session(sess))
 
 // set up mongoose and create admin
 setupMongoose()
-// console.log(createAdmin())
+createAdmin()
 
 // set up route
 const authRoute = require('./routers/router.auth')

@@ -27,8 +27,8 @@ export default function Dashboard(props) {
             })
     }
 
-    const handleEditButtonClick = () => {
-        setEditButton(false)
+    const toggleEditForm = () => {
+        setEditButton(!editButton)
     }
 
     const handleSaveButtonClick = () => {
@@ -81,22 +81,23 @@ export default function Dashboard(props) {
                     <ul className="list-infor edit-pass">
                         <li className="item-infor">
                         <label>Old password: </label>
-                        <input type="text" onChange={e =>setOldPassword(e.target.value)}/>
+                        <input type="password" onChange={e =>setOldPassword(e.target.value)}/>
                         </li>
 
                         <li className="item-infor">
                         <label>New password: </label>
-                        <input type="text" onChange={e =>setNewPassword(e.target.value)}/>
+                        <input type="password" onChange={e =>setNewPassword(e.target.value)}/>
                         </li>
 
                         <li className="item-infor">
                         <label>Confirm password: </label>
-                        <input type="text" onChange={e =>setConfirmPassword(e.target.value)}/>
+                        <input type="password" onChange={e =>setConfirmPassword(e.target.value)}/>
                         </li> 
                     </ul>}
                     {error && <div>Wrong old password or confirm password.<br/>Please type again!</div>}
                     {editButton && <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>}
-                    {editButton && <button className="button-info" onClick={handleEditButtonClick}>Edit</button>}
+                    {editButton && <button className="button-info" onClick={toggleEditForm}>Edit</button>}
+                    {!editButton && <button className="button-info" onClick={toggleEditForm}>Close</button>}
                     {!editButton && <button className="button-info" onClick={handleSaveButtonClick}>Save</button>}
                 </div>
             </div>

@@ -5,6 +5,11 @@
     margin-left: 3px;
 }
 
+.text_left {
+    text-align: left !important;
+    justify-content: left !important;
+}
+
 #content {
     background-color: #000;
     min-height: calc(100vh - var(--height-nav) + var(--height-footer));
