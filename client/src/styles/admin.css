@@ -87,77 +87,13 @@
     color: #fff !important;
 }
 
-#list {
-    background-color: #fff;
-    position: absolute;
-    right: 0;
-    left: var(--width-menu);
-    height: 100%;
-}
-
-.list-search {
-    margin: 15px;
-    padding: 0 10px;
-    width: 200px;
-    height: 30px;
-    border-radius: 10px;
-    border: #000 solid 1px;
-    font-size: 1rem;
-
+.list-item-col.list_item_multiline {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    /* resize: vertical; */
+    overflow: auto;
 }
 
-.list-search i {
-    display: flex;
-    align-items: center;
-}
-
-.list-search input {
-    border: none;
-}
-
-.list-search input:focus {
-    outline: none;
-}
-
-.list-item {
-    height: 45px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.list-item:hover {
-    padding-left: 10px;
-    padding-bottom: 5px;
-}
-
-.list-item-title {
-    height: 35px !important;
-    font-weight: 700;
-    height: 45px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.list-item-odd {
-    background-color: #F7F6FE !important;
-}
-
-.list-item-col {
-    width: 130px;
-    padding: 0 15px;
-    /* border: #000 solid 1px; */
-    flex-grow: 1;
-    flex-shrink: 0;
-
-    /* for child */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 /* For Item page */
 .item_add {
@@ -196,6 +132,25 @@
     color: red;
 }
 
+
+.item_name_col {
+    /* padding-left: 10px; */
+    width: 200px !important;
+    justify-content: left !important;
+}
+.item_category_col {
+
+}
+.item_available_col {
+
+}
+.item_quantity_col {
+
+}
+.item_description_col {
+    width: 400px !important;
+    justify-content: left !important;
+}
 
 
 /* For User page */

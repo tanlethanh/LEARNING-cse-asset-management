@@ -1,4 +1,4 @@
-.scrollItem {
+/* .scrollItem {
     overflow-y: scroll;  
     overflow-x: none;
     height: 100%;
@@ -16,4 +16,4 @@
 #scroll::-webkit-scrollbar-thumb:hover {
     background: rgb(48, 43, 43);
     border-radius: 5px;
-}
+} */

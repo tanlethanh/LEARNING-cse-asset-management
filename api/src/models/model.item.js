@@ -45,7 +45,7 @@ const itemSchema = new mongoose.Schema({
             },
             status: {
                 type: String,
-                defaut: "pending",
+                default: "pending",
                 enum: ["pending", "done"],
                 require: true
             }

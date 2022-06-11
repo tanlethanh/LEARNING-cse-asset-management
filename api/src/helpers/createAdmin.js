@@ -17,7 +17,7 @@ createAdmin = async () => {
                 "fullName": "admin",
                 "studentCode": "000",
                 "phoneNumber": "000",
-                "email": "admin@gmail.com"
+                "email": "admin@hcmut.edu.com"
             })
 
             await admin.save((err, user) => {
