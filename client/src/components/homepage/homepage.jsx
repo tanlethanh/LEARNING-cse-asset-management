@@ -1,8 +1,8 @@
-import './homepage.css'
 import React, { useState, useEffect } from 'react';
 import Axios from "axios";
 import AvaiItem from './homepageItem/homeAvai';
 import UnavaiItem from './homepageItem/homeUnavai';
+import '../../styles/homepage.css';
 
 
 export default function Homepage(props) {

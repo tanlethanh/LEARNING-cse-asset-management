@@ -1,32 +1,19 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import './admin.item.css'
+import '../../../styles/admin.item.css';
 export default function Items({ items, setChangeItems, changeItems }) {
 
     const [addItem, setAddItem] = useState(false)
     const [change, setChange] = useState(false)
 
-    useEffect(()=>{
-
-    }, [change])
-
-    useEffect(()=>{
-
-    }, [items])
-
-
+    // set button
     const handleAddItemButton = () => {
         setAddItem(!addItem)
     }
-
     const handleDeleteClick = (index) => {
-
-        // 
-
         items[index].deleteChosen = !items[index].deleteChosen
         setChange(!change)
     }
-
     const handleSubmit = () => {
         items.map((item, index) => {
             if (item.deleteChosen === true) {
@@ -40,6 +27,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
         })
     }
 
+    // Component use for add item
     function AddNewItem() {
         const [name, setName] = useState("")
         const [quantity, setQuantity] = useState(0)
@@ -128,7 +116,10 @@ export default function Items({ items, setChangeItems, changeItems }) {
                 items.map((item, index) => {
                     return (
                         <div key={item._id} className={"list-item " + (index % 2 === 0 ? "list-item-odd" : "")}>
-                            <div className="list-item-col item-col-name">{item.name}</div>
+                            <div 
+                            className="list-item-col item-col-name"
+                            onClick={() => {}}
+                            >{item.name}</div>
                             <div className="list-item-col">{item.category}</div>
                             <div className="list-item-col">{item.available}</div>
                             <div className="list-item-col">{item.quantity}</div>

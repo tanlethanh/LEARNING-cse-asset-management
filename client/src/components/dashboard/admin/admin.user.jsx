@@ -66,6 +66,13 @@ export default function Users(props) {
 
     // Component of user who is not enable
     function UsersRender(props) {
+
+        if (props.users.length === 0) {
+            return (
+                <h1 className='no_content'>Empty list!</h1>
+            )
+        }
+
         return (
             <div>
                 <div className="list-search">
@@ -86,10 +93,12 @@ export default function Users(props) {
 
                                 key={user._id}
                                 className={"list-item " + (index % 2 === 0 && "list-item-odd")}
-                                onClick={() => openUserDetail(user)}
                             >
                                 <div className="list-item-col user_email_col">{user.email}</div>
-                                <div className="list-item-col user_name_col">
+                                <div
+                                    className="list-item-col user_name_col"
+                                    onClick={() => openUserDetail(user)}
+                                >
                                     {user.fullName}
                                     {props.type === 'enable' && user.isAdmin && <sup className="isAdmin">admin</sup>}
                                 </div>
@@ -105,10 +114,10 @@ export default function Users(props) {
                 <div className="user_enable_submit">
                     <button
                         type="submit"
-                        className="user_enable_submit_button"
+                        className="item_submit_button"
                         onClick={() => { handleSubmit(props.type) }}
                     >
-                        {props.type === 'register' ? "Enable checked users" : "Unenable checked users"}
+                        Submit
                     </button>
                 </div>
                 <div className="list-end">

@@ -131,7 +131,6 @@
 .list-item:hover {
     padding-left: 10px;
     padding-bottom: 5px;
-    cursor: pointer;
 }
 
 .list-item-title {
@@ -213,6 +212,7 @@
     text-align: left !important;
     justify-content: left !important;
     width: 160px;
+    cursor: pointer;
 }
 
 .user_code_col {
@@ -335,4 +335,15 @@
 .order_deny_button.chosen {
     background-color: #A30D11;
     color: #FBE7E8;
+}
+
+.no_content {
+    margin-top: 50px;
+    margin-left: 100px;
+    font-size: 40px;
+    color: #212C58;
+}
+
+.order_name_user {
+    cursor: pointer;
 }

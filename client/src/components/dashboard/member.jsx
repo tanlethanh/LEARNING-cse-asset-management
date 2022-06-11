@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
-import './member.css';
+import '../../styles/member.css';
 import Waiting from './member/memberWaiting';
 import Borrow from './member/memberBorrow';
 import Returned from './member/memberReturn';

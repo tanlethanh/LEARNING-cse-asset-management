@@ -1,5 +1,4 @@
 import React from 'react';
-import '../member.css'
 
 export default function Returned(props){
     return (

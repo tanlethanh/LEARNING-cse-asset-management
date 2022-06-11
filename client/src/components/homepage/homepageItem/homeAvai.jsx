@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import '../homepage.css'
 import Checklist from './homeChecklist';
-import './homeChecklist.css'
+import '../../../styles/homepage.css';
 
 export default function AvaiItem(props) {
 
@@ -67,7 +66,7 @@ export default function AvaiItem(props) {
                     itemPick={itemPick} setItemPick={setItemPick} />
             }
 
-
+        
         </div>
     )
 }

@@ -52,6 +52,13 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
         })
     }
 
+
+    if (orders[nameList].length === 0) {
+        return (
+            <h1 className='no_content'>Empty list!</h1>
+        )
+    }
+
     return (
         <div>
             <div className="list-search">
@@ -65,7 +72,7 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                 <div className="list-item-col order_name_user">Borrower</div>
                 <div className="list-item-col">
                     {nameList === 'pending' && "Accept/Deny"}
-                    {nameList === 'processing' && "Confirm complete"}
+                    {nameList === 'ok' && "Confirm complete"}
                     {nameList === 'complete' && "Type of order"}
                 </div>
             </div>

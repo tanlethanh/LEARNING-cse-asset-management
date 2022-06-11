@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import './homeChecklist.css'
 import Alert from "../../alert";
+import '../../../styles/homeChecklist.css'
 
 export default function Checklist(props) {
   const [change, setChange] = useState()

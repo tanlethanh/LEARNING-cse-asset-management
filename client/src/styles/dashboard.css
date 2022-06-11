@@ -1,3 +1,8 @@
+input[type="checkbox"] {
+    transform: scale(2);
+}
+
+/* all checked checkbox */
 .dashboard_container {
     /* padding-left: 50px;
     padding-top: 200px; */
@@ -16,65 +21,6 @@
     width: 100%;
 }
 
-.item_submit_button {
-    border: none;
-    width: 90px;
-    height: 40px;
-    background-color: #48578E;
-    border-radius: 30px;
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 1em;
-    color: #fff;
-    text-align: center;
-    cursor: pointer;
-}
-
-.item_submit {
-    display: flex;
-    justify-content: flex-end;
-    margin: 20px 4%;
-}
-
-.order_submit_button {
-    border: none;
-    width: 90px;
-    height: 40px;
-    background-color: #48578E;
-    border-radius: 30px;
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 1em;
-    color: #fff;
-    text-align: center;
-    cursor: pointer;
-}
-
-.order_submit {
-    display: flex;
-    justify-content: flex-end;
-    margin: 20px 4%;
-}
-
-.user_enable_submit_button {
-    border: none;
-    width: 220px;
-    height: 40px;
-    background-color: #48578E;
-    border-radius: 30px;
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 1em;
-    color: #fff;
-    text-align: center;
-}
-
-.user_enable_submit {
-    display: flex;
-    justify-content: flex-end;
-    margin: 20px 4%;
-}
-
 /* Information */
 
 #information {
@@ -85,13 +31,13 @@
     color: #fff;
 }
 
-#information > div {
+#information>div {
     display: inline-block;
 }
 
 #information .title {
     position: absolute;
-    top: calc(50px + var(--height-nav));  
+    top: calc(50px + var(--height-nav));
     left: 200px;
 }
 
@@ -105,11 +51,41 @@
 
 #information .detail {
     position: absolute;
-    top: calc(30px + var(--height-nav)); 
+    top: calc(30px + var(--height-nav));
     right: 300px;
+    display: flex;
 }
 
 .item-infor {
     margin-bottom: 8px;
     list-style-type: none;
+}
+
+.title_item-infor {
+    margin-bottom: 8px;
+    list-style-type: none;
+    margin-right: 20px;
+    text-align: right;
+}
+
+.button-info {
+    border: none;
+    /* position: absolute; */
+    float: right;
+    width: 90px;
+    height: 40px;
+    background-color: #48578E;
+    margin-right: 10px;
+    border-radius: 30px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 1em;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+
+.button-info:hover {
+    background-color: #334173;
+    color: #fff;
 }

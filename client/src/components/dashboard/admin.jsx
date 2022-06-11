@@ -100,7 +100,7 @@ export default function Admin() {
                         className={"menu_list_admin " + (currentList === "orders_complete" && "chosen")}
                         onClick={() => handleClickButton("orders_complete")}
                     >
-                        Complete order
+                        Complete orders
                     </button>
 
                 </div>
