@@ -131,7 +131,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
                         </select>
 
                         <label className='lable_body'>Description</label>
-                        <textarea className='input_body' onChange={e => {
+                        <textarea className='input_body input_des' onChange={e => {
                             setDescription(e.target.value)
                         }} ></textarea>
                     </div>
