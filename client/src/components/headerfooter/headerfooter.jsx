@@ -1,5 +1,5 @@
 import React from 'react';
-import './headerfooter.css'
+import '../../styles/headerfooter.css'
 import { useNavigate } from 'react-router-dom';
 
 export function Header(props) {

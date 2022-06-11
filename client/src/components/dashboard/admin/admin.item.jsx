@@ -135,10 +135,10 @@ export default function Items({ items, setChangeItems, changeItems }) {
                 })
             }
 
-            <div className="item_submit">
+            <div className="submit_button_container">
                 <button
                     type="submit"
-                    className="item_submit_button"
+                    className="submit_button"
                     onClick={handleSubmit}
                 >
                     Submit

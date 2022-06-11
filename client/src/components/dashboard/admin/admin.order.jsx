@@ -139,10 +139,10 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                     )
                 })
             }
-            <div className="order_submit">
+            <div className="submit_button_container">
                 <button
                     type="submit"
-                    className="order_submit_button"
+                    className="submit_button"
                     onClick={handleSubmit}
                 >
                     Submit

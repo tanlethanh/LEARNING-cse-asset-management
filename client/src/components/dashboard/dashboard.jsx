@@ -3,6 +3,7 @@ import Axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import '../../styles/admin.css'
 import '../../styles/dashboard.css'
+import '../../styles/button.scss'
 import Admin from './admin';
 import Member from './member';
 
