@@ -56,6 +56,14 @@ input[type="checkbox"] {
     display: flex;
 }
 
+#content {
+    background-color: #000;
+    min-height: calc(100vh - var(--height-nav) + var(--height-footer));
+    background-color: #ccc;
+    position: relative;
+    padding-bottom: 300px;
+}
+
 .list-infor {
     margin-left: 100px;
 }

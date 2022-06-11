@@ -57,7 +57,7 @@ export default function Users(props) {
     const openUserDetail = (user) => {
         navigate("../user/detail/" + user._id, { state: { user: user } })
     }
-
+    
     // Component of user who is not enable
     function UsersRender(props) {
 

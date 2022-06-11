@@ -98,102 +98,109 @@ export default function DetailItem() {
                 </div>
             </div>
 
-
-            <div className="menu">
-                <h1 className="menu_title" >LIST</h1>
-                {tabs.map(tab => (
-                    <button
-                        key={tab}
-                        className={currentTab === tab ? "menu_list chosen" : "menu_list"}
-                        onClick={() => { setCurrentTab(tab) }}
-                    >
-                        {tab}
-                    </button>
-                ))}
-            </div>
-
-            <div id="list">
-                <div className="list-search">
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Search item" />
+            <div id="content">
+                <div className="menu">
+                    <h1 className="menu_title" >LIST</h1>
+                    {tabs.map(tab => (
+                        <button
+                            key={tab}
+                            className={currentTab === tab ? "menu_list chosen" : "menu_list"}
+                            onClick={() => { setCurrentTab(tab) }}
+                        >
+                            {tab}
+                        </button>
+                    ))}
                 </div>
 
-                <div className="list-content">
-                    <div className="list-item list-item-title">
-                        <div className="list-item-col">Borrower</div>
-                        <div className="list-item-col list_item_multiline">Quantity</div>
-                        <div className="list-item-col list_item_multiline">Created date</div>
-                        <div className="list-item-col list_item_multiline">Acceped date</div>
-                        <div className="list-item-col">Return date</div>
+                <div className='scrollItem' id='scroll'>
+                    <div id="list">
+                        <div className="list-search">
+                            <i className="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" placeholder="Search item" />
+                        </div>
+
+                        <div className="list-content">
+                            <div className="list-item list-item-title">
+                                <div className="list-item-col">Borrower</div>
+                                <div className="list-item-col list_item_multiline">Quantity</div>
+                                <div className="list-item-col list_item_multiline">Created date</div>
+                                <div className="list-item-col list_item_multiline">Acceped date</div>
+                                <div className="list-item-col">Return date</div>
+                            </div>
+                            {
+                                chosenBorrowers.map((borrower, index) => {
+                                    const orderIdOfBorrower = chosenList
+                                        .filter(element => element.idUser === borrower._id)
+                                        .map(element => element.idOrder)
+                                    const inforOders = ordersList.filter(order => {
+                                        return orderIdOfBorrower.includes(order._id)
+                                    })
+                                    console.log(inforOders)
+
+
+                                    return (
+                                        <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={borrower._id}>
+                                            <div className="list-item-col">{borrower.fullName}</div>
+                                            <div className="list-item-col list_item_multiline">
+                                                {
+                                                    inforOders.map(order => {
+                                                        return (
+                                                            <div key={order._id}>
+                                                                {order.quantity}
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                            <div className="list-item-col list_item_multiline">
+                                                {
+                                                    inforOders.map(order => {
+                                                        return (
+                                                            <div key={order._id}>
+                                                                {order.createdAt.substring(0, order.createdAt.indexOf('T'))}
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                            <div className="list-item-col list_item_multiline">
+                                                {
+                                                    inforOders.map(order => {
+                                                        return (
+                                                            <div key={order._id}>
+                                                                {order.updatedAt.substring(0, order.updatedAt.indexOf('T'))}
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                            <div className="list-item-col list_item_multiline">
+                                                {
+                                                    inforOders.map(order => {
+                                                        return (
+                                                            <div key={order._id}>
+                                                                {order.returnDate.substring(0, order.returnDate.indexOf('T'))}
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
+                                    )
+
+                                })
+                            }
+                        </div>
+
+
+
                     </div>
-                    {
-                        chosenBorrowers.map((borrower, index) => {
-                            const orderIdOfBorrower = chosenList
-                                .filter(element => element.idUser === borrower._id)
-                                .map(element => element.idOrder)
-                            const inforOders = ordersList.filter(order => {
-                                return orderIdOfBorrower.includes(order._id)
-                            })
-                            console.log(inforOders)
-
-
-                            return (
-                                <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={borrower._id}>
-                                    <div className="list-item-col">{borrower.fullName}</div>
-                                    <div className="list-item-col list_item_multiline">
-                                        {
-                                            inforOders.map(order => {
-                                                return (
-                                                    <div key={order._id}>
-                                                        {order.quantity}
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                    <div className="list-item-col list_item_multiline">
-                                        {
-                                            inforOders.map(order => {
-                                                return (
-                                                    <div key={order._id}>
-                                                        {order.createdAt.substring(0, order.createdAt.indexOf('T'))}
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                    <div className="list-item-col list_item_multiline">
-                                        {
-                                            inforOders.map(order => {
-                                                return (
-                                                    <div key={order._id}>
-                                                        {order.updatedAt.substring(0, order.updatedAt.indexOf('T'))}
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                    <div className="list-item-col list_item_multiline">
-                                        {
-                                            inforOders.map(order => {
-                                                return (
-                                                    <div key={order._id}>
-                                                        {order.returnDate.substring(0, order.returnDate.indexOf('T'))}
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                            )
-
-                        })
-                    }
                 </div>
-
-
-
             </div>
+
+
+
+
         </div>
     )
 }

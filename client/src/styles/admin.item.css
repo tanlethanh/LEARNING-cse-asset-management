@@ -1,8 +1,9 @@
-/* .scrollItem {
+.scrollItem {
     overflow-y: scroll;  
     overflow-x: none;
     height: 100%;
     padding: 10px;
+    background-color: #fff;
 }
 #scroll::-webkit-scrollbar {
     width: 15px;
@@ -16,4 +17,4 @@
 #scroll::-webkit-scrollbar-thumb:hover {
     background: rgb(48, 43, 43);
     border-radius: 5px;
-} */
+}
