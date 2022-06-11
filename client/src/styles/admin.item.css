@@ -117,3 +117,78 @@
 .input_des {
     height: 100px !important;
 }
+
+.item_delete_background {
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(200, 200, 200, 0.2);
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.item_delete_container {
+    position: absolute;
+    left: 35%;
+    width: 550px;
+    height: 150px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+}
+
+.item_delete_container .item_delete_body {
+    flex: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.item_delete_container .item_delete_footer {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item_delete_container .item_delete_footer button {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.yes_button {
+    background-color: #fff;
+    color: red;
+    border: 1px solid red;
+}
+
+.yes_button:hover {
+    background-color: red;
+    color: #fff;
+}
+
+.no_button {
+    background-color: #fff;
+    color: grey;
+    border: 1px solid grey;
+}
+
+.no_button:hover {
+    background-color: grey;
+    color: #fff;
+}

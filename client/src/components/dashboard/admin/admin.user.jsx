@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import Alert from '../../alert';
 
 export default function Users(props) {
 
     const navigate = useNavigate()
     const [users_register, setUsers_register] = useState([])
     const [users_enable, setUsers_enable] = useState([])
+
+    const [successEnable, setSuccessEnable] = useState(false)
+
+    const [alert, setAlert] = useState(false)
+    const [alertMess, setAlertMess] = useState('')
 
     useEffect(() => {
         setUsers_register(props.users.filter(user => user.enable === false))
@@ -51,13 +57,32 @@ export default function Users(props) {
             })
 
         }
-
+        setSuccessEnable(true)
     }
 
     const openUserDetail = (user) => {
         navigate("../user/detail/" + user._id, { state: { user: user } })
     }
     
+    // success alert
+    function SuccessEnable() {
+        setAlertMess("Success!")
+        setAlert(false)
+        setAlert(true)
+        setTimeout(function () {
+            setSuccessEnable(false)
+        }, 1000)
+        
+        return(
+            <Alert
+                type="success"
+                message={alertMess}
+                alert={alert}
+                setAlert={setAlert}
+            />
+        )
+    }
+
     // Component of user who is not enable
     function UsersRender(props) {
 
@@ -132,6 +157,7 @@ export default function Users(props) {
                     <UsersRender users={users_register} type='register' /> :
                     <UsersRender users={users_enable} type='enable' />
             }
+            {successEnable && <SuccessEnable />}
         </div>
     )
 }

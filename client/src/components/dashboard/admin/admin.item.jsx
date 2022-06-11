@@ -12,28 +12,35 @@ export default function Items({ items, setChangeItems, changeItems }) {
     const data = useContext(dataContext)
 
     const [addItem, setAddItem] = useState(false)
+    const [CantDelete, setCantDelete] = useState(false)
+    const [acceptDelete, setAcceptDelete] = useState(false)
     const [change, setChange] = useState(false)
+    
     const navigate = useNavigate()
+
+    const [successDelete, setSuccessDelete] = useState(false)
+
+    const [alert, setAlert] = useState(false)
+    const [alertMess, setAlertMess] = useState('')
 
     // set button
     const handleAddItemButton = () => {
         setAddItem(!addItem)
     }
     const handleDeleteClick = (index) => {
-        items[index].deleteChosen = !items[index].deleteChosen
-        setChange(!change)
+        if (items[index].available == items[index].quantity) {
+            items[index].deleteChosen = !items[index].deleteChosen
+            setCantDelete(false)
+            setChange(!change)            
+        } else {
+            setAlertMess("This item can't delete!")
+            setCantDelete(true)
+            setAlert(false)
+            setAlert(true)
+        }
     }
     const handleSubmit = () => {
-        items.map((item, index) => {
-            if (item.deleteChosen === true) {
-                Axios.delete("http://localhost:8266/api/item/" + item._id)
-                    .then((response) => {
-                        if (index === items.length - 1) {
-                            setChangeItems(!changeItems)
-                        }
-                    })
-            }
-        })
+        setAcceptDelete(!acceptDelete)
     }
 
     // navigate to detail of chosen item
@@ -145,18 +152,74 @@ export default function Items({ items, setChangeItems, changeItems }) {
         )
     }
 
+    // Accept delete item
+    function AcceptDeleteItem() {
+        const handleYes = () => {
+            items.map((item, index) => {
+                if (item.deleteChosen === true) {
+                    Axios.delete("http://localhost:8266/api/item/" + item._id)
+                        .then((response) => {
+                            if (index === items.length - 1) {
+                                setChangeItems(!changeItems)
+                                setSuccessDelete(true)
+                                setAcceptDelete(false)
+                            }
+                        })
+                    
+                }
+            })
+        }
+
+        return (
+            <div className='item_delete_background'>
+                <div className='item_delete_container'>
+                    <div className='item_delete_body'>
+                        Are you sure you want to permanently delete these items?
+                    </div>
+
+                    <div className='item_delete_footer'>
+                        <button className='button yes_button' type="submit" onClick={handleYes}>Yes</button>
+                        
+                        <button className='button no_button' onClick={() => {setAcceptDelete(false)}}>
+                            No
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+        )
+    } 
+
+    function SuccessDelete() {
+        setAlertMess("Delete success!")
+        setAlert(false)
+        setAlert(true)
+        setTimeout(function () {
+            setSuccessDelete(false)
+        }, 1000)
+        
+        return(
+            <Alert
+                type="success"
+                message={alertMess}
+                alert={alert}
+                setAlert={setAlert}
+            />
+        )
+    }
+
     return (
         <div className='scrollItem' id='scroll'>
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input type="text" placeholder="Search item" />
-            </div>
+                </div>
 
             <div className='item_add'>
-                Add new item
-                <button className='item_add_button' onClick={handleAddItemButton}>+</button>
+                <button className='item_add_button' onClick={handleAddItemButton}>Add new item</button>
                 {addItem && <AddNewItem />}
             </div>
+
 
             <div className="list-item-title">
                 <div className="list-item-col item_name_col">Name of item</div>
@@ -188,6 +251,12 @@ export default function Items({ items, setChangeItems, changeItems }) {
                                     onClick={() => handleDeleteClick(index)}>
                                 </i>
                             </div>
+                            {CantDelete && <Alert
+                                type="error"
+                                message={alertMess}
+                                alert={alert}
+                                setAlert={setAlert}
+                            />}
                         </div>
                     )
                 })
@@ -201,6 +270,8 @@ export default function Items({ items, setChangeItems, changeItems }) {
                 >
                     Submit
                 </button>
+                {acceptDelete && <AcceptDeleteItem />}
+                {successDelete && <SuccessDelete />}
             </div>
 
             <div className="list-end">

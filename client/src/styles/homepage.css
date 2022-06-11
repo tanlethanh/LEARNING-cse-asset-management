@@ -93,6 +93,8 @@
 }
 
 .homepage_added {
+    position: absolute;
+    top: 110px;
     font-weight: bold;
     width: 111px; 
     height: 41px; 
@@ -114,6 +116,8 @@
 }
 
 .homepage-un-button {
+    position: absolute;
+    top: 110px;
     font-weight: bold;
     width: 111px; 
     height: 41px; 
@@ -122,6 +126,7 @@
     text-align: center;
     margin-top: 20px;
     margin-left: 10%;
+    border-radius: 15px;
     background-color: #757575;
     color: #fff;
 }
