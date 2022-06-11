@@ -39,10 +39,10 @@ export default function AvaiItem(props) {
                         </div>
                         <div className='homepage_rightcard'>
                             <p className='homepage_name'>{item.name}</p>
-                            <ul>
-                                <li className='homepage_info'>Quantity: {item.available}/{item.quantity}</li>
-                                <li className='homepage_info'>Category: {item.category}</li>
-                                <li className='homepage_info' id='hp_des'>Des: {item.description}</li>
+                            <ul className="homepage_info">
+                                <li>Quantity: {item.available}/{item.quantity}</li>
+                                <li>Category: {item.category}</li>
+                                <li>Des: {item.description}</li>
                             </ul>
 
                             {

@@ -29,7 +29,7 @@
 .homepage_card {
     position: relative;
     width: 30%;
-    height: 180px;
+    height: 190px;
     display: inline-flex;
     flex-direction: row;
     margin-left: 20px;
@@ -37,12 +37,16 @@
 }
 
 .homepage_leftcard {
+    position: absolute;
     width: 50%;
     height: 100%;
     background-color: #97A5D0;
 }
 .homepage_rightcard {
+    position: absolute;
     display: block;
+    left: 50%;
+    width: 50%;
     margin-left: 10px;
     margin-top: 3%;
     margin-bottom: 3%;
@@ -56,16 +60,19 @@
     text-transform: uppercase;
     font-weight: bold;
     margin-bottom: 5px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .homepage_info {
     margin-left: 20px !important;
-    font-size: 14px;
+    font-size: 11px;
     padding-top: 2px;
+    color: #6D6D6D;
 }
 
 .homepage_reg {
+    position: absolute;
+    top: 110px;
     font-weight: bold;
     width: 111px; 
     height: 41px; 
