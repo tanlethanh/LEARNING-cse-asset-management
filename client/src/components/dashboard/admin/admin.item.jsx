@@ -1,13 +1,19 @@
 import Axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../../styles/admin.item.css';
 import convertValidName from '../../../utils/convertValidName';
 import Alert from '../../alert';
 
+import { dataContext } from '../admin';
 export default function Items({ items, setChangeItems, changeItems }) {
+
+    // use context to get data from parent component (admin)
+    const data = useContext(dataContext)
 
     const [addItem, setAddItem] = useState(false)
     const [change, setChange] = useState(false)
+    const navigate = useNavigate()
 
     // set button
     const handleAddItemButton = () => {
@@ -28,6 +34,11 @@ export default function Items({ items, setChangeItems, changeItems }) {
                     })
             }
         })
+    }
+
+    // navigate to detail of chosen item
+    const openItemDetail = (item) => {
+        navigate("../item/detail/" + item._id, { state: { item: item, orders: data.orders, users: data.users } })
     }
 
     // Component use for add item
@@ -148,11 +159,11 @@ export default function Items({ items, setChangeItems, changeItems }) {
             </div>
 
             <div className="list-item-title">
-                <div className="list-item-col item-col-name">Name of item</div>
-                <div className="list-item-col">Category</div>
-                <div className="list-item-col">Available</div>
-                <div className="list-item-col">Quantity</div>
-                <div className="list-item-col text_left">Description</div>
+                <div className="list-item-col item_name_col">Name of item</div>
+                <div className="list-item-col item_category_col">Category</div>
+                <div className="list-item-col item_available_col">Available</div>
+                <div className="list-item-col item_quantity_col">Quantity</div>
+                <div className="list-item-col item_description_col">Description</div>
                 <div className="list-item-col">Delete</div>
             </div>
 
@@ -161,15 +172,17 @@ export default function Items({ items, setChangeItems, changeItems }) {
                 items.map((item, index) => {
                     return (
                         <div key={item._id} className={"list-item " + (index % 2 === 0 ? "list-item-odd" : "")}>
-                            <div 
-                            className="list-item-col item-col-name"
-                            onClick={() => {}}
-                            >{item.name}</div>
-                            <div className="list-item-col">{item.category}</div>
-                            <div className="list-item-col">{item.available}</div>
-                            <div className="list-item-col">{item.quantity}</div>
-                            <div className="list-item-col text_left">{item.description}</div>
-                            <div className="list-item-col">
+                            <div
+                                className="list-item-col item_name_col"
+                                onClick={() => { openItemDetail(item) }}
+                            >
+                                {item.name}
+                            </div>
+                            <div className="list-item-col item_category_col">{item.category}</div>
+                            <div className="list-item-col item_available_col">{item.available}</div>
+                            <div className="list-item-col item_quantity_col">{item.quantity}</div>
+                            <div className="list-item-col item_description_col">{item.description}</div>
+                            <div className="list-item-col ">
                                 <i
                                     className={"fa-solid fa-trash-can " + (item.deleteChosen === true ? " item_delete_chosen" : "")}
                                     onClick={() => handleDeleteClick(index)}>

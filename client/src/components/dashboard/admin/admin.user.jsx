@@ -9,7 +9,6 @@ export default function Users(props) {
     const [users_enable, setUsers_enable] = useState([])
 
     useEffect(() => {
-        console.log("hello users")
         setUsers_register(props.users.filter(user => user.enable === false))
         setUsers_enable(props.users.filter(user => user.enable === true))
     }, [props.users])
@@ -35,7 +34,6 @@ export default function Users(props) {
                 if (user.enable === true) {
                     Axios.patch(`http://localhost:8266/api/user/${user._id}?togglePermission=enable`)
                         .then((response) => {
-                            console.log(`Enable of ${response.data.user} is ${response.data.user.enable}`)
                             props.setChangeUsers(!props.changeUsers)
                         })
                 }
@@ -47,7 +45,6 @@ export default function Users(props) {
                 if (user.enable === false) {
                     Axios.patch(`http://localhost:8266/api/user/${user._id}?togglePermission=enable`)
                         .then((response) => {
-                            console.log(`Enable of ${response.data.user} is ${response.data.user.enable}`)
                             props.setChangeUsers(!props.changeUsers)
                         })
                 }
@@ -60,10 +57,7 @@ export default function Users(props) {
     const openUserDetail = (user) => {
         navigate("../user/detail/" + user._id, { state: { user: user } })
     }
-
-
-
-
+    
     // Component of user who is not enable
     function UsersRender(props) {
 

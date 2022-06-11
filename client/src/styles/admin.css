@@ -10,13 +10,6 @@
     justify-content: left !important;
 }
 
-#content {
-    background-color: #000;
-    min-height: calc(100vh - var(--height-nav) + var(--height-footer));
-    background-color: #ccc;
-    position: relative;
-    padding-bottom: 300px;
-}
 
 #menu {
     background-color: #48578E;
@@ -87,77 +80,13 @@
     color: #fff !important;
 }
 
-#list {
-    background-color: #fff;
-    position: absolute;
-    right: 0;
-    left: var(--width-menu);
-    height: 100%;
-}
-
-.list-search {
-    margin: 15px;
-    padding: 0 10px;
-    width: 200px;
-    height: 30px;
-    border-radius: 10px;
-    border: #000 solid 1px;
-    font-size: 1rem;
-
+.list-item-col.list_item_multiline {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    /* resize: vertical; */
+    overflow: auto;
 }
 
-.list-search i {
-    display: flex;
-    align-items: center;
-}
-
-.list-search input {
-    border: none;
-}
-
-.list-search input:focus {
-    outline: none;
-}
-
-.list-item {
-    height: 45px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.list-item:hover {
-    padding-left: 10px;
-    padding-bottom: 5px;
-}
-
-.list-item-title {
-    height: 35px !important;
-    font-weight: 700;
-    height: 45px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.list-item-odd {
-    background-color: #F7F6FE !important;
-}
-
-.list-item-col {
-    width: 130px;
-    padding: 0 15px;
-    /* border: #000 solid 1px; */
-    flex-grow: 1;
-    flex-shrink: 0;
-
-    /* for child */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 /* For Item page */
 .item_add {
@@ -197,11 +126,29 @@
 }
 
 
+.item_name_col {
+    /* padding-left: 10px; */
+    width: 200px !important;
+    justify-content: left !important;
+    cursor: pointer;
+}
+
+.item_category_col {}
+
+.item_available_col {}
+
+.item_quantity_col {}
+
+.item_description_col {
+    width: 350px !important;
+    justify-content: left !important;
+}
+
 
 /* For User page */
 
 .user_email_col {
-    width: 270px;
+    width: 300px !important;
     flex-grow: 1 !important;
     text-align: left !important;
     justify-content: left !important;
@@ -224,87 +171,27 @@
 }
 
 
-/* For User page */
-
-.item-col-name {
-    width: 100px;
-    flex-grow: 3 !important;
-    text-align: left !important;
-    justify-content: left !important;
-    padding-left: 30px;
-}
-
-.list-item-col .fa-solid {
-    font-size: 1.3em;
-    padding: 0 28px;
-}
-
-.accept {
-    color: green;
-}
-
-.list-item-col .accept_status {
-    background-color: #EBF9F1;
-    color: #1F9254;
-    padding: 4px 15px;
-    border-radius: 15px;
-    font-style: normal;
-}
-
-.list-item-col .denied_status {
-    background-color: #FBE7E8;
-    color: #A30D11;
-    padding: 4px 15px;
-    border-radius: 15px;
-    font-style: normal;
-}
-
-.list-item-col .pending_status {
-    background-color: #FEF2E5;
-    color: #CD6200;
-    padding: 4px 15px;
-    border-radius: 15px;
-    font-style: normal;
-}
-
-.list-end {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 60px;
-    margin-top: 50px;
-}
-
-.move-list {
-    border: none;
-    background-color: #fff;
-    font-weight: 500;
-    font-size: 1em;
-    color: #ccc;
-    margin: 0 10px;
-}
-
-.list-number button {
-    width: 35px;
-    height: 35px;
-    border: none;
-    border-radius: 8px;
-    margin: 0 10px;
-    font-weight: 400;
-    font-size: 1em;
-}
-
-.list-number .chosen {
-    color: #fff !important;
-    background-color: #48578E !important;
-}
-
-.list-number button:hover {
-    background-color: #6171A9;
-    color: #fff;
-}
 
 /* for orders page */
+
+
+.order_name_item {
+    cursor: pointer;
+    text-align: left !important;
+    justify-content: left !important;
+}
+
+.order_quantity {}
+
+.order_return_date {}
+
+.order_name_user {
+    cursor: pointer;
+    text-align: left !important;
+    justify-content: left !important;
+}
+
+
 .order_accept_button {
     font-weight: 600;
     background-color: #EBF9F1;
@@ -342,8 +229,4 @@
     margin-left: 100px;
     font-size: 40px;
     color: #212C58;
-}
-
-.order_name_user {
-    cursor: pointer;
 }

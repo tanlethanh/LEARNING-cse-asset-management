@@ -35,16 +35,16 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
         })
     }
 
-    const handleClickItem = (idItem) => {
+    const openItemDetail = (idItem) => {
         items.forEach(item => {
             if (item._id === idItem) {
-                return navigate("../item/detail/" + item._id, { state: { item: item } })
+                return navigate("../item/detail/" + item._id, { state: { item: item, orders: orders, users: users } })
             }
         })
 
     }
 
-    const handleClickUser = (idUser) => {
+    const openUserDetail = (idUser) => {
         users.forEach(user => {
             if (user._id === idUser) {
                 return navigate("../user/detail/" + user._id, { state: { user: user } })
@@ -84,7 +84,7 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                             <div
                                 className="list-item-col order_name_item"
                                 onClick={() => {
-                                    handleClickItem(order.idItem)
+                                    openItemDetail(order.idItem)
                                 }}
                             >
                                 {order.nameItem}
@@ -98,7 +98,7 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                             <div
                                 className="list-item-col order_name_user"
                                 onClick={() => {
-                                    handleClickUser(order.idUser)
+                                    openUserDetail(order.idUser)
                                 }}
                             >
                                 {order.nameUser}

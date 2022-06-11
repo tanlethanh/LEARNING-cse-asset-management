@@ -3,6 +3,7 @@
     overflow-x: none;
     height: 100%;
     padding: 10px;
+    background-color: #fff;
 }
 #scroll::-webkit-scrollbar {
     width: 15px;
