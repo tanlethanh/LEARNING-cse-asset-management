@@ -17,3 +17,98 @@
     background: rgb(48, 43, 43);
     border-radius: 5px;
 }
+
+.item_add_background {
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(200, 200, 200, 0.2);
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.item_add_container {
+    position: absolute;
+    left: 40%;
+    width: 450px;
+    height: 500px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+}
+
+.item_add_container .item_add_title {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    margin-bottom: 10px;
+    flex-direction: column;
+    font-size: 30px;
+    color: #48578E;
+}
+
+.titleCloseBtn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.titleCloseBtn button {
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.item_add_container .item_add_body {
+    flex: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.item_add_container .item_add_footer {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item_add_container .item_add_footer button {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: #48578E;
+    color: white;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.label_body {
+    font-size: 18px;
+}
+
+.input_body {
+    height: 35px;
+    width: 100%;
+    border-radius: 5px;
+    background: #f2f2f2;
+    border: 2px solid #F8F8F8;
+    box-shadow: inset 0px 5px 6px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    padding-left: 5px;
+    margin-top: 5px;
+}

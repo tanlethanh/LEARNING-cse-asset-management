@@ -1,6 +1,9 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import '../../../styles/admin.item.css';
+import convertValidName from '../../../utils/convertValidName';
+import Alert from '../../alert';
+
 export default function Items({ items, setChangeItems, changeItems }) {
 
     const [addItem, setAddItem] = useState(false)
@@ -34,55 +37,97 @@ export default function Items({ items, setChangeItems, changeItems }) {
         const [category, setCategory] = useState("")
         const [description, setDescription] = useState("")
 
+        const [errorQuantity, setErrorQuantity] = useState("invalid")
+
+        const [alert, setAlert] = useState(false)
+        const [alertMess, setAlertMess] = useState('')
+
         const addNewItem = () => {
-            Axios.post("http://localhost:8266/api/item", {
-                name: name,
-                quantity: quantity,
-                category: category,
-                description: description
-            }).then(response => {
-                console.log("Add new item ", response.data)
-                setChangeItems(!changeItems)
-                setAddItem(false);
-            })
+            if (quantity <= 0) {
+                setAlertMess("Quantity must be valid!")
+                setAlert(false)
+                setAlert(true)
+            } else {
+                Axios.post("http://localhost:8266/api/item", {
+                    name: name,
+                    quantity: quantity,
+                    category: category,
+                    description: description
+                }).then(response => {
+                    console.log("Add new item ", response.data)
+                    setChangeItems(!changeItems)
+                    setAddItem(false);
+                })
+            }
         }
 
-        return (
-            <div className="item_add_container">
+        useEffect(() => {
+            if (quantity > 0 ) {
+                setErrorQuantity("valid")
+    
+            } else {
+                setErrorQuantity("invalid")
+            }
+        }, [quantity])
 
-                <div className='item_add_form'>
-                    <button
-                        onClick={() => {
-                            setAddItem(false);
-                        }}
-                    >
-                        X
-                    </button>
-                    <h1>Add new item</h1>
+        return (
+            <div className='item_add_background'>
+                {
+                    <Alert
+                        type="error"
+                        message={alertMess}
+                        alert={alert}
+                        setAlert={setAlert}
+                    />
+                }
+                <div className='item_add_container'>
+                    <div className='titleCloseBtn'>
+                        <button
+                            onClick={() => {
+                                setAddItem(false);
+                            }}
+                        >
+                            X
+                        </button>
+                    </div>
+                    <h1 className='item_add_title'>ADD NEW ITEM</h1>
 
                     <div className='item_add_body'>
-                        <label>Name of item</label>
-                        <input type="text" onChange={e => {
-                            setName(e.target.value)
+                        <label className='lable_body'>Name of item</label>
+                        <input className='input_body' type="text" onChange={e => {
+                            setName(convertValidName(e.target.value))
                         }} />
 
-                        <label>Quantity</label>
-                        <input type="number" onChange={e => {
+                        <label className='lable_body'>Quantity</label>
+                        <p className={"signup_input_" + errorQuantity}>
+                            {(errorQuantity === 'valid') && "Quantity is valid!"}
+                            {(errorQuantity === 'invalid') && "Quantity must be a positive number."}
+                        </p>
+                        <input className='input_body' type="number" onChange={e => {
                             setQuantity(e.target.value)
                         }} />
 
-                        <label>Category</label>
-                        <input type="text" onChange={e => {
+                        <label className='lable_body'>Category</label>
+                        <select className='input_body' name="e" onChange={e => {
                             setCategory(e.target.value)
-                        }} />
+                        }} >
+                            <option value="Dụng cụ">Dụng cụ</option>
+                            <option value="Thiết bị điện">Thiết bị điện</option>
+                            <option value="Phòng học">Phòng học</option>
+                            <option value="Đồ sự kiện">Đồ sự kiện</option>
+                            <option value="Trang phục">Trang phục</option>
+                            <option value="Đồ dùng văn phòng">Đồ dùng văn phòng</option>
+                        </select>
 
-                        <label>Description</label>
-                        <textarea onChange={e => {
+                        <label className='lable_body'>Description</label>
+                        <textarea className='input_body' onChange={e => {
                             setDescription(e.target.value)
                         }} ></textarea>
                     </div>
 
-                    <button type="submit" onClick={addNewItem}>Add now!</button>
+                    <div className='item_add_footer'>
+                        <button className='button' type="submit" onClick={addNewItem}>Add now!</button>
+                    </div>
                 </div>
 
             </div>
