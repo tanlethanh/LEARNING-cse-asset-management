@@ -71,7 +71,7 @@ export default function Dashboard(props) {
                 <div className="detail">
                     {editButton && 
                     <ul className="list-infor">
-                        <li className="item-infor">ID: {props.user._id}</li>
+                        {/* <li className="item-infor">ID: {props.user._id}</li> */}
                         <li className="item-infor">Email: {props.user.email}</li>
                         <li className="item-infor">Full name: {props.user.fullName}</li>
                         <li className="item-infor">Student code: {props.user.studentCode}</li>

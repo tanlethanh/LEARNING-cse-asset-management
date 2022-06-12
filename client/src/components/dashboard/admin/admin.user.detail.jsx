@@ -28,7 +28,7 @@ export default function DetailUser() {
                 <div className="detail">
 
                     <ul className="list-infor">
-                        <li className="item-infor">ID: {user._id}</li>
+                        {/* <li className="item-infor">ID: {user._id}</li> */}
                         <li className="item-infor">Email: {user.email}</li>
                         <li className="item-infor">Full name: {user.fullName}</li>
                         <li className="item-infor">Student code: {user.studentCode}</li>

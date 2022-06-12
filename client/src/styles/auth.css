@@ -98,6 +98,7 @@
 }
 
 #link_login {
+    cursor: pointer;
     text-decoration: none;
     margin-left: 5px;
     color: #48578E;
@@ -221,6 +222,7 @@
 }
 
 #link_signin {
+    cursor: pointer;
     text-decoration: none;
     margin-left: 5px;
     color: #48578E;

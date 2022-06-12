@@ -133,7 +133,9 @@
     cursor: pointer;
 }
 
-.item_category_col {}
+.item_category_col {
+    width: 200px !important;
+}
 
 .item_available_col {}
 
