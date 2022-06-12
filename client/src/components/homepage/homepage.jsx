@@ -51,17 +51,19 @@ export default function Homepage(props) {
                 {unavai.length > 0 && <p className='homepage-title un-title'>UNAVAILABLE DEVICE</p>}
                 
                 <div className='homepage-item-container'>
-                    {unavai.map((item) => {
-                        return(
-                            <UnavaiItem
-                                name={item.name}
-                                available = {item.available}
-                                quantity={item.quantity}
-                                category={item.category}
-                                description={item.description}
-                            />
-                        )
-                    })}      
+                    <div className="homepage-card-container">
+                        {unavai.map((item) => {
+                            return(
+                                <UnavaiItem
+                                    name={item.name}
+                                    available = {item.available}
+                                    quantity={item.quantity}
+                                    category={item.category}
+                                    description={item.description}
+                                />
+                            )
+                        })}
+                    </div>     
                 </div>
             </div>
         </div>
