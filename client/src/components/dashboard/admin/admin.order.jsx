@@ -1,12 +1,18 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Alert from '../../alert';
 
 export default function Orders({ orders, items, users, nameList, setChangeOrders, changeOrders }) {
     // orders are list of order which all has the same status (nameList)
     // nameList is type of chosen list in menu bar, its equal to status of any order in 'orders'
     const [change, setChange] = useState(false)
     const navigate = useNavigate()
+
+    const [successEnable, setSuccessEnable] = useState(false)
+
+    const [alert, setAlert] = useState(false)
+    const [alertMess, setAlertMess] = useState('')
 
     useEffect(() => { }, [orders])
 
@@ -33,6 +39,7 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                     })
             }
         })
+        setSuccessEnable(true)
     }
 
     const openItemDetail = (idItem) => {
@@ -53,109 +60,132 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
     }
 
 
-    if (orders[nameList].length === 0) {
-        return (
-            <h1 className='no_content'>Empty list!</h1>
+    // success alert
+    function SuccessEnable() {
+        setAlertMess("Success!")
+        setAlert(false)
+        setAlert(true)
+        setTimeout(function () {
+            setSuccessEnable(false)
+        }, 1000)
+        
+        return(
+            <Alert
+                type="success"
+                message={alertMess}
+                alert={alert}
+                setAlert={setAlert}
+            />
         )
     }
 
-    return (
-        <div>
-            <div className="list-search">
-                <i className="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search item" />
+    if (orders[nameList].length === 0) {
+        return (
+            <div>
+                <h1 className='no_content'>Empty list!</h1>
+                {successEnable && <SuccessEnable />}
             </div>
-            <div className="list-item-title">
-                <div className="list-item-col order_name_item">Name of item</div>
-                <div className="list-item-col order_quantity">Quantity</div>
-                <div className="list-item-col order_return_date">Return date</div>
-                <div className="list-item-col order_name_user">Borrower</div>
-                <div className="list-item-col">
-                    {nameList === 'pending' && "Accept/Deny"}
-                    {nameList === 'ok' && "Confirm complete"}
-                    {nameList === 'complete' && "Type of order"}
+        )
+    } else {
+        return (
+            <div>
+                <div className="list-search">
+                    <i className="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search item" />
+                </div>
+                <div className="list-item-title">
+                    <div className="list-item-col order_name_item">Name of item</div>
+                    <div className="list-item-col order_quantity">Quantity</div>
+                    <div className="list-item-col order_return_date">Return date</div>
+                    <div className="list-item-col order_name_user">Borrower</div>
+                    <div className="list-item-col">
+                        {nameList === 'pending' && "Accept/Deny"}
+                        {nameList === 'ok' && "Confirm complete"}
+                        {nameList === 'complete' && "Type of order"}
+                    </div>
+                </div>
+                {
+                    orders[nameList].map((order, index) => {
+                        return (
+                            <div key={order._id} className={"list-item " + (index % 2 === 0 && "list-item-odd")}>
+
+                                <div
+                                    className="list-item-col order_name_item"
+                                    onClick={() => {
+                                        openItemDetail(order.idItem)
+                                    }}
+                                >
+                                    {order.nameItem}
+                                </div>
+
+                                <div className="list-item-col order_quantity">{order.quantity}</div>
+                                <div className="list-item-col order_return_date">
+                                    {order.returnDate.substring(0, order.returnDate.indexOf('T'))}
+                                </div>
+
+                                <div
+                                    className="list-item-col order_name_user"
+                                    onClick={() => {
+                                        openUserDetail(order.idUser)
+                                    }}
+                                >
+                                    {order.nameUser}
+                                </div>
+
+                                <div className="list-item-col">
+                                    {
+                                        nameList === 'pending' &&
+                                        <div>
+                                            <button
+                                                className={"order_accept_button " + (order.status === 'ok' ? "chosen" : "")}
+                                                onClick={() => { handleButton(index, 'ok') }}
+                                            >
+                                                Accept
+                                            </button>
+                                            <button
+                                                className={"order_deny_button " + (order.status === 'denied' ? "chosen" : "")}
+                                                onClick={() => { handleButton(index, 'denied') }}
+                                            >
+                                                Deny
+                                            </button>
+                                        </div>
+                                    }
+                                    {
+                                        nameList === 'ok' &&
+                                        <input type="checkbox" onChange={() => { handleButton(index, 'done') }} />
+                                    }
+                                    {
+                                        nameList === 'complete' &&
+                                        <div className=
+                                            {order.status === 'denied' ? 'denied_status' : 'accept_status'}
+
+                                        >{order.status}</div>
+                                    }
+
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+                <div className="submit_button_container">
+                    <button
+                        type="submit"
+                        className="submit_button"
+                        onClick={handleSubmit}
+                    >
+                        Submit
+                    </button>
+                    {successEnable && <SuccessEnable />}
+                </div>
+                <div className="list-end">
+                    <div id="previous-number"><button className="move-list">Previous</button></div>
+                    <div className="list-number"><button className="chosen">1</button></div>
+                    <div className="list-number"><button>2</button></div>
+                    <div className="list-number"><button>3</button></div>
+                    <div id="next-number"><button className="move-list">Next</button></div>
                 </div>
             </div>
-            {
-                orders[nameList].map((order, index) => {
-                    return (
-                        <div key={order._id} className={"list-item " + (index % 2 === 0 && "list-item-odd")}>
 
-                            <div
-                                className="list-item-col order_name_item"
-                                onClick={() => {
-                                    openItemDetail(order.idItem)
-                                }}
-                            >
-                                {order.nameItem}
-                            </div>
-
-                            <div className="list-item-col order_quantity">{order.quantity}</div>
-                            <div className="list-item-col order_return_date">
-                                {order.returnDate.substring(0, order.returnDate.indexOf('T'))}
-                            </div>
-
-                            <div
-                                className="list-item-col order_name_user"
-                                onClick={() => {
-                                    openUserDetail(order.idUser)
-                                }}
-                            >
-                                {order.nameUser}
-                            </div>
-
-                            <div className="list-item-col">
-                                {
-                                    nameList === 'pending' &&
-                                    <div>
-                                        <button
-                                            className={"order_accept_button " + (order.status === 'ok' ? "chosen" : "")}
-                                            onClick={() => { handleButton(index, 'ok') }}
-                                        >
-                                            Accept
-                                        </button>
-                                        <button
-                                            className={"order_deny_button " + (order.status === 'denied' ? "chosen" : "")}
-                                            onClick={() => { handleButton(index, 'denied') }}
-                                        >
-                                            Deny
-                                        </button>
-                                    </div>
-                                }
-                                {
-                                    nameList === 'ok' &&
-                                    <input type="checkbox" onChange={() => { handleButton(index, 'done') }} />
-                                }
-                                {
-                                    nameList === 'complete' &&
-                                    <div className=
-                                        {order.status === 'denied' ? 'denied_status' : 'accept_status'}
-
-                                    >{order.status}</div>
-                                }
-
-                            </div>
-                        </div>
-                    )
-                })
-            }
-            <div className="submit_button_container">
-                <button
-                    type="submit"
-                    className="submit_button"
-                    onClick={handleSubmit}
-                >
-                    Submit
-                </button>
-            </div>
-            <div className="list-end">
-                <div id="previous-number"><button className="move-list">Previous</button></div>
-                <div className="list-number"><button className="chosen">1</button></div>
-                <div className="list-number"><button>2</button></div>
-                <div className="list-number"><button>3</button></div>
-                <div id="next-number"><button className="move-list">Next</button></div>
-            </div>
-        </div>
-
-    )
+        )
+    }
 }
