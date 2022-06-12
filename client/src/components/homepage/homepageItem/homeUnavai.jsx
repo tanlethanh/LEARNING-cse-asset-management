@@ -8,10 +8,10 @@ export default function UnavaiItem(props) {
             </div>
             <div className='homepage_rightcard'>
                 <p className='homepage_name'>{props.name}</p>
-                <ul>
-                    <li className='homepage_info'>Quantity: {props.available}/{props.quantity}</li>
-                    <li className='homepage_info'>Category: {props.category}</li>
-                    <li className='homepage_info' id='hp_des'>Des: {props.description}</li>
+                <ul className="homepage_info">
+                    <li>Quantity: {props.available}/{props.quantity}</li>
+                    <li>Category: {props.category}</li>
+                    <li>Des: {props.description}</li>
                 </ul>
                 <button className='homepage-un-button'>
                     REGISTER
