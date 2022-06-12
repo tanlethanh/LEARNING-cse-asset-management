@@ -33,7 +33,18 @@ function App() {
 
     const [checklist, setChecklist] = useState(false)
     return (
-        <div>
+        <div onClick={(event)=>{
+            const targetPrefClass = event.target.className;
+            const target = targetPrefClass.substring(0, targetPrefClass.indexOf('-'))
+            const targetPrefClassParent = event.target.parentNode.className
+            const targetParent = targetPrefClassParent.substring(0, targetPrefClassParent.indexOf('-'))
+
+            if (target !== 'checklist' && targetParent !== 'checklist') {
+                if (checklist === true) {
+                    setChecklist(false)
+                }
+            }
+        }}>
             <Header checklist={checklist} setChecklist={setChecklist} />
             <Routes>
                 <Route

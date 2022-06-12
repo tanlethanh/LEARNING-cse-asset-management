@@ -17,10 +17,12 @@ export function Header(props) {
                 <li className="header-right">
 
                     <div className="nav-btn" onClick={() => {
+                        props.setChecklist(false)
                         navigate("../", { replace: true })
                     }}>Home</div>
 
                     <div className="nav-btn" onClick={() => {
+                        props.setChecklist(false)
                         navigate("../dashboard", { replace: true })
                     }}>Dash board</div>
 

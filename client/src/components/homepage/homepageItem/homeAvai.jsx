@@ -30,7 +30,7 @@ export default function AvaiItem(props) {
     }
 
     return (
-        <div>
+        <div className="homepage-card-container">
             {props.avai.map((item) => {
                 return (
                     <div className='homepage_card' key={item._id}>
@@ -66,7 +66,7 @@ export default function AvaiItem(props) {
                     itemPick={itemPick} setItemPick={setItemPick} />
             }
 
-        
+
         </div>
     )
 }

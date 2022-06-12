@@ -47,9 +47,10 @@ export default function Homepage(props) {
                 </div> 
                 
                 <hr className='homepage-line'></hr>
-
-                <p className='homepage-title un-title'>UNAVAILABLE DEVICE</p>
-                <div className='homepage-item-container'> 
+                
+                {unavai.length > 0 && <p className='homepage-title un-title'>UNAVAILABLE DEVICE</p>}
+                
+                <div className='homepage-item-container'>
                     {unavai.map((item) => {
                         return(
                             <UnavaiItem

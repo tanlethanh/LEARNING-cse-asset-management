@@ -44,52 +44,52 @@ export default function Checklist(props) {
   }, [change])
 
   return (
-    <div className="checklist-container">
+    <div className="checklist-background">
       <Alert
         type="warning"
         message={alertMess}
         alert={alert}
         setAlert={setAlert}
       />
-
-
-      <div>
-        <p className="checklist-title"><b>CHECKLIST</b></p>
-      </div>
-
-      <div className="scrollChecklist" id="checkList">
-        {props.registerItem.map((item) => {
-          return (
-            <div className="checklist-card" key={item._id}>
-              <p className="checklist-name">{item.item.name}</p>
-              <p className="checklist-note">Note: {item.item.decription}</p>
-              <button className="buttonChecklist trash" onClick={() => { handleTrash(item.item._id) }}>
-                <i class="fa-solid fa-trash-can"></i></button>
-              {item.quantity !== 1 &&
-                <button className="buttonChecklist" onClick={() => { item.quantity--; setTest(!test) }}>
-                  <i class="fa-solid fa-minus"></i></button>}
-              {item.quantity === 1 &&
-                <button className="buttonChecklist limit"><i class="fa-solid fa-minus"></i></button>}
-              <p className="checklist-quantity">{item.quantity}</p>
-              {item.quantity < item.item.available &&
-                <button className="buttonChecklist" onClick={() => { item.quantity++; setTest(!test) }}>
-                  <i class="fa-solid fa-plus"></i></button>}
-              {item.quantity === item.item.available &&
-                <button className="buttonChecklist limit"><i class="fa-solid fa-plus"></i></button>}
-            </div>
-          )
-        })}
-      </div>
-
-      <div className="checklist-submit">
-        <div className="checklist-item-quantity">
-          <p>Quantity:</p>
-          <p>{props.registerItem.length}</p>
+      <div className="checklist-container">
+        <div className="checklist-header">
+          <p className="checklist-title">CHECKLIST</p>
         </div>
 
-        <button className="checklist-submit-button" onClick={() => { handleSummit() }}>
-          <b>SUBMIT</b>
-        </button>
+        <div className="checklist-content scrollChecklist" id="checkList">
+          {props.registerItem.map((item) => {
+            return (
+              <div className="checklist-card" key={item._id}>
+                <p className="checklist-name">{item.item.name}</p>
+                <p className="checklist-note">Note: {item.item.decription}</p>
+                <button className="checklist-button trash" onClick={() => { handleTrash(item.item._id) }}>
+                  <i class="fa-solid fa-trash-can"></i></button>
+                {item.quantity !== 1 &&
+                  <button className="checklist-button" onClick={() => { item.quantity--; setTest(!test) }}>
+                    <i class="fa-solid fa-minus"></i></button>}
+                {item.quantity === 1 &&
+                  <button className="checklist-button limit"><i class="fa-solid fa-minus"></i></button>}
+                <p className="checklist-quantity">{item.quantity}</p>
+                {item.quantity < item.item.available &&
+                  <button className="checklist-button" onClick={() => { item.quantity++; setTest(!test) }}>
+                    <i class="fa-solid fa-plus"></i></button>}
+                {item.quantity === item.item.available &&
+                  <button className="checklist-button limit"><i class="fa-solid fa-plus"></i></button>}
+              </div>
+            )
+          })}
+        </div>
+
+        <div className="checklist-submit">
+          <div className="checklist-item-quantity">
+            <p>Quantity:</p>
+            <p>{props.registerItem.length}</p>
+          </div>
+
+          <button className="checklist-submit-button" onClick={() => { handleSummit() }}>
+            <b>SUBMIT</b>
+          </button>
+        </div>
       </div>
     </div>
   )
