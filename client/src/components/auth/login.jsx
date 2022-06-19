@@ -44,16 +44,6 @@ export default function Login(props) {
             }
             <div className="login_container">
 
-                <div className="titleCloseBtn">
-                    <button
-                        onClick={() => {
-                            props.setOpenLogin(false);
-                        }}
-                    >
-                        X
-                    </button>
-                </div>
-
                 <div className="login_title">
                     <h1 className='login_title_top'>Log in</h1>
                     <div className="login_donthave">
@@ -87,6 +77,8 @@ export default function Login(props) {
 
                 <div className="login_footer">
 
+                    <button type="submit" onClick={login}>Login</button>
+
                     <button
                         onClick={() => {
                             props.setOpenLogin(false);
@@ -95,8 +87,6 @@ export default function Login(props) {
                     >
                         Cancel
                     </button>
-
-                    <button type="submit" onClick={login}>Login</button>
 
                 </div>
 

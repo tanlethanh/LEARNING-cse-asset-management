@@ -240,3 +240,93 @@ input[type="checkbox"] {
     background-color: #6171A9;
     color: #fff;
 }
+
+/* edit password*/
+.change_password_background {
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(200, 200, 200, 0.2);
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.change_password_container {
+    position: absolute;
+    left: 40%;
+    width: 450px;
+    height: 400px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+}
+
+.change_password_container .change_password_body {
+    flex: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 1.2rem;
+    text-align: center;
+    color: #000;
+}
+
+.change_password_container .change_password_footer {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.change_password_container .change_password_footer button {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: #48578E;
+    color: white;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.label_body {
+    font-size: 18px;
+}
+
+.input_body {
+    height: 35px;
+    width: 100%;
+    border-radius: 5px;
+    background: #f2f2f2;
+    border: 2px solid #F8F8F8;
+    box-shadow: inset 0px 5px 6px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    padding-left: 5px;
+    margin-top: 5px;
+}
+
+.change_password_input_valid {
+    padding-left: 5px;
+    text-align: left;
+    color: green;
+    font-size: 10px;
+    font-style: italic;
+}
+
+.change_password_input_invalid {
+    padding-left: 5px;
+    text-align: left;
+    color: gray;
+    font-size: 10px;
+    font-style: italic;
+}
