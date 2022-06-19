@@ -63,18 +63,18 @@ export default function Checklist(props) {
                 <p className="checklist-name">{item.item.name}</p>
                 <p className="checklist-note">Note: {item.item.decription}</p>
                 <button className="checklist-button trash" onClick={() => { handleTrash(item.item._id) }}>
-                  <i class="fa-solid fa-trash-can"></i></button>
+                  <i className="fa-solid fa-trash-can"></i></button>
                 {item.quantity !== 1 &&
                   <button className="checklist-button" onClick={() => { item.quantity--; setTest(!test) }}>
-                    <i class="fa-solid fa-minus"></i></button>}
+                    <i className="fa-solid fa-minus"></i></button>}
                 {item.quantity === 1 &&
-                  <button className="checklist-button limit"><i class="fa-solid fa-minus"></i></button>}
+                  <button className="checklist-button limit"><i className="fa-solid fa-minus"></i></button>}
                 <p className="checklist-quantity">{item.quantity}</p>
                 {item.quantity < item.item.available &&
                   <button className="checklist-button" onClick={() => { item.quantity++; setTest(!test) }}>
-                    <i class="fa-solid fa-plus"></i></button>}
+                    <i className="fa-solid fa-plus"></i></button>}
                 {item.quantity === item.item.available &&
-                  <button className="checklist-button limit"><i class="fa-solid fa-plus"></i></button>}
+                  <button className="checklist-button limit"><i className="fa-solid fa-plus"></i></button>}
               </div>
             )
           })}

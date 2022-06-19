@@ -20,12 +20,13 @@ export default function AvaiItem(props) {
     const handleRemove = (e) => {
         if (itemPick.includes(e)) {
             setRegisterItem(registerItem.filter((element) => {
-                return element.item != e
+                return element.item !== e
             }))
 
-            setItemPick(registerItem.filter((element) => {
-                return element != e
+            setItemPick(itemPick.filter((element) => {
+                return element !== e
             }))
+
         }
     }
 

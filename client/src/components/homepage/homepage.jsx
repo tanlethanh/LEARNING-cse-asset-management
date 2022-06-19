@@ -35,7 +35,6 @@ export default function Homepage(props) {
 
     return (
         <div>
-            
             <div className='homepage-container'>
                 <p className='homepage-title'><b>AVAILABLE DEVICE</b></p>
                 <div className="list-search">
