@@ -52,7 +52,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
     function AddNewItem() {
         const [name, setName] = useState("")
         const [quantity, setQuantity] = useState(0)
-        const [category, setCategory] = useState("")
+        const [category, setCategory] = useState("Dụng cụ")
         const [description, setDescription] = useState("")
 
         const [errorQuantity, setErrorQuantity] = useState("invalid")

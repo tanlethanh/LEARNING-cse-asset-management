@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import '../../styles/admin.css'
 import '../../styles/dashboard.css'
 import '../../styles/button.scss'
+import isValidPassword from '../../utils/isValidPassword';
 import Admin from './admin';
 import Member from './member';
+import Alert from '../alert';
 
 export default function Dashboard(props) {
 
     const navigate = useNavigate()
 
-    const [error, setError] = useState(false)
-    const [editButton, setEditButton]= useState(true)
-    const [oldPassword, setOldPassword] = useState('')
-    const [newPassword, setNewPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
-    
+    const [editButton, setEditButton]= useState(false)
 
     const handleLogoutButtonClick = () => {
         Axios.post("http://localhost:8266/api/auth/logout")
@@ -27,34 +24,109 @@ export default function Dashboard(props) {
             })
     }
 
-    const toggleEditForm = () => {
-        setEditButton(!editButton)
-    }
+    function EditInfo() {
+        const [oldPassword, setOldPassword] = useState('')
+        const [newPassword, setNewPassword] = useState('')
+        const [confirmPassword, setConfirmPassword] = useState('')
 
-    const handleSaveButtonClick = () => {
-        if (!editButton) {
-            Axios.post("http://localhost:8266/api/auth/login", {
-            email: props.user.email,
-            password: oldPassword,
-            })
-            
-            .then((response) => {
-                if (response.data.user && newPassword == confirmPassword) {
-                    setError(false)
-                    setEditButton(true)
-                    Axios.post("http://localhost:8266/api/auth/password", {
-                    newPassword: newPassword,
-                    })
-                    .then((response) => {
-                        console.log(response.data.message)
-                        navigate("../dashboard", { replace: true })
-                    });
-                } else {
-                    setError(true)
-                    setEditButton(false)
+        const [errorPassword, setErrorPassword] = useState("invalid")
+
+        const [alert, setAlert] = useState(false)
+        const [alertMess, setAlertMess] = useState('')
+
+
+        const handleSaveButtonClick = () => {
+            if (oldPassword != '' && newPassword != '' && oldPassword != ''){
+                Axios.post("http://localhost:8266/api/auth/login", {
+                email: props.user.email,
+                password: oldPassword,
+                })
+                
+                .then((response) => {
+                    console.log(response.data)
+                    if (response.data.user && newPassword == confirmPassword && errorPassword == "valid") {
+                        Axios.post("http://localhost:8266/api/auth/password", {
+                        newPassword: newPassword,
+                        })
+                        .then((response) => {
+                            console.log(response.data.message)
+                            navigate("../dashboard", { replace: true })
+                        });
+                        setEditButton(false)
+                    } else {
+                        setAlertMess("Wrong password!")
+                        setAlert(false)
+                        setAlert(true)
+                    }
+                });
+            } else {
+                setAlertMess("All fields must be valid!")
+                setAlert(false)
+                setAlert(true)
+            }
+        }
+
+        useEffect(() => {
+            if (isValidPassword(newPassword)) {
+                setErrorPassword("valid")
+    
+            } else {
+                setErrorPassword("invalid")
+            }
+    
+    
+        }, [newPassword])
+
+        return (
+            <div className='change_password_background'>
+                {
+                    <Alert
+                        type="error"
+                        message={alertMess}
+                        alert={alert}
+                        setAlert={setAlert}
+                    />
                 }
-            });
-        }    
+                <div className='change_password_container'>
+
+                    <div className='change_password_body'>
+                        <label className='lable_body'>Old Password</label>
+                        <input className='input_body' type="password" onChange={e => {
+                            setOldPassword(e.target.value)
+                        }} />
+
+                        <label className='lable_body'>New Password</label>
+                        <p className={"change_password_input_" + errorPassword}>
+                            {(errorPassword === 'valid') && "Your password is valid!"}
+                            {(errorPassword === 'invalid') && 
+                            "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character!"}
+                        </p>
+                        <input className='input_body' type="password" onChange={e => {
+                            setNewPassword(e.target.value)
+                        }} />
+
+                        <label className='lable_body'>Confirm Password</label>
+                        <input className='input_body' type="password" onChange={e => {
+                            setConfirmPassword(e.target.value)
+                        }} />           
+
+                    </div>
+
+                    <div className='change_password_footer'>
+                        <button className='button' type="submit" onClick={handleSaveButtonClick}>Save</button>
+                        <button 
+                        onClick={() => {
+                            setEditButton(false);
+                        }}
+                        id="cancelBtn"
+                    >
+                        Cancel
+                    </button>
+                    </div>
+                </div>
+
+            </div>
+        )
     }
 
     return (
@@ -69,36 +141,19 @@ export default function Dashboard(props) {
                     </h2>
                 </div>
                 <div className="detail">
-                    {editButton && 
-                    <ul className="list-infor">
-                        {/* <li className="item-infor">ID: {props.user._id}</li> */}
-                        <li className="item-infor">Email: {props.user.email}</li>
-                        <li className="item-infor">Full name: {props.user.fullName}</li>
-                        <li className="item-infor">Student code: {props.user.studentCode}</li>
-                        <li className="item-infor">Phone number: {props.user.phoneNumber}</li>
-                    </ul>}
-                    {!editButton && 
-                    <ul className="list-infor edit-pass">
-                        <li className="item-infor">
-                        <label>Old password: </label>
-                        <input type="password" onChange={e =>setOldPassword(e.target.value)}/>
-                        </li>
+                    <div>
+                        <ul className="list-infor">
+                            {/* <li className="item-infor">ID: {props.user._id}</li> */}
+                            <li className="item-infor">Email: {props.user.email}</li>
+                            <li className="item-infor">Full name: {props.user.fullName}</li>
+                            <li className="item-infor">Student code: {props.user.studentCode}</li>
+                            <li className="item-infor">Phone number: {props.user.phoneNumber}</li>
+                        </ul>
 
-                        <li className="item-infor">
-                        <label>New password: </label>
-                        <input type="password" onChange={e =>setNewPassword(e.target.value)}/>
-                        </li>
-
-                        <li className="item-infor">
-                        <label>Confirm password: </label>
-                        <input type="password" onChange={e =>setConfirmPassword(e.target.value)}/>
-                        </li> 
-                    </ul>}
-                    {error && <div>Wrong old password or confirm password.<br/>Please type again!</div>}
-                    {editButton && <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>}
-                    {editButton && <button className="button-info" onClick={toggleEditForm}>Edit</button>}
-                    {!editButton && <button className="button-info" onClick={toggleEditForm}>Close</button>}
-                    {!editButton && <button className="button-info" onClick={handleSaveButtonClick}>Save</button>}
+                        <button className="button-info" onClick={() => {setEditButton(true)}}>Edit</button>
+                        <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>
+                    </div>
+                    {editButton && <EditInfo/>}
                 </div>
             </div>
             {
