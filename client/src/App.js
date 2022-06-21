@@ -38,12 +38,14 @@ function App() {
             const target = targetPrefClass.substring(0, targetPrefClass.indexOf('-'))
             const targetPrefClassParent = event.target.parentNode.className
             const targetParent = targetPrefClassParent.substring(0, targetPrefClassParent.indexOf('-'))
+            const targetPrefGrandParent = event.target.parentNode.parentNode.className
+            const targetGrandParent = targetPrefGrandParent.substring(0, targetPrefGrandParent.indexOf('-'))
 
-            if (target !== 'checklist' && targetParent !== 'checklist') {
-                if (checklist === true) {
-                    setChecklist(false)
-                }
-            }
+            // if (target !== 'checklist' && targetParent !== 'checklist' && targetGrandParent !== 'checklist') {
+            //     if (checklist === true) {
+            //         setChecklist(false)
+            //     }
+            // }
         }}>
             <Header checklist={checklist} setChecklist={setChecklist} />
             <Routes>
