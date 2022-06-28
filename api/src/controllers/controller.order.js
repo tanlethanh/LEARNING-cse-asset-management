@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Order = require('../models/model.order')
 const User = require('../models/model.user')
 const Item = require('../models/model.item')
-const isAdmin = require('../helpers/isAdmin')
+const {isAdmin, isAdminWithPassword} = require('../helpers/isAdmin.js')
 
 exports.getAllOrder = async (req, res) => {
     if (await isAdmin(req.session.userId)) {
@@ -81,7 +81,7 @@ exports.createNewOrder = async (req, res) => {
 }
 
 exports.updateStateOrderByID = async (req, res) => {
-    if (await isAdmin(req.session.userId)) {
+    if (await isAdminWithPassword(req.session.userId, req.body.adminPassword)) {
         try {
             const id = mongoose.Types.ObjectId(req.params.id)
             const order = await Order.findById(id)
