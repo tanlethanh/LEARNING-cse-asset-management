@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
     "password": "123456",
-    "email": "member1@gmail.com"
+    "email": "admin@hcmut.edu.vn"
 }
 
 
@@ -61,6 +61,11 @@ Content-Type: application/json
 
 ### item - delete item by id
 DELETE http://localhost:8266/api/item/628f3d17d4d47d5dab57be3f
+Content-Type: application/json
+
+{
+    "adminPassword": "123456"
+}
 
 ### user - get all of users
 GET http://localhost:8266/api/user/
@@ -76,6 +81,28 @@ PATCH http://localhost:8266/api/user/629097230591c3ff4bac2251?togglePermission=a
 
 ### user - toggle fail
 PATCH http://localhost:8266/api/user/628e5e98cac47ecceb92e2d8?togglePermission=f
+
+
+###  auth -  login
+POST http://localhost:8266/api/auth/login
+Content-Type: application/json
+
+{
+    "password": "123456",
+    "email": "admin@hcmut.edu.vn"
+}
+### user - update
+PATCH http://localhost:8266/api/user/62a4850327cf24e74b7e13dd
+Content-Type: application/json
+
+{
+    "fullName": "Tan Le",
+    "studentCode": "2014453",
+    "phoneNumber": "0337229811",
+    "email": "tanle@hcmut.edu.vn",
+    "password": "123456",
+    "adminPassword": "123456"
+}
 
 
 ### user - delete user by id
@@ -102,3 +129,15 @@ Content-Type: application/json
 
 ### order - update state of order
 PATCH http://localhost:8266/api/order/6290bbc299aa53690473526c?action=confirm
+
+### order - delete order by id
+DELETE http://localhost:8266/api/order/62a4931c27cf24e74b7e144a
+
+###  auth -  login
+POST http://localhost:8266/api/auth/login
+Content-Type: application/json
+
+{
+    "password": "123456",
+    "email": "tan.letan8266@hcmut.edu.vn"
+}

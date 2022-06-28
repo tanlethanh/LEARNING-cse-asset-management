@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Order = require('../models/model.order')
 const User = require('../models/model.user')
 const Item = require('../models/model.item')
-const isAdmin = require('../helpers/isAdmin')
+const { isAdmin, isAdminWithPassword } = require('../helpers/isAdmin.js')
 
 exports.getAllOrder = async (req, res) => {
     if (await isAdmin(req.session.userId)) {
@@ -20,7 +20,6 @@ exports.getAllOrder = async (req, res) => {
 }
 
 exports.getOrderById = async (req, res) => {
-    console.log("Get user By Id")
     try {
         const order = await Order.findById(mongoose.Types.ObjectId(req.params.id))
         if (!order) {
@@ -80,8 +79,8 @@ exports.createNewOrder = async (req, res) => {
 
 }
 
-exports.updateStateOrder = async (req, res) => {
-    if (await isAdmin(req.session.userId)) {
+exports.updateStateOrderByID = async (req, res) => {
+    if (await isAdminWithPassword(req.session.userId, req.body.adminPassword)) {
         try {
             const id = mongoose.Types.ObjectId(req.params.id)
             const order = await Order.findById(id)
@@ -114,8 +113,6 @@ exports.updateStateOrder = async (req, res) => {
                  * Add new borrower into borrowerList of item 
                  * Update order status
                  */
-
-
                 if (order.status !== "pending") {
                     return res.status(400).json({
                         status: 400,
@@ -168,7 +165,7 @@ exports.updateStateOrder = async (req, res) => {
                         $set: {
                             "borrowerList.$.status": "done"
                         },
-                        $inc: {'available': order.quantity }
+                        $inc: { 'available': order.quantity }
                     }
                 )
 
@@ -195,4 +192,61 @@ exports.updateStateOrder = async (req, res) => {
     else {
         res.status(403).json({ status: 403, messages: "Forbidden!", order: null })
     }
+}
+
+exports.deleteOrderById = async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.session.userId })
+        const order = await Order.findById(req.params.id)
+        if (!user) {
+            return res.status(404).json({ status: 404, messages: "User is not found!", user: null })
+        }
+        if (!order) {
+            return res.status(404).json({ status: 404, messages: "Order is not found!", order: null })
+        }
+
+        // if this user is admin, we will delete any order
+        if (user.isAdmin) {
+            await User.findByIdAndUpdate(order.idUser, { $pull: { orders: order._id } })
+            await Order.findByIdAndDelete(order._id)
+
+            if (order.status === "ok") {
+                await Item.findByIdAndUpdate(order.idItem, {
+                    $pull: { borrowerList: [{ idOrder: order._id }] },
+                    $inc: { available: order.quantity }
+                })
+            }
+
+            return res.status(204).json({ status: 204, messages: "Delete order successfully!" })
+        }
+        // if not, we just delete when this order belong to user and status is pending
+        else {
+            let doesOrderBelongUser = false
+
+            for (let index = 0; index < user.orders.length; index++) {
+                if (String(user.orders[index]) === String(order._id)) {
+                    doesOrderBelongUser = true
+                    break
+                }
+            }
+
+            if (doesOrderBelongUser) {
+                if (order.status === 'pending') {
+                    console.log("hello")
+                    await Order.findByIdAndDelete(order._id)
+                    await User.findByIdAndUpdate(user._id, { $pull: { orders: order._id } })
+                    return res.status(204).json({ status: 204, messages: "Delete order successfully!" })
+                }
+                else {
+                    return res.status(400).json({ status: 400, messages: "Status of this order is not pending" })
+                }
+            }
+            else {
+                return res.status(400).json({ status: 400, messages: "This order does not belong to user" })
+            }
+        }
+    } catch (error) {
+        return res.status(400).json({ status: 400, messages: error.message, order: null })
+    }
+
 }

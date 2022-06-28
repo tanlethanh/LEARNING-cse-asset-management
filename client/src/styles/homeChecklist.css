@@ -144,3 +144,144 @@
     background-color: #212C58;
     color: #fff
 }
+
+
+.checklist-submit-modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+.checklist-submit-modal-container {
+    width: 650px;
+    height: 600px;
+    background-color: #fff;
+    border-radius: 30px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+}
+
+
+.checklist-submit-modal-title {
+
+}
+
+.checklist-submit-modal-content {
+    width: 100%;
+    height: 80%;
+}
+
+.checklist-submit-modal-content .checklist-card {
+    width: 100%;
+    height: 70px;
+    /* border: 1.5px solid #212C58; */
+    border-radius: 0px !important;
+    /* background-color: #6F7DB0; */
+    border-radius: 30px;
+    padding-left: 20px;
+    padding-top: 10px;
+    position: relative;
+    border-bottom: 1px solid #212C58;
+    margin: 0;
+}
+
+.checklist-card-top {
+
+    width: 90%;
+    height: 50%;
+    /* background-color: yellow; */
+    position: relative;
+    font-size: 18px;
+
+}
+.checklist-card-top-left {
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+}
+.checklist-card-top-right {
+    position: absolute;
+    right: 0;
+    top: -10px;
+}
+.checklist-card-bottom {
+    width: 90%;
+    height: 50%;
+    /* background-color: yellow; */
+    position: relative;
+    font-size: 14px;
+}
+
+.checklist-card-bottom-left {
+
+    position: absolute;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.checklist-card-bottom-left p {
+    width: 200px;
+}
+
+.checklist-datepicker {
+    width: 100px;
+    
+}
+
+.checklist-card-bottom-right {
+    position: absolute;
+    right: 0;
+    /* top: -10px; */
+    top: 5px;
+}
+
+.checklist-card-bottom-right p {
+    font-size: 10px;
+    font-style: italic;
+    color: red;
+    font-weight: 200;
+}
+
+.checklist-valid {
+    color: green !important;
+}
+
+.checklist-card-checkbox {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 10%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.checklist-submit-modal-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.checklist-submit-modal-content:-webkit-scrollbar-track {
+    background: none;
+}
+
+.checklist-submit-modal-content::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+    /* margin-right: 5px; */
+}

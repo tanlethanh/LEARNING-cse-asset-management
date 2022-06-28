@@ -1,5 +1,5 @@
 const Item = require('../models/model.item')
-const isAdmin = require('../helpers/isAdmin.js')
+const { isAdmin, isAdminWithPassword } = require('../helpers/isAdmin.js')
 const mongoose = require('mongoose')
 
 exports.getAllItems = async (req, res) => {
@@ -33,7 +33,7 @@ exports.getItemById = async (req, res) => {
 
 exports.addNewItem = async (req, res) => {
     console.log("Add new item")
-    if (await isAdmin(req.session.userId)) {
+    if (await isAdminWithPassword(req.session.userId, req.body.adminPassword)) {
         try {
 
             const newItem = new Item({
@@ -59,7 +59,7 @@ exports.addNewItem = async (req, res) => {
 
 exports.updateItemById = async (req, res) => {
 
-    if (await isAdmin(req.session.userId)) {
+    if (await isAdminWithPassword(req.session.userId, req.body.adminPassword)) {
         try {
             const item = await Item.findOneAndUpdate({ _id: mongoose.Types.ObjectId(req.params.id) }, req.body, { new: true })
             if (item) {
@@ -82,10 +82,19 @@ exports.updateItemById = async (req, res) => {
 
 exports.deleteItemById = async (req, res) => {
 
-    if (await isAdmin(req.session.userId)) {
+    if (await isAdminWithPassword(req.session.userId, req.body.adminPassword)) {
         try {
-            const item = await Item.findOneAndDelete({ _id: mongoose.Types.ObjectId(req.params.id) })
-            res.status(204).json({ status: 204, messages: "Delete item successfully!", item })
+            const item = await Item.findOneAndDelete({
+                _id: mongoose.Types.ObjectId(req.params.id),
+                $expr: { $eq: ["$available", "$quantity"] }
+            })
+
+            if (item) {
+                return res.status(204).json({ status: 204, messages: "Delete item successfully!", item })
+            }
+            else {
+                return res.status(400).json({ status: 400, messages: "This item is in process of one order", item })
+            }
 
 
         } catch (error) {

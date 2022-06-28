@@ -68,9 +68,13 @@ export default function Homepage(props) {
 
             {props.checklist &&
                 <Checklist
-                    registerItem={registerItem} setRegisterItem={setRegisterItem}
-                    checklist={props.checklist} setChecklist={props.setChecklist}
-                    itemPick={itemPick} setItemPick={setItemPick} />
+                    registerItem={registerItem}
+                    setRegisterItem={setRegisterItem}
+                    checklist={props.checklist}
+                    setChecklist={props.setChecklist}
+                    itemPick={itemPick}
+                    setItemPick={setItemPick}
+                />
             }
 
 
@@ -112,7 +116,7 @@ export default function Homepage(props) {
                                     quantity={item.quantity}
                                     category={item.category}
                                     description={item.description}
-                                    // key={item._id}
+                                // key={item._id}
                                 />
                             )
                         })}
