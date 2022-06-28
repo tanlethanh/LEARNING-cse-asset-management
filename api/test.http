@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
     "password": "123456",
-    "email": "member1@gmail.com"
+    "email": "admin@hcmut.edu.vn"
 }
 
 
@@ -76,6 +76,24 @@ PATCH http://localhost:8266/api/user/629097230591c3ff4bac2251?togglePermission=a
 
 ### user - toggle fail
 PATCH http://localhost:8266/api/user/628e5e98cac47ecceb92e2d8?togglePermission=f
+
+
+###  auth -  login
+POST http://localhost:8266/api/auth/login
+Content-Type: application/json
+
+{
+    "password": "123456",
+    "email": "admin@hcmut.edu.vn"
+}
+### user - update
+PATCH http://localhost:8266/api/user/62a4850327cf24e74b7e13dd
+Content-Type: application/json
+
+{
+    "fullName": "Tan Le",
+    "password": "123456"
+}
 
 
 ### user - delete user by id

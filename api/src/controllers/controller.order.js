@@ -80,7 +80,7 @@ exports.createNewOrder = async (req, res) => {
 
 }
 
-exports.updateStateOrder = async (req, res) => {
+exports.updateStateOrderByID = async (req, res) => {
     if (await isAdmin(req.session.userId)) {
         try {
             const id = mongoose.Types.ObjectId(req.params.id)
@@ -114,8 +114,6 @@ exports.updateStateOrder = async (req, res) => {
                  * Add new borrower into borrowerList of item 
                  * Update order status
                  */
-
-
                 if (order.status !== "pending") {
                     return res.status(400).json({
                         status: 400,
@@ -168,7 +166,7 @@ exports.updateStateOrder = async (req, res) => {
                         $set: {
                             "borrowerList.$.status": "done"
                         },
-                        $inc: {'available': order.quantity }
+                        $inc: { 'available': order.quantity }
                     }
                 )
 
@@ -195,4 +193,8 @@ exports.updateStateOrder = async (req, res) => {
     else {
         res.status(403).json({ status: 403, messages: "Forbidden!", order: null })
     }
+}
+
+exports.deleteOrderById = async (req, res) => {
+
 }

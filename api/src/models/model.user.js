@@ -1,5 +1,8 @@
 const mongoose = require("mongoose")
 
+// const bcrypt = require('bcrypt')
+// const saltRounds = 10
+
 const userSchema = new mongoose.Schema({
     enable: {
         type: Boolean,
@@ -19,7 +22,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        unique: true,
+        unique: true
     },
     phoneNumber: {
         type: String,
@@ -41,6 +44,6 @@ const userSchema = new mongoose.Schema({
         quantity: Number,
     },
     orders: [mongoose.Schema.Types.ObjectId]
-}, {timestamps: true})
+}, { timestamps: true })
 
 module.exports = mongoose.model("User", userSchema)
