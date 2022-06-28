@@ -36,7 +36,7 @@ export default function Dashboard(props) {
 
 
         const handleSaveButtonClick = () => {
-            if (oldPassword != '' && newPassword != '' && oldPassword != ''){
+            if (oldPassword !== '' && newPassword !== '' && oldPassword !== ''){
                 Axios.post("http://localhost:8266/api/auth/login", {
                 email: props.user.email,
                 password: oldPassword,
@@ -44,7 +44,7 @@ export default function Dashboard(props) {
                 
                 .then((response) => {
                     console.log(response.data)
-                    if (response.data.user && newPassword == confirmPassword && errorPassword == "valid") {
+                    if (response.data.user && newPassword === confirmPassword && errorPassword === "valid") {
                         Axios.post("http://localhost:8266/api/auth/password", {
                         newPassword: newPassword,
                         })
