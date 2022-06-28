@@ -109,10 +109,13 @@ exports.updateUserById = async (req, res, next) => {
 exports.deleteUserById = async (req, res) => {
     if (await isAdminWithPassword(req.session.userId, req.body.adminPassword)) {
         try {
+            if (String(req.session.userId) === String(req.params.id)) {
+                return res.status(400).json({ status: 400, messages: "Can not delete this user", user: null })
+            }
             const user = await User.findOneAndDelete({ _id: mongoose.Types.ObjectId(req.params.id) })
 
             if (user) {
-                res.status(204).json({})
+                return res.status(204).json({})
             }
             else {
                 return res.status(404).json({ status: 404, messages: "Not found this user!", user: null })
