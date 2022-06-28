@@ -209,6 +209,14 @@ exports.deleteOrderById = async (req, res) => {
         if (user.isAdmin) {
             await User.findByIdAndUpdate(order.idUser, { $pull: { orders: order._id } })
             await Order.findByIdAndDelete(order._id)
+
+            if (order.status === "ok") {
+                await Item.findByIdAndUpdate(order.idItem, {
+                    $pull: { borrowerList: [{ idOrder: order._id }] },
+                    $inc: { available: order.quantity }
+                })
+            }
+
             return res.status(204).json({ status: 204, messages: "Delete order successfully!" })
         }
         // if not, we just delete when this order belong to user and status is pending
