@@ -61,6 +61,11 @@ Content-Type: application/json
 
 ### item - delete item by id
 DELETE http://localhost:8266/api/item/628f3d17d4d47d5dab57be3f
+Content-Type: application/json
+
+{
+    "adminPassword": "123456"
+}
 
 ### user - get all of users
 GET http://localhost:8266/api/user/
@@ -126,7 +131,7 @@ Content-Type: application/json
 PATCH http://localhost:8266/api/order/6290bbc299aa53690473526c?action=confirm
 
 ### order - delete order by id
-DELETE http://localhost:8266/api/order/62bab230b4d13883f8e4cd6e
+DELETE http://localhost:8266/api/order/62a4931c27cf24e74b7e144a
 
 ###  auth -  login
 POST http://localhost:8266/api/auth/login
