@@ -92,7 +92,11 @@ Content-Type: application/json
 
 {
     "fullName": "Tan Le",
-    "password": "123456"
+    "studentCode": "2014453",
+    "phoneNumber": "0337229811",
+    "email": "tanle@hcmut.edu.vn",
+    "password": "123456",
+    "adminPassword": "123456"
 }
 
 
