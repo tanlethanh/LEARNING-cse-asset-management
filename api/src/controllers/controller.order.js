@@ -209,12 +209,12 @@ exports.deleteOrderById = async (req, res) => {
         if (user.isAdmin) {
             await User.findByIdAndUpdate(order.idUser, { $pull: { orders: order._id } })
             await Order.findByIdAndDelete(order._id)
-            return res.status(200).json({ status: 200, messages: "Delete order successfully!" })
+            return res.status(204).json({ status: 204, messages: "Delete order successfully!" })
         }
         // if not, we just delete when this order belong to user and status is pending
         else {
             let doesOrderBelongUser = false
-            
+
             for (let index = 0; index < user.orders.length; index++) {
                 if (String(user.orders[index]) === String(order._id)) {
                     doesOrderBelongUser = true
@@ -227,7 +227,7 @@ exports.deleteOrderById = async (req, res) => {
                     console.log("hello")
                     await Order.findByIdAndDelete(order._id)
                     await User.findByIdAndUpdate(user._id, { $pull: { orders: order._id } })
-                    return res.status(200).json({ status: 200, messages: "Delete order successfully!" })
+                    return res.status(204).json({ status: 204, messages: "Delete order successfully!" })
                 }
                 else {
                     return res.status(400).json({ status: 400, messages: "Status of this order is not pending" })
