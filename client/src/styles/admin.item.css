@@ -36,7 +36,7 @@
     position: absolute;
     left: 40%;
     width: 450px;
-    height: 550px;
+    height: 610px;
     border-radius: 12px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -118,6 +118,10 @@
     height: 100px !important;
 }
 
+.add_item_confirm {
+    color: red !important;
+}
+
 .item_delete_background {
     top: 0;
     left: 0;
@@ -135,7 +139,7 @@
     position: absolute;
     left: 35%;
     width: 550px;
-    height: 150px;
+    height: 200px;
     border-radius: 12px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
