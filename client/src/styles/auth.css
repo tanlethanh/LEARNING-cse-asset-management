@@ -57,6 +57,20 @@
 }
 
 
+.authpage_container_right{
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.authpage_container_right img {
+    width: 60%;
+}
+
 /* login */
 .login_background {
     top: 0;

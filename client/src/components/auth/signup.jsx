@@ -131,7 +131,7 @@ export default function Signup() {
 
                 {/* left */}
                 <div className="signup_background_left">
-                    <img className="signup_logo" src="/imgg.png" alt="" />
+                    <img className="signup_logo" src="/big_logo.png" alt="" />
                     <h1>ASSET CSE</h1>
                     <p>A powerful website for asset management</p>
                 </div>

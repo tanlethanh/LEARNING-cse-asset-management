@@ -37,6 +37,10 @@ export default function AuthPage(props) {
                 </div>
             </div>
 
+            <div className="authpage_container_right">
+                <img className="signup_logo" src="/big_logo.png" alt="" />
+            </div>
+
             {openLogin && <Login setOpenLogin={setOpenLogin} setUser={props.setUser} />}
         </div>
 

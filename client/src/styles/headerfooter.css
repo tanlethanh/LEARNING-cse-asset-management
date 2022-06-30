@@ -21,25 +21,41 @@
     right: 20px;
 }
 
-.text-logo {
-    padding: 0 100px;
-    text-decoration: none;
+.header-left {
+    position: absolute;
+    left: 50px;
+    height: var(--height-nav);
     line-height: var(--height-nav);
+    width: 300px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
 }
 
-.text-logo em {
+.header-left .header-logo {
+    width: 60px;
+    display: inline-block;
+    height: 100%;
+}
+
+.header-left img {
+    width: 60px;
+}
+
+.header-left em {
     font-size: 2rem;
     font-weight: 700;
     font-style: normal;
 }
 
-.text-logo .text-logo-1 {
+.header-left .text-logo-1 {
     color: #212C58;
     margin-right: 10px;
-
+    height: 100%;
 }
 
-.text-logo .text-logo-2 {
+.header-left .text-logo-2 {
     color: #C0CFFA;
 }
 

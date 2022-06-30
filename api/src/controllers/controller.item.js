@@ -42,6 +42,7 @@ exports.addNewItem = async (req, res) => {
                 quantity: req.body.quantity,
                 category: req.body.category,
                 description: req.body.description,
+                image: req.body.image
             })
 
             const item = await newItem.save()

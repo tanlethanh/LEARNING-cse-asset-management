@@ -6,7 +6,7 @@ export default function AvaiItem({item, handleRegister, handleRemove, isPicked})
     return (
         <div className='homepage_card'>
             <div className='homepage_leftcard'>
-                <img src={item.image ? item.image : ""} className="homepage_image img-fluid rounded-start" alt="..." />
+                <img src={item.image ? item.image : "./big_logo.png"} className="homepage_image img-fluid rounded-start" alt="..." />
             </div>
             <div className='homepage_rightcard'>
                 <p className='homepage_name'>{item.name}</p>

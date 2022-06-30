@@ -9,10 +9,11 @@ export function Header(props) {
         <header id="header">
             <ul>
                 <li className="header-left">
-                    <a className="text-logo">
-                        <em className="text-logo-1">Asset</em>
-                        <em className="text-logo-2">cse</em>
-                    </a>
+                    <div className='header-logo'>
+                        <img src="/small_logo.png" alt="image" />
+                    </div>
+                    <em className="text-logo-1">Asset</em>
+                    <em className="text-logo-2">cse</em>
                 </li>
                 <li className="header-right">
 

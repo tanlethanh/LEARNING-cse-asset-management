@@ -15,11 +15,12 @@ require('dotenv').config()
 // use middleware
 const app = express()
 app.use(cors(
-    {credentials: true, origin: 'http://localhost:3000'}
+    { credentials: true, origin: 'http://localhost:3000' }
 ))
 app.use(morgan())
 app.use(helmet())
-app.use(express.json())
+// app.use(express.json())
+app.use(express.json({ limit: "30mb", extended: true }));
 
 
 // set up session
@@ -32,7 +33,7 @@ const sess = {
     cookie: {
         maxAge: 60000 * 60
     },
-    saveUninitialized:true,
+    saveUninitialized: true,
     resave: false,
     rolling: true, // maxAge depends on last response
 }
