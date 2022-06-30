@@ -49,7 +49,7 @@ export default function EditInfo ({user, infor, setInfor, editInforUser,setEditI
 
         const handleYes = () => {
             if (infor === 'fullName') {
-                Axios.post(`http://localhost:8266/api/user/${user._id}`, {
+                Axios.patch(`http://localhost:8266/api/user/${user._id}`, {
                     fullName: acceptInfo,
                     studentCode: "",
                     phoneNumber: "",
@@ -64,6 +64,7 @@ export default function EditInfo ({user, infor, setInfor, editInforUser,setEditI
                         setAcceptInfo('')
                         setEditInforUser(false)
                         setAcceptBox(false)
+                        console.log(response)
                     } else {
                         setAlertMess("Wrong password!")
                         setAlert(false)
@@ -71,7 +72,7 @@ export default function EditInfo ({user, infor, setInfor, editInforUser,setEditI
                     }
                 })
             } else if (infor === 'email'){
-                Axios.post(`http://localhost:8266/api/user/${user._id}`, {
+                Axios.patch(`http://localhost:8266/api/user/${user._id}`, {
                     fullName: "",
                     studentCode: "",
                     phoneNumber: "",
@@ -93,7 +94,7 @@ export default function EditInfo ({user, infor, setInfor, editInforUser,setEditI
                     }
                 })
             } else if (infor === 'studentCode') {
-                Axios.post(`http://localhost:8266/api/user/${user._id}`, {
+                Axios.patch(`http://localhost:8266/api/user/${user._id}`, {
                     fullName: "",
                     studentCode: acceptInfo,
                     phoneNumber: "",
@@ -115,7 +116,7 @@ export default function EditInfo ({user, infor, setInfor, editInforUser,setEditI
                     }
                 })
             } else if (infor === 'phoneNumber') {
-                Axios.post(`http://localhost:8266/api/user/${user._id}`, {
+                Axios.patch(`http://localhost:8266/api/user/${user._id}`, {
                     fullName: "",
                     studentCode: "",
                     phoneNumber: acceptInfo,
@@ -137,7 +138,7 @@ export default function EditInfo ({user, infor, setInfor, editInforUser,setEditI
                     }
                 })
             } else {
-                Axios.post(`http://localhost:8266/api/user/${user._id}`, {
+                Axios.patch(`http://localhost:8266/api/user/${user._id}`, {
                     fullName: "",
                     studentCode: "",
                     phoneNumber: "",

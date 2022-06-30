@@ -5,7 +5,7 @@ import ImageUploading from "react-images-uploading";
 import '../../../styles/admin.item.css';
 import convertValidName from '../../../utils/convertValidName';
 import Alert from '../../alert';
-
+import ConfirmPassword from '../../confirmPassword';
 import { dataContext } from '../admin';
 export default function Items({ items, setChangeItems, changeItems }) {
 
@@ -51,52 +51,71 @@ export default function Items({ items, setChangeItems, changeItems }) {
 
     // Component use for add item
     function AddNewItem() {
+        // property of item
         const [name, setName] = useState("")
         const [quantity, setQuantity] = useState(0)
         const [category, setCategory] = useState("Dụng cụ")
         const [description, setDescription] = useState("")
-<<<<<<< HEAD
-        const [errorQuantity, setErrorQuantity] = useState("invalid")
-=======
-        const [adminPassword, setAdminPassword] = useState("")
+        const [images, setImages] = useState([])
 
+        // utils
         const [errorQuantity, setErrorQuantity] = useState("invalid")
-
         const [typeAlert, setTypeAlert] = useState("")
->>>>>>> 52e0fe86d320ab312481f0fba730c168bc3cf13a
         const [alert, setAlert] = useState(false)
         const [alertMess, setAlertMess] = useState('')
-        const [images, setImages] = React.useState([]);
-        const onChange = (imageList, addUpdateIndex) => {
-            // data for submit
-            console.log(imageList, addUpdateIndex);
-            setImages(imageList);
-        };
 
-        const addNewItem = () => {
-            if (quantity <= 0) {
-                setAlertMess("Quantity must be valid!")
-                setTypeAlert("error")
-                setAlert(false)
-                setAlert(true)
-            } else {
-                Axios.post("http://localhost:8266/api/item", {
-                    name: name,
-                    quantity: quantity,
-                    category: category,
-                    description: description,
-                    adminPassword: adminPassword,
-                }).then(response => {
-                    if (response.data){
-                        console.log("Add new item ", response.data)
-                        setAlertMess("Success!")
-                        setTypeAlert("success")
-                        setAlert(true)
-                        setChangeItems(!changeItems)
-                        setAddItem(false);
-                    }
-                })
+        // confirm admin password
+        const [openConfirmAdminPassword, setOpenConfirmAdminPassword] = useState(false)
+
+        const sendNewItem = (adminPassword) => {
+            setAlert(false)
+
+            let image
+            if (images.length > 0) {
+                image = images[0].data_url
             }
+
+            Axios.post("http://localhost:8266/api/item", {
+                name: name,
+                quantity: quantity,
+                category: category,
+                description: description,
+                image: image,
+                adminPassword: adminPassword,
+            })
+                .then(response => {
+                    setAlertMess("Add new item successfully!")
+                    setTypeAlert("success")
+                    setAlert(true)
+                    setTimeout(() => {
+                        setAddItem(false)
+                        setChangeItems(!changeItems)
+                    }, 1000)
+                })
+                .catch(error => {
+
+                    if (error.response.status === 403) {
+                        setAlertMess("Your password is incorrect!")
+                    }
+                    else if (error.response.status === 400) {
+                        if (error.response.data.messages.split(" ")[0] === "E11000") {
+                            setAlertMess("Please use another name!")
+                        }
+                        else {
+                            setAlertMess("Add new item failure, bad request!")
+                        }
+                    }
+                    else {
+                        setAlertMess("Add new item failure, please check again!")
+                    }
+
+                    console.log(error)
+                    setTypeAlert("error")
+                    setAlert(true)
+                    setTimeout(() => {
+                        setOpenConfirmAdminPassword(false)
+                    }, 1000)
+                })
         }
 
         useEffect(() => {
@@ -116,6 +135,14 @@ export default function Items({ items, setChangeItems, changeItems }) {
                         message={alertMess}
                         alert={alert}
                         setAlert={setAlert}
+                    />
+
+                }
+                {
+                    openConfirmAdminPassword &&
+                    <ConfirmPassword
+                        setOpen={setOpenConfirmAdminPassword}
+                        callback={sendNewItem}
                     />
                 }
                 <div className='item_add_container'>
@@ -162,11 +189,12 @@ export default function Items({ items, setChangeItems, changeItems }) {
                             setDescription(e.target.value)
                         }} ></textarea>
 
-<<<<<<< HEAD
                         <label className='lable_body'>Image</label>
                         <ImageUploading
                             value={images}
-                            onChange={onChange}
+                            onChange={(imageList, addUpdateIndex) => {
+                                setImages(imageList)
+                            }}
                             dataURLKey="data_url"
                         >
                             {({
@@ -203,16 +231,20 @@ export default function Items({ items, setChangeItems, changeItems }) {
                         </ImageUploading>
 
 
-=======
-                        <label className='lable_body add_item_confirm'>Type password to confirm!</label>
-                        <input className='input_body' type="password" onChange={e => {
-                            setAdminPassword(e.target.value)
-                        }} />
->>>>>>> 52e0fe86d320ab312481f0fba730c168bc3cf13a
                     </div>
 
                     <div className='item_add_footer'>
-                        <button className='button' type="submit" onClick={addNewItem}>Add now!</button>
+                        <button className='button' type="submit"
+                            onClick={() => {
+                                if (quantity <= 0) {
+                                    setAlertMess("Quantity must be valid!")
+                                    setTypeAlert("error")
+                                    setAlert(false)
+                                    setAlert(true)
+                                } else {
+                                    setOpenConfirmAdminPassword(true)
+                                }
+                            }}>Add now!</button>
                     </div>
                 </div>
 
@@ -248,12 +280,12 @@ export default function Items({ items, setChangeItems, changeItems }) {
                 <div className='item_delete_container'>
                     <div className='item_delete_body'>
                         <label className='lable_body'>Are you sure you want to permanently delete these items?</label>
-                        <input 
-                        className='input_body' 
-                        type="password"
-                        onChange={e => {
-                            setAdminPassword(e.target.value)
-                        }} /> 
+                        <input
+                            className='input_body'
+                            type="password"
+                            onChange={e => {
+                                setAdminPassword(e.target.value)
+                            }} />
                     </div>
 
                     <div className='item_delete_footer'>
