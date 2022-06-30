@@ -11,6 +11,7 @@ export default function ConfirmPassword({ setOpen, callback }) {
                     <input
                         className='input_body'
                         type="password"
+                        autocomplete="new-password"
                         onChange={e => {
                             password = e.target.value
                         }} />

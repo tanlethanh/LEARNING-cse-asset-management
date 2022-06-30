@@ -166,80 +166,90 @@ export default function Items({ items, setChangeItems, changeItems }) {
                             X
                         </button>
                     </div>
-                    <h1 className='item_add_title'>ADD NEW ITEM</h1>
+                    <h1 className='item_add_title'>Add new item</h1>
 
                     <div className='item_add_body'>
-                        <label className='lable_body'>Name of item</label>
-                        <input className='input_body' type="text" onChange={e => {
-                            setName(convertValidName(e.target.value))
-                        }} />
+                        <div className='item_add_body_left'>
+                            <label className='lable_body'>Name of item</label>
+                            <input className='input_body' type="text" onChange={e => {
+                                setName(convertValidName(e.target.value))
+                            }} />
 
-                        <label className='lable_body'>Quantity</label>
-                        <p className={"signup_input_" + errorQuantity}>
-                            {(errorQuantity === 'valid') && "Quantity is valid!"}
-                            {(errorQuantity === 'invalid') && "Quantity must be a positive number."}
-                        </p>
-                        <input className='input_body' type="number" onChange={e => {
-                            setQuantity(e.target.value)
-                        }} />
+                            <label className='lable_body'>Quantity</label>
+                            <p className={"signup_input_" + errorQuantity}>
+                                {(errorQuantity === 'valid') && "Quantity is valid!"}
+                                {(errorQuantity === 'invalid') && "Quantity must be a positive number."}
+                            </p>
+                            <input className='input_body' type="number" onChange={e => {
+                                setQuantity(e.target.value)
+                            }} />
 
-                        <label className='lable_body'>Category</label>
-                        <select className='input_body' name="e" onChange={e => {
-                            setCategory(e.target.value)
-                        }} >
-                            <option value="Dụng cụ">Dụng cụ</option>
-                            <option value="Thiết bị điện">Thiết bị điện</option>
-                            <option value="Phòng học">Phòng học</option>
-                            <option value="Đồ sự kiện">Đồ sự kiện</option>
-                            <option value="Trang phục">Trang phục</option>
-                            <option value="Đồ dùng văn phòng">Đồ dùng văn phòng</option>
-                        </select>
+                            <label className='lable_body'>Category</label>
+                            <select className='input_body' name="e" onChange={e => {
+                                setCategory(e.target.value)
+                            }} >
+                                <option value="Dụng cụ">Dụng cụ</option>
+                                <option value="Thiết bị điện">Thiết bị điện</option>
+                                <option value="Phòng học">Phòng học</option>
+                                <option value="Đồ sự kiện">Đồ sự kiện</option>
+                                <option value="Trang phục">Trang phục</option>
+                                <option value="Đồ dùng văn phòng">Đồ dùng văn phòng</option>
+                            </select>
 
-                        <label className='lable_body'>Description</label>
-                        <textarea className='input_body input_des' onChange={e => {
-                            setDescription(e.target.value)
-                        }} ></textarea>
+                            <label className='lable_body'>Description</label>
+                            <textarea className='input_body input_des' onChange={e => {
+                                setDescription(e.target.value)
+                            }} ></textarea>
+                        </div>
 
-                        <label className='lable_body'>Image</label>
-                        <ImageUploading
-                            value={images}
-                            onChange={(imageList, addUpdateIndex) => {
-                                setImages(imageList)
-                            }}
-                            dataURLKey="data_url"
-                        >
-                            {({
-                                imageList,
-                                onImageUpload,
-                                onImageRemoveAll,
-                                onImageUpdate,
-                                onImageRemove,
-                                isDragging,
-                                dragProps
-                            }) => (
-                                // write your building UI
-                                <div className="upload__image-wrapper">
-                                    <button
-                                        style={isDragging ? { color: "red" } : null}
-                                        onClick={onImageUpload}
-                                        {...dragProps}
-                                    >
-                                        Click or Drop here
-                                    </button>
-                                    &nbsp;
-                                    {/* <button onClick={onImageRemoveAll}>Remove all images</button> */}
-                                    {imageList.map((image, index) => (
-                                        <div key={index} className="image-item">
-                                            <img src={image.data_url} alt="" width="200" />
-                                            <div className="image-item__btn-wrapper">
-                                                <button onClick={() => onImageUpdate(index)}>Change</button>
-                                                <button onClick={() => onImageRemove(index)}>Remove</button>
+                        {/* For adding image */}
+                        <div className='item_add_body_right'>
+                            <label className='lable_body'>Image</label>
+                            <ImageUploading
+                                value={images}
+                                onChange={(imageList, addUpdateIndex) => {
+                                    setImages(imageList)
+                                }}
+                                dataURLKey="data_url"
+                            >
+                                {({
+                                    imageList,
+                                    onImageUpload,
+                                    onImageRemoveAll,
+                                    onImageUpdate,
+                                    onImageRemove,
+                                    isDragging,
+                                    dragProps
+                                }) => (
+                                    // write your building UI
+                                    <div className="upload__image-wrapper">
+                                        <button
+                                            style={isDragging ? { color: "red" } : null}
+                                            onClick={onImageUpload}
+                                            className={"upload_clickdrop " + ((images.length > 0) && "display_none")}
+                                            {...dragProps}
+                                        >
+                                            Click or Drop here
+                                        </button>
+                                        &nbsp;
+                                        {/* <button onClick={onImageRemoveAll}>Remove all images</button> */}
+                                        {imageList.map((image, index) => (
+                                            <div key={index} className="image-item">
+                                                <img src={image.data_url} alt="" width="280" />
+                                                <div className="image-item__btn-wrapper">
+                                                    <button onClick={() => onImageUpdate(index)}>Change</button>
+                                                    <button onClick={() => onImageRemove(index)}>Remove</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </ImageUploading>
+                                        ))}
+                                    </div>
+                                )}
+                            </ImageUploading>
+                        </div>
+
+
+
+
 
 
                     </div>
@@ -337,7 +347,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
                     <i className="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search item" />
                 </div>
-                <button className='item_add_button' onClick={handleAddItemButton}>Add new item</button>
+                <button className='item_add_button' onClick={handleAddItemButton}>+</button>
                 {addItem && <AddNewItem />}
             </div>
 
@@ -354,7 +364,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
             {
                 items.map((item, index) => {
                     return (
-                        (index >= currentFragment * maxLengthOfFragment && index < (currentFragment + 1) * maxLengthOfFragment) 
+                        (index >= currentFragment * maxLengthOfFragment && index < (currentFragment + 1) * maxLengthOfFragment)
                         && <div key={item._id} className={"list-item " + (index % 2 === 0 ? "list-item-odd" : "")}>
                             <div
                                 className="list-item-col item_name_col"

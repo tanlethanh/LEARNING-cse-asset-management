@@ -96,13 +96,13 @@
 }
 
 .item_add_button {
-	height: 45px;
-	width: 120px;
+	height: 30px;
+	width: 30px;
 	display: inline-block;
-	border-radius: 20px;
+	border-radius: 50%;
 	color: #fff;
     background-color: #48578E;
-	font-size: 1rem;
+	font-size: 1.4rem;
 	transition: all .3s;
 	position: relative;
 	overflow: hidden;

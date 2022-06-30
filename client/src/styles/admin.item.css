@@ -35,27 +35,26 @@
     position: fixed;
     background-color: rgba(200, 200, 200, 0.2);
     display: flex;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
 }
 
 .item_add_container {
     position: absolute;
-    left: 40%;
-    min-width: 450px;
+    min-width: 800px;
     min-height: 550px;
     border-radius: 12px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: flex;
     flex-direction: column;
-    padding: 20px 50px;
+    padding: 10px 0 20px;
 }
 
 .item_add_container .item_add_title {
     display: flex;
     flex-wrap: wrap;
-    text-align: left;
+    text-align: center;
     margin-bottom: 10px;
     flex-direction: column;
     font-size: 30px;
@@ -70,20 +69,69 @@
 .titleCloseBtn button {
     border: none;
     background-color: transparent;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
     cursor: pointer;
+    margin-right: 20px;
 }
 
 .item_add_container .item_add_body {
-    flex: 50%;
+    font-size: 1.2rem;
+    /* text-align: center; */
+    position: relative;
+    height: 400px;
+    /* color: #48578E; */
+}
+
+.item_add_body_left {
+    position: absolute;
+    right: 50%;
+    width: 50%;
+    height: 100%;
+    padding-left: 40px;
+    padding-right: 20px;
+    
+}
+
+.item_add_body_right {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    font-size: 1.2rem;
-    text-align: center;
+    /* justify-content: center; */
+    align-items: center;
 }
+
+.upload__image-wrapper .upload_clickdrop{
+    margin-top: 20px;
+    height: 300px;
+    width: 300px;
+    /* background-color: ; */
+    border: solid 1px #48578E;
+    border-radius: 20px;
+
+}
+
+.image-item__btn-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.image-item__btn-wrapper button {
+    height: 30px;
+    width: 80px;
+    font-size: 0.8em;
+    margin-left: 20px;
+    border-radius: 20px;
+    border: solid 1px #000;
+    background-color: #fff;
+    /* color: #48578E; */
+    cursor: pointer;
+}
+
 
 .item_add_container .item_add_footer {
     flex: 20%;
