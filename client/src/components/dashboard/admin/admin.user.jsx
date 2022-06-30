@@ -63,7 +63,7 @@ export default function Users(props) {
     const openUserDetail = (user) => {
         navigate("../user/detail/" + user._id, { state: { user: user } })
     }
-    
+
     // success alert
     function SuccessEnable() {
         setAlertMess("Success!")
@@ -72,8 +72,8 @@ export default function Users(props) {
         setTimeout(function () {
             setSuccessEnable(false)
         }, 1000)
-        
-        return(
+
+        return (
             <Alert
                 type="success"
                 message={alertMess}
@@ -85,6 +85,19 @@ export default function Users(props) {
 
     // Component of user who is not enable
     function UsersRender(props) {
+
+        // use for fragment
+        const maxLengthOfFragment = 10
+        const numOfFragment = Math.ceil(props.users.length * 1.0 / maxLengthOfFragment)
+        const [currentFragment, setCurrentFracment] = useState(0)
+
+        const prevFragment = () => {
+            if (currentFragment > 0) setCurrentFracment(currentFragment - 1)
+        }
+
+        const nextFragment = () => {
+            if (currentFragment < numOfFragment - 1) setCurrentFracment(currentFragment + 1)
+        }
 
         if (props.users.length === 0) {
             return (
@@ -108,7 +121,9 @@ export default function Users(props) {
                 {
                     props.users.map((user, index) => {
                         return (
-                            <div
+                            (index >= currentFragment * maxLengthOfFragment
+                                && index < (currentFragment + 1) * maxLengthOfFragment)
+                            && <div
 
                                 key={user._id}
                                 className={"list-item " + (index % 2 === 0 && "list-item-odd")}
@@ -140,11 +155,26 @@ export default function Users(props) {
                     </button>
                 </div>
                 <div className="list-end">
-                    <div id="previous-number"><button className="move-list">Previous</button></div>
-                    <div className="list-number"><button className="chosen">1</button></div>
-                    <div className="list-number"><button>2</button></div>
-                    <div className="list-number"><button>3</button></div>
-                    <div id="next-number"><button className="move-list">Next</button></div>
+                    <div id="previous-number">
+                        <button className="move-list" onClick={prevFragment}>Previous</button>
+                    </div>
+                    {
+                        [...Array(numOfFragment)].map((value, index) => {
+                            return (
+                                <div className="list-number ">
+                                    <button
+                                        className={(currentFragment === index ? "chosen" : "")}
+                                        onClick={() => {
+                                            setCurrentFracment(index)
+                                        }}
+                                    >{index}</button>
+                                </div>
+                            )
+                        })
+                    }
+                    <div id="next-number">
+                        <button className="move-list" onClick={nextFragment}>Next</button>
+                    </div>
                 </div>
             </div>
         )

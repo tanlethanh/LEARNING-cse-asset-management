@@ -58,7 +58,8 @@ input[type="checkbox"] {
 
 #content {
     background-color: #000;
-    min-height: calc(100vh - var(--height-nav) + var(--height-footer));
+    /* min-height: calc(100vh - var(--height-nav) + var(--height-footer)); */
+    min-height: 100vh;
     background-color: #ccc;
     position: relative;
     padding-bottom: 300px;

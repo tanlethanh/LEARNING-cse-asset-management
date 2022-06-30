@@ -19,6 +19,13 @@
     border-radius: 5px;
 }
 
+.item-top {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+}
+
 .item_add_background {
     top: 0;
     left: 0;

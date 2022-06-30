@@ -92,11 +92,10 @@
 .item_add {
     display: flex;
     align-items: center;
+    width: 300px;
 }
 
 .item_add_button {
-    margin-bottom: 20px;
-	margin-left: 30px;
 	height: 45px;
 	width: 120px;
 	display: inline-block;
@@ -196,8 +195,8 @@
     border: 1.5px solid #1F9254;
     border-radius: 15px;
     color: #1F9254;
-    width: 70px;
-    height: 40px;
+    width: 65px;
+    height: 35px;
     margin-right: 10px;
 }
 
@@ -212,8 +211,8 @@
     border: 1.5px solid #A30D11;
     border-radius: 15px;
     color: #A30D11;
-    width: 70px;
-    height: 40px;
+    width: 65px;
+    height: 35px;
 }
 
 .order_deny_button.chosen {

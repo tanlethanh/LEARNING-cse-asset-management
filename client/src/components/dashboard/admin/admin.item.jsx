@@ -11,18 +11,29 @@ export default function Items({ items, setChangeItems, changeItems }) {
 
     // use context to get data from parent component (admin)
     const data = useContext(dataContext)
+    const navigate = useNavigate()
 
     const [addItem, setAddItem] = useState(false)
     const [CantDelete, setCantDelete] = useState(false)
     const [acceptDelete, setAcceptDelete] = useState(false)
     const [change, setChange] = useState(false)
-
-    const navigate = useNavigate()
-
     const [successDelete, setSuccessDelete] = useState(false)
-
     const [alert, setAlert] = useState(false)
     const [alertMess, setAlertMess] = useState('')
+
+
+    // use for fragment
+    const maxLengthOfFragment = 10
+    const numOfFragment = Math.ceil(items.length * 1.0 / maxLengthOfFragment)
+    const [currentFragment, setCurrentFracment] = useState(0)
+
+    const prevFragment = () => {
+        if (currentFragment > 0) setCurrentFracment(currentFragment - 1)
+    }
+
+    const nextFragment = () => {
+        if (currentFragment < numOfFragment - 1) setCurrentFracment(currentFragment + 1)
+    }
 
     // set button
     const handleAddItemButton = () => {
@@ -320,17 +331,15 @@ export default function Items({ items, setChangeItems, changeItems }) {
     }
 
     return (
-        <div className='scrollItem' id='scroll'>
-            <div className="list-search">
-                <i className="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search item" />
-            </div>
-
-            <div className='item_add'>
+        <div>
+            <div className='item-top'>
+                <div className="list-search">
+                    <i className="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search item" />
+                </div>
                 <button className='item_add_button' onClick={handleAddItemButton}>Add new item</button>
                 {addItem && <AddNewItem />}
             </div>
-
 
             <div className="list-item-title">
                 <div className="list-item-col item_name_col">Name of item</div>
@@ -345,7 +354,8 @@ export default function Items({ items, setChangeItems, changeItems }) {
             {
                 items.map((item, index) => {
                     return (
-                        <div key={item._id} className={"list-item " + (index % 2 === 0 ? "list-item-odd" : "")}>
+                        (index >= currentFragment * maxLengthOfFragment && index < (currentFragment + 1) * maxLengthOfFragment) 
+                        && <div key={item._id} className={"list-item " + (index % 2 === 0 ? "list-item-odd" : "")}>
                             <div
                                 className="list-item-col item_name_col"
                                 onClick={() => { openItemDetail(item) }}
@@ -386,11 +396,26 @@ export default function Items({ items, setChangeItems, changeItems }) {
             </div>
 
             <div className="list-end">
-                <div id="previous-number"><button className="move-list">Previous</button></div>
-                <div className="list-number"><button className="chosen">1</button></div>
-                <div className="list-number"><button>2</button></div>
-                <div className="list-number"><button>3</button></div>
-                <div id="next-number"><button className="move-list">Next</button></div>
+                <div id="previous-number">
+                    <button className="move-list" onClick={prevFragment}>Previous</button>
+                </div>
+                {
+                    [...Array(numOfFragment)].map((value, index) => {
+                        return (
+                            <div className="list-number ">
+                                <button
+                                    className={(currentFragment === index ? "chosen" : "")}
+                                    onClick={() => {
+                                        setCurrentFracment(index)
+                                    }}
+                                >{index}</button>
+                            </div>
+                        )
+                    })
+                }
+                <div id="next-number">
+                    <button className="move-list" onClick={nextFragment}>Next</button>
+                </div>
             </div>
         </div>
     )
