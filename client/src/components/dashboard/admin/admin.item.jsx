@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ImageUploading from "react-images-uploading";
 import '../../../styles/admin.item.css';
 import convertValidName from '../../../utils/convertValidName';
 import Alert from '../../alert';
@@ -15,7 +16,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
     const [CantDelete, setCantDelete] = useState(false)
     const [acceptDelete, setAcceptDelete] = useState(false)
     const [change, setChange] = useState(false)
-    
+
     const navigate = useNavigate()
 
     const [successDelete, setSuccessDelete] = useState(false)
@@ -31,7 +32,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
         if (items[index].available == items[index].quantity) {
             items[index].deleteChosen = !items[index].deleteChosen
             setCantDelete(false)
-            setChange(!change)            
+            setChange(!change)
         } else {
             setAlertMess("This item can't delete!")
             setCantDelete(true)
@@ -54,11 +55,15 @@ export default function Items({ items, setChangeItems, changeItems }) {
         const [quantity, setQuantity] = useState(0)
         const [category, setCategory] = useState("Dụng cụ")
         const [description, setDescription] = useState("")
-
         const [errorQuantity, setErrorQuantity] = useState("invalid")
-
         const [alert, setAlert] = useState(false)
         const [alertMess, setAlertMess] = useState('')
+        const [images, setImages] = React.useState([]);
+        const onChange = (imageList, addUpdateIndex) => {
+            // data for submit
+            console.log(imageList, addUpdateIndex);
+            setImages(imageList);
+        };
 
         const addNewItem = () => {
             if (quantity <= 0) {
@@ -80,9 +85,9 @@ export default function Items({ items, setChangeItems, changeItems }) {
         }
 
         useEffect(() => {
-            if (quantity > 0 ) {
+            if (quantity > 0) {
                 setErrorQuantity("valid")
-    
+
             } else {
                 setErrorQuantity("invalid")
             }
@@ -141,6 +146,47 @@ export default function Items({ items, setChangeItems, changeItems }) {
                         <textarea className='input_body input_des' onChange={e => {
                             setDescription(e.target.value)
                         }} ></textarea>
+
+                        <label className='lable_body'>Image</label>
+                        <ImageUploading
+                            value={images}
+                            onChange={onChange}
+                            dataURLKey="data_url"
+                        >
+                            {({
+                                imageList,
+                                onImageUpload,
+                                onImageRemoveAll,
+                                onImageUpdate,
+                                onImageRemove,
+                                isDragging,
+                                dragProps
+                            }) => (
+                                // write your building UI
+                                <div className="upload__image-wrapper">
+                                    <button
+                                        style={isDragging ? { color: "red" } : null}
+                                        onClick={onImageUpload}
+                                        {...dragProps}
+                                    >
+                                        Click or Drop here
+                                    </button>
+                                    &nbsp;
+                                    {/* <button onClick={onImageRemoveAll}>Remove all images</button> */}
+                                    {imageList.map((image, index) => (
+                                        <div key={index} className="image-item">
+                                            <img src={image.data_url} alt="" width="200" />
+                                            <div className="image-item__btn-wrapper">
+                                                <button onClick={() => onImageUpdate(index)}>Change</button>
+                                                <button onClick={() => onImageRemove(index)}>Remove</button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </ImageUploading>
+
+
                     </div>
 
                     <div className='item_add_footer'>
@@ -165,7 +211,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
                                 setAcceptDelete(false)
                             }
                         })
-                    
+
                 }
             })
         }
@@ -179,16 +225,16 @@ export default function Items({ items, setChangeItems, changeItems }) {
 
                     <div className='item_delete_footer'>
                         <button className='button yes_button' type="submit" onClick={handleYes}>Yes</button>
-                        
-                        <button className='button no_button' onClick={() => {setAcceptDelete(false)}}>
+
+                        <button className='button no_button' onClick={() => { setAcceptDelete(false) }}>
                             No
                         </button>
                     </div>
-                    
+
                 </div>
             </div>
         )
-    } 
+    }
 
     function SuccessDelete() {
         setAlertMess("Delete success!")
@@ -197,8 +243,8 @@ export default function Items({ items, setChangeItems, changeItems }) {
         setTimeout(function () {
             setSuccessDelete(false)
         }, 1000)
-        
-        return(
+
+        return (
             <Alert
                 type="success"
                 message={alertMess}
@@ -213,7 +259,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input type="text" placeholder="Search item" />
-                </div>
+            </div>
 
             <div className='item_add'>
                 <button className='item_add_button' onClick={handleAddItemButton}>Add new item</button>

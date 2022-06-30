@@ -35,8 +35,8 @@
 .item_add_container {
     position: absolute;
     left: 40%;
-    width: 450px;
-    height: 550px;
+    min-width: 450px;
+    min-height: 550px;
     border-radius: 12px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
