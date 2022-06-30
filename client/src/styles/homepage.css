@@ -33,7 +33,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
     grid-gap: 20px;
-    
+
     justify-content: space-evenly;
 
     /* display: flex;
@@ -42,7 +42,7 @@
 }
 
 .homepage_card {
-    
+
     position: relative;
     --width-card: 380px;
     --height-card: 190px;
@@ -63,6 +63,12 @@
     width: var(--height-card);
     height: 100%;
     background-color: #97A5D0;
+}
+
+.homepage_image {
+    object-fit: cover;
+    width: 100%;
+    min-height: 100%;
 }
 
 .homepage_rightcard {
