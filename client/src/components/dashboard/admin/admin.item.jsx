@@ -55,7 +55,15 @@ export default function Items({ items, setChangeItems, changeItems }) {
         const [quantity, setQuantity] = useState(0)
         const [category, setCategory] = useState("Dụng cụ")
         const [description, setDescription] = useState("")
+<<<<<<< HEAD
         const [errorQuantity, setErrorQuantity] = useState("invalid")
+=======
+        const [adminPassword, setAdminPassword] = useState("")
+
+        const [errorQuantity, setErrorQuantity] = useState("invalid")
+
+        const [typeAlert, setTypeAlert] = useState("")
+>>>>>>> 52e0fe86d320ab312481f0fba730c168bc3cf13a
         const [alert, setAlert] = useState(false)
         const [alertMess, setAlertMess] = useState('')
         const [images, setImages] = React.useState([]);
@@ -68,6 +76,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
         const addNewItem = () => {
             if (quantity <= 0) {
                 setAlertMess("Quantity must be valid!")
+                setTypeAlert("error")
                 setAlert(false)
                 setAlert(true)
             } else {
@@ -75,11 +84,17 @@ export default function Items({ items, setChangeItems, changeItems }) {
                     name: name,
                     quantity: quantity,
                     category: category,
-                    description: description
+                    description: description,
+                    adminPassword: adminPassword,
                 }).then(response => {
-                    console.log("Add new item ", response.data)
-                    setChangeItems(!changeItems)
-                    setAddItem(false);
+                    if (response.data){
+                        console.log("Add new item ", response.data)
+                        setAlertMess("Success!")
+                        setTypeAlert("success")
+                        setAlert(true)
+                        setChangeItems(!changeItems)
+                        setAddItem(false);
+                    }
                 })
             }
         }
@@ -97,7 +112,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
             <div className='item_add_background'>
                 {
                     <Alert
-                        type="error"
+                        type={typeAlert}
                         message={alertMess}
                         alert={alert}
                         setAlert={setAlert}
@@ -147,6 +162,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
                             setDescription(e.target.value)
                         }} ></textarea>
 
+<<<<<<< HEAD
                         <label className='lable_body'>Image</label>
                         <ImageUploading
                             value={images}
@@ -187,6 +203,12 @@ export default function Items({ items, setChangeItems, changeItems }) {
                         </ImageUploading>
 
 
+=======
+                        <label className='lable_body add_item_confirm'>Type password to confirm!</label>
+                        <input className='input_body' type="password" onChange={e => {
+                            setAdminPassword(e.target.value)
+                        }} />
+>>>>>>> 52e0fe86d320ab312481f0fba730c168bc3cf13a
                     </div>
 
                     <div className='item_add_footer'>
@@ -200,10 +222,15 @@ export default function Items({ items, setChangeItems, changeItems }) {
 
     // Accept delete item
     function AcceptDeleteItem() {
+        const [adminPassword, setAdminPassword] = useState("")
+
         const handleYes = () => {
             items.map((item, index) => {
+                console.log(item._id)
                 if (item.deleteChosen === true) {
-                    Axios.delete("http://localhost:8266/api/item/" + item._id)
+                    Axios.delete("http://localhost:8266/api/item/" + item._id, {
+                        adminPassword: adminPassword
+                    })
                         .then((response) => {
                             if (index === items.length - 1) {
                                 setChangeItems(!changeItems)
@@ -220,7 +247,13 @@ export default function Items({ items, setChangeItems, changeItems }) {
             <div className='item_delete_background'>
                 <div className='item_delete_container'>
                     <div className='item_delete_body'>
-                        Are you sure you want to permanently delete these items?
+                        <label className='lable_body'>Are you sure you want to permanently delete these items?</label>
+                        <input 
+                        className='input_body' 
+                        type="password"
+                        onChange={e => {
+                            setAdminPassword(e.target.value)
+                        }} /> 
                     </div>
 
                     <div className='item_delete_footer'>

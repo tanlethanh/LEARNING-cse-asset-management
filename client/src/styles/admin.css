@@ -227,3 +227,141 @@
     font-size: 40px;
     color: #212C58;
 }
+
+/*for user detail*/
+.button-edit {
+    background-color: #EEF1F4;
+    border-radius: 30px;
+    border: none;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    right: 0;
+
+    position: absolute;
+    margin-left: 10px;
+}
+
+.button-edit:hover {
+    background-color: #DADADA;
+}
+
+.edit-user {
+    display: flex;
+}
+
+.item-infor {
+    margin-right: 40px;
+}
+
+/* edit password*/
+.edit_info_background {
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(200, 200, 200, 0.2);
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.edit_info_container {
+    position: absolute;
+    left: 40%;
+    width: 450px;
+    height: 200px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+}
+
+.edit_info_container .edit_info_body {
+    flex: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 1.2rem;
+    text-align: center;
+    color: #000;
+}
+
+.edit_info_container .edit_info_footer {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit_info_container .edit_info_footer button {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: #48578E;
+    color: white;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.label_body {
+    font-size: 18px;
+}
+
+.input_body {
+    height: 35px;
+    width: 100%;
+    border-radius: 5px;
+    background: #f2f2f2;
+    border: 2px solid #F8F8F8;
+    box-shadow: inset 0px 5px 6px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    padding-left: 5px;
+    margin-top: 5px;
+}
+
+.edit_info_input_valid {
+    padding-left: 5px;
+    text-align: left;
+    color: green;
+    font-size: 10px;
+    font-style: italic;
+}
+
+.edit_info_input_invalid {
+    padding-left: 5px;
+    text-align: left;
+    color: gray;
+    font-size: 10px;
+    font-style: italic;
+}
+
+.yes_button {
+    background-color: #fff !important;
+    color: red !important;
+    border: 1px solid red !important;
+}
+
+.yes_button:hover {
+    background-color: red !important;
+    color: #fff !important;
+}
+
+.no_button {
+    background-color: #fff !important;
+    color: grey !important;
+    border: 1px solid grey !important;
+}
+
+.no_button:hover {
+    background-color: grey !important;
+    color: #fff !important;
+}

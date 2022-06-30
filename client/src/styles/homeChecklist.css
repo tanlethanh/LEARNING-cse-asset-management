@@ -27,7 +27,7 @@
 }
 
 #checkList::-webkit-scrollbar-thumb {
-    background: none
+    background: none;
 }
 
 #checkList::-webkit-scrollbar-thumb:hover {
