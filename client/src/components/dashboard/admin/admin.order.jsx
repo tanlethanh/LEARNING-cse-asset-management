@@ -1,18 +1,13 @@
-import Axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-import Alert from '../../alert';
+import OrderSubmit from './admin.order.submit';
 
 export default function Orders({ orders, items, users, nameList, setChangeOrders, changeOrders }) {
     // orders are list of order which all has the same status (nameList)
     // nameList is type of chosen list in menu bar, its equal to status of any order in 'orders'
     const [change, setChange] = useState(false)
+    const [confirmPassword, setConfirmPassword] = useState(false)
     const navigate = useNavigate()
-
-    const [successEnable, setSuccessEnable] = useState(false)
-
-    const [alert, setAlert] = useState(false)
-    const [alertMess, setAlertMess] = useState('')
 
     // use for fragment
     const maxLengthOfFragment = 8
@@ -40,21 +35,6 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
         setChange(!change)
     }
 
-    const handleSubmit = () => {
-        orders[nameList].map(order => {
-            if (order.status !== nameList) {
-                let action = ''
-                if (order.status === 'ok') action = 'accept'
-                else if (order.status === 'denied') action = 'deny'
-                else if (order.status === 'done') action = 'confirm'
-                Axios.patch(`http://localhost:8266/api/order/${order._id}?action=${action}`)
-                    .then(response => {
-                        setChangeOrders(!changeOrders)
-                    })
-            }
-        })
-        setSuccessEnable(true)
-    }
 
     const openItemDetail = (idItem) => {
         items.forEach(item => {
@@ -74,30 +54,10 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
     }
 
 
-    // success alert
-    function SuccessEnable() {
-        setAlertMess("Success!")
-        setAlert(false)
-        setAlert(true)
-        setTimeout(function () {
-            setSuccessEnable(false)
-        }, 1000)
-
-        return (
-            <Alert
-                type="success"
-                message={alertMess}
-                alert={alert}
-                setAlert={setAlert}
-            />
-        )
-    }
-
     if (orders[nameList].length === 0) {
         return (
             <div>
                 <h1 className='no_content'>Empty list!</h1>
-                {successEnable && <SuccessEnable />}
             </div>
         )
     } else {
@@ -187,11 +147,18 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                     <button
                         type="submit"
                         className="submit_button"
-                        onClick={handleSubmit}
+                        onClick={()=>{setConfirmPassword(true)}}
                     >
                         Submit
                     </button>
-                    {successEnable && <SuccessEnable />}
+                    {confirmPassword && 
+                    <OrderSubmit 
+                        orders = {orders}
+                        nameList = {nameList}
+                        changeOrders = {changeOrders}
+                        setChangeOrders = {setChangeOrders}
+                        setConfirmPassword = {setConfirmPassword}
+                    />}
                 </div>
                 <div className="list-end">
                     <div id="previous-number">

@@ -18,7 +18,6 @@ export default function AcceptEnable({ usersType, users_register, users_enable, 
     const handleYes = (adminPassword) =>{
         if (usersType === 'register') {
             users_register.map((user, index) => {
-                console.log(user)
                 if (user.enable === true) {
                     Axios.patch(`http://localhost:8266/api/user/${user._id}?togglePermission=enable`, {
                         adminPassword: adminPassword
