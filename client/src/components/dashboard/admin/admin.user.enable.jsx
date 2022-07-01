@@ -10,14 +10,12 @@ import ConfirmPassword from '../../confirmPassword';
 // because props.users (= Users in main dashboard) will have been updated in previous
 
 export default function AcceptEnable({ usersType, users_register, users_enable, changeUsers, setChangeUsers, setConfirmPassword }) {
-
     // utils
     const [typeAlert, setTypeAlert] = useState("")
     const [alert, setAlert] = useState(false)
     const [alertMess, setAlertMess] = useState('')
         
     const handleYes = (adminPassword) =>{
-        console.log(changeUsers)
         if (usersType === 'register') {
             users_register.map((user, index) => {
                 console.log(user)

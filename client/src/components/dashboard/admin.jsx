@@ -6,7 +6,7 @@ import Orders from './admin/admin.order'
 
 export const dataContext = React.createContext()
 
-export default function Admin() {
+export default function Admin({ setUser, user }) {
 
     const [currentList, setCurrentList] = useState('items')
     const [items, setItems] = useState([])
@@ -111,6 +111,7 @@ export default function Admin() {
 
                         {currentList === "items" &&
                             <Items
+                                admin={user}
                                 items={items}
                                 setChangeItems={setChangeItems}
                                 changeItems={changeItems}

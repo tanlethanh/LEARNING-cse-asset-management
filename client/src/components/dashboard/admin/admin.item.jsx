@@ -7,7 +7,7 @@ import convertValidName from '../../../utils/convertValidName';
 import Alert from '../../alert';
 import ConfirmPassword from '../../confirmPassword';
 import { dataContext } from '../admin';
-export default function Items({ items, setChangeItems, changeItems }) {
+export default function Items({ admin, items, setChangeItems, changeItems }) {
 
     // use context to get data from parent component (admin)
     const data = useContext(dataContext)
@@ -269,57 +269,47 @@ export default function Items({ items, setChangeItems, changeItems }) {
     }
 
     // Accept delete item
-    function AcceptDeleteItem() {
-
+    function AcceptDeleteItem(props) {
+        console.log(admin)
         // utils
         const [typeAlert, setTypeAlert] = useState("")
         const [alert, setAlert] = useState(false)
         const [alertMess, setAlertMess] = useState('')
 
         const handleYes = (adminPassword) => {
-            items.map((item, index) => {
-                if (item.deleteChosen === true) {
-                    Axios.delete(`http://localhost:8266/api/item/${item._id}`, {
-                        adminPassword: adminPassword,
+            Axios.post(`http://localhost:8266/api/auth/login`, {
+                password: adminPassword,
+                email: admin.email
+            })
+            .then(response => {
+                console.log(response.data)
+                if (response.data.user) {
+                    items.map((item, index) => {
+                        if (item.deleteChosen === true) {
+                            Axios.delete(`http://localhost:8266/api/item/${item._id}`)
+                                .then((response) => {
+                                    if (index === items.length - 1) {
+                                        setAlertMess("Delete items successfully!")
+                                        setTypeAlert("success")
+                                        setAlert(true)
+                                        setTimeout(() => {
+                                            setAcceptDelete(false)
+                                            setChangeItems(!changeItems)
+                                        }, 1000)
+                                    }
+                                })
+                        }
                     })
-                        .then((response) => {
-                            if (index === items.length - 1) {
-                                setAlertMess("Delete items successfully!")
-                                setTypeAlert("success")
-                                setAlert(true)
-                                setTimeout(() => {
-                                    setChangeItems(!changeItems)
-                                }, 1000)
-                            }
-                        })
-
-                        .catch(error => {
-        
-                            if (error.response.status === 403) {
-                                setAlertMess("Your password is incorrect!")
-                            }
-                            else if (error.response.status === 400) {
-                                if (error.response.data.messages.split(" ")[0] === "E11000") {
-                                    setAlertMess("Please use another name!")
-                                }
-                                else {
-                                    setAlertMess("Add new item failure, bad request!")
-                                }
-                            }
-                            else {
-                                setAlertMess("Add new item failure, please check again!")
-                            }
-        
-                            console.log(error)
-                            setTypeAlert("error")
-                            setAlert(true)
-                            setTimeout(() => {
-                                setAcceptDelete(false)
-                            }, 1000)
-                        })
-
+                } else {
+                    setAlertMess("Your password is incorrect!")
+                    setTypeAlert("error")
+                    setAlert(true)
+                    setTimeout(() => {
+                        setAcceptDelete(false)
+                    }, 1000)
                 }
             })
+            
         }
 
         return (
