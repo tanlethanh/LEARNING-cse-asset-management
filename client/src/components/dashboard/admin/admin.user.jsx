@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Axios from 'axios'
 import { useNavigate } from 'react-router-dom';
-import Alert from '../../alert';
+import AcceptEnable from './admin.user.enable';
 
 export default function Users(props) {
 
     const navigate = useNavigate()
     const [users_register, setUsers_register] = useState([])
     const [users_enable, setUsers_enable] = useState([])
-
-    const [successEnable, setSuccessEnable] = useState(false)
-
-    const [alert, setAlert] = useState(false)
-    const [alertMess, setAlertMess] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState(false)
 
     useEffect(() => {
         setUsers_register(props.users.filter(user => user.enable === false))
@@ -29,58 +24,8 @@ export default function Users(props) {
 
     })
 
-    // This comment is necessary for handleEnableSubmitButtonClick and useEffect in this component
-    // When submit button is clicked, we will call api to update user, 
-    // and active setChangeUsers to refresh Users in main dashboard
-    // After that users_register and users_enable will be updated
-    // because props.users (= Users in main dashboard) will have been updated in previous
-    const handleSubmit = (usersType) => {
-        if (usersType === 'register') {
-            users_register.map((user) => {
-                if (user.enable === true) {
-                    Axios.patch(`http://localhost:8266/api/user/${user._id}?togglePermission=enable`)
-                        .then((response) => {
-                            props.setChangeUsers(!props.changeUsers)
-                        })
-                }
-            })
-
-        }
-        else if (usersType === 'enable') {
-            users_enable.map((user) => {
-                if (user.enable === false) {
-                    Axios.patch(`http://localhost:8266/api/user/${user._id}?togglePermission=enable`)
-                        .then((response) => {
-                            props.setChangeUsers(!props.changeUsers)
-                        })
-                }
-            })
-
-        }
-        setSuccessEnable(true)
-    }
-
     const openUserDetail = (user) => {
         navigate("../user/detail/" + user._id, { state: { user: user } })
-    }
-
-    // success alert
-    function SuccessEnable() {
-        setAlertMess("Success!")
-        setAlert(false)
-        setAlert(true)
-        setTimeout(function () {
-            setSuccessEnable(false)
-        }, 1000)
-
-        return (
-            <Alert
-                type="success"
-                message={alertMess}
-                alert={alert}
-                setAlert={setAlert}
-            />
-        )
     }
 
     // Component of user who is not enable
@@ -149,10 +94,18 @@ export default function Users(props) {
                     <button
                         type="submit"
                         className="submit_button"
-                        onClick={() => { handleSubmit(props.type) }}
+                        onClick={() => { setConfirmPassword(true) }}
                     >
                         Submit
                     </button>
+                    {confirmPassword && 
+                    <AcceptEnable 
+                        usersType={props.type} 
+                        users_register={users_register}
+                        users_enable={users_enable}
+                        changeUsers={props.changeUsers}
+                        setChangeUsers={props.setChangeUsers}
+                        setConfirmPassword={setConfirmPassword}/>}
                 </div>
                 <div className="list-end">
                     <div id="previous-number">
@@ -184,10 +137,9 @@ export default function Users(props) {
         <div>
             {
                 props.nameList === "users_register" ?
-                    <UsersRender users={users_register} type='register' /> :
-                    <UsersRender users={users_enable} type='enable' />
+                    <UsersRender users={users_register} type='register' changeUsers={props.changeUsers} setChangeUsers={props.setChangeUsers}/> :
+                    <UsersRender users={users_enable} type='enable' changeUsers={props.changeUsers} setChangeUsers={props.setChangeUsers}/>
             }
-            {successEnable && <SuccessEnable />}
         </div>
     )
 }

@@ -17,7 +17,6 @@ export default function Items({ items, setChangeItems, changeItems }) {
     const [CantDelete, setCantDelete] = useState(false)
     const [acceptDelete, setAcceptDelete] = useState(false)
     const [change, setChange] = useState(false)
-    const [successDelete, setSuccessDelete] = useState(false)
     const [alert, setAlert] = useState(false)
     const [alertMess, setAlertMess] = useState('')
 
@@ -248,10 +247,6 @@ export default function Items({ items, setChangeItems, changeItems }) {
                         </div>
 
 
-
-
-
-
                     </div>
 
                     <div className='item_add_footer'>
@@ -275,21 +270,52 @@ export default function Items({ items, setChangeItems, changeItems }) {
 
     // Accept delete item
     function AcceptDeleteItem() {
-        const [adminPassword, setAdminPassword] = useState("")
 
-        const handleYes = () => {
+        // utils
+        const [typeAlert, setTypeAlert] = useState("")
+        const [alert, setAlert] = useState(false)
+        const [alertMess, setAlertMess] = useState('')
+
+        const handleYes = (adminPassword) => {
             items.map((item, index) => {
-                console.log(item._id)
                 if (item.deleteChosen === true) {
-                    Axios.delete("http://localhost:8266/api/item/" + item._id, {
-                        adminPassword: adminPassword
+                    Axios.delete(`http://localhost:8266/api/item/${item._id}`, {
+                        adminPassword: adminPassword,
                     })
                         .then((response) => {
                             if (index === items.length - 1) {
-                                setChangeItems(!changeItems)
-                                setSuccessDelete(true)
-                                setAcceptDelete(false)
+                                setAlertMess("Delete items successfully!")
+                                setTypeAlert("success")
+                                setAlert(true)
+                                setTimeout(() => {
+                                    setChangeItems(!changeItems)
+                                }, 1000)
                             }
+                        })
+
+                        .catch(error => {
+        
+                            if (error.response.status === 403) {
+                                setAlertMess("Your password is incorrect!")
+                            }
+                            else if (error.response.status === 400) {
+                                if (error.response.data.messages.split(" ")[0] === "E11000") {
+                                    setAlertMess("Please use another name!")
+                                }
+                                else {
+                                    setAlertMess("Add new item failure, bad request!")
+                                }
+                            }
+                            else {
+                                setAlertMess("Add new item failure, please check again!")
+                            }
+        
+                            console.log(error)
+                            setTypeAlert("error")
+                            setAlert(true)
+                            setTimeout(() => {
+                                setAcceptDelete(false)
+                            }, 1000)
                         })
 
                 }
@@ -298,47 +324,25 @@ export default function Items({ items, setChangeItems, changeItems }) {
 
         return (
             <div className='item_delete_background'>
-                <div className='item_delete_container'>
-                    <div className='item_delete_body'>
-                        <label className='lable_body'>Are you sure you want to permanently delete these items?</label>
-                        <input
-                            className='input_body'
-                            type="password"
-                            onChange={e => {
-                                setAdminPassword(e.target.value)
-                            }} />
-                    </div>
+                {
+                    <Alert
+                        type={typeAlert}
+                        message={alertMess}
+                        alert={alert}
+                        setAlert={setAlert}
+                    />
 
-                    <div className='item_delete_footer'>
-                        <button className='button yes_button' type="submit" onClick={handleYes}>Yes</button>
-
-                        <button className='button no_button' onClick={() => { setAcceptDelete(false) }}>
-                            No
-                        </button>
-                    </div>
-
-                </div>
+                }
+                {
+                    <ConfirmPassword
+                        setOpen={setAcceptDelete}
+                        callback={handleYes}
+                    />
+                }
             </div>
         )
     }
 
-    function SuccessDelete() {
-        setAlertMess("Delete success!")
-        setAlert(false)
-        setAlert(true)
-        setTimeout(function () {
-            setSuccessDelete(false)
-        }, 1000)
-
-        return (
-            <Alert
-                type="success"
-                message={alertMess}
-                alert={alert}
-                setAlert={setAlert}
-            />
-        )
-    }
 
     return (
         <div>
@@ -402,7 +406,6 @@ export default function Items({ items, setChangeItems, changeItems }) {
                     Submit
                 </button>
                 {acceptDelete && <AcceptDeleteItem />}
-                {successDelete && <SuccessDelete />}
             </div>
 
             <div className="list-end">
