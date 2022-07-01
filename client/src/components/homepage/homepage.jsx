@@ -4,6 +4,7 @@ import AvaiItem from './homepageItem/homeAvai';
 import UnavaiItem from './homepageItem/homeUnavai';
 import '../../styles/homepage.css';
 import Checklist from './homepageItem/homeChecklist';
+import OrderPDF from '../orderPDF';
 
 
 export default function Homepage(props) {
@@ -122,6 +123,9 @@ export default function Homepage(props) {
                         })}
                     </div>
                 </div>
+
+
+
             </div>
         </div>
     )

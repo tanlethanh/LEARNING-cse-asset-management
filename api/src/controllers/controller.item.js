@@ -82,8 +82,7 @@ exports.updateItemById = async (req, res) => {
 }
 
 exports.deleteItemById = async (req, res) => {
-
-    if (await isAdminWithPassword(req.session.userId, req.body.adminPassword)) {
+    if (await isAdmin(req.session.userId)) {
         try {
             const item = await Item.findOneAndDelete({
                 _id: mongoose.Types.ObjectId(req.params.id),

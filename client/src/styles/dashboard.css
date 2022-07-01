@@ -178,7 +178,13 @@ input[type="checkbox"] {
 }
 
 .accept {
-    color: green;
+    color: #1F9254;
+    cursor: pointer;
+}
+
+.pending {
+    color: #CD6200;
+    cursor: pointer;
 }
 
 .list-item-col .accept_status {

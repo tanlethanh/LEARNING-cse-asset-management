@@ -1,13 +1,20 @@
 import React from 'react'
 
-export default function ConfirmPassword({ setOpen, callback }) {
+export default function ConfirmPassword({ setOpen, callback, action }) {
     let password = ""
 
     return (
         <div className='edit_info_background'>
             <div className='edit_info_container'>
                 <div className='edit_info_body'>
-                    <label className='lable_body'>Please type your password!</label>
+                    {
+                        action === "cancel_order" &&
+                        <label className='lable_body'>Type your password to cancel this order!</label>
+                    }
+                    {
+                        !action &&
+                        <label className='lable_body'>Please type your password!</label>
+                    }
                     <input
                         className='input_body'
                         type="password"

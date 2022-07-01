@@ -24,10 +24,11 @@ export default function Member(props) {
                         arrWait.push(response.data.order)
                         if (response.data.order.status === "ok") {
                             arrBorrow.push(response.data.order)
-                    }} else {
+                        }
+                    } else {
                         arrReturn.push(response.data.order)
                     }
-                    if (index === props.user.orders.length -1) {
+                    if (index === props.user.orders.length - 1) {
                         setWaitingList(arrWait)
                         setBorrowList(arrBorrow)
                         setReturnList(arrReturn)
@@ -58,7 +59,7 @@ export default function Member(props) {
                 </div>
 
                 {currentTab === "Waiting list" &&
-                    <Waiting currentList={waitingList} setCurrentList={setWaitingList} />}
+                    <Waiting currentList={waitingList} setCurrentList={setWaitingList} user={props.user} />}
                 {currentTab === "Borrowing list" &&
                     <Borrow currentList={borrowList} setCurrentList={setBorrowList} />}
                 {currentTab === "Returned list" &&

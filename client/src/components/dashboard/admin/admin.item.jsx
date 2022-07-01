@@ -44,7 +44,7 @@ export default function Items({ items, setChangeItems, changeItems }) {
             setCantDelete(false)
             setChange(!change)
         } else {
-            setAlertMess("This item can't delete!")
+            setAlertMess("This item can't be delete!")
             setCantDelete(true)
             setAlert(false)
             setAlert(true)
@@ -70,8 +70,8 @@ export default function Items({ items, setChangeItems, changeItems }) {
 
         // utils
         const [errorQuantity, setErrorQuantity] = useState("invalid")
-        const [typeAlert, setTypeAlert] = useState("")
         const [alert, setAlert] = useState(false)
+        const [typeAlert, setTypeAlert] = useState("")
         const [alertMess, setAlertMess] = useState('')
 
         // confirm admin password
