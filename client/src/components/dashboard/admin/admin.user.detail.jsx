@@ -87,7 +87,8 @@ export default function DetailUser() {
                         infor = {infor} 
                         setInfor={setInfor} 
                         editInforUser={editInforUser} 
-                        setEditInforUser={setEditInforUser}/>}
+                        setEditInforUser={setEditInforUser}
+                    />}
                     
                 </div>
             </div>
