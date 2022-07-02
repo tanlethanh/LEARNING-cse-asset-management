@@ -1,7 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import '../../../styles/homepage.css';
+import { AppContext } from "../../../App";
+export default function AvaiItem({ item }) {
 
-export default function AvaiItem({item, handleRegister, handleRemove, isPicked}) {
+    const {cart, setCart} = useContext(AppContext)
+
+    const handleRegister = (item) => {
+        if (cart.findIndex(itemInCart => itemInCart.name === item.name) === -1) {
+            item.numberInCart = 1
+            setCart([...cart, item])
+        }
+    }
+
+    const handleRemove = (item) => {
+        const newCart = cart.filter(itemInCart => itemInCart.name !== item.name)
+        if (newCart !== cart) setCart(newCart)
+    }
 
     return (
         <div className='homepage_card'>
@@ -17,7 +31,7 @@ export default function AvaiItem({item, handleRegister, handleRemove, isPicked})
                 </ul>
 
                 {
-                    !isPicked ?
+                    cart.findIndex(itemInCart => itemInCart.name === item.name) === -1 ?
                         <button className='homepage_reg' onClick={() => { handleRegister(item) }}>
                             REGISTER
                         </button> :

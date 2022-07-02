@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
-import Alert from "../../alert";
-import '../../../styles/homeChecklist.css'
+import Alert from "../alert";
+import { AppContext } from "../../App";
+import '../../styles/cart.css'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function Checklist(props) {
-  const [change, setChange] = useState()
-  const [test, setTest] = useState(true)
+export default function Cart(props) {
+  const { cart, setCart } = useContext(AppContext)
+  const [change, setChange] = useState(false)
 
   // For alert
   const [alert, setAlert] = useState(false)
@@ -17,37 +18,42 @@ export default function Checklist(props) {
   // For submit modal
   const [openModal, setOpenModal] = useState(false)
 
-  const handleTrash = (e) => {
-    props.setRegisterItem(props.registerItem.filter(item => item.item._id != e))
-    props.setItemPick(props.itemPick.filter(item => item._id != e))
-    setTest(!test)
+  const handleRemove = (name) => {
+    const newCart = cart.filter(itemInCart => itemInCart.name !== name)
+    if (newCart !== cart) setCart(newCart)
+  }
+
+  const handleIncrease = (index) => {
+    if (cart[index].numberInCart < cart[index].available) {
+      cart[index].numberInCart++;
+      setChange(!change)
+    }
+  }
+
+  const handleDecrease = (index) => {
+    if (cart[index].numberInCart > 1) {
+      cart[index].numberInCart--;
+      setChange(!change)
+    }
   }
 
   const handleNextButton = () => {
     setOpenModal(true)
   }
 
-  useEffect((test) => {
-    setChange(test)
-  }, [change])
-
   function ModalSubmit() {
-
     const submitChecklist = () => {
-
-      props.registerItem.map((item) => {
-
+      cart.map((item, index) => {
         if (item.isChosen && !item.returnDate) {
           setTypeAlert("error")
           setAlertMess("Chosen item must have return date!")
           setAlert(false)
           setAlert(true)
         }
-
         if (item.isChosen && item.returnDate) {
           Axios.post("http://localhost:8266/api/order/", {
-            "quantity": item.quantity.toString(10),
-            "idItem": item.item._id,
+            "quantity": item.numberInCart.toString(10),
+            "idItem": item._id,
             "returnDate": item.returnDate,
           })
             .then((response) => {
@@ -55,14 +61,6 @@ export default function Checklist(props) {
               setAlertMess("You can check new order in dashboard!")
               setAlert(false)
               setAlert(true)
-
-              props.setRegisterItem(props.registerItem.filter(item => !(item.isChosen && item.returnDate)))
-              // setTimeout(() => {
-              //   // props.setItemPick(props.itemPick.filter(item => item._id != e))
-              //   // props.setChecklist(!props.checklist)
-              // }, 1000)
-
-
             })
             .catch((error) => {
               if (error.response.data.status === 401) {
@@ -73,6 +71,7 @@ export default function Checklist(props) {
               }
             })
         }
+        setCart(cart.filter(item => !(item.isChosen && item.returnDate)))
       })
 
       // setOpenModal(false)
@@ -91,28 +90,29 @@ export default function Checklist(props) {
             <h2>Hello title modal</h2>
           </div>
           <div className="checklist-submit-modal-content scrollChecklist">
-            {props.registerItem.map((item) => {
+            {cart.map((item, index) => {
               return (
                 <div className="checklist-card" key={item._id}>
 
                   <div className="checklist-card-top">
                     <div className="checklist-card-top-left">
-                      {item.item.name}
+                      {item.name}
                     </div>
                     <div className="checklist-card-top-right">
-                      <button className="checklist-button trash" onClick={() => { handleTrash(item.item._id) }}>
+                      <button className="checklist-button trash" onClick={() => { handleRemove(item._id) }}>
                         <i className="fa-solid fa-trash-can"></i></button>
-                      {item.quantity !== 1 &&
-                        <button className="checklist-button" onClick={() => { item.quantity--; setTest(!test) }}>
-                          <i className="fa-solid fa-minus"></i></button>}
-                      {item.quantity === 1 &&
-                        <button className="checklist-button limit"><i className="fa-solid fa-minus"></i></button>}
-                      <p className="checklist-quantity">{item.quantity}</p>
-                      {item.quantity < item.item.available &&
-                        <button className="checklist-button" onClick={() => { item.quantity++; setTest(!test) }}>
+                      {item.numberInCart < item.available &&
+                        <button className="checklist-button" onClick={() => { handleIncrease(index) }}>
                           <i className="fa-solid fa-plus"></i></button>}
-                      {item.quantity === item.item.available &&
+                      {item.numberInCart === item.available &&
                         <button className="checklist-button limit"><i className="fa-solid fa-plus"></i></button>}
+                      <p className="checklist-quantity">{item.numberInCart}</p>
+                      {item.numberInCart !== 1 &&
+                        <button className="checklist-button" onClick={() => { handleDecrease(index) }}>
+                          <i className="fa-solid fa-minus"></i></button>}
+                      {item.numberInCart === 1 &&
+                        <button className="checklist-button limit"><i className="fa-solid fa-minus"></i></button>}
+
                     </div>
                   </div>
 
@@ -124,7 +124,7 @@ export default function Checklist(props) {
                           selected={item.returnDate}
                           onChange={(date) => {
                             item.returnDate = date
-                            setTest(!test)
+                            setChange(!change)
                           }}
                           className="checklist-datepicker"
                           minDate={new Date()}
@@ -152,7 +152,7 @@ export default function Checklist(props) {
                         else {
                           item.isChosen = !item.isChosen
                         }
-                        setTest(!test)
+                        setChange(!change)
                       }
                     }></input>
                   </div>
@@ -184,8 +184,6 @@ export default function Checklist(props) {
     )
   }
 
-
-
   return (
     <div className="checklist-background">
       <Alert
@@ -198,31 +196,39 @@ export default function Checklist(props) {
       {
         openModal && <ModalSubmit />
       }
-
       <div className="checklist-container">
         <div className="checklist-header">
-          <p className="checklist-title">CHECKLIST</p>
+          <p className="checklist-title">Your cart</p>
         </div>
 
         <div className="checklist-content scrollChecklist" id="checkList">
-          {props.registerItem.map((item) => {
+          {cart.map((item, index) => {
             return (
               <div className="checklist-card" key={item._id}>
-                <p className="checklist-name">{item.item.name}</p>
-                <p className="checklist-note">Note: {item.item.decription}</p>
-                <button className="checklist-button trash" onClick={() => { handleTrash(item.item._id) }}>
+                <p className="checklist-name">{item.name}</p>
+                <p className="checklist-note">Note: {item.description}</p>
+                <button className="checklist-button trash" onClick={() => { handleRemove(item.name) }}>
                   <i className="fa-solid fa-trash-can"></i></button>
-                {item.quantity !== 1 &&
-                  <button className="checklist-button" onClick={() => { item.quantity--; setTest(!test) }}>
-                    <i className="fa-solid fa-minus"></i></button>}
-                {item.quantity === 1 &&
-                  <button className="checklist-button limit"><i className="fa-solid fa-minus"></i></button>}
-                <p className="checklist-quantity">{item.quantity}</p>
-                {item.quantity < item.item.available &&
-                  <button className="checklist-button" onClick={() => { item.quantity++; setTest(!test) }}>
-                    <i className="fa-solid fa-plus"></i></button>}
-                {item.quantity === item.item.available &&
-                  <button className="checklist-button limit"><i className="fa-solid fa-plus"></i></button>}
+                {
+                  item.numberInCart < item.available &&
+                  <button className="checklist-button" onClick={() => { handleIncrease(index) }}>
+                    <i className="fa-solid fa-plus"></i></button>
+                }
+                {
+                  item.numberInCart === item.available &&
+                  <button className="checklist-button limit"><i className="fa-solid fa-plus"></i></button>
+                }
+                <p className="checklist-quantity">{item.numberInCart}</p>
+                {
+                  item.numberInCart !== 1 &&
+                  <button className="checklist-button" onClick={() => { handleDecrease(index) }}>
+                    <i className="fa-solid fa-minus"></i></button>
+                }
+                {
+                  item.numberInCart === 1 &&
+                  <button className="checklist-button limit"><i className="fa-solid fa-minus"></i></button>
+                }
+
               </div>
             )
           })}
@@ -231,11 +237,11 @@ export default function Checklist(props) {
         <div className="checklist-submit">
           <div className="checklist-item-quantity">
             <p>Quantity:</p>
-            <p>{props.registerItem.length}</p>
+            <p>{cart.length}</p>
           </div>
 
           <button className="checklist-submit-button" onClick={() => { handleNextButton() }}>
-            <b>Next step!</b>
+            <b>SUBMIT</b>
           </button>
         </div>
       </div>
