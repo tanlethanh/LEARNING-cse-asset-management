@@ -6,8 +6,8 @@ import Signup from './components/auth/signup'
 import Dashboard from './components/dashboard/dashboard'
 import Homepage from './components/homepage/homepage'
 import Authpage from './components/auth/authpage'
-import DetailUser from './components/dashboard/admin/admin.user.detail';
-import DetailItem from './components/dashboard/admin/admin.item.detail'
+import DetailUser from './components/dashboard/admin.user/admin.user.detail';
+import DetailItem from './components/dashboard/admin.item/admin.item.detail'
 
 function App() {
     // To ensure that use cookies and sessions
