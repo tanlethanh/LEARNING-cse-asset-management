@@ -144,7 +144,7 @@ export default function Cart(props) {
                   </div>
 
                   <div className="checklist-card-checkbox">
-                    <input checked={item.isChosen} type="checkbox" onClick={
+                    <input defaultChecked={item.isChosen} type="checkbox" onClick={
                       () => {
                         if (!item.isChosen) {
                           item.isChosen = true
