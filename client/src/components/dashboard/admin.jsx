@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
-import Items from './admin/admin.item'
-import Users from './admin/admin.user'
-import Orders from './admin/admin.order'
+import Items from './admin.item/admin.item'
+import Users from './admin.user/admin.user'
+import Orders from './admin.order/admin.order'
 
 export const dataContext = React.createContext()
 
@@ -120,7 +120,7 @@ export default function Admin({ setUser, user }) {
                         {currentList.substring(0, currentList.indexOf("_")) === "users" &&
                             <Users
                                 users={users}
-                                nameList={currentList}
+                                enable={currentList === "users_register" ? false : true}
                                 setChangeUsers={setChangeUsers}
                                 changeUsers={changeUsers}
                             />

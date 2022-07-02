@@ -1,12 +1,37 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import '../../styles/headerfooter.css'
 import { useNavigate } from 'react-router-dom';
+import Cart from './cart';
 
-export function Header(props) {
+export function Header() {
     const navigate = useNavigate();
+    const [openCart, setOpenCart] = useState(false)
 
     return (
-        <header id="header">
+        <header id="header" onClick={(e)=>{
+            const currentClass = e.target.className
+            const parentClass = e.target.parentNode.className
+            const parent2Class = e.target.parentNode.parentNode.className
+            // const parent3Class = e.target.parentNode.parentNode.parentNode.className
+            // const parent4Class = e.target.parentNode.parentNode.parentNode.parentNode.className
+            // const parent5Class = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.className
+
+            // console.log(currentClass)
+            // console.log(parentClass)
+            // console.log(parent2Class)
+            // console.log(parent3Class)
+            // console.log(parent4Class)
+            // console.log(parent5Class)
+            // console.log(parentClass)
+            
+            if (
+                currentClass.split('-')[0] !== 'checklist'
+                && parentClass.split('-')[0] !== 'checklist'
+                && parent2Class.split('-')[0] !== 'checklist'
+            ) {
+                setOpenCart(false)
+            }
+        }}>
             <ul>
                 <li className="header-left">
                     <div className='header-logo'>
@@ -18,24 +43,23 @@ export function Header(props) {
                 <li className="header-right">
 
                     <div className="nav-btn" onClick={() => {
-                        props.setChecklist(false)
                         navigate("../", { replace: true })
                     }}>Home</div>
 
                     <div className="nav-btn" onClick={() => {
-                        props.setChecklist(false)
                         navigate("../dashboard", { replace: true })
                     }}>Dash board</div>
 
                     <a
-                        className="nav-btn"
+                        className="checklist-header-nav nav-btn"
                         onClick={
-                            () => {
-                                props.setChecklist(!props.checklist)
+                            (e) => {
+                                setOpenCart(!openCart)
                             }
                         }>
                         <i className="fa-solid fa-box-open"></i>
                     </a>
+                    {openCart && <Cart />}
                 </li>
             </ul>
         </header>

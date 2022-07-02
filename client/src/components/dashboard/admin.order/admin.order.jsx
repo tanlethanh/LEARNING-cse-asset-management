@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OrderSubmit from './admin.order.submit';
 
@@ -128,7 +128,11 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                                     }
                                     {
                                         nameList === 'ok' &&
-                                        <input type="checkbox" onChange={() => { handleButton(index, 'done') }} />
+                                        <input
+                                            type="checkbox"
+                                            onChange={() => { handleButton(index, 'done') }}
+                                            defaultChecked={order.status === 'done'}
+                                        />
                                     }
                                     {
                                         nameList === 'complete' &&
@@ -147,18 +151,18 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                     <button
                         type="submit"
                         className="submit_button"
-                        onClick={()=>{setConfirmPassword(true)}}
+                        onClick={() => { setConfirmPassword(true) }}
                     >
                         Submit
                     </button>
-                    {confirmPassword && 
-                    <OrderSubmit 
-                        orders = {orders}
-                        nameList = {nameList}
-                        changeOrders = {changeOrders}
-                        setChangeOrders = {setChangeOrders}
-                        setConfirmPassword = {setConfirmPassword}
-                    />}
+                    {confirmPassword &&
+                        <OrderSubmit
+                            orders={orders}
+                            nameList={nameList}
+                            changeOrders={changeOrders}
+                            setChangeOrders={setChangeOrders}
+                            setConfirmPassword={setConfirmPassword}
+                        />}
                 </div>
                 <div className="list-end">
                     <div id="previous-number">
