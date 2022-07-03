@@ -337,3 +337,21 @@ input[type="checkbox"] {
     font-size: 10px;
     font-style: italic;
 }
+
+.arange_icon {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-left: 5px;
+}
+
+.arange_icon i {
+    color: #ccc;
+    padding: 0px !important;
+    font-size: 0.8em !important;
+    height: 10px;
+}
+
+.arange_icon i.chosen {
+    color: #000;
+}
