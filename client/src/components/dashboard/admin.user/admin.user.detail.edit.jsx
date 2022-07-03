@@ -64,7 +64,6 @@ export default function EditInfo ({user, infor, setInfor, editInforUser,setEditI
                         setAcceptInfo('')
                         setEditInforUser(false)
                         setAcceptBox(false)
-                        console.log(response)
                     } else {
                         setAlertMess("Wrong password!")
                         setAlert(false)

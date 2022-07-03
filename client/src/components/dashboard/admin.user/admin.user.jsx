@@ -4,7 +4,7 @@ import Axios from 'axios'
 import ConfirmPassword from '../../confirmPassword';
 import Alert from '../../alert';
 
-export default function Users({ users, enable, changeUsers, setChangeUsers }) {
+export default function Users({ admin, users, enable, changeUsers, setChangeUsers }) {
     const navigate = useNavigate()
     const [confirmPassword, setConfirmPassword] = useState(false)
     // utils
@@ -135,7 +135,7 @@ export default function Users({ users, enable, changeUsers, setChangeUsers }) {
                         <div
 
                             key={user._id}
-                            className={"list-item " + (index % 2 === 0 && "list-item-odd")}
+                            className={"list-item " + ((admin._id === user._id && "list-item-you") || (index % 2 === 0 && "list-item-odd"))}
                         >
                             <div className="list-item-col user_email_col">{user.email}</div>
                             <div

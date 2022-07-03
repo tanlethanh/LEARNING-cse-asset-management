@@ -129,6 +129,10 @@ export default function Dashboard(props) {
         )
     }
 
+    function handleProfileButton(user) {
+        navigate("../user/detail/" + user._id, { state: { user: user } })
+    }
+
     return (
         <div className="dashboard_container">
             <div id="information">
@@ -151,6 +155,8 @@ export default function Dashboard(props) {
                         </ul>
 
                         <button className="button-info" onClick={() => {setEditButton(true)}}>Edit</button>
+                        {props.user.isAdmin && 
+                        <button className="button-info" onClick={() => {handleProfileButton(props.user)}}>Profile</button>}
                         <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>
                     </div>
                     {editButton && <EditInfo/>}

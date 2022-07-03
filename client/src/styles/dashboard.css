@@ -162,6 +162,11 @@ input[type="checkbox"] {
     background-color: #F7F6FE !important;
 }
 
+/* you */
+.list-item-you {
+    background-color: #C0CFFA !important;
+}
+
 .list-item-col {
     width: 130px;
     padding: 0 15px;
