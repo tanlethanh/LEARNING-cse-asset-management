@@ -54,7 +54,7 @@ export default function Admin({ setUser, user }) {
     }
 
     return (
-        <dataContext.Provider value={{items, users, orders}}>
+        <dataContext.Provider value={{user, items, users, orders}}>
             <div className="admin_container">
                 <div id="content">
                     <div id="menu">

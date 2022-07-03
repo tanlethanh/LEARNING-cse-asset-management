@@ -354,6 +354,17 @@
     color: #fff !important;
 }
 
+.delete_button {
+    background-color: red !important;
+    color: #fff !important;
+}
+
+.delete_button:hover {
+    background-color: #fff !important;
+    color: red !important;
+    border: none !important;
+}
+
 .no_button {
     background-color: #fff !important;
     color: grey !important;

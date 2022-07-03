@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'
 import Axios from 'axios';
 import Admin from '../admin';
@@ -7,14 +7,15 @@ import EditInfo from './admin.user.detail.edit.jsx';
 import Alert from '../../alert';
 import ConfirmPassword from '../../confirmPassword';
 
-export default function DetailUser() {
+export default function DetailUser( { admin } ) {
 
     const {state} = useLocation()
     const { user } = state
 
     const [editInforUser, setEditInforUser] = useState (false)
     const [infor, setInfor] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState(false)
+    const [confirmDelete, setConfirmDelete] = useState(false)
+    const [confirmPermission, setConfirmPermission] = useState(false)
 
     // utils
     const [typeAlert, setTypeAlert] = useState("")
@@ -32,10 +33,10 @@ export default function DetailUser() {
         navigate("../dashboard", { replace: true })
     }
 
-    function HandlePermission(user){
+    function HandlePermission( {user} ){
 
         function HandleYes(adminPassword){
-            Axios.patch(`http://localhost:8266/api/user/${user.user._id}?togglePermission=admin`, {
+            Axios.patch(`http://localhost:8266/api/user/${user._id}?togglePermission=admin`, {
                 adminPassword: adminPassword
             })
                 .then(response => {
@@ -43,7 +44,7 @@ export default function DetailUser() {
                     setTypeAlert("success");
                     setAlert(true);
                     setTimeout(() => {
-                        setConfirmPassword(false);
+                        setConfirmPermission(false);
                     }, 1000);
                 })
                 .catch(error => {
@@ -53,7 +54,7 @@ export default function DetailUser() {
                         setTypeAlert("error");
                         setAlert(true);
                         setTimeout(() => {
-                            setConfirmPassword(false);
+                            setConfirmPermission(false);
                         }, 1500);
                     }
                     else if (error.response.status === 400) {
@@ -66,7 +67,7 @@ export default function DetailUser() {
                         setTypeAlert("error");
                         setAlert(true);
                         setTimeout(() => {
-                            setConfirmPassword(false);
+                            setConfirmPermission(false);
                         }, 1500);
                     }
                     else {
@@ -75,7 +76,7 @@ export default function DetailUser() {
                         setTypeAlert("error");
                         setAlert(true);
                         setTimeout(() => {
-                            setConfirmPassword(false);
+                            setConfirmPermission(false);
                         }, 1500);
                     }
                 });
@@ -94,7 +95,60 @@ export default function DetailUser() {
                 }
                 {
                     <ConfirmPassword
-                        setOpen={setConfirmPassword}
+                        setOpen={setConfirmPermission}
+                        callback={HandleYes}
+                    />
+                }
+            </div>
+        )
+    }
+
+    function HandleDelete({admin, user}){
+
+        function HandleYes(adminPassword){
+            Axios.post(`http://localhost:8266/api/auth/login`, {
+                password: adminPassword,
+                email: admin.email
+            })
+                .then(response => {
+                    if (response.data.user){
+                        Axios.delete(`http://localhost:8266/api/user/${user._id}`)
+                            .then(response => {
+                                setAlertMess("Successfully!");
+                                setTypeAlert("success");
+                                setAlert(true);
+                                setTimeout(() => {
+                                    navigate("../dashboard", { replace: true })
+                                    setConfirmDelete(false);
+                                }, 1000);
+                            })
+                    } else {
+                        setAlertMess("Your password is incorrect!")
+                        setTypeAlert("error")
+                        setAlert(true)
+                        setTimeout(() => {
+                            setConfirmDelete(false)
+                        }, 1000)
+                    }
+                
+                })
+             
+        }
+
+        return (
+            <div>
+                {
+                    <Alert
+                        type={typeAlert}
+                        message={alertMess}
+                        alert={alert}
+                        setAlert={setAlert}
+                    />
+    
+                }
+                {
+                    <ConfirmPassword
+                        setOpen={setConfirmDelete}
                         callback={HandleYes}
                     />
                 }
@@ -112,6 +166,7 @@ export default function DetailUser() {
                     <h2 className="description">
                         {user.isAdmin ? "Admin" : "Member"}
                     </h2>
+                    <button className="button-info delete_button" onClick={() => setConfirmDelete(true)}>Delete</button>
                     <button className="button-info" onClick={goBack}>Go back</button>
                 </div>
                 <div className="detail">
@@ -162,13 +217,14 @@ export default function DetailUser() {
                             Permission: {user.isAdmin ? "Admin" : "Member"}
                             <button 
                             className="button-edit" 
-                            onClick={()=>{setConfirmPassword(true)}}>
+                            onClick={()=>{setConfirmPermission(true)}}>
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                         </li>
                     </ul>
 
-                    {confirmPassword && <HandlePermission user = {user}/>}
+                    {confirmPermission && <HandlePermission user = {user}/>}
+                    {confirmDelete && <HandleDelete admin = {admin} user = {user}/>}
 
                     {editInforUser && 
                     <EditInfo
