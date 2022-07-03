@@ -119,6 +119,7 @@ export default function Admin({ setUser, user }) {
                         }
                         {currentList.substring(0, currentList.indexOf("_")) === "users" &&
                             <Users
+                                admin={user}
                                 users={users}
                                 enable={currentList === "users_register" ? false : true}
                                 setChangeUsers={setChangeUsers}
