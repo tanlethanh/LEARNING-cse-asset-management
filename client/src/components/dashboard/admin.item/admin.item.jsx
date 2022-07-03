@@ -7,19 +7,32 @@ import convertValidName from '../../../utils/convertValidName';
 import Alert from '../../alert';
 import ConfirmPassword from '../../confirmPassword';
 import { dataContext } from '../admin';
+import getFormattedDate from '../../../utils/formatDate';
+
+
 export default function Items({ admin, items, setChangeItems, changeItems }) {
+
+    // for search
+    const [query, setQuery] = useState("")
+    const [queryItems, setQueryItems] = useState([])
+    // const keys = ['name', 'category', 'description']
+    const [arrangeKey, setArrangeKey] = useState({
+        column: "updatedAt",
+        arrange: "dec"
+    })
+    let itemsRender = items
 
     // use context to get data from parent component (admin)
     const data = useContext(dataContext)
     const navigate = useNavigate()
 
+    // utils
     const [addItem, setAddItem] = useState(false)
     const [CantDelete, setCantDelete] = useState(false)
     const [acceptDelete, setAcceptDelete] = useState(false)
     const [change, setChange] = useState(false)
     const [alert, setAlert] = useState(false)
     const [alertMess, setAlertMess] = useState('')
-
 
     // use for fragment
     const maxLengthOfFragment = 10
@@ -32,6 +45,63 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
 
     const nextFragment = () => {
         if (currentFragment < numOfFragment - 1) setCurrentFracment(currentFragment + 1)
+    }
+
+
+    // arrange
+    function arrageItems() {
+        console.log("arrange")
+        console.log(arrangeKey)
+        let result = items
+        if (Object.keys(arrangeKey).length === 0) {
+            return result
+        }
+        else if (arrangeKey.column === "name") {
+            result.sort((a, b) => {
+                const valueA = a[arrangeKey.column]
+                const valueB = b[arrangeKey.column]
+                if (arrangeKey.arrange === "inc") {
+                    return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
+                }
+                else if (arrangeKey.arrange === "dec") {
+                    return valueA > valueB ? -1 : (valueA < valueB ? 1 : 0)
+                }
+            })
+        }
+        else if (arrangeKey.column === "category") {
+            result.sort((a, b) => {
+                const valueA = a[arrangeKey.column]
+                const valueB = b[arrangeKey.column]
+                if (arrangeKey.arrange === "inc") {
+                    return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
+                }
+                else if (arrangeKey.arrange === "dec") {
+                    return valueA > valueB ? -1 : (valueA < valueB ? 1 : 0)
+                }
+            })
+        }
+        else if (arrangeKey.column === "updatedAt") {
+            result.sort((a, b) => {
+                let valueA = new Date(a[arrangeKey.column]).getTime()
+                let valueB = new Date(b[arrangeKey.column]).getTime()
+                if (String(valueA) === "NaN") {
+                    valueA = 0
+                }
+                if (String(valueB) === "NaN") {
+                    valueB = 0
+                }
+                console.log(valueA)
+                console.log(valueB)
+
+                if (arrangeKey.arrange === "inc") {
+                    return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
+                }
+                else if (arrangeKey.arrange === "dec") {
+                    return valueA > valueB ? -1 : (valueA < valueB ? 1 : 0)
+                }
+            })
+        }
+        return result
     }
 
     // set button
@@ -281,35 +351,35 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                 password: adminPassword,
                 email: admin.email
             })
-            .then(response => {
-                console.log(response.data)
-                if (response.data.user) {
-                    items.map((item, index) => {
-                        if (item.deleteChosen === true) {
-                            Axios.delete(`http://localhost:8266/api/item/${item._id}`)
-                                .then((response) => {
-                                    if (index === items.length - 1) {
-                                        setAlertMess("Delete items successfully!")
-                                        setTypeAlert("success")
-                                        setAlert(true)
-                                        setTimeout(() => {
-                                            setAcceptDelete(false)
-                                            setChangeItems(!changeItems)
-                                        }, 1000)
-                                    }
-                                })
-                        }
-                    })
-                } else {
-                    setAlertMess("Your password is incorrect!")
-                    setTypeAlert("error")
-                    setAlert(true)
-                    setTimeout(() => {
-                        setAcceptDelete(false)
-                    }, 1000)
-                }
-            })
-            
+                .then(response => {
+                    console.log(response.data)
+                    if (response.data.user) {
+                        items.map((item, index) => {
+                            if (item.deleteChosen === true) {
+                                Axios.delete(`http://localhost:8266/api/item/${item._id}`)
+                                    .then((response) => {
+                                        if (index === items.length - 1) {
+                                            setAlertMess("Delete items successfully!")
+                                            setTypeAlert("success")
+                                            setAlert(true)
+                                            setTimeout(() => {
+                                                setAcceptDelete(false)
+                                                setChangeItems(!changeItems)
+                                            }, 1000)
+                                        }
+                                    })
+                            }
+                        })
+                    } else {
+                        setAlertMess("Your password is incorrect!")
+                        setTypeAlert("error")
+                        setAlert(true)
+                        setTimeout(() => {
+                            setAcceptDelete(false)
+                        }, 1000)
+                    }
+                })
+
         }
 
         return (
@@ -333,30 +403,152 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
         )
     }
 
-
+    useEffect(()=>{
+        itemsRender = (query === "" ? arrageItems(items) : arrageItems(queryItems))
+    })
     return (
         <div>
             <div className='item-top'>
                 <div className="list-search">
                     <i className="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Search item" />
+                    <input type="text" placeholder="Search..." autoComplete="off"
+                        onChange={(e) => {
+                            setQuery(e.target.value)
+                            setQueryItems(
+                                items.filter(item =>
+                                    item.name.toLowerCase().includes(query.toLowerCase())
+                                    || item.category.toLowerCase().includes(query.toLowerCase())
+                                    || item.description.toLowerCase().includes(query.toLowerCase())
+                                )
+                            )
+                        }}
+                    />
                 </div>
                 <button className='item_add_button' onClick={handleAddItemButton}>+</button>
                 {addItem && <AddNewItem />}
             </div>
 
             <div className="list-item-title">
-                <div className="list-item-col item_name_col">Name of item</div>
-                <div className="list-item-col item_category_col">Category</div>
+                <div className="list-item-col item_name_col">
+                    Name of item
+                    <div className='arange_icon'>
+                        <i
+                            className={
+                                "fa-solid fa-angle-up " +
+                                (arrangeKey.column === "name" && arrangeKey.arrange === "inc" && "chosen")
+                            }
+                            onClick={(e) => {
+                                if (e.currentTarget.className.includes("chosen")) {
+                                    setArrangeKey({})
+                                }
+                                else {
+                                    setArrangeKey({
+                                        column: "name",
+                                        arrange: "inc"
+                                    })
+                                }
+                            }}></i>
+
+                        <i
+                            className={
+                                "fa-solid fa-angle-down " +
+                                (arrangeKey.column === "name" && arrangeKey.arrange === "dec" && "chosen")
+                            } onClick={(e) => {
+                                if (e.currentTarget.className.includes("chosen")) {
+                                    setArrangeKey({})
+                                }
+                                else {
+                                    setArrangeKey({
+                                        column: "name",
+                                        arrange: "dec"
+                                    })
+                                }
+                            }}></i>
+                    </div>
+
+                </div>
+                <div className="list-item-col item_category_col">
+                    Category
+                    <div className='arange_icon'>
+                        <i
+                            className={
+                                "fa-solid fa-angle-up " +
+                                (arrangeKey.column === "category" && arrangeKey.arrange === "inc" && "chosen")
+                            }
+                            onClick={(e) => {
+                                if (e.currentTarget.className.includes("chosen")) {
+                                    setArrangeKey({})
+                                }
+                                else {
+                                    setArrangeKey({
+                                        column: "category",
+                                        arrange: "inc"
+                                    })
+                                }
+                            }}></i>
+
+                        <i
+                            className={
+                                "fa-solid fa-angle-down " +
+                                (arrangeKey.column === "category" && arrangeKey.arrange === "dec" && "chosen")
+                            } onClick={(e) => {
+                                if (e.currentTarget.className.includes("chosen")) {
+                                    setArrangeKey({})
+                                }
+                                else {
+                                    setArrangeKey({
+                                        column: "category",
+                                        arrange: "dec"
+                                    })
+                                }
+                            }}></i>
+                    </div>
+                </div>
                 <div className="list-item-col item_available_col">Available</div>
-                <div className="list-item-col item_quantity_col">Quantity</div>
+                <div className="list-item-col item_quantity_col">
+                    Update day
+                    <div className='arange_icon'>
+                        <i
+                            className={
+                                "fa-solid fa-angle-up " +
+                                (arrangeKey.column === "updatedAt" && arrangeKey.arrange === "inc" && "chosen")
+                            }
+                            onClick={(e) => {
+                                if (e.currentTarget.className.includes("chosen")) {
+                                    setArrangeKey({})
+                                }
+                                else {
+                                    setArrangeKey({
+                                        column: "updatedAt",
+                                        arrange: "inc"
+                                    })
+                                }
+                            }}></i>
+
+                        <i
+                            className={
+                                "fa-solid fa-angle-down " +
+                                (arrangeKey.column === "updatedAt" && arrangeKey.arrange === "dec" && "chosen")
+                            } onClick={(e) => {
+                                if (e.currentTarget.className.includes("chosen")) {
+                                    setArrangeKey({})
+                                }
+                                else {
+                                    setArrangeKey({
+                                        column: "updatedAt",
+                                        arrange: "dec"
+                                    })
+                                }
+                            }}></i>
+                    </div>
+                </div>
                 <div className="list-item-col item_description_col">Description</div>
                 <div className="list-item-col">Delete</div>
             </div>
 
 
             {
-                items.map((item, index) => {
+                itemsRender.map((item, index) => {
                     return (
                         (index >= currentFragment * maxLengthOfFragment && index < (currentFragment + 1) * maxLengthOfFragment)
                         && <div key={item._id} className={"list-item " + (index % 2 === 0 ? "list-item-odd" : "")}>
@@ -367,8 +559,8 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                                 {item.name}
                             </div>
                             <div className="list-item-col item_category_col">{item.category}</div>
-                            <div className="list-item-col item_available_col">{item.available}</div>
-                            <div className="list-item-col item_quantity_col">{item.quantity}</div>
+                            <div className="list-item-col item_available_col">{item.available + "/" + item.quantity}</div>
+                            <div className="list-item-col item_quantity_col">{getFormattedDate(new Date(item.updatedAt))}</div>
                             <div className="list-item-col item_description_col">{item.description}</div>
                             <div className="list-item-col ">
                                 <i
@@ -405,7 +597,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                 {
                     [...Array(numOfFragment)].map((value, index) => {
                         return (
-                            <div className="list-number ">
+                            <div className="list-number " key={index}>
                                 <button
                                     className={(currentFragment === index ? "chosen" : "")}
                                     onClick={() => {

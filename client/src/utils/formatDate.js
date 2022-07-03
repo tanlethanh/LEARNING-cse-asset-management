@@ -1,5 +1,8 @@
 
 export default function getFormattedDate(date) {
+
+    if (String(date) === "Invalid Date") return "None"
+
     var year = date.getFullYear();
   
     var month = (1 + date.getMonth()).toString();
