@@ -107,7 +107,7 @@ exports.updateUserById = async (req, res, next) => {
     }
 }
 exports.deleteUserById = async (req, res) => {
-    if (await isAdminWithPassword(req.session.userId, req.body.adminPassword)) {
+    if (await isAdmin(req.session.userId)) {
         try {
             if (String(req.session.userId) === String(req.params.id)) {
                 return res.status(400).json({ status: 400, messages: "Can not delete this user", user: null })
