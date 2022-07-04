@@ -14,13 +14,11 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
 
     // for search
     const [query, setQuery] = useState("")
-    const [queryItems, setQueryItems] = useState([])
-    // const keys = ['name', 'category', 'description']
     const [arrangeKey, setArrangeKey] = useState({
         column: "updatedAt",
         arrange: "dec"
     })
-    let itemsRender = items
+    const [itemsRender, setItemsRender] = useState([])
 
     // use context to get data from parent component (admin)
     const data = useContext(dataContext)
@@ -47,12 +45,27 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
         if (currentFragment < numOfFragment - 1) setCurrentFracment(currentFragment + 1)
     }
 
+    useEffect(() => {
+        if (query === "") {
+            setItemsRender(arrageItems(items))
+        }
+        else {
+            setItemsRender(
+                arrageItems(
+                    items.filter(item =>
+                        item.name.toLowerCase().includes(query.toLowerCase())
+                        || item.category.toLowerCase().includes(query.toLowerCase())
+                        || item.description.toLowerCase().includes(query.toLowerCase())
+                    )
+                )
+            )
+        }
+    }, [items, query, arrangeKey])
+
 
     // arrange
-    function arrageItems() {
-        console.log("arrange")
-        console.log(arrangeKey)
-        let result = items
+    function arrageItems(pureItems) {
+        let result = new Array(...pureItems)
         if (Object.keys(arrangeKey).length === 0) {
             return result
         }
@@ -90,8 +103,6 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                 if (String(valueB) === "NaN") {
                     valueB = 0
                 }
-                console.log(valueA)
-                console.log(valueB)
 
                 if (arrangeKey.arrange === "inc") {
                     return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
@@ -189,7 +200,6 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                         setAlertMess("Add new item failure, please check again!")
                     }
 
-                    console.log(error)
                     setTypeAlert("error")
                     setAlert(true)
                     setTimeout(() => {
@@ -340,7 +350,6 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
 
     // Accept delete item
     function AcceptDeleteItem(props) {
-        console.log(admin)
         // utils
         const [typeAlert, setTypeAlert] = useState("")
         const [alert, setAlert] = useState(false)
@@ -352,7 +361,6 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                 email: admin.email
             })
                 .then(response => {
-                    console.log(response.data)
                     if (response.data.user) {
                         items.map((item, index) => {
                             if (item.deleteChosen === true) {
@@ -403,9 +411,6 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
         )
     }
 
-    useEffect(()=>{
-        itemsRender = (query === "" ? arrageItems(items) : arrageItems(queryItems))
-    })
     return (
         <div>
             <div className='item-top'>
@@ -414,13 +419,6 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                     <input type="text" placeholder="Search..." autoComplete="off"
                         onChange={(e) => {
                             setQuery(e.target.value)
-                            setQueryItems(
-                                items.filter(item =>
-                                    item.name.toLowerCase().includes(query.toLowerCase())
-                                    || item.category.toLowerCase().includes(query.toLowerCase())
-                                    || item.description.toLowerCase().includes(query.toLowerCase())
-                                )
-                            )
                         }}
                     />
                 </div>
