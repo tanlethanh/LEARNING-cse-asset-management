@@ -67,6 +67,7 @@ input[type="checkbox"] {
 
 .list-infor {
     margin-left: 100px;
+    position: relative;
 }
 
 .item-infor {
