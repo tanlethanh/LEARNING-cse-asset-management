@@ -1,29 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OrderSubmit from './admin.order.submit';
+import getFormattedDate from '../../../utils/formatDate';
+import Arrange, { arrangeList } from '../../arrange';
 
 export default function Orders({ orders, items, users, nameList, setChangeOrders, changeOrders }) {
     // orders are list of order which all has the same status (nameList)
     // nameList is type of chosen list in menu bar, its equal to status of any order in 'orders'
     const [change, setChange] = useState(false)
     const [confirmPassword, setConfirmPassword] = useState(false)
+    const [query, setQuery] = useState("")
+    const [arrangeKey, setArrangeKey] = useState({
+        column: "updatedAt",
+        arrange: "dec"
+    })
+    const [ordersRender, setOrdersRender] = useState([])
     const navigate = useNavigate()
 
     // use for fragment
     const maxLengthOfFragment = 8
     const numOfFragment = Math.ceil(orders[nameList].length * 1.0 / maxLengthOfFragment)
     const [currentFragment, setCurrentFracment] = useState(0)
-
     const prevFragment = () => {
         if (currentFragment > 0) setCurrentFracment(currentFragment - 1)
     }
-
     const nextFragment = () => {
         if (currentFragment < numOfFragment - 1) setCurrentFracment(currentFragment + 1)
     }
 
-
-    useEffect(() => { }, [orders])
+    useEffect(() => {
+        let type = "string"
+        if (arrangeKey.column === "updatedAt" || arrangeKey.column === "returnDate") type = "date"
+        if (query === "") {
+            setOrdersRender(arrangeList(orders[nameList], arrangeKey.column, type, arrangeKey.arrange))
+        }
+        else {
+            setOrdersRender(
+                arrangeList(
+                    orders[nameList].filter((order) =>
+                        order.nameItem.toLowerCase().includes(query.toLowerCase())
+                        || order.nameUser.toLowerCase().includes(query.toLowerCase())
+                    ),
+                    arrangeKey.column, type, arrangeKey.arrange
+                )
+            )
+        }
+    }, [orders, query, arrangeKey])
 
     const handleButton = (index, nextStatus) => {
         if (orders[nameList][index].status !== nextStatus) {
@@ -65,21 +87,40 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
             <div>
                 <div className="list-search">
                     <i className="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Search item" />
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        onChange={(e) => { setQuery(e.target.value) }}
+                    />
                 </div>
                 <div className="list-item-title">
-                    <div className="list-item-col order_name_item">Name of item</div>
+                    <div className="list-item-col order_name_item">
+                        Name of item
+                        <Arrange type="nameItem" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                    </div>
                     <div className="list-item-col order_quantity">Quantity</div>
-                    <div className="list-item-col order_return_date">Return date</div>
-                    <div className="list-item-col order_name_user">Borrower</div>
+                    <div className="list-item-col order_updated_date">
+                        {nameList === 'pending' && "Innitiated date"}
+                        {nameList === 'ok' && "Approved date"}
+                        {nameList === 'complete' && "Confirmation date"}
+                        <Arrange type="updatedAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                    </div>
+                    <div className="list-item-col order_return_date">
+                        Return date
+                        <Arrange type="returnDate" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                    </div>
+                    <div className="list-item-col order_name_user">
+                        Borrower
+                        <Arrange type="nameUser" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                    </div>
                     <div className="list-item-col">
-                        {nameList === 'pending' && "Accept/Deny"}
-                        {nameList === 'ok' && "Confirm complete"}
-                        {nameList === 'complete' && "Type of order"}
+                        {nameList === 'pending' && "Accept or denied"}
+                        {nameList === 'ok' && "Confirm return"}
+                        {nameList === 'complete' && "Status"}
                     </div>
                 </div>
                 {
-                    orders[nameList].map((order, index) => {
+                    ordersRender.map((order, index) => {
                         return (
                             (index >= currentFragment * maxLengthOfFragment
                                 && index < (currentFragment + 1) * maxLengthOfFragment)
@@ -95,8 +136,13 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                                 </div>
 
                                 <div className="list-item-col order_quantity">{order.quantity}</div>
+                                <div className="list-item-col order_updated_date">
+                                    {nameList === 'pending' && getFormattedDate(new Date(order.updatedAt))}
+                                    {nameList === 'ok' && getFormattedDate(new Date(order.updatedAt))}
+                                    {nameList === 'complete' && getFormattedDate(new Date(order.updatedAt))}
+                                </div>
                                 <div className="list-item-col order_return_date">
-                                    {order.returnDate.substring(0, order.returnDate.indexOf('T'))}
+                                    {getFormattedDate(new Date(order.returnDate))}
                                 </div>
 
                                 <div
@@ -171,7 +217,7 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                     {
                         [...Array(numOfFragment)].map((value, index) => {
                             return (
-                                <div className="list-number ">
+                                <div className="list-number " key={index}>
                                     <button
                                         className={(currentFragment === index ? "chosen" : "")}
                                         onClick={() => {

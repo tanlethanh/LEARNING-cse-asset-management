@@ -3,14 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import Axios from 'axios'
 import ConfirmPassword from '../../confirmPassword';
 import Alert from '../../alert';
+import Arrange, { arrangeList } from '../../arrange';
+import getFormattedDate from '../../../utils/formatDate';
 
 export default function Users({ admin, users, enable, changeUsers, setChangeUsers }) {
     const navigate = useNavigate()
     const [confirmPassword, setConfirmPassword] = useState(false)
+    const [usersRender, setUsersRender] = useState(users)
     // utils
     const [typeAlert, setTypeAlert] = useState("")
     const [alert, setAlert] = useState(false)
     const [alertMess, setAlertMess] = useState('')
+    const [query, setQuery] = useState("")
+    const [arrangeKey, setArrangeKey] = useState({
+        column: "updatedAt",
+        arrange: "dec"
+    })
 
     // use for fragment
     const maxLengthOfFragment = 10
@@ -19,11 +27,33 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
     function prevFragment() {
         if (currentFragment > 0) setCurrentFracment(currentFragment - 1)
     }
-
     function nextFragment() {
         if (currentFragment < numOfFragment - 1) setCurrentFracment(currentFragment + 1)
     }
 
+    useEffect(() => {
+
+        let type = "string"
+        if (arrangeKey.column === "updatedAt") {
+            type = "date"
+        }
+
+        if (query === "") {
+            setUsersRender(arrangeList(users, arrangeKey.column, type, arrangeKey.arrange))
+        }
+        else {
+            setUsersRender(
+                arrangeList(
+                    users.filter(user =>
+                        user.fullName.toLowerCase().includes(query.toLowerCase())
+                        || user.email.toLowerCase().includes(query.toLowerCase())
+                        || user.studentCode.toLowerCase().includes(query.toLowerCase())
+                        || user.phoneNumber.toLowerCase().includes(query.toLowerCase())
+                    ), arrangeKey.column, type, arrangeKey.arrange
+                )
+            )
+        }
+    }, [users, query, arrangeKey])
 
     // handle when onclick checkbox
     function handleChecked(studentCode) {
@@ -88,10 +118,6 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
     }
 
 
-
-
-    // render
-
     if (users.filter(user => user.enable === enable).length === 0) {
         return (
             <h1 className='no_content'>Empty list!</h1>
@@ -117,23 +143,46 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
             }
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search item" />
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    autoComplete='off'
+                    onChange={(e) => {
+                        setQuery(e.target.value)
+                    }}
+                />
             </div>
             <div className="list-item-title">
-                <div className="list-item-col user_email_col">Email</div>
-                <div className="list-item-col user_name_col">Full Name</div>
-                <div className="list-item-col user_code_col">Student Code</div>
-                <div className="list-item-col user_phone_col">Phone Number</div>
-                <div className="list-item-col">{enable === false ? "Set Enable" : "Unenable"}</div>
+                <div className="list-item-col user_email_col">
+                    Email
+                    <Arrange type="email" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                </div>
+                <div className="list-item-col user_name_col">
+                    Full Name
+                    <Arrange type="fullName" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                </div>
+                <div className="list-item-col user_code_col">
+                    Student Code
+                    <Arrange type="studentCode" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                </div>
+                <div className="list-item-col user_phone_col">
+                    Phone Number
+                </div>
+                <div className="list-item-col user_updatedAt_col">
+                    Update at
+                    <Arrange type="updatedAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                </div>
+                <div className="list-item-col">
+                    {enable === false ? "Set Enable" : "Unenable"}
+                </div>
             </div>
             {
-                users.filter(user => user.enable === enable).map((user, index) => {
+                usersRender.filter(user => user.enable === enable).map((user, index) => {
                     return (
                         (index >= currentFragment * maxLengthOfFragment
                             && index < (currentFragment + 1) * maxLengthOfFragment)
                         &&
                         <div
-
                             key={user._id}
                             className={"list-item " + ((admin._id === user._id && "list-item-you") || (index % 2 === 0 && "list-item-odd"))}
                         >
@@ -147,6 +196,9 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                             </div>
                             <div className="list-item-col user_code_col">{user.studentCode}</div>
                             <div className="list-item-col user_phone_col">{user.phoneNumber}</div>
+                            <div className="list-item-col user_updatedAt_col">{
+                                getFormattedDate(new Date(user.updatedAt))
+                            }</div>
                             <div className="list-item-col">
                                 {
                                     <input

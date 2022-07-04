@@ -8,7 +8,7 @@ import Alert from '../../alert';
 import ConfirmPassword from '../../confirmPassword';
 import { dataContext } from '../admin';
 import getFormattedDate from '../../../utils/formatDate';
-
+import Arrange, { arrangeList } from '../../arrange';
 
 export default function Items({ admin, items, setChangeItems, changeItems }) {
 
@@ -46,74 +46,23 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
     }
 
     useEffect(() => {
+        let type = "string"
+        if (arrangeKey.column === "updatedAt") type = "date"
         if (query === "") {
-            setItemsRender(arrageItems(items))
+            setItemsRender(arrangeList(items, arrangeKey.column, type, arrangeKey.arrange))
         }
         else {
             setItemsRender(
-                arrageItems(
+                arrangeList(
                     items.filter(item =>
                         item.name.toLowerCase().includes(query.toLowerCase())
                         || item.category.toLowerCase().includes(query.toLowerCase())
                         || item.description.toLowerCase().includes(query.toLowerCase())
-                    )
+                    ), arrangeKey.column, type, arrangeKey.arrange
                 )
             )
         }
     }, [items, query, arrangeKey])
-
-
-    // arrange
-    function arrageItems(pureItems) {
-        let result = new Array(...pureItems)
-        if (Object.keys(arrangeKey).length === 0) {
-            return result
-        }
-        else if (arrangeKey.column === "name") {
-            result.sort((a, b) => {
-                const valueA = a[arrangeKey.column]
-                const valueB = b[arrangeKey.column]
-                if (arrangeKey.arrange === "inc") {
-                    return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
-                }
-                else if (arrangeKey.arrange === "dec") {
-                    return valueA > valueB ? -1 : (valueA < valueB ? 1 : 0)
-                }
-            })
-        }
-        else if (arrangeKey.column === "category") {
-            result.sort((a, b) => {
-                const valueA = a[arrangeKey.column]
-                const valueB = b[arrangeKey.column]
-                if (arrangeKey.arrange === "inc") {
-                    return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
-                }
-                else if (arrangeKey.arrange === "dec") {
-                    return valueA > valueB ? -1 : (valueA < valueB ? 1 : 0)
-                }
-            })
-        }
-        else if (arrangeKey.column === "updatedAt") {
-            result.sort((a, b) => {
-                let valueA = new Date(a[arrangeKey.column]).getTime()
-                let valueB = new Date(b[arrangeKey.column]).getTime()
-                if (String(valueA) === "NaN") {
-                    valueA = 0
-                }
-                if (String(valueB) === "NaN") {
-                    valueB = 0
-                }
-
-                if (arrangeKey.arrange === "inc") {
-                    return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
-                }
-                else if (arrangeKey.arrange === "dec") {
-                    return valueA > valueB ? -1 : (valueA < valueB ? 1 : 0)
-                }
-            })
-        }
-        return result
-    }
 
     // set button
     const handleAddItemButton = () => {
@@ -423,122 +372,24 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                     />
                 </div>
                 <button className='item_add_button' onClick={handleAddItemButton}>+</button>
+                <p style={{ "marginLeft": "10px" }}>Add new item</p>
                 {addItem && <AddNewItem />}
             </div>
 
             <div className="list-item-title">
                 <div className="list-item-col item_name_col">
                     Name of item
-                    <div className='arange_icon'>
-                        <i
-                            className={
-                                "fa-solid fa-angle-up " +
-                                (arrangeKey.column === "name" && arrangeKey.arrange === "inc" && "chosen")
-                            }
-                            onClick={(e) => {
-                                if (e.currentTarget.className.includes("chosen")) {
-                                    setArrangeKey({})
-                                }
-                                else {
-                                    setArrangeKey({
-                                        column: "name",
-                                        arrange: "inc"
-                                    })
-                                }
-                            }}></i>
-
-                        <i
-                            className={
-                                "fa-solid fa-angle-down " +
-                                (arrangeKey.column === "name" && arrangeKey.arrange === "dec" && "chosen")
-                            } onClick={(e) => {
-                                if (e.currentTarget.className.includes("chosen")) {
-                                    setArrangeKey({})
-                                }
-                                else {
-                                    setArrangeKey({
-                                        column: "name",
-                                        arrange: "dec"
-                                    })
-                                }
-                            }}></i>
-                    </div>
-
+                    <Arrange type="name" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
                 <div className="list-item-col item_category_col">
                     Category
-                    <div className='arange_icon'>
-                        <i
-                            className={
-                                "fa-solid fa-angle-up " +
-                                (arrangeKey.column === "category" && arrangeKey.arrange === "inc" && "chosen")
-                            }
-                            onClick={(e) => {
-                                if (e.currentTarget.className.includes("chosen")) {
-                                    setArrangeKey({})
-                                }
-                                else {
-                                    setArrangeKey({
-                                        column: "category",
-                                        arrange: "inc"
-                                    })
-                                }
-                            }}></i>
-
-                        <i
-                            className={
-                                "fa-solid fa-angle-down " +
-                                (arrangeKey.column === "category" && arrangeKey.arrange === "dec" && "chosen")
-                            } onClick={(e) => {
-                                if (e.currentTarget.className.includes("chosen")) {
-                                    setArrangeKey({})
-                                }
-                                else {
-                                    setArrangeKey({
-                                        column: "category",
-                                        arrange: "dec"
-                                    })
-                                }
-                            }}></i>
-                    </div>
+                    <Arrange type="category" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
                 <div className="list-item-col item_available_col">Available</div>
                 <div className="list-item-col item_quantity_col">
                     Update day
-                    <div className='arange_icon'>
-                        <i
-                            className={
-                                "fa-solid fa-angle-up " +
-                                (arrangeKey.column === "updatedAt" && arrangeKey.arrange === "inc" && "chosen")
-                            }
-                            onClick={(e) => {
-                                if (e.currentTarget.className.includes("chosen")) {
-                                    setArrangeKey({})
-                                }
-                                else {
-                                    setArrangeKey({
-                                        column: "updatedAt",
-                                        arrange: "inc"
-                                    })
-                                }
-                            }}></i>
+                    <Arrange type="updatedAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
 
-                        <i
-                            className={
-                                "fa-solid fa-angle-down " +
-                                (arrangeKey.column === "updatedAt" && arrangeKey.arrange === "dec" && "chosen")
-                            } onClick={(e) => {
-                                if (e.currentTarget.className.includes("chosen")) {
-                                    setArrangeKey({})
-                                }
-                                else {
-                                    setArrangeKey({
-                                        column: "updatedAt",
-                                        arrange: "dec"
-                                    })
-                                }
-                            }}></i>
-                    </div>
                 </div>
                 <div className="list-item-col item_description_col">Description</div>
                 <div className="list-item-col">Delete</div>
