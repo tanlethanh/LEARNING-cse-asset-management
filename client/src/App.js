@@ -74,7 +74,7 @@ function App() {
                     <Route
                         path="/user/detail/:id"
                         element={
-                            <DetailUser />
+                            <DetailUser admin={user}/>
                         }
                     />
                     <Route
