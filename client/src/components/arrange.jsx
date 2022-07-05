@@ -1,18 +1,19 @@
+import reverseName from "../utils/reverseName"
 export function arrangeList(list, field, type, order) {
 
     if (!field || !type || !order) return list
-    
+
     const result = new Array(...list)
 
     if (type === "name") {
         result.sort((a, b) => {
-            const valueA = a[field]
-            const valueB = b[field]
+            const valueA = reverseName(a[field].toLowerCase())
+            const valueB = reverseName(b[field].toLowerCase())
             if (order === "inc") {
-                return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
+                return valueA > valueB ? -1 : (valueA < valueB ? 1 : 0)
             }
             else if (order === "dec") {
-                return valueA > valueB ? -1 : (valueA < valueB ? 1 : 0)
+                return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
             }
         })
     }
@@ -21,10 +22,10 @@ export function arrangeList(list, field, type, order) {
             const valueA = a[field]
             const valueB = b[field]
             if (order === "inc") {
-                return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
+                return valueA > valueB ? -1 : (valueA < valueB ? 1 : 0)
             }
             else if (order === "dec") {
-                return valueA > valueB ? -1 : (valueA < valueB ? 1 : 0)
+                return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
             }
         })
     }
@@ -39,6 +40,18 @@ export function arrangeList(list, field, type, order) {
                 valueB = 0
             }
 
+            if (order === "inc") {
+                return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
+            }
+            else if (order === "dec") {
+                return valueA > valueB ? -1 : (valueA < valueB ? 1 : 0)
+            }
+        })
+    }
+    else if (type === "number") {
+        result.sort((a, b) => {
+            const valueA = a[field]
+            const valueB = b[field]
             if (order === "inc") {
                 return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
             }

@@ -17,6 +17,7 @@ function App() {
 
     const [user, setUser] = useState({})
     const [cart, setCart] = useState([])
+    const [openCart, setOpenCart] = useState(false)
 
     // Change title of page when user is logged in
     useEffect(() => {
@@ -36,23 +37,25 @@ function App() {
 
 
     return (
-        // <div onClick={(event) => {
-        //     const targetPrefClass = event.target.className;
-        //     const target = targetPrefClass.substring(0, targetPrefClass.indexOf('-'))
-        //     const targetPrefClassParent = event.target.parentNode.className
-        //     const targetParent = targetPrefClassParent.substring(0, targetPrefClassParent.indexOf('-'))
-        //     const targetPrefGrandParent = event.target.parentNode.parentNode.className
-        //     const targetGrandParent = targetPrefGrandParent.substring(0, targetPrefGrandParent.indexOf('-'))
-
-        //     // if (target !== 'checklist' && targetParent !== 'checklist' && targetGrandParent !== 'checklist') {
-        //     //     if (checklist === true) {
-        //     //         setChecklist(false)
-        //     //     }
-        //     // }
-        // }}>
-        // </div>
-            <AppContext.Provider value={{cart: cart, setCart: setCart}}>
-                <Header />
+        <AppContext.Provider value={{ cart: cart, setCart: setCart }} >
+            <div onClick={(e) => {
+                const currentClass = e.target.className
+                const parentClass = e.target.parentNode.className
+                const parent2Class = e.target.parentNode.parentNode.className
+                if (
+                    currentClass.split('-')[0] !== 'checklist'
+                    && parentClass.split('-')[0] !== 'checklist'
+                    && parent2Class.split('-')[0] !== 'checklist'
+                    && currentClass.split('-')[0] !== 'react'
+                    && parentClass.split('-')[0] !== 'react'
+                    && parent2Class.split('-')[0] !== 'react'
+                    && currentClass !== "homepage_reg"
+                    && currentClass !== "homepage_added"
+                ) {
+                    setOpenCart(false)
+                }
+            }}>
+                <Header openCart={openCart} setOpenCart={setOpenCart} />
                 <Routes>
                     <Route
                         path="/"
@@ -74,7 +77,7 @@ function App() {
                     <Route
                         path="/user/detail/:id"
                         element={
-                            <DetailUser admin={user}/>
+                            <DetailUser admin={user} />
                         }
                     />
                     <Route
@@ -85,7 +88,8 @@ function App() {
                     />
                 </Routes>
                 <Footer />
-            </AppContext.Provider>
+            </div>
+        </AppContext.Provider>
 
     )
 }

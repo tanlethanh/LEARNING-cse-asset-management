@@ -25,8 +25,9 @@ input[type="checkbox"] {
 
 #information {
     position: relative;
-    height: calc(250px + var(--height-nav));
-    padding-top: var(--height-nav);
+    width: 100%;
+    height: calc(320px);
+    margin-top: var(--height-nav);
     background: #6171A9;
     color: #fff;
 }
@@ -37,23 +38,90 @@ input[type="checkbox"] {
 
 #information .title {
     position: absolute;
-    top: calc(50px + var(--height-nav));
-    left: 200px;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    height: 100%;
+    width: 50%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #1F9254; */
 }
 
 #information .title .name {
     text-transform: uppercase;
     font-size: 3em;
     font-weight: 900;
-    margin: 0;
-    margin-bottom: 10px;
+    min-width: 400px;
+}
+
+#information .title .description {
+    min-width: 400px;
 }
 
 #information .detail {
     position: absolute;
-    top: calc(40px + var(--height-nav));
-    right: 300px;
-    display: block;
+    /* top: calc(30px + var(--height-nav)); */
+    top: 0px;
+    right: 0px;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 50%;
+    align-items: center;
+    /* background-color: #1F9254; */
+}
+
+.statistic_container {
+    height: 300px;
+    width: 500px;
+    background-color: #fff;
+    border-radius: 20px;
+    color: #000;
+    /* font-size: 14px !important; */
+    overflow: hidden;
+    font-size: 13px !important;
+}
+
+.statistic_container text {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.statistic_container {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.statistic_content_title {
+    height: 10%;
+    /* width: 100%; */
+    /* text-align: center; */
+    margin: 10px 20px 0;
+}
+
+.statistic_content_users {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+}
+
+
+.statistic_title {}
+
+.information_button_container {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    width: 100px;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: 20px;
 }
 
 #content {
@@ -179,7 +247,7 @@ input[type="checkbox"] {
     align-items: center;
 }
 
-.list-item-col .fa-solid{
+.list-item-col .fa-solid {
     font-size: 1.3em;
     padding: 0 28px;
 }
@@ -197,25 +265,28 @@ input[type="checkbox"] {
 .list-item-col .accept_status {
     background-color: #EBF9F1;
     color: #1F9254;
-    padding: 4px 15px;
+    padding: 2px 13px;
     border-radius: 15px;
     font-style: normal;
+    font-size: 14px;
 }
 
 .list-item-col .denied_status {
     background-color: #FBE7E8;
     color: #A30D11;
-    padding: 4px 15px;
+    padding: 2px 13px;
     border-radius: 15px;
     font-style: normal;
+    font-size: 14px;
 }
 
 .list-item-col .pending_status {
     background-color: #FEF2E5;
     color: #CD6200;
-    padding: 4px 15px;
+    padding: 2px 13px;
     border-radius: 15px;
     font-style: normal;
+    font-size: 14px;
 }
 
 .list-end {

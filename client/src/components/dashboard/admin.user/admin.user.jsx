@@ -5,6 +5,7 @@ import ConfirmPassword from '../../confirmPassword';
 import Alert from '../../alert';
 import Arrange, { arrangeList } from '../../arrange';
 import getFormattedDate from '../../../utils/formatDate';
+import reverseName from '../../../utils/reverseName';
 
 export default function Users({ admin, users, enable, changeUsers, setChangeUsers }) {
     const navigate = useNavigate()
@@ -37,6 +38,9 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
         if (arrangeKey.column === "updatedAt") {
             type = "date"
         }
+        else if (arrangeKey.column === "fullName") {
+            type = "name"
+        }
 
         if (query === "") {
             setUsersRender(arrangeList(users, arrangeKey.column, type, arrangeKey.arrange))
@@ -49,6 +53,7 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                         || user.email.toLowerCase().includes(query.toLowerCase())
                         || user.studentCode.toLowerCase().includes(query.toLowerCase())
                         || user.phoneNumber.toLowerCase().includes(query.toLowerCase())
+                        || getFormattedDate(new Date(user.updatedAt)).includes(query.toLowerCase())
                     ), arrangeKey.column, type, arrangeKey.arrange
                 )
             )
@@ -191,7 +196,7 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                                 className="list-item-col user_name_col"
                                 onClick={() => openUserDetail(user)}
                             >
-                                {user.fullName}
+                                {reverseName(user.fullName)}
                                 {user.enable && user.isAdmin && <sup className="isAdmin">admin</sup>}
                             </div>
                             <div className="list-item-col user_code_col">{user.studentCode}</div>

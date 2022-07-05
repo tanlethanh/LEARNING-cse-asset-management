@@ -58,6 +58,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                         item.name.toLowerCase().includes(query.toLowerCase())
                         || item.category.toLowerCase().includes(query.toLowerCase())
                         || item.description.toLowerCase().includes(query.toLowerCase())
+                        || getFormattedDate(new Date(item.updatedAt)).includes(query.toLowerCase())
                     ), arrangeKey.column, type, arrangeKey.arrange
                 )
             )
@@ -69,12 +70,12 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
         setAddItem(!addItem)
     }
     const handleDeleteClick = (index) => {
-        if (items[index].available == items[index].quantity) {
-            items[index].deleteChosen = !items[index].deleteChosen
+        if (itemsRender[index].available == itemsRender[index].quantity) {
+            itemsRender[index].deleteChosen = !itemsRender[index].deleteChosen
             setCantDelete(false)
             setChange(!change)
         } else {
-            setAlertMess("This item can't be delete!")
+            setAlertMess("This item can't be deleted!")
             setCantDelete(true)
             setAlert(false)
             setAlert(true)
@@ -311,7 +312,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
             })
                 .then(response => {
                     if (response.data.user) {
-                        items.map((item, index) => {
+                        itemsRender.map((item, index) => {
                             if (item.deleteChosen === true) {
                                 Axios.delete(`http://localhost:8266/api/item/${item._id}`)
                                     .then((response) => {
@@ -371,13 +372,13 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                         }}
                     />
                 </div>
-                <button className='item_add_button' onClick={handleAddItemButton}>+</button>
+                <button className='item_add_button' onClick={handleAddItemButton} title="Nhấp vào đây để thêm item">+</button>
                 <p style={{ "marginLeft": "10px" }}>Add new item</p>
                 {addItem && <AddNewItem />}
             </div>
 
             <div className="list-item-title">
-                <div className="list-item-col item_name_col">
+                <div className="list-item-col item_name_col" title="Nhấp vào tên item để biết thêm chi tiết về item">
                     Name of item
                     <Arrange type="name" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
@@ -392,7 +393,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
 
                 </div>
                 <div className="list-item-col item_description_col">Description</div>
-                <div className="list-item-col">Delete</div>
+                <div className="list-item-col item_delete_col">Delete</div>
             </div>
 
 
@@ -412,7 +413,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                             <div className="list-item-col item_available_col">{item.available + "/" + item.quantity}</div>
                             <div className="list-item-col item_quantity_col">{getFormattedDate(new Date(item.updatedAt))}</div>
                             <div className="list-item-col item_description_col">{item.description}</div>
-                            <div className="list-item-col ">
+                            <div className="list-item-col item_delete_col">
                                 <i
                                     className={"fa-solid fa-trash-can " + (item.deleteChosen === true ? " item_delete_chosen" : "")}
                                     onClick={() => handleDeleteClick(index)}>
