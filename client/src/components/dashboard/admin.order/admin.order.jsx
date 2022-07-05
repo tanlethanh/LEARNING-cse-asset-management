@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import OrderSubmit from './admin.order.submit';
 import getFormattedDate from '../../../utils/formatDate';
 import Arrange, { arrangeList } from '../../arrange';
+import reverseName from '../../../utils/reverseName';
 
 export default function Orders({ orders, items, users, nameList, setChangeOrders, changeOrders }) {
     // orders are list of order which all has the same status (nameList)
@@ -20,17 +21,18 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
     // use for fragment
     const maxLengthOfFragment = 8
     const numOfFragment = Math.ceil(orders[nameList].length * 1.0 / maxLengthOfFragment)
-    const [currentFragment, setCurrentFracment] = useState(0)
+    const [currentFragment, setCurrentFragment] = useState(0)
     const prevFragment = () => {
-        if (currentFragment > 0) setCurrentFracment(currentFragment - 1)
+        if (currentFragment > 0) setCurrentFragment(currentFragment - 1)
     }
     const nextFragment = () => {
-        if (currentFragment < numOfFragment - 1) setCurrentFracment(currentFragment + 1)
+        if (currentFragment < numOfFragment - 1) setCurrentFragment(currentFragment + 1)
     }
 
     useEffect(() => {
         let type = "string"
         if (arrangeKey.column === "updatedAt" || arrangeKey.column === "returnDate") type = "date"
+        else if (arrangeKey.column === "nameUser") type = "name"
         if (query === "") {
             setOrdersRender(arrangeList(orders[nameList], arrangeKey.column, type, arrangeKey.arrange))
         }
@@ -40,19 +42,21 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                     orders[nameList].filter((order) =>
                         order.nameItem.toLowerCase().includes(query.toLowerCase())
                         || order.nameUser.toLowerCase().includes(query.toLowerCase())
+                        || getFormattedDate(new Date(order.updatedAt)).includes(query.toLowerCase())
+                        || getFormattedDate(new Date(order.returnDate)).includes(query.toLowerCase())
                     ),
                     arrangeKey.column, type, arrangeKey.arrange
                 )
             )
         }
-    }, [orders, query, arrangeKey])
+    }, [orders, query, arrangeKey, nameList])
 
     const handleButton = (index, nextStatus) => {
-        if (orders[nameList][index].status !== nextStatus) {
-            orders[nameList][index].status = nextStatus
+        if (ordersRender[index].status !== nextStatus) {
+            ordersRender[index].status = nextStatus
         }
         else {
-            orders[nameList][index].status = nameList
+            ordersRender[index].status = nameList
         }
         setChange(!change)
     }
@@ -76,7 +80,7 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
     }
 
 
-    if (orders[nameList].length === 0) {
+    if (ordersRender.length === 0) {
         return (
             <div>
                 <h1 className='no_content'>Empty list!</h1>
@@ -151,7 +155,7 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                                         openUserDetail(order.idUser)
                                     }}
                                 >
-                                    {order.nameUser}
+                                    {reverseName(order.nameUser)}
                                 </div>
 
                                 <div className="list-item-col">
@@ -184,7 +188,6 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                                         nameList === 'complete' &&
                                         <div className=
                                             {order.status === 'denied' ? 'denied_status' : 'accept_status'}
-
                                         >{order.status}</div>
                                     }
 
@@ -203,7 +206,7 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                     </button>
                     {confirmPassword &&
                         <OrderSubmit
-                            orders={orders}
+                            orders={ordersRender}
                             nameList={nameList}
                             changeOrders={changeOrders}
                             setChangeOrders={setChangeOrders}
@@ -221,7 +224,7 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                                     <button
                                         className={(currentFragment === index ? "chosen" : "")}
                                         onClick={() => {
-                                            setCurrentFracment(index)
+                                            setCurrentFragment(index)
                                         }}
                                     >{index}</button>
                                 </div>

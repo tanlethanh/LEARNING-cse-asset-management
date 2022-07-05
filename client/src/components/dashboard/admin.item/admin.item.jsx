@@ -58,6 +58,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                         item.name.toLowerCase().includes(query.toLowerCase())
                         || item.category.toLowerCase().includes(query.toLowerCase())
                         || item.description.toLowerCase().includes(query.toLowerCase())
+                        || getFormattedDate(new Date(item.updatedAt)).includes(query.toLowerCase())
                     ), arrangeKey.column, type, arrangeKey.arrange
                 )
             )
@@ -69,12 +70,12 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
         setAddItem(!addItem)
     }
     const handleDeleteClick = (index) => {
-        if (items[index].available == items[index].quantity) {
-            items[index].deleteChosen = !items[index].deleteChosen
+        if (itemsRender[index].available == itemsRender[index].quantity) {
+            itemsRender[index].deleteChosen = !itemsRender[index].deleteChosen
             setCantDelete(false)
             setChange(!change)
         } else {
-            setAlertMess("This item can't be delete!")
+            setAlertMess("This item can't be deleted!")
             setCantDelete(true)
             setAlert(false)
             setAlert(true)
@@ -311,7 +312,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
             })
                 .then(response => {
                     if (response.data.user) {
-                        items.map((item, index) => {
+                        itemsRender.map((item, index) => {
                             if (item.deleteChosen === true) {
                                 Axios.delete(`http://localhost:8266/api/item/${item._id}`)
                                     .then((response) => {

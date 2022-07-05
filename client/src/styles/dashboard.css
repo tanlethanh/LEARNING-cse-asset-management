@@ -195,25 +195,28 @@ input[type="checkbox"] {
 .list-item-col .accept_status {
     background-color: #EBF9F1;
     color: #1F9254;
-    padding: 4px 15px;
+    padding: 2px 13px;
     border-radius: 15px;
     font-style: normal;
+    font-size: 14px;
 }
 
 .list-item-col .denied_status {
     background-color: #FBE7E8;
     color: #A30D11;
-    padding: 4px 15px;
+    padding: 2px 13px;
     border-radius: 15px;
     font-style: normal;
+    font-size: 14px;
 }
 
 .list-item-col .pending_status {
     background-color: #FEF2E5;
     color: #CD6200;
-    padding: 4px 15px;
+    padding: 2px 13px;
     border-radius: 15px;
     font-style: normal;
+    font-size: 14px;
 }
 
 .list-end {

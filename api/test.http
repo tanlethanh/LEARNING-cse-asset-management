@@ -106,7 +106,7 @@ Content-Type: application/json
 
 
 ### user - delete user by id
-DELETE http://localhost:8266/api/user/6290976c0591c3ff4bac225f
+DELETE http://localhost:8266/api/user/62a4850327cf24e74b7e13dd
 
 
 ### order - get all of order

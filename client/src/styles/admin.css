@@ -189,15 +189,15 @@
 
 
 .order_accept_button {
-    font-weight: 600;
+    font-weight: 400;
     background-color: #EBF9F1;
     color: #1F9254;
     border: 1.5px solid #1F9254;
     border-radius: 15px;
     color: #1F9254;
-    width: 65px;
-    height: 35px;
+    padding: 4px 8px;
     margin-right: 10px;
+    font-size: 13px;
 }
 
 .order_accept_button.chosen {
@@ -206,13 +206,13 @@
 }
 
 .order_deny_button {
-    font-weight: 600;
+    font-weight: 400;
     background-color: #fff;
     border: 1.5px solid #A30D11;
     border-radius: 15px;
     color: #A30D11;
-    width: 65px;
-    height: 35px;
+    padding: 4px 8px;
+    font-size: 13px;
 }
 
 .order_deny_button.chosen {

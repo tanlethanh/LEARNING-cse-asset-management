@@ -11,7 +11,7 @@ export default function OrderSubmit({ orders, nameList, changeOrders, setChangeO
     const [alertMess, setAlertMess] = useState('')
 
     const handleYes = (adminPassword) => {
-        orders[nameList].map((order, index) => {
+        orders.map((order, index) => {
             if (order.status !== nameList) {
                 let action = ''
                 if (order.status === 'ok') action = 'accept'
@@ -35,7 +35,7 @@ export default function OrderSubmit({ orders, nameList, changeOrders, setChangeO
                             setAlertMess("Your password is incorrect!")
                             setTypeAlert("error")
                             setAlert(true)
-                            setTimeout(() => {}, 1500)
+                            setTimeout(() => { }, 1500)
                         }
                         else if (error.response.status === 400) {
                             if (error.response.data.messages.split(" ")[0] === "E11000") {
