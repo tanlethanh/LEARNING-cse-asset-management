@@ -143,25 +143,28 @@ export default function Dashboard(props) {
                     <h2 className="description">
                         {props.user.isAdmin ? "Admin" : "Member"}
                     </h2>
+                    {props.user.isAdmin &&
+                        <React.Fragment>
+                            <button className="button-info" onClick={() => {handleProfileButton(props.user)}}>Profile</button>
+                            <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>
+                        </React.Fragment>}
                 </div>
+                
                 <div className="detail">
-                    <div>
-                        <ul className="list-infor">
-                            {/* <li className="item-infor">ID: {props.user._id}</li> */}
-                            <li className="item-infor">Email: {props.user.email}</li>
-                            <li className="item-infor">Full name: {props.user.fullName}</li>
-                            <li className="item-infor">Student code: {props.user.studentCode}</li>
-                            <li className="item-infor">Phone number: {props.user.phoneNumber}</li>
-                        </ul>
+                    <ul className="list-infor">
+                        {/* <li className="item-infor">ID: {props.user._id}</li> */}
+                        <li className="item-infor">Email: {props.user.email}</li>
+                        <li className="item-infor">Full name: {props.user.fullName}</li>
+                        <li className="item-infor">Student code: {props.user.studentCode}</li>
+                        <li className="item-infor">Phone number: {props.user.phoneNumber}</li>
+                    </ul>
 
-                        <button className="button-info" onClick={() => {setEditButton(true)}}>Edit</button>
-                        {props.user.isAdmin && 
-                        <button className="button-info" onClick={() => {handleProfileButton(props.user)}}>Profile</button>}
-                        <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>
-                    </div>
-                    {editButton && <EditInfo/>}
+                    <button className="button-info" onClick={() => {setEditButton(true)}}>Edit</button>
+                    <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>
                 </div>
+                    
             </div>
+            {editButton && <EditInfo/>}
             {
                 props.user.isAdmin ?
                     <Admin setUser={props.setUser} user={props.user} /> :

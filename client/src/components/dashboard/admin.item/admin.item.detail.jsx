@@ -112,7 +112,7 @@ export default function DetailItem() {
                     setAlert(true)
                     setTimeout(() => {
                         setOpenEditItem(false)
-                        //setChangeItems(!changeItems)
+                        //window.location.reload(false)
                     }, 1000)
                 })
                 .catch(error => {

@@ -111,6 +111,7 @@ export default function DetailUser( { admin } ) {
                 email: admin.email
             })
                 .then(response => {
+                    console.log(user._id)
                     if (response.data.user){
                         Axios.delete(`http://localhost:8266/api/user/${user._id}`)
                             .then(response => {

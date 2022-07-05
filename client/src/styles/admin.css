@@ -375,3 +375,8 @@
     background-color: grey !important;
     color: #fff !important;
 }
+
+.image-logo {
+    width: 30px;
+    margin-right: 10px;  
+}

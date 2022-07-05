@@ -405,6 +405,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                                 className="list-item-col item_name_col"
                                 onClick={() => { openItemDetail(item) }}
                             >
+                                <img src={item.image ? item.image : "./big_logo.png"} className="image-logo" alt="..." />
                                 {item.name}
                             </div>
                             <div className="list-item-col item_category_col">{item.category}</div>
