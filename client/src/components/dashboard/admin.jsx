@@ -3,6 +3,7 @@ import Axios from 'axios'
 import Items from './admin.item/admin.item'
 import Users from './admin.user/admin.user'
 import Orders from './admin.order/admin.order'
+import { Route } from 'react-router';
 
 export const dataContext = React.createContext()
 
@@ -65,6 +66,7 @@ export default function Admin({ setUser, user, setAdminData }) {
 
     return (
         <dataContext.Provider value={{user, items, users, orders}}>
+
             <div className="admin_container">
                 <div id="content">
                     <div id="menu">

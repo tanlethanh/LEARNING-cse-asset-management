@@ -35,7 +35,6 @@ function App() {
 
     }, [])
 
-
     return (
         <AppContext.Provider value={{ cart: cart, setCart: setCart }} >
             <div onClick={(e) => {

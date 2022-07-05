@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import '../../../styles/homepage.css';
 import { AppContext } from "../../../App";
 export default function AvaiItem({ item }) {

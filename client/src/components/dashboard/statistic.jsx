@@ -107,7 +107,7 @@ export default function Statistic({ data }) {
     const dataUsers = getDataUsers(data.users)
     const dataOrders = getDataOrders(data.orders)
     return (
-        <div className='statistic_container'>
+        <div className="statistic_container">
             {console.log(data)}
             {typeList === "items" &&
                 <div className="statistic_content">

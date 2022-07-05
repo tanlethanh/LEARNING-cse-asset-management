@@ -136,7 +136,6 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                                         openItemDetail(order.idItem)
                                     }}
                                 >
-                                    <img src={order.image ? order.image : "./big_logo.png"} className="image-logo" alt="..." />
                                     {order.nameItem}
                                 </div>
 

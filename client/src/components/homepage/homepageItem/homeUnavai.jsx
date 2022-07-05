@@ -4,7 +4,7 @@ export default function UnavaiItem(props) {
     return (
         <div className='homepage_card'>
             <div className='homepage_leftcard un-leftcard'>
-                <img src="..." className="img-fluid rounded-start" alt="..." />
+                <img src={props.image ? props.image : "./big_logo.png"} className="homepage_image img-fluid rounded-start homepage-img-unavai" alt="..." />
             </div>
             <div className='homepage_rightcard'>
                 <p className='homepage_name'>{props.name}</p>

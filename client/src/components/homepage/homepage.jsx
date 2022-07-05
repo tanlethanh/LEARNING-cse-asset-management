@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from "axios";
 import AvaiItem from './homepageItem/homeAvai';
 import UnavaiItem from './homepageItem/homeUnavai';
 import '../../styles/homepage.css';
-import Arrange, { arrangeList } from '../arrange';
 
 export default function Homepage(props) {
 
@@ -35,7 +34,6 @@ export default function Homepage(props) {
     },[])
 
     useEffect(() => {
-        let type = "string"
         if (query === "") {
             setSearchFirst(false)
         }
@@ -100,6 +98,7 @@ export default function Homepage(props) {
                                     quantity={item.quantity}
                                     category={item.category}
                                     description={item.description}
+                                    image={item.image}
                                     key={item._id}
                                 />
                             )
@@ -112,6 +111,7 @@ export default function Homepage(props) {
                                     quantity={item.quantity}
                                     category={item.category}
                                     description={item.description}
+                                    image={item.image}
                                     key={item._id}
                                 />
                             )

@@ -10,6 +10,8 @@ export default function DetailItem() {
     const { state } = useLocation()
     const { item, orders, users } = state
 
+    console.log(item.description)
+
     let ordersList = [...orders.pending, ...orders.ok, ...orders.complete]
 
 
@@ -90,7 +92,7 @@ export default function DetailItem() {
         // confirm admin password
         const [openConfirmAdminPassword, setOpenConfirmAdminPassword] = useState(false)
 
-        const sendNewItem = (adminPassword) => {
+        const EditItem = (adminPassword) => {
             setAlert(false)
 
             let image = item.image
@@ -112,7 +114,6 @@ export default function DetailItem() {
                     setAlert(true)
                     setTimeout(() => {
                         setOpenEditItem(false)
-                        //window.location.reload(false)
                     }, 1000)
                 })
                 .catch(error => {
@@ -164,7 +165,7 @@ export default function DetailItem() {
                     openConfirmAdminPassword &&
                     <ConfirmPassword
                         setOpen={setOpenConfirmAdminPassword}
-                        callback={sendNewItem}
+                        callback={EditItem}
                     />
                 }
                 <div className='item_add_container'>
