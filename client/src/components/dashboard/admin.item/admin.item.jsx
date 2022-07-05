@@ -69,6 +69,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
     const handleAddItemButton = () => {
         setAddItem(!addItem)
     }
+    
     const handleDeleteClick = (index) => {
         if (itemsRender[index].available == itemsRender[index].quantity) {
             itemsRender[index].deleteChosen = !itemsRender[index].deleteChosen
