@@ -145,11 +145,6 @@ export default function Dashboard(props) {
                     <h2 className="description">
                         {props.user.isAdmin ? "Admin" : "Member"}
                     </h2>
-                    {props.user.isAdmin &&
-                        <React.Fragment>
-                            <button className="button-info" onClick={() => {handleProfileButton(props.user)}}>Profile</button>
-                            <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>
-                        </React.Fragment>}
                 </div>
                 
                 <div className="detail">
