@@ -12,7 +12,8 @@ export default function Homepage(props) {
 
     //search
     const [query, setQuery] = useState("")
-    const [itemsRender, setItemsRender] = useState([])
+    const [itemsAvaiRender, setItemsAvaiRender] = useState([])
+    const [itemsUnavaiRender, setItemsUnavaiRender] = useState([])
     const [searchFirst, setSearchFirst] = useState(false)
 
     useEffect(() => {
@@ -39,11 +40,17 @@ export default function Homepage(props) {
             setSearchFirst(false)
         }
         else {
-            setItemsRender(
-                    avai.filter(item =>
-                        item.name.toLowerCase().includes(query.toLowerCase())
-                        || item.category.toLowerCase().includes(query.toLowerCase())
-                    )
+            setItemsAvaiRender(
+                avai.filter(item =>
+                    item.name.toLowerCase().includes(query.toLowerCase())
+                    || item.category.toLowerCase().includes(query.toLowerCase())
+                )
+            )
+            setItemsUnavaiRender(
+                unavai.filter(item =>
+                    item.name.toLowerCase().includes(query.toLowerCase())
+                    || item.category.toLowerCase().includes(query.toLowerCase())
+                )
             )
             setSearchFirst(true)
         }
@@ -70,7 +77,7 @@ export default function Homepage(props) {
                                 <AvaiItem item={item} key={item._id}/>
                             )
                         }):
-                        itemsRender.map((item) => {
+                        itemsAvaiRender.map((item) => {
                             return (
                                 <AvaiItem item={item} key={item._id}/>
                             )
@@ -84,7 +91,20 @@ export default function Homepage(props) {
 
                 <div className='homepage-item-container'>
                     <div className="homepage-card-container">
-                        {unavai.map((item) => {
+                        {!searchFirst ?
+                        unavai.map((item) => {
+                            return (
+                                <UnavaiItem
+                                    name={item.name}
+                                    available={item.available}
+                                    quantity={item.quantity}
+                                    category={item.category}
+                                    description={item.description}
+                                    key={item._id}
+                                />
+                            )
+                        }):
+                        itemsUnavaiRender.map((item) => {
                             return (
                                 <UnavaiItem
                                     name={item.name}
