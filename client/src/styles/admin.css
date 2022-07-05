@@ -128,15 +128,21 @@
 }
 
 .item_category_col {
-    width: 200px !important;
+    width: 100px !important;
 }
 
 .item_available_col {}
 
-.item_quantity_col {}
+.item_quantity_col {
+    width: 150px !important;
+}
 
 .item_description_col {
-    width: 350px !important;
+    width: 200px !important;
+    justify-content: left !important;
+}
+
+.item_delete_col {
     justify-content: left !important;
 }
 
