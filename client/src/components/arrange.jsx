@@ -48,6 +48,18 @@ export function arrangeList(list, field, type, order) {
             }
         })
     }
+    else if (type === "number") {
+        result.sort((a, b) => {
+            const valueA = a[field]
+            const valueB = b[field]
+            if (order === "inc") {
+                return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
+            }
+            else if (order === "dec") {
+                return valueA > valueB ? -1 : (valueA < valueB ? 1 : 0)
+            }
+        })
+    }
 
     return result
 }
