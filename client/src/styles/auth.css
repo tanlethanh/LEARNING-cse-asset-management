@@ -202,6 +202,7 @@
     align-items: center;
     flex-wrap: wrap;
     color: #1A374D;
+    overflow: scroll;
 }
 
 .signup_background_container {
