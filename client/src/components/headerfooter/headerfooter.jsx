@@ -3,35 +3,12 @@ import '../../styles/headerfooter.css'
 import { useNavigate } from 'react-router-dom';
 import Cart from './cart';
 
-export function Header() {
+export function Header({openCart, setOpenCart}) {
     const navigate = useNavigate();
-    const [openCart, setOpenCart] = useState(false)
+    // const [openCart, setOpenCart] = useState(false)
 
     return (
-        <header id="header" onClick={(e)=>{
-            const currentClass = e.target.className
-            const parentClass = e.target.parentNode.className
-            const parent2Class = e.target.parentNode.parentNode.className
-            // const parent3Class = e.target.parentNode.parentNode.parentNode.className
-            // const parent4Class = e.target.parentNode.parentNode.parentNode.parentNode.className
-            // const parent5Class = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.className
-
-            // console.log(currentClass)
-            // console.log(parentClass)
-            // console.log(parent2Class)
-            // console.log(parent3Class)
-            // console.log(parent4Class)
-            // console.log(parent5Class)
-            // console.log(parentClass)
-            
-            if (
-                currentClass.split('-')[0] !== 'checklist'
-                && parentClass.split('-')[0] !== 'checklist'
-                && parent2Class.split('-')[0] !== 'checklist'
-            ) {
-                setOpenCart(false)
-            }
-        }}>
+        <header id="header" >
             <ul>
                 <li className="header-left">
                     <div className='header-logo'>
