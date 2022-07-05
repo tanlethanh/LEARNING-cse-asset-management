@@ -120,7 +120,7 @@ input[type="checkbox"] {
     height: 200px;
     width: 100px;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     margin-left: 20px;
 }
 
@@ -159,6 +159,7 @@ input[type="checkbox"] {
     height: 40px;
     background-color: #48578E;
     margin-right: 10px;
+    margin-bottom: 10px;
     border-radius: 30px;
     font-family: 'Poppins';
     font-weight: 500;

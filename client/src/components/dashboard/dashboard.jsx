@@ -158,10 +158,10 @@ export default function Dashboard(props) {
                             <li className="item-infor">Phone number: {props.user.phoneNumber}</li>
                         </ul>}
 
-                    <div className='information_button_container'>
-                        <button className="button-info" onClick={() => { setEditButton(true) }}>Edit</button>
-                        {props.user.isAdmin &&
-                            <button className="button-info" onClick={() => { handleProfileButton(props.user) }}>Profile</button>}
+                    <div className="information_button_container">
+                        {props.user.isAdmin ?
+                            <button className="button-info" onClick={() => { handleProfileButton(props.user) }}>Profile</button>:
+                            <button className="button-info" onClick={() => { setEditButton(true) }}>Edit</button>}
                         <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>
                     </div>
                     {editButton && <EditInfo />}
