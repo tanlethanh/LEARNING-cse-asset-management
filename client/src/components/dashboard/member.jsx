@@ -38,8 +38,8 @@ export default function Member(props) {
     }, [])
 
     return (
-        <div className="content">
-            <div className="menu">
+        <div id="content">
+            <div id="menu">
                 <h1 className="menu_title" >LIST</h1>
                 {tabs.map(tab => (
                     <button
