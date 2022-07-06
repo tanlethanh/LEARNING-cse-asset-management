@@ -24,12 +24,12 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
     // use for fragment
     const maxLengthOfFragment = 10
     const numOfFragment = Math.ceil(users.filter(user => user.enable === enable).length * 1.0 / maxLengthOfFragment)
-    const [currentFragment, setCurrentFracment] = useState(0)
+    const [currentFragment, setCurrentFragment] = useState(0)
     function prevFragment() {
-        if (currentFragment > 0) setCurrentFracment(currentFragment - 1)
+        if (currentFragment > 0) setCurrentFragment(currentFragment - 1)
     }
     function nextFragment() {
-        if (currentFragment < numOfFragment - 1) setCurrentFracment(currentFragment + 1)
+        if (currentFragment < numOfFragment - 1) setCurrentFragment(currentFragment + 1)
     }
 
     useEffect(() => {
@@ -240,7 +240,7 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                                 <button
                                     className={(currentFragment === index ? "chosen" : "")}
                                     onClick={() => {
-                                        setCurrentFracment(index)
+                                        setCurrentFragment(index)
                                     }}
                                 >{index}</button>
                             </div>
