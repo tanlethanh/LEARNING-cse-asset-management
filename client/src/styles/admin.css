@@ -14,8 +14,8 @@
 #menu {
     background-color: #48578E;
     width: var(--width-menu);
-    height: 100%;
-    position: absolute;
+    /* height: 100%; */
+    /* position: absolute; */
     padding: 20px 15px;
 }
 

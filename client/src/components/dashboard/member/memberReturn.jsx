@@ -1,7 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import getFormattedDate from "../../../utils/formatDate"
 
 export default function Returned(props) {
+    const [currentFragment, setCurrentFragment] = useState(0)
+    const maxOfFragment = 10
+    const numberOfFragment = Math.ceil(props.currentList.length * 1.0 / maxOfFragment)
+    function prevFragment() {
+        if (currentFragment > 0) setCurrentFragment(currentFragment - 1)
+    }
+    function nextFragment() {
+        if (currentFragment < numberOfFragment - 1) setCurrentFragment(currentFragment + 1)
+    }
+
     return (
         <div>
             <div className="list-item list-item-title">
@@ -12,6 +22,8 @@ export default function Returned(props) {
             </div>
 
             {props.currentList.map((item, index) => (
+                index >= currentFragment * maxOfFragment && index < (currentFragment + 1) * maxOfFragment
+                &&
                 <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={item._id}>
                     <div className="list-item-col item_name_col">{item.nameItem}</div>
                     <div className="list-item-col item_category_col">{item.categoryItem}</div>
@@ -23,11 +35,33 @@ export default function Returned(props) {
             ))}
 
             <div className="list-end">
-                <div id="previous-number"><button className="move-list">Previous</button></div>
-                <div className="list-number"><button className="chosen">1</button></div>
-                <div className="list-number"><button>2</button></div>
-                <div className="list-number"><button>3</button></div>
-                <div id="next-number"><button className="move-list">Next</button></div>
+                <div id="previous-number">
+                    <button
+                        className="move-list"
+                        onClick={prevFragment}
+                    >Previous</button>
+                </div>
+                {
+                    [...Array(numberOfFragment)].map((value, index) => {
+                        return (
+                            <div className="list-number">
+                                <button
+                                    className={index === currentFragment && "chosen"}
+                                    onClick={() => {
+                                        setCurrentFragment(index)
+                                    }}
+                                >{index}</button>
+                            </div>
+                        )
+                    })
+                }
+
+                <div id="next-number">
+                    <button
+                        className="move-list"
+                        onClick={nextFragment}
+                    >Next</button>
+                </div>
             </div>
         </div>
 

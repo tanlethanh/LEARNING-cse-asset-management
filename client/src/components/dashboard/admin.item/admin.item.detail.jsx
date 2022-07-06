@@ -169,7 +169,7 @@ export default function DetailItem() {
                     />
                 }
                 <div className='item_add_container'>
-                    
+
                     <h1 className='item_add_title'>Edit detail item</h1>
 
                     <div className='item_add_body'>
@@ -192,24 +192,24 @@ export default function DetailItem() {
                             <select className='input_body' name="e" onChange={e => {
                                 setCategory(e.target.value)
                             }} >
-                                {item.category == "Dụng cụ" ? 
-                                    <option value="Dụng cụ" selected>Dụng cụ</option> : 
+                                {item.category == "Dụng cụ" ?
+                                    <option value="Dụng cụ" selected>Dụng cụ</option> :
                                     <option value="Dụng cụ">Dụng cụ</option>}
-                                {item.category == "Thiết bị điện" ? 
-                                    <option value="Thiết bị điện" selected>Thiết bị điện</option> : 
+                                {item.category == "Thiết bị điện" ?
+                                    <option value="Thiết bị điện" selected>Thiết bị điện</option> :
                                     <option value="Thiết bị điện">Thiết bị điện</option>}
-                                {item.category == "Phòng học" ? 
-                                    <option value="Phòng học" selected>Phòng học</option> : 
+                                {item.category == "Phòng học" ?
+                                    <option value="Phòng học" selected>Phòng học</option> :
                                     <option value="Phòng học">Phòng học</option>}
-                                {item.category == "Đồ sự kiện" ? 
-                                    <option value="Đồ sự kiện" selected>Đồ sự kiện</option> : 
+                                {item.category == "Đồ sự kiện" ?
+                                    <option value="Đồ sự kiện" selected>Đồ sự kiện</option> :
                                     <option value="Đồ sự kiện">Đồ sự kiện</option>}
-                                {item.category == "Trang phục" ? 
-                                    <option value="Trang phục" selected>Trang phục</option> : 
+                                {item.category == "Trang phục" ?
+                                    <option value="Trang phục" selected>Trang phục</option> :
                                     <option value="Trang phục">Trang phục</option>}
-                                {item.category == "Đồ dùng văn phòng" ? 
-                                    <option value="Đồ dùng văn phòng" selected>Đồ dùng văn phòng</option> : 
-                                    <option value="Đồ dùng văn phòng">Đồ dùng văn phòng</option>}        
+                                {item.category == "Đồ dùng văn phòng" ?
+                                    <option value="Đồ dùng văn phòng" selected>Đồ dùng văn phòng</option> :
+                                    <option value="Đồ dùng văn phòng">Đồ dùng văn phòng</option>}
                             </select>
 
                             <label className='lable_body'>Description</label>
@@ -239,52 +239,52 @@ export default function DetailItem() {
                                 }) => (
                                     // write your building UI
                                     <React.Fragment>
-                                    {item.image?
-                                    <div className="upload__image-wrapper">
-                                        
-                                        <img className={((images.length > 0) && "display_none")} src={item.image} alt="" width="280" />
-                                        <div className="image-item__btn-wrapper">
-                                            <button
-                                                style={isDragging ? { color: "red" } : null}
-                                                onClick={onImageUpload}
-                                                className={((images.length > 0) && "display_none")}
-                                                {...dragProps}
-                                            >
-                                                Change
-                                            </button>
-                                        </div>
-                                        {/* <button onClick={onImageRemoveAll}>Remove all images</button> */}
-                                        {imageList.map((image, index) => (
-                                            <div key={index} className="image-item">
-                                                <img src={image.data_url} alt="" width="280" />
+                                        {item.image ?
+                                            <div className="upload__image-wrapper">
+
+                                                <img className={((images.length > 0) && "display_none")} src={item.image} alt="" width="280" />
                                                 <div className="image-item__btn-wrapper">
-                                                    <button onClick={() => onImageUpdate(index)}>Change</button>
-                                                    <button onClick={() => onImageRemove(index)}>Remove</button>
+                                                    <button
+                                                        style={isDragging ? { color: "red" } : null}
+                                                        onClick={onImageUpload}
+                                                        className={((images.length > 0) && "display_none")}
+                                                        {...dragProps}
+                                                    >
+                                                        Change
+                                                    </button>
                                                 </div>
+                                                {/* <button onClick={onImageRemoveAll}>Remove all images</button> */}
+                                                {imageList.map((image, index) => (
+                                                    <div key={index} className="image-item">
+                                                        <img src={image.data_url} alt="" width="280" />
+                                                        <div className="image-item__btn-wrapper">
+                                                            <button onClick={() => onImageUpdate(index)}>Change</button>
+                                                            <button onClick={() => onImageRemove(index)}>Remove</button>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div> :
+                                            <div className="upload__image-wrapper">
+                                                <button
+                                                    style={isDragging ? { color: "red" } : null}
+                                                    onClick={onImageUpload}
+                                                    className={"upload_clickdrop " + ((images.length > 0) && "display_none")}
+                                                    {...dragProps}
+                                                >
+                                                    Click or Drop here
+                                                </button>
+                                                {/* <button onClick={onImageRemoveAll}>Remove all images</button> */}
+                                                {imageList.map((image, index) => (
+                                                    <div key={index} className="image-item">
+                                                        <img src={image.data_url} alt="" width="280" />
+                                                        <div className="image-item__btn-wrapper">
+                                                            <button onClick={() => onImageUpdate(index)}>Change</button>
+                                                            <button onClick={() => onImageRemove(index)}>Remove</button>
+                                                        </div>
+                                                    </div>
+                                                ))}
                                             </div>
-                                        ))}
-                                    </div> :
-                                    <div className="upload__image-wrapper">
-                                        <button
-                                            style={isDragging ? { color: "red" } : null}
-                                            onClick={onImageUpload}
-                                            className={"upload_clickdrop " + ((images.length > 0) && "display_none")}
-                                            {...dragProps}
-                                        >
-                                            Click or Drop here
-                                        </button>
-                                        {/* <button onClick={onImageRemoveAll}>Remove all images</button> */}
-                                        {imageList.map((image, index) => (
-                                            <div key={index} className="image-item">
-                                                <img src={image.data_url} alt="" width="280" />
-                                                <div className="image-item__btn-wrapper">
-                                                    <button onClick={() => onImageUpdate(index)}>Change</button>
-                                                    <button onClick={() => onImageRemove(index)}>Remove</button>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                    }
+                                        }
                                     </React.Fragment>
                                 )}
                             </ImageUploading>
@@ -305,7 +305,7 @@ export default function DetailItem() {
                                     setOpenConfirmAdminPassword(true)
                                 }
                             }}>
-                                Edit
+                            Edit
                         </button>
 
                         <button
@@ -315,7 +315,7 @@ export default function DetailItem() {
                         >
                             Cancel
                         </button>
-                        
+
                     </div>
                 </div>
 
@@ -340,9 +340,9 @@ export default function DetailItem() {
                     <ul className="list-infor">
                         <h3>
                             Information
-                            <button 
-                            className="button-edit" 
-                            onClick={()=>{setOpenEditItem(true)}}>
+                            <button
+                                className="button-edit"
+                                onClick={() => { setOpenEditItem(true) }}>
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                         </h3>
@@ -352,7 +352,7 @@ export default function DetailItem() {
                         <li className="item-infor">Quantity: {item.quantity}</li>
                         <li className="item-infor">Description: {item.description}</li>
                     </ul>
-                    
+
                     <ul className="list-infor">
                         <h3>Statistics</h3>
                         <li className="item-infor">All orders: {item.borrowerList.length}</li>
@@ -365,7 +365,7 @@ export default function DetailItem() {
             {openEditItem && <EditDetailItem />}
 
             <div id="content">
-                <div className="menu">
+                <div id="menu">
                     <h1 className="menu_title" >LIST</h1>
                     {tabs.map(tab => (
                         <button
@@ -378,95 +378,92 @@ export default function DetailItem() {
                     ))}
                 </div>
 
-                <div className='scrollItem' id='scroll'>
-                    <div id="list">
-                        <div className="list-search">
-                            <i className="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" placeholder="Search item" />
-                        </div>
-
-                        <div className="list-content">
-                            <div className="list-item list-item-title">
-                                <div className="list-item-col">Borrower</div>
-                                <div className="list-item-col list_item_multiline">Quantity</div>
-                                <div className="list-item-col list_item_multiline">Created date</div>
-                                <div className="list-item-col list_item_multiline">Acceped date</div>
-                                <div className="list-item-col">Return date</div>
-                            </div>
-                            {
-                                chosenBorrowers.map((borrower, index) => {
-                                    const orderIdOfBorrower = chosenList
-                                        .filter(element => element.idUser === borrower._id)
-                                        .map(element => element.idOrder)
-                                    const inforOders = ordersList.filter(order => {
-                                        return orderIdOfBorrower.includes(order._id)
-                                    })
-                                    console.log(inforOders)
-
-
-                                    return (
-                                        <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={borrower._id}>
-                                            <div className="list-item-col">{borrower.fullName}</div>
-                                            <div className="list-item-col list_item_multiline">
-                                                {
-                                                    inforOders.map(order => {
-                                                        return (
-                                                            <div key={order._id}>
-                                                                {order.quantity}
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
-                                            </div>
-                                            <div className="list-item-col list_item_multiline">
-                                                {
-                                                    inforOders.map(order => {
-                                                        return (
-                                                            <div key={order._id}>
-                                                                {order.createdAt.substring(0, order.createdAt.indexOf('T'))}
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
-                                            </div>
-                                            <div className="list-item-col list_item_multiline">
-                                                {
-                                                    inforOders.map(order => {
-                                                        return (
-                                                            <div key={order._id}>
-                                                                {order.updatedAt.substring(0, order.updatedAt.indexOf('T'))}
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
-                                            </div>
-                                            <div className="list-item-col list_item_multiline">
-                                                {
-                                                    inforOders.map(order => {
-                                                        return (
-                                                            <div key={order._id}>
-                                                                {order.returnDate.substring(0, order.returnDate.indexOf('T'))}
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
-                                            </div>
-                                        </div>
-                                    )
-
-                                })
-                            }
-                        </div>
-
-
-
+                <div id="list">
+                    <div className="list-search">
+                        <i className="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search item" />
                     </div>
+
+                    <div className="list-content">
+                        <div className="list-item list-item-title">
+                            <div className="list-item-col">Borrower</div>
+                            <div className="list-item-col list_item_multiline">Quantity</div>
+                            <div className="list-item-col list_item_multiline">Created date</div>
+                            <div className="list-item-col list_item_multiline">Acceped date</div>
+                            <div className="list-item-col">Return date</div>
+                        </div>
+                        {
+                            chosenBorrowers.map((borrower, index) => {
+                                const orderIdOfBorrower = chosenList
+                                    .filter(element => element.idUser === borrower._id)
+                                    .map(element => element.idOrder)
+                                const inforOders = ordersList.filter(order => {
+                                    return orderIdOfBorrower.includes(order._id)
+                                })
+                                console.log(inforOders)
+
+
+                                return (
+                                    <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={borrower._id}>
+                                        <div className="list-item-col">{borrower.fullName}</div>
+                                        <div className="list-item-col list_item_multiline">
+                                            {
+                                                inforOders.map(order => {
+                                                    return (
+                                                        <div key={order._id}>
+                                                            {order.quantity}
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        <div className="list-item-col list_item_multiline">
+                                            {
+                                                inforOders.map(order => {
+                                                    return (
+                                                        <div key={order._id}>
+                                                            {order.createdAt.substring(0, order.createdAt.indexOf('T'))}
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        <div className="list-item-col list_item_multiline">
+                                            {
+                                                inforOders.map(order => {
+                                                    return (
+                                                        <div key={order._id}>
+                                                            {order.updatedAt.substring(0, order.updatedAt.indexOf('T'))}
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        <div className="list-item-col list_item_multiline">
+                                            {
+                                                inforOders.map(order => {
+                                                    return (
+                                                        <div key={order._id}>
+                                                            {order.returnDate.substring(0, order.returnDate.indexOf('T'))}
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    </div>
+                                )
+
+                            })
+                        }
+                    </div>
+
+
+
                 </div>
             </div>
-
-
-
-
         </div>
+
+
+
     )
 }
