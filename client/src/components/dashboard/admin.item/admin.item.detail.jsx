@@ -75,6 +75,19 @@ export default function DetailItem() {
         chosenList = item.borrowerList
     }
 
+    // use for fragment
+    const maxLengthOfFragment = 10
+    let numOfFragment = Math.ceil(chosenBorrowers.length * 1.0 / maxLengthOfFragment)
+    const [currentFragment, setCurrentFragment] = useState(0)
+
+    const prevFragment = () => {
+        if (currentFragment > 0) setCurrentFragment(currentFragment - 1)
+    }
+
+    const nextFragment = () => {
+        if (currentFragment < numOfFragment - 1) setCurrentFragment(currentFragment + 1)
+    }
+
     function EditDetailItem() {
         // property of item
         const [name, setName] = useState(item.name)
@@ -394,21 +407,22 @@ export default function DetailItem() {
                         </div>
                         {
                             chosenBorrowers.map((borrower, index) => {
+                                
                                 const orderIdOfBorrower = chosenList
                                     .filter(element => element.idUser === borrower._id)
                                     .map(element => element.idOrder)
                                 const inforOders = ordersList.filter(order => {
                                     return orderIdOfBorrower.includes(order._id)
                                 })
-                                console.log(inforOders)
-
+                                console.log(inforOders)                    
 
                                 return (
+                                    (index >= currentFragment * maxLengthOfFragment && index < (currentFragment + 1) * maxLengthOfFragment) &&
                                     <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={borrower._id}>
                                         <div className="list-item-col">{borrower.fullName}</div>
                                         <div className="list-item-col list_item_multiline">
                                             {
-                                                inforOders.map(order => {
+                                                inforOders.map((order) => {
                                                     return (
                                                         <div key={order._id}>
                                                             {order.quantity}
@@ -419,7 +433,7 @@ export default function DetailItem() {
                                         </div>
                                         <div className="list-item-col list_item_multiline">
                                             {
-                                                inforOders.map(order => {
+                                                inforOders.map((order) => {
                                                     return (
                                                         <div key={order._id}>
                                                             {order.createdAt.substring(0, order.createdAt.indexOf('T'))}
@@ -430,7 +444,7 @@ export default function DetailItem() {
                                         </div>
                                         <div className="list-item-col list_item_multiline">
                                             {
-                                                inforOders.map(order => {
+                                                inforOders.map((order) => {
                                                     return (
                                                         <div key={order._id}>
                                                             {order.updatedAt.substring(0, order.updatedAt.indexOf('T'))}
@@ -441,7 +455,7 @@ export default function DetailItem() {
                                         </div>
                                         <div className="list-item-col list_item_multiline">
                                             {
-                                                inforOders.map(order => {
+                                                inforOders.map((order) => {
                                                     return (
                                                         <div key={order._id}>
                                                             {order.returnDate.substring(0, order.returnDate.indexOf('T'))}
@@ -452,15 +466,40 @@ export default function DetailItem() {
                                         </div>
                                     </div>
                                 )
-
+                                
+                                
                             })
                         }
                     </div>
 
-
-
+                    <div className="list-end">
+                        <div id="previous-number">
+                            <button className="move-list" onClick={prevFragment}>Previous</button>
+                        </div>
+                        {
+                            [...Array(numOfFragment)].map((value, index) => {
+                                return (
+                                    <div className="list-number " key={index}>
+                                        <button
+                                            className={(currentFragment === index ? "chosen" : "")}
+                                            onClick={() => {
+                                                setCurrentFragment(index)
+                                            }}
+                                        >{index}</button>
+                                    </div>
+                                )
+                            })
+                        }
+                        <div id="next-number">
+                            <button className="move-list" onClick={nextFragment}>Next</button>
+                        </div>
+                    </div>
                 </div>
+
+                
             </div>
+            
+            
         </div>
 
 
