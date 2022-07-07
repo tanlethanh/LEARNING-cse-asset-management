@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import ConfirmPassword from '../../confirmPassword';
 import ImageUploading from "react-images-uploading";
 import Alert from '../../alert';
@@ -8,12 +8,23 @@ import convertValidName from '../../../utils/convertValidName';
 
 export default function DetailItem() {
     const { state } = useLocation()
-    const { item, orders, users } = state
-
-    console.log(item.description)
+    const { orders, users } = state
+    const [item, setItem] = useState({})
+    const [isUpdated, setIsUpdated] = useState(false)
+    const { id } = useParams()
 
     let ordersList = [...orders.pending, ...orders.ok, ...orders.complete]
 
+    useEffect(() => {
+        Axios.get(`http://localhost:8266/api/item/${id}`)
+            .then((response) => {
+                console.log(response)
+                setItem(response.data.item)
+            })
+            .catch(error => {
+                console.log(error)
+            })  
+    }, [isUpdated])
 
     // use for menu list
     const tabs = ['current', 'done', 'all']
@@ -23,8 +34,8 @@ export default function DetailItem() {
     const navigate = useNavigate()
 
     // main state
-    const [pending, setPending] = useState([])  // store list of obj (contain userid and orderid) of pending order
-    const [done, setDone] = useState([])        // store list of obj (contain userid and orderid) of done order
+    const [pending, setPending] = useState([])
+    const [done, setDone] = useState([])
     const [curBorrowers, setCurBorrowers] = useState([])
     const [oldBorrowers, setOldBorrowers] = useState([])
     const [allBorrowers, setAllBorrowers] = useState([])
@@ -32,31 +43,29 @@ export default function DetailItem() {
     let chosenList = []
 
     useEffect(() => {
-        setPending(item.borrowerList.filter(element => element.status === 'pending'))
-        setDone(item.borrowerList.filter(element => element.status === 'done'))
+        if (Object.keys(item).length > 0) {
+            // store list of obj (contain userid and orderid) of pending order
+            const pending = item.borrowerList.filter(element => element.status === 'pending')
+            const uniqueCurUserId = [...new Set(pending.map(element => element.idUser))]
+            const uniqueCurUser = users.filter(element => uniqueCurUserId.includes(element._id))
 
-        // get unique users
-        const uniqueUserId = [...new Set(item.borrowerList.map(element => element.idUser))]
-        const uniqueUser = users.filter(element => uniqueUserId.includes(element._id))
-        setAllBorrowers(uniqueUser)
+            // store list of obj (contain userid and orderid) of done order
+            const done = item.borrowerList.filter(element => element.status === 'done')
+            const uniqueOldUserId = [...new Set(done.map(element => element.idUser))]
+            const uniqueOldUser = users.filter(element => uniqueOldUserId.includes(element._id))
 
-    }, [])
+            // get unique users
+            const uniqueAllUserId = [...new Set(item.borrowerList.map(element => element.idUser))]
+            const uniqueAllUser = users.filter(element => uniqueAllUserId.includes(element._id))
 
-    useEffect(() => {
+            setPending(pending)
+            setDone(done)
+            setCurBorrowers(uniqueCurUser)
+            setOldBorrowers(uniqueOldUser)
+            setAllBorrowers(uniqueAllUser)
+        }
 
-        const uniqueUserId = [...new Set(pending.map(element => element.idUser))]
-        const uniqueUser = users.filter(element => uniqueUserId.includes(element._id))
-        setCurBorrowers(uniqueUser)
-
-    }, [pending])
-
-    useEffect(() => {
-        const uniqueUserId = [...new Set(done.map(element => element.idUser))]
-        const uniqueUser = users.filter(element => uniqueUserId.includes(element._id))
-        setOldBorrowers(uniqueUser)
-
-    }, [done])
-
+    }, [item])
 
     const goBack = () => {
         navigate("../dashboard", { replace: true })
@@ -127,6 +136,7 @@ export default function DetailItem() {
                     setAlert(true)
                     setTimeout(() => {
                         setOpenEditItem(false)
+                        setIsUpdated(!isUpdated)
                     }, 1000)
                 })
                 .catch(error => {
@@ -337,6 +347,7 @@ export default function DetailItem() {
     }
 
     return (
+        Object.keys(item).length > 0 &&
         <div className="dashboard_container">
             <div id="information">
                 <div className="title">
@@ -407,14 +418,13 @@ export default function DetailItem() {
                         </div>
                         {
                             chosenBorrowers.map((borrower, index) => {
-                                
-                                const orderIdOfBorrower = chosenList
-                                    .filter(element => element.idUser === borrower._id)
-                                    .map(element => element.idOrder)
+                                const orderIdOfBorrower =
+                                    chosenList
+                                        .filter(element => element.idUser === borrower._id)
+                                        .map(element => element.idOrder)
                                 const inforOders = ordersList.filter(order => {
                                     return orderIdOfBorrower.includes(order._id)
                                 })
-                                console.log(inforOders)                    
 
                                 return (
                                     (index >= currentFragment * maxLengthOfFragment && index < (currentFragment + 1) * maxLengthOfFragment) &&
@@ -466,8 +476,8 @@ export default function DetailItem() {
                                         </div>
                                     </div>
                                 )
-                                
-                                
+
+
                             })
                         }
                     </div>
@@ -496,10 +506,10 @@ export default function DetailItem() {
                     </div>
                 </div>
 
-                
+
             </div>
-            
-            
+
+
         </div>
 
 
