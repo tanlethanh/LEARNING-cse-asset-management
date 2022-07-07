@@ -6,9 +6,15 @@ import ConfirmNext from '../../confirmNext';
 import Alert from '../../alert';
 import { AppContext } from '../../../App';
 
-export default function Waiting(props) {
+export default function Waiting({
+    currentList,
+    setCurrentList,
+    user,
+    isUpdatedCurrentUser,
+    setIsUpdatedCurrentUser,
+}) {
 
-    const { isUpdatedMainUser, setIsUpdatedMainUser } = useContext(AppContext)
+    const { isUpdatedMainUser, setIsUpdatedMainUser, mainUser } = useContext(AppContext)
 
     const [openConfirmNext, setOpenConfirmNext] = useState(false)
     const [alert, setAlert] = useState(false)
@@ -17,7 +23,7 @@ export default function Waiting(props) {
     const [idDeleteOrder, setIdDeleteOrder] = useState('')
     const [currentFragment, setCurrentFragment] = useState(0)
     const maxOfFragment = 10
-    const numberOfFragment = Math.ceil(props.currentList.length * 1.0 / maxOfFragment)
+    const numberOfFragment = Math.ceil(currentList.length * 1.0 / maxOfFragment)
     function prevFragment() {
         if (currentFragment > 0) setCurrentFragment(currentFragment - 1)
     }
@@ -40,7 +46,10 @@ export default function Waiting(props) {
                 setAlert(true)
                 setTimeout(() => {
                     setOpenConfirmNext(false)
-                    setIsUpdatedMainUser(!isUpdatedMainUser)
+                    if (mainUser._id === user._id) setIsUpdatedMainUser(!isUpdatedMainUser)
+                    else {
+                        setIsUpdatedCurrentUser(!isUpdatedCurrentUser)
+                    }
                 }, 1000)
 
             })
@@ -91,7 +100,7 @@ export default function Waiting(props) {
                 <div className="list-item-col">Status</div>
             </div>
 
-            {props.currentList.map((item, index) => (
+            {currentList.map((item, index) => (
 
                 index >= currentFragment * maxOfFragment && index < (currentFragment + 1) * maxOfFragment
                 &&
@@ -103,7 +112,7 @@ export default function Waiting(props) {
                         {getFormattedDate(new Date(item.returnDate))}
                     </div>
                     {item.status === "ok" &&
-                        <OrderPDF user={props.user} order={item} />}
+                        <OrderPDF user={user} order={item} />}
                     {item.status === "ok" &&
                         <div className="list-item-col"><i className="accept_status">Accepted</i></div>}
                     {item.status === "pending" &&

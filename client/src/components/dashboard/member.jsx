@@ -7,7 +7,7 @@ import Returned from './member/memberReturn';
 import { AppContext } from '../../App';
 
 
-export default function Member(props) {
+export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdatedCurrentUser }) {
     const tabs = ['Waiting list', 'Borrowing list', 'Returned list']
     const arrWait = []
     const arrBorrow = []
@@ -19,7 +19,7 @@ export default function Member(props) {
 
     useEffect(() => {
         console.log("reload data orders of current user")
-        props.user.orders.map((orderid, index) => {
+        user.orders.map((orderid, index) => {
             Axios.get(`http://localhost:8266/api/order/${orderid}`)
                 .then((response) => {
                     if (response.data.order.status !== "done") {
@@ -30,14 +30,14 @@ export default function Member(props) {
                     } else {
                         arrReturn.push(response.data.order)
                     }
-                    if (index === props.user.orders.length - 1) {
+                    if (index === user.orders.length - 1) {
                         setWaitingList(arrWait)
                         setBorrowList(arrBorrow)
                         setReturnList(arrReturn)
                     }
                 });
         });
-    }, [props.user]) // list of orders need to reload when this user has updated
+    }, [user]) // list of orders need to reload when this user has updated
 
     return (
         <div id="content">
@@ -64,7 +64,9 @@ export default function Member(props) {
                     <Waiting
                         currentList={waitingList}
                         setCurrentList={setWaitingList}
-                        user={props.user}
+                        user={user}
+                        isUpdatedCurrentUser={isUpdatedCurrentUser}
+                        setIsUpdatedCurrentUser={setIsUpdatedCurrentUser}
                     />}
                 {currentTab === "Borrowing list" &&
                     <Borrow currentList={borrowList} setCurrentList={setBorrowList} />}

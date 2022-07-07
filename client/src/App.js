@@ -37,7 +37,13 @@ function App() {
     }, [isUpdatedMainUser])
 
     return (
-        <AppContext.Provider value={{ cart: cart, setCart: setCart, isUpdatedMainUser: isUpdatedMainUser, setIsUpdatedMainUser: setIsUpdatedMainUser }} >
+        <AppContext.Provider value={{
+            cart: cart,
+            setCart: setCart,
+            isUpdatedMainUser: isUpdatedMainUser,
+            setIsUpdatedMainUser: setIsUpdatedMainUser,
+            mainUser: user
+        }} >
             <div onClick={(e) => {
                 const currentClass = e.target.className
                 const parentClass = e.target.parentNode.className
@@ -69,7 +75,7 @@ function App() {
                     <Route
                         path="/dashboard"
                         element={user.email ?
-                            <Dashboard setUser={setUser} user={user} adminSite={true}/> :
+                            <Dashboard setUser={setUser} user={user} adminSite={true} /> :
                             <Authpage setUser={setUser} />
                         }
 
@@ -77,7 +83,7 @@ function App() {
                     <Route
                         path="/dashboard/me"
                         element={user.email ?
-                            <Dashboard setUser={setUser} user={user} adminSite={false}/> :
+                            <Dashboard setUser={setUser} user={user} adminSite={false} /> :
                             <Authpage setUser={setUser} />
                         }
 

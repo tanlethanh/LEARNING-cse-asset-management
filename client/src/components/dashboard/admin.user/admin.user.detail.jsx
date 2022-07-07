@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Axios from 'axios';
 import Admin from '../admin';
 import Member from '../member';
@@ -7,13 +7,25 @@ import EditInfo from './admin.user.detail.edit.jsx';
 import Alert from '../../alert';
 import ConfirmPassword from '../../confirmPassword';
 
-export default function DetailUser( { admin } ) {
+export default function DetailUser({ admin }) {
 
-    const {state} = useLocation()
-    const { user } = state
+    const [user, setUser] = useState({})
+    const [isUpdated, setIsUpdated] = useState(false)
+    const { id } = useParams()
 
-    const [editInforUser, setEditInforUser] = useState (false)
+    useEffect(() => {
+        Axios.get(`http://localhost:8266/api/user/${id}`)
+            .then(response => {
+                console.log(response.data.user)
+                setUser(response.data.user)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }, [isUpdated])
+
     const [infor, setInfor] = useState('')
+    const [editInforUser, setEditInforUser] = useState(false)
     const [confirmDelete, setConfirmDelete] = useState(false)
     const [confirmPermission, setConfirmPermission] = useState(false)
 
@@ -33,9 +45,9 @@ export default function DetailUser( { admin } ) {
         navigate("../dashboard", { replace: true })
     }
 
-    function HandlePermission( {user} ){
+    function HandlePermission({ user }) {
 
-        function HandleYes(adminPassword){
+        function HandleYes(adminPassword) {
             Axios.patch(`http://localhost:8266/api/user/${user._id}?togglePermission=admin`, {
                 adminPassword: adminPassword
             })
@@ -45,6 +57,7 @@ export default function DetailUser( { admin } ) {
                     setAlert(true);
                     setTimeout(() => {
                         setConfirmPermission(false);
+                        setIsUpdated(!isUpdated)
                     }, 1000);
                 })
                 .catch(error => {
@@ -91,7 +104,7 @@ export default function DetailUser( { admin } ) {
                         alert={alert}
                         setAlert={setAlert}
                     />
-    
+
                 }
                 {
                     <ConfirmPassword
@@ -103,16 +116,16 @@ export default function DetailUser( { admin } ) {
         )
     }
 
-    function HandleDelete({admin, user}){
+    function HandleDelete({ admin, user }) {
 
-        function HandleYes(adminPassword){
+        function HandleYes(adminPassword) {
             Axios.post(`http://localhost:8266/api/auth/login`, {
                 password: adminPassword,
                 email: admin.email
             })
                 .then(response => {
                     console.log(user._id)
-                    if (response.data.user){
+                    if (response.data.user) {
                         Axios.delete(`http://localhost:8266/api/user/${user._id}`)
                             .then(response => {
                                 setAlertMess("Successfully!");
@@ -131,9 +144,9 @@ export default function DetailUser( { admin } ) {
                             setConfirmDelete(false)
                         }, 1000)
                     }
-                
+
                 })
-             
+
         }
 
         return (
@@ -145,7 +158,7 @@ export default function DetailUser( { admin } ) {
                         alert={alert}
                         setAlert={setAlert}
                     />
-    
+
                 }
                 {
                     <ConfirmPassword
@@ -176,70 +189,72 @@ export default function DetailUser( { admin } ) {
                         {/* <li className="item-infor">ID: {user._id}</li> */}
                         <li className="item-infor edit-user">
                             Email: {user.email}
-                            <button 
-                            className="button-edit" 
-                            onClick={()=>{handleButtonEdit('email')}}>
+                            <button
+                                className="button-edit"
+                                onClick={() => { handleButtonEdit('email') }}>
                                 <i className="fa-solid fa-pen-to-square"></i>
                             </button>
                         </li>
                         <li className="item-infor edit-user">
                             Full name: {user.fullName}
-                            <button 
-                            className="button-edit" 
-                            onClick={()=>{handleButtonEdit('fullName')}}>
+                            <button
+                                className="button-edit"
+                                onClick={() => { handleButtonEdit('fullName') }}>
                                 <i className="fa-solid fa-pen-to-square"></i>
                             </button>
                         </li>
                         <li className="item-infor edit-user">
                             Student code: {user.studentCode}
-                            <button 
-                            className="button-edit" 
-                            onClick={()=>{handleButtonEdit('studentCode')}}>
+                            <button
+                                className="button-edit"
+                                onClick={() => { handleButtonEdit('studentCode') }}>
                                 <i className="fa-solid fa-pen-to-square"></i>
-                            </button>    
+                            </button>
                         </li>
                         <li className="item-infor edit-user">
                             Phone number: {user.phoneNumber}
-                            <button 
-                            className="button-edit" 
-                            onClick={()=>{handleButtonEdit('phoneNumber')}}>
+                            <button
+                                className="button-edit"
+                                onClick={() => { handleButtonEdit('phoneNumber') }}>
                                 <i className="fa-solid fa-pen-to-square"></i>
                             </button>
                         </li>
                         <li className="item-infor edit-user">
                             Password: ********
-                            <button 
-                            className="button-edit" 
-                            onClick={()=>{handleButtonEdit('password')}}>
+                            <button
+                                className="button-edit"
+                                onClick={() => { handleButtonEdit('password') }}>
                                 <i className="fa-solid fa-pen-to-square"></i>
                             </button>
                         </li>
                         <li className="item-infor edit-user">
                             Permission: {user.isAdmin ? "Admin" : "Member"}
-                            <button 
-                            className="button-edit" 
-                            onClick={()=>{setConfirmPermission(true)}}>
+                            <button
+                                className="button-edit"
+                                onClick={() => { setConfirmPermission(true) }}>
                                 <i className="fa-solid fa-pen-to-square"></i>
                             </button>
                         </li>
                     </ul>
 
-                    {confirmPermission && <HandlePermission user = {user}/>}
-                    {confirmDelete && <HandleDelete admin = {admin} user = {user}/>}
+                    {confirmPermission && <HandlePermission user={user} />}
+                    {confirmDelete && <HandleDelete admin={admin} user={user} />}
 
-                    {editInforUser && 
-                    <EditInfo
-                        user = {user} 
-                        infor = {infor} 
-                        setInfor={setInfor} 
-                        editInforUser={editInforUser} 
-                        setEditInforUser={setEditInforUser}
-                    />}
-                    
+                    {editInforUser &&
+                        <EditInfo
+                            user={user}
+                            infor={infor}
+                            setInfor={setInfor}
+                            editInforUser={editInforUser}
+                            setEditInforUser={setEditInforUser}
+                            isUpdated={isUpdated}
+                            setIsUpdated={setIsUpdated}
+                        />}
+
                 </div>
             </div>
             {
-                <Member user={user} />
+                Object.keys(user).length > 0 &&<Member user={user} isUpdatedCurrentUser={isUpdated} setIsUpdatedCurrentUser={setIsUpdated} />
             }
         </div>
 

@@ -29,6 +29,7 @@ export default function Admin({ setUser, user, setAdminData }) {
 
 
     useEffect(() => {
+        console.log("get data of items in admin site")
         Axios.get("http://localhost:8266/api/item")
             .then((response) => {
                 if (response.data.items) {
@@ -38,6 +39,7 @@ export default function Admin({ setUser, user, setAdminData }) {
     }, [changeItems])
 
     useEffect(() => {
+        console.log("get data of users in admin site")
         Axios.get("http://localhost:8266/api/user")
             .then((response) => {
                 if (response.data.users) {
@@ -47,6 +49,7 @@ export default function Admin({ setUser, user, setAdminData }) {
     }, [changeUsers]) // Change users is called when we have updated infor of users in 'Users component'
 
     useEffect(() => {
+        console.log("get data of orders in admin site")
         Axios.get("http://localhost:8266/api/order")
             .then((response) => {
                 if (response.data.orders) {
