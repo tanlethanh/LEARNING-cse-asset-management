@@ -16,7 +16,6 @@ export default function Member(props) {
     const [waitingList, setWaitingList] = useState([])
     const [borrowList, setBorrowList] = useState([])
     const [returnList, setReturnList] = useState([])
-    const {isUpdated, setIsUpdated} = useContext(AppContext)
 
     useEffect(() => {
         console.log("reload data orders of current user")
