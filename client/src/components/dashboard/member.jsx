@@ -19,6 +19,7 @@ export default function Member(props) {
     const {isUpdated, setIsUpdated} = useContext(AppContext)
 
     useEffect(() => {
+        console.log("reload data orders of current user")
         props.user.orders.map((orderid, index) => {
             Axios.get(`http://localhost:8266/api/order/${orderid}`)
                 .then((response) => {
@@ -34,11 +35,10 @@ export default function Member(props) {
                         setWaitingList(arrWait)
                         setBorrowList(arrBorrow)
                         setReturnList(arrReturn)
-                        console.log("Reload data")
                     }
                 });
         });
-    }, [isUpdated])
+    }, [props.user]) // list of orders need to reload when this user has updated
 
     return (
         <div id="content">
