@@ -52,7 +52,6 @@ function getDataItems(items) {
     data.map(ele => {
         returnData.push([ele.name, ele.total, ele.available])
     })
-    console.log(returnData)
     return returnData
 }
 
@@ -78,7 +77,6 @@ function getDataUsers(users) {
 }
 
 function getDataOrders(orders) {
-    console.log(orders)
     const numPending = orders.pending.length
     const numProcess = orders.ok.length
     let numDenied = 0
@@ -108,7 +106,6 @@ export default function Statistic({ data }) {
     const dataOrders = getDataOrders(data.orders)
     return (
         <div className="statistic_container">
-            {console.log(data)}
             {typeList === "items" &&
                 <div className="statistic_content">
                     <Chart

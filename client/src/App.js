@@ -18,6 +18,7 @@ function App() {
     const [user, setUser] = useState({})
     const [cart, setCart] = useState([])
     const [openCart, setOpenCart] = useState(false)
+    const [isUpdated, setIsUpdated] = useState(false)
 
     // Change title of page when user is logged in
     useEffect(() => {
@@ -33,10 +34,10 @@ function App() {
                 }
             });
 
-    }, [])
+    }, [isUpdated])
 
     return (
-        <AppContext.Provider value={{ cart: cart, setCart: setCart }} >
+        <AppContext.Provider value={{ cart: cart, setCart: setCart, isUpdated: isUpdated, setIsUpdated: setIsUpdated }} >
             <div onClick={(e) => {
                 const currentClass = e.target.className
                 const parentClass = e.target.parentNode.className
@@ -68,7 +69,15 @@ function App() {
                     <Route
                         path="/dashboard"
                         element={user.email ?
-                            <Dashboard setUser={setUser} user={user} /> :
+                            <Dashboard setUser={setUser} user={user} adminSite={true}/> :
+                            <Authpage setUser={setUser} />
+                        }
+
+                    />
+                    <Route
+                        path="/dashboard/me"
+                        element={user.email ?
+                            <Dashboard setUser={setUser} user={user} adminSite={false}/> :
                             <Authpage setUser={setUser} />
                         }
 

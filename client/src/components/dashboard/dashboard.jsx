@@ -132,7 +132,7 @@ export default function Dashboard(props) {
     }
 
     function handleProfileButton(user) {
-        navigate("../user/detail/" + user._id, { state: { user: user } })
+        navigate("./me")
     }
 
     return (
@@ -148,7 +148,7 @@ export default function Dashboard(props) {
                 </div>
                 
                 <div className="detail">
-                    {props.user.isAdmin ?
+                    {props.user.isAdmin && props.adminSite?
                         <Statistic data={adminData} />
                         : <ul className="list-infor">
                             {/* <li className="item-infor">ID: {props.user._id}</li> */}
@@ -159,7 +159,7 @@ export default function Dashboard(props) {
                         </ul>}
 
                     <div className="information_button_container">
-                        {props.user.isAdmin ?
+                        {props.user.isAdmin && props.adminSite ?
                             <button className="button-info" onClick={() => { handleProfileButton(props.user) }}>Profile</button>:
                             <button className="button-info" onClick={() => { setEditButton(true) }}>Edit</button>}
                         <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>
@@ -170,7 +170,7 @@ export default function Dashboard(props) {
             </div>
             {editButton && <EditInfo/>}
             {
-                props.user.isAdmin ?
+                props.user.isAdmin && props.adminSite ?
                     <Admin setUser={props.setUser} user={props.user} setAdminData={setAdminData}/> :
                     <Member setUser={props.setUser} user={props.user} />
             }

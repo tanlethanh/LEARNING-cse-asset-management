@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Axios from 'axios';
 import OrderPDF from '../../orderPDF';
 import getFormattedDate from "../../../utils/formatDate"
 import ConfirmNext from '../../confirmNext';
 import Alert from '../../alert';
+import { AppContext } from '../../../App';
 
 export default function Waiting(props) {
+
+    const { isUpdated, setIsUpdated } = useContext(AppContext)
 
     const [openConfirmNext, setOpenConfirmNext] = useState(false)
     const [alert, setAlert] = useState(false)
@@ -36,8 +39,10 @@ export default function Waiting(props) {
                 setTypeAlert("success")
                 setAlert(true)
                 setTimeout(() => {
-                    // setAddItem(false)
+                    setOpenConfirmNext(false)
+                    setIsUpdated(!isUpdated)
                 }, 1000)
+
             })
             .catch(error => {
                 console.log(error)
@@ -100,42 +105,42 @@ export default function Waiting(props) {
                     {item.status === "ok" &&
                         <OrderPDF user={props.user} order={item} />}
                     {item.status === "ok" &&
-                        <div className="list-item-col"><i class="accept_status">Accepted</i></div>}
+                        <div className="list-item-col"><i className="accept_status">Accepted</i></div>}
                     {item.status === "pending" &&
                         <div className="list-item-col">
                             <i
-                                class="fa-solid fa-ban pending"
+                                className="fa-solid fa-ban pending"
                                 onClick={() => {
                                     handleBanClick(item._id)
                                 }}
                             ></i>
                         </div>}
                     {item.status === "pending" &&
-                        <div className="list-item-col"><i class="pending_status">Pending</i></div>}
+                        <div className="list-item-col"><i className="pending_status">Pending</i></div>}
 
                     {item.status === "denied" &&
-                        <div className="list-item-col"><i class="fa-solid fa-download"></i></div>}
+                        <div className="list-item-col"><i className="fa-solid fa-download"></i></div>}
                     {item.status === "denied" &&
-                        <div className="list-item-col"><i class="denied_status">Denied</i></div>}
+                        <div className="list-item-col"><i className="denied_status">Denied</i></div>}
                 </div>
             ))}
 
             <div className="list-end">
                 <div id="previous-number">
-                <button 
-                className="move-list"
-                onClick={prevFragment}
-                >Previous</button>
+                    <button
+                        className="move-list"
+                        onClick={prevFragment}
+                    >Previous</button>
                 </div>
                 {
                     [...Array(numberOfFragment)].map((value, index) => {
                         return (
-                            <div className="list-number">
-                                <button 
-                                className={index === currentFragment && "chosen"}
-                                onClick={()=>{
-                                    setCurrentFragment(index)
-                                }}
+                            <div className="list-number" key={index}>
+                                <button
+                                    className={index === currentFragment ? "chosen" : ""}
+                                    onClick={() => {
+                                        setCurrentFragment(index)
+                                    }}
                                 >{index}</button>
                             </div>
                         )
@@ -143,10 +148,10 @@ export default function Waiting(props) {
                 }
 
                 <div id="next-number">
-                <button 
-                className="move-list"
-                onClick={nextFragment}
-                >Next</button>
+                    <button
+                        className="move-list"
+                        onClick={nextFragment}
+                    >Next</button>
                 </div>
             </div>
         </div>
