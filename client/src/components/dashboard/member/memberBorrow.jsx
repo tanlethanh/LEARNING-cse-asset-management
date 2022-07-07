@@ -48,7 +48,7 @@ export default function Borrow(props) {
                 {
                     [...Array(numberOfFragment)].map((value, index) => {
                         return (
-                            <div className="list-number">
+                            <div className="list-number" key={index}>
                                 <button
                                     className={index === currentFragment && "chosen"}
                                     onClick={() => {

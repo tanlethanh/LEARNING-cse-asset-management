@@ -236,7 +236,7 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                 {
                     [...Array(numOfFragment)].map((value, index) => {
                         return (
-                            <div className="list-number ">
+                            <div className="list-number " key={index}>
                                 <button
                                     className={(currentFragment === index ? "chosen" : "")}
                                     onClick={() => {
