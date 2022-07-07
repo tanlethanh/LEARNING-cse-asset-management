@@ -1,17 +1,22 @@
 import React from "react";
-import { Chart } from "react-google-charts";
+import Chart from "react-google-charts";
 import { arrangeList } from "../arrange";
 
 const optionsItems = {
-    title: "Quantity of items in CSE-Asset",
-    chartArea: { width: "50%", height: "80%" },
+   //title: "Quantity of items in CSE-Asset",
+   titlePosition: 'none',
+    width: "50%", 
+    height: "50%",
     hAxis: {
         title: "Quantity",
-        minValue: 0
+        minValue: 0,
     },
     vAxis: {
         title: "Category",
     },
+    legend: {
+        position: 'top',
+    }
 };
 
 const optionsUsers = {
@@ -108,13 +113,17 @@ export default function Statistic({ data }) {
         <div className="statistic_container">
             {typeList === "items" &&
                 <div className="statistic_content">
+                    <h2 className="statistic_content_title">
+                        Statistic of orders
+                    </h2>
                     <Chart
                         chartType="BarChart"
                         width="100%"
-                        height="300px"
+                        height="260px"
                         data={dataItems}
                         options={optionsItems}
                     />
+                    
                 </div>
             }
 

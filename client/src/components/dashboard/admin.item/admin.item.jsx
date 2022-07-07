@@ -403,29 +403,29 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                     return (
                         (index >= currentFragment * maxLengthOfFragment && index < (currentFragment + 1) * maxLengthOfFragment)
                         && <div key={item._id} className={"list-item " + (index % 2 === 0 ? "list-item-odd" : "")}>
-                            <div
-                                className="list-item-col item_name_col"
-                                onClick={() => { openItemDetail(item) }}
-                            >
-                                <img src={item.image ? item.image : "./big_logo.png"} className="image-logo" alt="..." />
-                                {item.name}
-                            </div>
-                            <div className="list-item-col item_category_col">{item.category}</div>
-                            <div className="list-item-col item_available_col">{item.available + "/" + item.quantity}</div>
-                            <div className="list-item-col item_quantity_col">{getFormattedDate(new Date(item.updatedAt))}</div>
-                            <div className="list-item-col item_description_col">{item.description}</div>
-                            <div className="list-item-col item_delete_col">
-                                <i
-                                    className={"fa-solid fa-trash-can " + (item.deleteChosen === true ? " item_delete_chosen" : "")}
-                                    onClick={() => handleDeleteClick(index)}>
-                                </i>
-                            </div>
-                            {CantDelete && <Alert
-                                type="error"
-                                message={alertMess}
-                                alert={alert}
-                                setAlert={setAlert}
-                            />}
+                                <div
+                                    className="list-item-col item_name_col"
+                                    onClick={() => { openItemDetail(item) }}
+                                >
+                                    <img src={item.image ? item.image : "./big_logo.png"} className="image-logo" alt="..." />
+                                    {item.name}
+                                </div>
+                                <div className="list-item-col item_category_col">{item.category}</div>
+                                <div className="list-item-col item_available_col">{item.available + "/" + item.quantity}</div>
+                                <div className="list-item-col item_quantity_col">{getFormattedDate(new Date(item.updatedAt))}</div>
+                                <div className="list-item-col item_description_col">{item.description}</div>
+                                <div className="list-item-col item_delete_col">
+                                    <i
+                                        className={"fa-solid fa-trash-can " + (item.deleteChosen === true ? " item_delete_chosen" : "")}
+                                        onClick={() => handleDeleteClick(index)}>
+                                    </i>
+                                </div>
+                                {CantDelete && <Alert
+                                    type="error"
+                                    message={alertMess}
+                                    alert={alert}
+                                    setAlert={setAlert}
+                                />}
                         </div>
                     )
                 })
