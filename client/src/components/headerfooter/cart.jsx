@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function Cart(props) {
-  const { cart, setCart } = useContext(AppContext)
+  const { cart, setCart, isUpdated, setIsUpdated } = useContext(AppContext)
   const [change, setChange] = useState(false)
 
   // For alert
@@ -61,6 +61,7 @@ export default function Cart(props) {
               setAlertMess("You can check new order in dashboard!")
               setAlert(false)
               setAlert(true)
+              setIsUpdated(!isUpdated)
             })
             .catch((error) => {
               if (error.response.data.status === 401) {
