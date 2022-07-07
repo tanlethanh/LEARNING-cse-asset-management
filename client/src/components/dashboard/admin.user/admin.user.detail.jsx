@@ -179,7 +179,7 @@ export default function DetailUser( { admin } ) {
                             <button 
                             className="button-edit" 
                             onClick={()=>{handleButtonEdit('email')}}>
-                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i className="fa-solid fa-pen-to-square"></i>
                             </button>
                         </li>
                         <li className="item-infor edit-user">
@@ -187,7 +187,7 @@ export default function DetailUser( { admin } ) {
                             <button 
                             className="button-edit" 
                             onClick={()=>{handleButtonEdit('fullName')}}>
-                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i className="fa-solid fa-pen-to-square"></i>
                             </button>
                         </li>
                         <li className="item-infor edit-user">
@@ -195,7 +195,7 @@ export default function DetailUser( { admin } ) {
                             <button 
                             className="button-edit" 
                             onClick={()=>{handleButtonEdit('studentCode')}}>
-                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i className="fa-solid fa-pen-to-square"></i>
                             </button>    
                         </li>
                         <li className="item-infor edit-user">
@@ -203,7 +203,7 @@ export default function DetailUser( { admin } ) {
                             <button 
                             className="button-edit" 
                             onClick={()=>{handleButtonEdit('phoneNumber')}}>
-                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i className="fa-solid fa-pen-to-square"></i>
                             </button>
                         </li>
                         <li className="item-infor edit-user">
@@ -211,7 +211,7 @@ export default function DetailUser( { admin } ) {
                             <button 
                             className="button-edit" 
                             onClick={()=>{handleButtonEdit('password')}}>
-                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i className="fa-solid fa-pen-to-square"></i>
                             </button>
                         </li>
                         <li className="item-infor edit-user">
@@ -219,7 +219,7 @@ export default function DetailUser( { admin } ) {
                             <button 
                             className="button-edit" 
                             onClick={()=>{setConfirmPermission(true)}}>
-                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i className="fa-solid fa-pen-to-square"></i>
                             </button>
                         </li>
                     </ul>

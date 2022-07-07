@@ -6,8 +6,8 @@ export default function ConfirmNext({ setOpen, message, callback }) {
         <div className='edit_info_background'>
             <div className='edit_info_container'>
                 <div className='edit_info_body' style={{
-                    "justify-content": "center",
-                    "align-items": "center"
+                    "justifyContent": "center",
+                    "alignItems": "center"
                 }}>
                     {message
                         ? <label className='lable_body'>{message}</label>

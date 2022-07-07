@@ -356,7 +356,7 @@ export default function DetailItem() {
                             <button
                                 className="button-edit"
                                 onClick={() => { setOpenEditItem(true) }}>
-                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i className="fa-solid fa-pen-to-square"></i>
                             </button>
                         </h3>
                         <li className="item-infor">Name: {item.name}</li>

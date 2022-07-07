@@ -9,9 +9,9 @@ export default function Alert({ type, message, alert, setAlert }) {
             <div className={'alert_container ' + type}>
                 <div className='alert_icon'>
                     {/* <i>Hello</i> */}
-                    {type === 'error' && <i class="fa-solid fa-circle-exclamation"></i>}
-                    {type === 'success' && <i class="fa-solid fa-circle-check"></i>}
-                    {type === 'warning' && <i class="fa-solid fa-triangle-exclamation"></i>}
+                    {type === 'error' && <i className="fa-solid fa-circle-exclamation"></i>}
+                    {type === 'success' && <i className="fa-solid fa-circle-check"></i>}
+                    {type === 'warning' && <i className="fa-solid fa-triangle-exclamation"></i>}
                 </div>
                 <div className='alert_content'>
                     <h3 className='alert_content_title'>
