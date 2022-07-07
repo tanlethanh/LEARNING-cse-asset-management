@@ -135,6 +135,10 @@ export default function Dashboard(props) {
         navigate("./me")
     }
 
+    const goBack = () => {
+        navigate("../dashboard", { replace: true })
+    }
+
     return (
         <div className="dashboard_container">
             <div id="information">
@@ -145,10 +149,11 @@ export default function Dashboard(props) {
                     <h2 className="description">
                         {props.user.isAdmin ? "Admin" : "Member"}
                     </h2>
+                    {props.user.isAdmin && !props.adminSite && <button className="button-info" onClick={goBack}>Go back</button>}
                 </div>
-                
+
                 <div className="detail">
-                    {props.user.isAdmin && props.adminSite?
+                    {props.user.isAdmin && props.adminSite ?
                         <Statistic data={adminData} />
                         : <ul className="list-infor">
                             {/* <li className="item-infor">ID: {props.user._id}</li> */}
@@ -160,18 +165,18 @@ export default function Dashboard(props) {
 
                     <div className="information_button_container">
                         {props.user.isAdmin && props.adminSite ?
-                            <button className="button-info" onClick={() => { handleProfileButton(props.user) }}>Profile</button>:
+                            <button className="button-info" onClick={() => { handleProfileButton(props.user) }}>Profile</button> :
                             <button className="button-info" onClick={() => { setEditButton(true) }}>Edit</button>}
                         <button className="button-info" onClick={handleLogoutButtonClick}>Log out</button>
                     </div>
                     {editButton && <EditInfo />}
                 </div>
-                    
+
             </div>
-            {editButton && <EditInfo/>}
+            {editButton && <EditInfo />}
             {
                 props.user.isAdmin && props.adminSite ?
-                    <Admin setUser={props.setUser} user={props.user} setAdminData={setAdminData}/> :
+                    <Admin setUser={props.setUser} user={props.user} setAdminData={setAdminData} /> :
                     <Member setUser={props.setUser} user={props.user} />
             }
         </div>
