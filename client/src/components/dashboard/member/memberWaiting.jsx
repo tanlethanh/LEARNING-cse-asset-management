@@ -8,7 +8,7 @@ import { AppContext } from '../../../App';
 
 export default function Waiting(props) {
 
-    const { isUpdated, setIsUpdated } = useContext(AppContext)
+    const { isUpdatedMainUser, setIsUpdatedMainUser } = useContext(AppContext)
 
     const [openConfirmNext, setOpenConfirmNext] = useState(false)
     const [alert, setAlert] = useState(false)
@@ -40,7 +40,7 @@ export default function Waiting(props) {
                 setAlert(true)
                 setTimeout(() => {
                     setOpenConfirmNext(false)
-                    setIsUpdated(!isUpdated)
+                    setIsUpdatedMainUser(!isUpdatedMainUser)
                 }, 1000)
 
             })
