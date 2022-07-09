@@ -2,6 +2,15 @@ input[type="checkbox"] {
     transform: scale(2);
 }
 
+.dashboard_guide {
+    /* display: block; */
+    padding-left: 30px;
+    color: gray;
+    text-align: left;
+    font-style: italic;
+    font-size: 12px;
+}
+
 /* all checked checkbox */
 .dashboard_container {
     /* padding-left: 50px;

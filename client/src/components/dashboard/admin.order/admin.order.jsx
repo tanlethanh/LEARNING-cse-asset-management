@@ -97,6 +97,8 @@ export default function Orders({ orders, items, users, nameList, setChangeOrders
                         onChange={(e) => { setQuery(e.target.value) }}
                     />
                 </div>
+                <p className='dashboard_guide'>Node: You can click on name of item or user to see and edit the detail of item or user</p>
+
                 <div className="list-item-title">
                     <div className="list-item-col order_name_item">
                         Name of item

@@ -149,6 +149,8 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                     }}
                 />
             </div>
+            <p className='dashboard_guide'>Node: You can click on name of user to see and edit the detail of user</p>
+
             <div className="list-item-title">
                 <div className="list-item-col user_email_col">
                     Email

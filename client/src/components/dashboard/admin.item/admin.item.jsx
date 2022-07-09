@@ -48,7 +48,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
     useEffect(() => {
         let type = "string"
         if (arrangeKey.column === "updatedAt") type = "date"
-        else if (arrangeKey.column === "borrowerList") type="array"
+        else if (arrangeKey.column === "borrowerList") type = "array"
         if (query === "") {
             setItemsRender(arrangeList(items, arrangeKey.column, type, arrangeKey.arrange))
         }
@@ -378,6 +378,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                 <p style={{ "marginLeft": "10px" }}>Add new item</p>
                 {addItem && <AddNewItem />}
             </div>
+            <p className='dashboard_guide'>Node: You can click on name of item to see and edit the detail of item</p>
 
             <div className="list-item-title">
                 <div className="list-item-col item_name_col" title="Nhấp vào tên item để biết thêm chi tiết về item">
