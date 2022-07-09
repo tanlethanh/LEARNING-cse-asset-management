@@ -397,7 +397,9 @@ export default function DetailItem() {
                             className={currentTab === tab ? "menu_list chosen" : "menu_list"}
                             onClick={() => { setCurrentTab(tab) }}
                         >
-                            {tab}
+                            {tab === "current" && "Current borrower"}
+                            {tab === "done" && "Old borrower"} 
+                            {tab === "all" && "All of borrower"}
                         </button>
                     ))}
                 </div>

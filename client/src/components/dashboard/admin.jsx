@@ -96,7 +96,7 @@ export default function Admin({ setUser, user, setAdminData }) {
                             className={"menu_list_admin " + (currentList === "users_all" && "chosen")}
                             onClick={() => handleClickButton("users_all")}
                         >
-                            All of users
+                            Member
                         </button>
 
                         <h3 className='menu_list_title'>Oders</h3>

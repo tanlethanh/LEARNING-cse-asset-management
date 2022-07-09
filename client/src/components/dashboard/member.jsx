@@ -8,11 +8,11 @@ import { AppContext } from '../../App';
 
 
 export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdatedCurrentUser }) {
-    const tabs = ['Waiting list', 'Borrowing list', 'Returned list']
+    const tabs = ['All of order', 'Borrowing order', 'Returned order']
     const arrWait = []
     const arrBorrow = []
     const arrReturn = []
-    const [currentTab, setCurrentTab] = useState('Waiting list')
+    const [currentTab, setCurrentTab] = useState('All of order')
     const [waitingList, setWaitingList] = useState([])
     const [borrowList, setBorrowList] = useState([])
     const [returnList, setReturnList] = useState([])
@@ -60,7 +60,7 @@ export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdat
                     <input type="text" placeholder="Search item" />
                 </div>
 
-                {currentTab === "Waiting list" &&
+                {currentTab === "All of order" &&
                     <Waiting
                         currentList={waitingList}
                         setCurrentList={setWaitingList}
@@ -68,9 +68,9 @@ export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdat
                         isUpdatedCurrentUser={isUpdatedCurrentUser}
                         setIsUpdatedCurrentUser={setIsUpdatedCurrentUser}
                     />}
-                {currentTab === "Borrowing list" &&
+                {currentTab === "Borrowing order" &&
                     <Borrow currentList={borrowList} setCurrentList={setBorrowList} />}
-                {currentTab === "Returned list" &&
+                {currentTab === "Returned order" &&
                     <Returned currentList={returnList} setCurrentList={setReturnList} />}
             </div>
         </div>
