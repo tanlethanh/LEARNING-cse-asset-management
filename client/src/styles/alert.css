@@ -3,14 +3,16 @@
     top: 15px;
     right: 20px;
     z-index: 999;
-    height: 100px;
+    /* height: 100px; */
     width: 500px;
+    display: flex;
+    /* justify-content: ; */
+    flex-direction: row;
     border-left: 5px solid;
 }
 
 .alert_icon {
-    position: absolute;
-    height: 100%;
+    /* height: 100%; */
     width: 100px;
     display: flex;
     align-items: center;
@@ -22,13 +24,12 @@
 }
 
 .alert_content {
-    position: absolute;
-    height: 100%;
+    min-height: 100px;
     width: 380px;
-    left: 100px;
     display: flex;
     flex-direction: column;
     align-items: left;
+    padding-bottom: 30px;
 }
 
 .alert_content_title {
