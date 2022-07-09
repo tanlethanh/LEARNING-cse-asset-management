@@ -51,6 +51,7 @@ export default function DetailItem() {
     const [allBorrowers, setAllBorrowers] = useState([])
     let chosenBorrowers = []        // store infor of chosen users, it can be current, old users or all of users
     let chosenList = []
+    let orderData = []
 
     useEffect(() => {
         if (Object.keys(item).length > 0) {
@@ -94,9 +95,7 @@ export default function DetailItem() {
         chosenList = item.borrowerList
     }
 
-    let orderData = []
-
-    chosenBorrowers.map((borrower, index) => {
+    chosenBorrowers.map((borrower) => {
         const orderIdOfBorrower =
             chosenList
                 .filter(element => element.idUser === borrower._id)

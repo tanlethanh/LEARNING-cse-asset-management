@@ -5,7 +5,34 @@ import Cart from './cart';
 
 export function Header({openCart, setOpenCart}) {
     const navigate = useNavigate();
-    // const [openCart, setOpenCart] = useState(false)
+    const [openMenu, setOpenMenu] = useState(false)
+
+    function HamburgerMenu() {
+        return(
+            <div className="hamburger-container">
+                <div className="hamburger-item hamburger-border" onClick={() => {
+                    navigate("../", { replace: true })
+                }}>Home</div>
+
+                <div className="hamburger-item hamburger-border" onClick={() => {
+                    navigate("../dashboard", { replace: true })
+                }}>Dash board</div>
+
+                <div className="hamburger-icon">
+                    <a
+                        className="checklist-header-nav hamburger-icon"
+                        onClick={
+                            (e) => {
+                                setOpenMenu(!openMenu)
+                                setOpenCart(!openCart)
+                            }
+                        }>
+                        <i className="fa-solid fa-box-open"></i>
+                    </a>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <header id="header" >
@@ -37,6 +64,10 @@ export function Header({openCart, setOpenCart}) {
                         <i className="fa-solid fa-box-open"></i>
                     </a>
                     {openCart && <Cart />}
+
+                    <a className="hamburger-icon" onClick={()=> {setOpenMenu(!openMenu)}}><i class="fa-solid fa-bars"></i></a>
+                    {openMenu && <HamburgerMenu />}
+
                 </li>
             </ul>
         </header>
