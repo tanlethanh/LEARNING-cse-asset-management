@@ -131,7 +131,7 @@ export default function DetailItem() {
                 adminPassword: adminPassword,
             })
                 .then(response => {
-                    setAlertMess("Add new item successfully!")
+                    setAlertMess("Update item successfully!")
                     setTypeAlert("success")
                     setAlert(true)
                     setTimeout(() => {
@@ -149,11 +149,11 @@ export default function DetailItem() {
                             setAlertMess("Please use another name!")
                         }
                         else {
-                            setAlertMess("Add new item failure, bad request!")
+                            setAlertMess(error.response.data.messages)
                         }
                     }
                     else {
-                        setAlertMess("Add new item failure, please check again!")
+                        setAlertMess(error.response.data.messages)
                     }
 
                     setTypeAlert("error")
