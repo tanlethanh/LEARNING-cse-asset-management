@@ -5,6 +5,8 @@ import ConfirmPassword from '../../confirmPassword';
 import ImageUploading from "react-images-uploading";
 import Alert from '../../alert';
 import convertValidName from '../../../utils/convertValidName';
+import Arrange, { arrangeList } from '../../arrange';
+import getFormattedDate from '../../../utils/formatDate';
 
 export default function DetailItem() {
     const { state } = useLocation()
@@ -12,6 +14,14 @@ export default function DetailItem() {
     const [item, setItem] = useState({})
     const [isUpdated, setIsUpdated] = useState(false)
     const { id } = useParams()
+
+    // for search
+    const [query, setQuery] = useState("")
+    const [arrangeKey, setArrangeKey] = useState({
+        column: "returnDate",
+        arrange: "inc"
+    })
+    const [itemsRender, setItemsRender] = useState([])
 
     let ordersList = [...orders.pending, ...orders.ok, ...orders.complete]
 
@@ -84,9 +94,34 @@ export default function DetailItem() {
         chosenList = item.borrowerList
     }
 
+    let orderData = []
+
+    chosenBorrowers.map((borrower, index) => {
+        const orderIdOfBorrower =
+            chosenList
+                .filter(element => element.idUser === borrower._id)
+                .map(element => element.idOrder)
+        const inforOders = ordersList.filter(order => {
+            return orderIdOfBorrower.includes(order._id)
+        })
+        inforOders.map((order) => {
+            let object = {
+                _id: borrower._id,
+                fullName: borrower.fullName,
+                quantity: order.quantity,
+                updatedAt: order.updatedAt,
+                createdAt: order.createdAt,
+                returnDate: order.returnDate
+            }
+            orderData.push(object)
+        })
+    })
+
+    console.log(orderData.length)
+
     // use for fragment
     const maxLengthOfFragment = 10
-    let numOfFragment = Math.ceil(chosenBorrowers.length * 1.0 / maxLengthOfFragment)
+    let numOfFragment = Math.ceil(orderData.length * 1.0 / maxLengthOfFragment)
     const [currentFragment, setCurrentFragment] = useState(0)
 
     const prevFragment = () => {
@@ -346,6 +381,28 @@ export default function DetailItem() {
         )
     }
 
+    useEffect(() => {
+        console.log(orderData)
+        let type = "string";
+        if (arrangeKey.column === "updatedAt" || arrangeKey.column === "createdAt" || arrangeKey.column === "returnDate")
+            type = "date";
+        else if (arrangeKey.column === "quantity") type = "number" 
+        if (query === "") {
+            setItemsRender(arrangeList(orderData, arrangeKey.column, type, arrangeKey.arrange));
+        }
+        else {
+            setItemsRender(
+                arrangeList(
+                    orderData.filter(item => item.fullName.toLowerCase().includes(query.toLowerCase())
+                        || getFormattedDate(new Date(item.createdAt)).includes(query.toLowerCase())
+                        || getFormattedDate(new Date(item.updatedAt)).includes(query.toLowerCase())
+                        || getFormattedDate(new Date(item.returnDate)).includes(query.toLowerCase())
+                    ), arrangeKey.column, type, arrangeKey.arrange
+                )
+            );
+        }
+    }, [chosenBorrowers, query, arrangeKey])
+
     return (
         Object.keys(item).length > 0 &&
         <div className="dashboard_container">
@@ -407,74 +464,52 @@ export default function DetailItem() {
                 <div id="list">
                     <div className="list-search">
                         <i className="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" placeholder="Search item" />
+                        <input type="text" placeholder="Search..." autoComplete="off"
+                            onChange={(e) => {
+                                setQuery(e.target.value)
+                            }}
+                        />
                     </div>
 
                     <div className="list-content">
                         <div className="list-item list-item-title">
-                            <div className="list-item-col">Borrower</div>
-                            <div className="list-item-col list_item_multiline">Quantity</div>
-                            <div className="list-item-col list_item_multiline">Created date</div>
-                            <div className="list-item-col list_item_multiline">Acceped date</div>
-                            <div className="list-item-col">Return date</div>
+                            <div className="list-item-col">
+                                Borrower
+                                <Arrange type="fullName" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                            </div>
+                            <div className="list-item-col">
+                                Quantity 
+                                <Arrange type="quantity" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                            </div>
+                            <div className="list-item-col">
+                                Created date
+                                <Arrange type="createdAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                            </div>
+                            <div className="list-item-col">
+                                Acceped date
+                                <Arrange type="updatedAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                            </div>
+                            <div className="list-item-col">
+                                Return date
+                                <Arrange type="returnDate" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                            </div>
                         </div>
                         {
-                            chosenBorrowers.map((borrower, index) => {
-                                const orderIdOfBorrower =
-                                    chosenList
-                                        .filter(element => element.idUser === borrower._id)
-                                        .map(element => element.idOrder)
-                                const inforOders = ordersList.filter(order => {
-                                    return orderIdOfBorrower.includes(order._id)
-                                })
+                            itemsRender.map((order, index) => {
 
                                 return (
                                     (index >= currentFragment * maxLengthOfFragment && index < (currentFragment + 1) * maxLengthOfFragment) &&
-                                    <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={borrower._id}>
-                                        <div className="list-item-col">{borrower.fullName}</div>
+                                    <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={index}>
+                                        <div className="list-item-col">{order.fullName}</div>
+                                        <div className="list-item-col list_item_multiline">{order.quantity}</div>
                                         <div className="list-item-col list_item_multiline">
-                                            {
-                                                inforOders.map((order) => {
-                                                    return (
-                                                        <div key={order._id}>
-                                                            {order.quantity}
-                                                        </div>
-                                                    )
-                                                })
-                                            }
+                                            {getFormattedDate(new Date(order.createdAt))}
                                         </div>
                                         <div className="list-item-col list_item_multiline">
-                                            {
-                                                inforOders.map((order) => {
-                                                    return (
-                                                        <div key={order._id}>
-                                                            {order.createdAt.substring(0, order.createdAt.indexOf('T'))}
-                                                        </div>
-                                                    )
-                                                })
-                                            }
+                                            {getFormattedDate(new Date(order.updatedAt))}
                                         </div>
                                         <div className="list-item-col list_item_multiline">
-                                            {
-                                                inforOders.map((order) => {
-                                                    return (
-                                                        <div key={order._id}>
-                                                            {order.updatedAt.substring(0, order.updatedAt.indexOf('T'))}
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                        </div>
-                                        <div className="list-item-col list_item_multiline">
-                                            {
-                                                inforOders.map((order) => {
-                                                    return (
-                                                        <div key={order._id}>
-                                                            {order.returnDate.substring(0, order.returnDate.indexOf('T'))}
-                                                        </div>
-                                                    )
-                                                })
-                                            }
+                                            {getFormattedDate(new Date(order.returnDate))}
                                         </div>
                                     </div>
                                 )
