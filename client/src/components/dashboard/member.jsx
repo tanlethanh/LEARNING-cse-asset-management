@@ -8,11 +8,11 @@ import { AppContext } from '../../App';
 
 
 export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdatedCurrentUser }) {
-    const tabs = ['All of order', 'Borrowing order', 'Returned order']
+    const tabs = ['Current orders', 'Borrowing orders', 'Returned orders']
     const arrWait = []
     const arrBorrow = []
     const arrReturn = []
-    const [currentTab, setCurrentTab] = useState('All of order')
+    const [currentTab, setCurrentTab] = useState('Current orders')
     const [waitingList, setWaitingList] = useState([])
     const [borrowList, setBorrowList] = useState([])
     const [returnList, setReturnList] = useState([])
@@ -55,12 +55,7 @@ export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdat
             </div>
 
             <div id="list">
-                <div className="list-search">
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Search item" />
-                </div>
-
-                {currentTab === "All of order" &&
+                {currentTab === "Current orders" &&
                     <Waiting
                         currentList={waitingList}
                         setCurrentList={setWaitingList}
@@ -68,10 +63,17 @@ export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdat
                         isUpdatedCurrentUser={isUpdatedCurrentUser}
                         setIsUpdatedCurrentUser={setIsUpdatedCurrentUser}
                     />}
-                {currentTab === "Borrowing order" &&
-                    <Borrow currentList={borrowList} setCurrentList={setBorrowList} />}
-                {currentTab === "Returned order" &&
-                    <Returned currentList={returnList} setCurrentList={setReturnList} />}
+                {currentTab === "Borrowing orders" &&
+                    <Borrow
+                        currentList={borrowList}
+                        setCurrentList={setBorrowList}
+                        user={user}
+                    />}
+                {currentTab === "Returned orders" &&
+                    <Returned
+                        currentList={returnList}
+                        setCurrentList={setReturnList}
+                    />}
             </div>
         </div>
 

@@ -26,8 +26,9 @@ app.use(express.json({ limit: "30mb", extended: true }));
 // set up session
 const sess = {
     genid: function (req) {
-        console.log('Generated!')
-        return uuidv4() // use UUIDs for session IDs
+        const newSid = uuidv4()
+        console.log('Generated! ', newSid)
+        return newSid // use UUIDs for session IDs
     },
     secret: 'asset manager secret',
     cookie: {

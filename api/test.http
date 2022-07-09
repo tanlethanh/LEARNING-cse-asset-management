@@ -92,7 +92,7 @@ Content-Type: application/json
     "email": "admin@hcmut.edu.vn"
 }
 ### user - update
-PATCH http://localhost:8266/api/user/62a4850327cf24e74b7e13dd
+PATCH http://localhost:8266/api/user/62c8eb8af1d3d00e0afd3340
 Content-Type: application/json
 
 {
@@ -106,7 +106,7 @@ Content-Type: application/json
 
 
 ### user - delete user by id
-DELETE http://localhost:8266/api/user/62a4850327cf24e74b7e13dd
+DELETE http://localhost:8266/api/user/62a4a0f427cf24e74b7e15ac
 
 
 ### order - get all of order
