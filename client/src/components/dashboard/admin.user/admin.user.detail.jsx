@@ -16,11 +16,11 @@ export default function DetailUser({ admin }) {
     useEffect(() => {
         Axios.get(`http://localhost:8266/api/user/${id}`)
             .then(response => {
-                console.log(response.data.user)
+                // console.log(response.data.user)
                 setUser(response.data.user)
             })
             .catch(error => {
-                console.log(error)
+                // console.log(error)
             })
     }, [isUpdated])
 
@@ -68,7 +68,7 @@ export default function DetailUser({ admin }) {
                         setAlert(true);
                         setTimeout(() => {
                             setConfirmPermission(false);
-                        }, 1500);
+                        }, 1000);
                     }
                     else if (error.response.status === 400) {
                         if (error.response.data.messages.split(" ")[0] === "E11000") {
@@ -81,16 +81,16 @@ export default function DetailUser({ admin }) {
                         setAlert(true);
                         setTimeout(() => {
                             setConfirmPermission(false);
-                        }, 1500);
+                        }, 1000);
                     }
                     else {
                         setAlertMess("Failure, please check again!");
-                        console.log(error);
+                        // console.log(error);
                         setTypeAlert("error");
                         setAlert(true);
                         setTimeout(() => {
                             setConfirmPermission(false);
-                        }, 1500);
+                        }, 1000);
                     }
                 });
         }
@@ -123,20 +123,31 @@ export default function DetailUser({ admin }) {
                 password: adminPassword,
                 email: admin.email
             })
-                .then(response => {
-                    console.log(user._id)
-                    if (response.data.user) {
-                        Axios.delete(`http://localhost:8266/api/user/${user._id}`)
-                            .then(response => {
-                                setAlertMess("Successfully!");
-                                setTypeAlert("success");
-                                setAlert(true);
-                                setTimeout(() => {
-                                    navigate("../dashboard", { replace: true })
-                                    setConfirmDelete(false);
-                                }, 1000);
-                            })
-                    } else {
+                .then(responseConfirmAdmin => {
+                    // console.log("admin confirm successfully")
+                    Axios.delete(`http://localhost:8266/api/user/${user._id}`)
+                        .then((response) => {
+                            // console.log("delete success")
+                            setAlertMess("Successfully!");
+                            setTypeAlert("success");
+                            setAlert(true);
+                            setTimeout(() => {
+                                navigate("../dashboard", { replace: true })
+                                setConfirmDelete(false);
+                            }, 1000);
+                        })
+                        .catch((error) => {
+                            setAlertMess(error.response.data.messages)
+                            setTypeAlert("error")
+                            setAlert(true)
+                            setTimeout(() => {
+                                setConfirmDelete(false)
+                            }, 1000)
+                        })
+
+                })
+                .catch((error) => {
+                    if (error.response.status === 403) {
                         setAlertMess("Your password is incorrect!")
                         setTypeAlert("error")
                         setAlert(true)
@@ -144,7 +155,6 @@ export default function DetailUser({ admin }) {
                             setConfirmDelete(false)
                         }, 1000)
                     }
-
                 })
 
         }
@@ -254,7 +264,7 @@ export default function DetailUser({ admin }) {
                 </div>
             </div>
             {
-                Object.keys(user).length > 0 &&<Member user={user} isUpdatedCurrentUser={isUpdated} setIsUpdatedCurrentUser={setIsUpdated} />
+                Object.keys(user).length > 0 && <Member user={user} isUpdatedCurrentUser={isUpdated} setIsUpdatedCurrentUser={setIsUpdated} />
             }
         </div>
 

@@ -90,28 +90,20 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                     }
                 })
                 .catch(error => {
-
+                    // console.log(error)
                     if (error.response.status === 403) {
                         setAlertMess("Your password is incorrect!")
                     }
                     else if (error.response.status === 400) {
-                        if (error.response.data.messages.split(" ")[0] === "E11000") {
-                            setAlertMess("Please use another name!")
-                        }
-                        else {
-                            setAlertMess("Add new item failure, bad request!")
-                        }
+                        setAlertMess(error.response.data.messages)
                     }
                     else {
-                        setAlertMess("Add new item failure, please check again!")
+                        setAlertMess(error.response.data.messages)
                     }
-
-                    console.log(error)
                     setTypeAlert("error")
                     setAlert(true)
                     setTimeout(() => {
                         setConfirmPassword(false)
-                        setChangeUsers(!changeUsers)
                     }, 500)
                 })
 

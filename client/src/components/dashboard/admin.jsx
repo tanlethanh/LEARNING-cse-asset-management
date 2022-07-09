@@ -19,6 +19,7 @@ export default function Admin({ setUser, user, setAdminData }) {
 
 
     useEffect(()=>{
+        console.log("data change")
         setAdminData({
             items: items,
             users: users,
