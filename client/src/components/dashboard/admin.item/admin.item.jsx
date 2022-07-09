@@ -48,6 +48,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
     useEffect(() => {
         let type = "string"
         if (arrangeKey.column === "updatedAt") type = "date"
+        else if (arrangeKey.column === "borrowerList") type="array"
         if (query === "") {
             setItemsRender(arrangeList(items, arrangeKey.column, type, arrangeKey.arrange))
         }
@@ -69,7 +70,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
     const handleAddItemButton = () => {
         setAddItem(!addItem)
     }
-    
+
     const handleDeleteClick = (index) => {
         if (itemsRender[index].available == itemsRender[index].quantity) {
             itemsRender[index].deleteChosen = !itemsRender[index].deleteChosen
@@ -387,8 +388,14 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                     Category
                     <Arrange type="category" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col item_available_col">Available</div>
-                <div className="list-item-col item_quantity_col">
+                <div className="list-item-col item_available_col">
+                    Available
+                </div>
+                <div className="list-item-col item_orders_col">
+                    Orders
+                    <Arrange type="borrowerList" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                </div>
+                <div className="list-item-col item_updatedDate_col">
                     Update day
                     <Arrange type="updatedAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
 
@@ -403,29 +410,40 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                     return (
                         (index >= currentFragment * maxLengthOfFragment && index < (currentFragment + 1) * maxLengthOfFragment)
                         && <div key={item._id} className={"list-item " + (index % 2 === 0 ? "list-item-odd" : "")}>
-                                <div
-                                    className="list-item-col item_name_col"
-                                    onClick={() => { openItemDetail(item) }}
-                                >
-                                    <img src={item.image ? item.image : "./big_logo.png"} className="image-logo" alt="..." />
-                                    {item.name}
-                                </div>
-                                <div className="list-item-col item_category_col">{item.category}</div>
-                                <div className="list-item-col item_available_col">{item.available + "/" + item.quantity}</div>
-                                <div className="list-item-col item_quantity_col">{getFormattedDate(new Date(item.updatedAt))}</div>
-                                <div className="list-item-col item_description_col">{item.description}</div>
-                                <div className="list-item-col item_delete_col">
-                                    <i
-                                        className={"fa-solid fa-trash-can " + (item.deleteChosen === true ? " item_delete_chosen" : "")}
-                                        onClick={() => handleDeleteClick(index)}>
-                                    </i>
-                                </div>
-                                {CantDelete && <Alert
-                                    type="error"
-                                    message={alertMess}
-                                    alert={alert}
-                                    setAlert={setAlert}
-                                />}
+                            <div
+                                className="list-item-col item_name_col"
+                                onClick={() => { openItemDetail(item) }}
+                            >
+                                <img src={item.image ? item.image : "./big_logo.png"} className="image-logo" alt="..." />
+                                {item.name}
+                            </div>
+                            <div className="list-item-col item_category_col">
+                                {item.category}
+                            </div>
+                            <div className="list-item-col item_available_col">
+                                {item.available + "/" + item.quantity}
+                            </div>
+                            <div className="list-item-col item_orders_col">
+                                {item.borrowerList.length}
+                            </div>
+                            <div className="list-item-col item_updatedDate_col">
+                                {getFormattedDate(new Date(item.updatedAt))}
+                            </div>
+                            <div className="list-item-col item_description_col">
+                                {item.description}
+                            </div>
+                            <div className="list-item-col item_delete_col">
+                                <i
+                                    className={"fa-solid fa-trash-can " + (item.deleteChosen === true ? " item_delete_chosen" : "")}
+                                    onClick={() => handleDeleteClick(index)}>
+                                </i>
+                            </div>
+                            {CantDelete && <Alert
+                                type="error"
+                                message={alertMess}
+                                alert={alert}
+                                setAlert={setAlert}
+                            />}
                         </div>
                     )
                 })

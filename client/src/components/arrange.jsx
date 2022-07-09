@@ -60,6 +60,18 @@ export function arrangeList(list, field, type, order) {
             }
         })
     }
+    else if (type === "array") {
+        result.sort((a, b) => {
+            const valueA = a[field].length
+            const valueB = b[field].length
+            if (order === "inc") {
+                return valueA > valueB ? 1 : (valueA < valueB ? -1 : 0)
+            }
+            else if (order === "dec") {
+                return valueA > valueB ? -1 : (valueA < valueB ? 1 : 0)
+            }
+        })
+    }
 
     return result
 }
