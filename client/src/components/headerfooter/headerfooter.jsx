@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import '../../styles/headerfooter.css'
 import { useNavigate } from 'react-router-dom';
 import Cart from './cart';
 
-export function Header({openCart, setOpenCart}) {
+export function Header({ openCart, setOpenCart }) {
     const navigate = useNavigate();
     const [openMenu, setOpenMenu] = useState(false)
 
