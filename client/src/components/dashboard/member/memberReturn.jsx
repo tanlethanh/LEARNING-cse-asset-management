@@ -127,7 +127,7 @@ export default function Returned({
                         return (
                             <div className="list-number" key={index}>
                                 <button
-                                    className={index === currentFragment && "chosen"}
+                                    className={index === currentFragment ? "chosen" : ""}
                                     onClick={() => {
                                         setCurrentFragment(index)
                                     }}
