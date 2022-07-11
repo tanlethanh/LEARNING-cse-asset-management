@@ -40,9 +40,9 @@ const sess = {
     rolling: true, // maxAge depends on last response
 }
 
-// app.get('env') returns 'development' if NODE_ENV is not defined
 app.use(express.static(path.resolve(__dirname, '../client/build')))
 
+// app.get('env') returns 'development' if NODE_ENV is not defined
 // process.env.NODE_ENV === "production"
 if (app.get('env') === 'production') {
     app.set('trust proxy', 1) // trust first proxy
