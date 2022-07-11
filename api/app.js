@@ -71,7 +71,7 @@ app.use('/api/order', ordersRoute)
 
 // for client render
 app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../../client/build/index.html'))
+    res.sendFile(path.resolve(__dirname, '../client/build/index.html'))
 })
 
 
