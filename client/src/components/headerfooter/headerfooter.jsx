@@ -3,9 +3,8 @@ import '../../styles/headerfooter.css'
 import { useNavigate } from 'react-router-dom';
 import Cart from './cart';
 
-export function Header({ openCart, setOpenCart }) {
+export function Header({ openCart, setOpenCart, openMenu, setOpenMenu }) {
     const navigate = useNavigate();
-    const [openMenu, setOpenMenu] = useState(false)
 
     function HamburgerMenu() {
         return(

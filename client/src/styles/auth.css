@@ -321,3 +321,18 @@
     font-size: 10px;
     font-style: italic;
 }
+
+/* responsive */
+@media only screen and (max-width: 650px) {
+    .signup_logo {
+        display: none;
+    }
+
+    .signup_background_left {
+        display: none;
+    }
+
+    .signup_background_right {
+        width: 100%;
+    }
+}

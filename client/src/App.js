@@ -18,6 +18,7 @@ function App() {
     const [user, setUser] = useState({})
     const [cart, setCart] = useState([])
     const [openCart, setOpenCart] = useState(false)
+    const [openMenu, setOpenMenu] = useState(false)
     const [isUpdatedMainUser, setIsUpdatedMainUser] = useState(false)
 
     // Change title of page when user is logged in
@@ -61,7 +62,7 @@ function App() {
                     setOpenCart(false)
                 }
             }}>
-                <Header openCart={openCart} setOpenCart={setOpenCart} />
+                <Header openCart={openCart} setOpenCart={setOpenCart} openMenu={openMenu} setOpenMenu={setOpenMenu}/>
                 <Routes>
                     <Route
                         path="/"
