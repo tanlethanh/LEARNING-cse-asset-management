@@ -28,7 +28,7 @@ function App() {
 
     // Check if user is logged in before
     useEffect(() => {
-        Axios.get("http://localhost:8266/api/auth")
+        Axios.get("/api/auth")
             .then((response) => {
                 if (response.data.user) {
                     setUser(response.data.user)

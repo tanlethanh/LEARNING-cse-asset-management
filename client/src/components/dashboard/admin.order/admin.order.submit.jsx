@@ -17,7 +17,7 @@ export default function OrderSubmit({ orders, nameList, changeOrders, setChangeO
                 if (order.status === 'ok') action = 'accept'
                 else if (order.status === 'denied') action = 'deny'
                 else if (order.status === 'done') action = 'confirm'
-                Axios.patch(`http://localhost:8266/api/order/${order._id}?action=${action}`, {
+                Axios.patch(`/api/order/${order._id}?action=${action}`, {
                     adminPassword: adminPassword
                 })
                     .then(response => {

@@ -118,7 +118,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                 image = images[0].data_url
             }
 
-            Axios.post("http://localhost:8266/api/item", {
+            Axios.post("/api/item", {
                 name: name,
                 quantity: quantity,
                 category: category,
@@ -308,7 +308,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
         const [alertMess, setAlertMess] = useState('')
 
         const handleYes = (adminPassword) => {
-            Axios.post(`http://localhost:8266/api/auth/login`, {
+            Axios.post(`/api/auth/login`, {
                 password: adminPassword,
                 email: admin.email
             })
@@ -316,7 +316,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                     if (response.data.user) {
                         itemsRender.map((item, index) => {
                             if (item.deleteChosen === true) {
-                                Axios.delete(`http://localhost:8266/api/item/${item._id}`)
+                                Axios.delete(`/api/item/${item._id}`)
                                     .then((response) => {
                                         if (index === items.length - 1) {
                                             setAlertMess("Delete items successfully!")

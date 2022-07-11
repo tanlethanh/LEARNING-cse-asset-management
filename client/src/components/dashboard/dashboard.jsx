@@ -18,7 +18,7 @@ export default function Dashboard(props) {
     const [adminData, setAdminData] = useState({})
 
     const handleLogoutButtonClick = () => {
-        Axios.post("http://localhost:8266/api/auth/logout")
+        Axios.post("/api/auth/logout")
             .then((response) => {
                 console.log("Hello logout", response.data)
                 props.setUser({})
@@ -39,7 +39,7 @@ export default function Dashboard(props) {
 
         const handleSaveButtonClick = () => {
             if (oldPassword !== '' && newPassword !== '' && oldPassword !== '') {
-                Axios.post("http://localhost:8266/api/auth/login", {
+                Axios.post("/api/auth/login", {
                     email: props.user.email,
                     password: oldPassword,
                 })
@@ -47,7 +47,7 @@ export default function Dashboard(props) {
                     .then((response) => {
                         console.log(response.data)
                         if (response.data.user && newPassword === confirmPassword && errorPassword === "valid") {
-                            Axios.post("http://localhost:8266/api/auth/password", {
+                            Axios.post("/api/auth/password", {
                                 newPassword: newPassword,
                             })
                                 .then((response) => {

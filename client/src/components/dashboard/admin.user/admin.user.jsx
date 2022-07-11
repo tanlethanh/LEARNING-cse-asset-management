@@ -75,7 +75,7 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
     const handleYes = (adminPassword) => {
         const submitUsers = users.filter(user => user.enable === enable && user.doesToggle === true)
         submitUsers.map((user, index) => {
-            Axios.patch(`http://localhost:8266/api/user/${user._id}?togglePermission=enable`, {
+            Axios.patch(`/api/user/${user._id}?togglePermission=enable`, {
                 adminPassword: adminPassword
             })
                 .then((response) => {

@@ -26,7 +26,7 @@ export default function DetailItem() {
     let ordersList = [...orders.pending, ...orders.ok, ...orders.complete]
 
     useEffect(() => {
-        Axios.get(`http://localhost:8266/api/item/${id}`)
+        Axios.get(`/api/item/${id}`)
             .then((response) => {
                 console.log(response)
                 setItem(response.data.item)
@@ -156,7 +156,7 @@ export default function DetailItem() {
                 image = images[0].data_url
             }
 
-            Axios.patch(`http://localhost:8266/api/item/${item._id}`, {
+            Axios.patch(`/api/item/${item._id}`, {
                 name: name,
                 quantity: quantity,
                 category: category,

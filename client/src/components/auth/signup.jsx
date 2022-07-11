@@ -43,7 +43,7 @@ export default function Signup() {
             setAlert(true)
         }
         else {
-            Axios.post("http://localhost:8266/api/auth/register", {
+            Axios.post("/api/auth/register", {
                 password: password,
                 fullName: convertValidName(fullName),
                 studentCode: studentCode,

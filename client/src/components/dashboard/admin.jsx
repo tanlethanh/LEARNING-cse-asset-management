@@ -31,7 +31,7 @@ export default function Admin({ setUser, user, setAdminData }) {
 
     useEffect(() => {
         console.log("get data of items in admin site")
-        Axios.get("http://localhost:8266/api/item")
+        Axios.get("/api/item")
             .then((response) => {
                 if (response.data.items) {
                     setItems(response.data.items)
@@ -41,7 +41,7 @@ export default function Admin({ setUser, user, setAdminData }) {
 
     useEffect(() => {
         console.log("get data of users in admin site")
-        Axios.get("http://localhost:8266/api/user")
+        Axios.get("/api/user")
             .then((response) => {
                 if (response.data.users) {
                     setUsers(response.data.users)
@@ -51,7 +51,7 @@ export default function Admin({ setUser, user, setAdminData }) {
 
     useEffect(() => {
         console.log("get data of orders in admin site")
-        Axios.get("http://localhost:8266/api/order")
+        Axios.get("/api/order")
             .then((response) => {
                 if (response.data.orders) {
                     const curOrders = {

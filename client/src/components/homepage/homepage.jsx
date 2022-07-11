@@ -16,7 +16,7 @@ export default function Homepage(props) {
     const [searchFirst, setSearchFirst] = useState(false)
 
     useEffect(() => {
-        Axios.get("http://localhost:8266/api/item")
+        Axios.get("/api/item")
             .then((response) => {
                 if (response.data.items) {
                     response.data.items.map((item, index) => {

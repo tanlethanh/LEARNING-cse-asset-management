@@ -51,7 +51,7 @@ export default function Cart(props) {
           setAlert(true)
         }
         if (item.isChosen && item.returnDate) {
-          Axios.post("http://localhost:8266/api/order/", {
+          Axios.post("/api/order/", {
             "quantity": item.numberInCart.toString(10),
             "idItem": item._id,
             "returnDate": item.returnDate,

@@ -14,7 +14,7 @@ export default function DetailUser({ admin }) {
     const { id } = useParams()
 
     useEffect(() => {
-        Axios.get(`http://localhost:8266/api/user/${id}`)
+        Axios.get(`/api/user/${id}`)
             .then(response => {
                 // console.log(response.data.user)
                 setUser(response.data.user)
@@ -48,7 +48,7 @@ export default function DetailUser({ admin }) {
     function HandlePermission({ user }) {
 
         function HandleYes(adminPassword) {
-            Axios.patch(`http://localhost:8266/api/user/${user._id}?togglePermission=admin`, {
+            Axios.patch(`/api/user/${user._id}?togglePermission=admin`, {
                 adminPassword: adminPassword
             })
                 .then(response => {
@@ -119,13 +119,13 @@ export default function DetailUser({ admin }) {
     function HandleDelete({ admin, user }) {
 
         function HandleYes(adminPassword) {
-            Axios.post(`http://localhost:8266/api/auth/login`, {
+            Axios.post(`/api/auth/login`, {
                 password: adminPassword,
                 email: admin.email
             })
                 .then(responseConfirmAdmin => {
                     // console.log("admin confirm successfully")
-                    Axios.delete(`http://localhost:8266/api/user/${user._id}`)
+                    Axios.delete(`/api/user/${user._id}`)
                         .then((response) => {
                             // console.log("delete success")
                             setAlertMess("Successfully!");

@@ -13,7 +13,7 @@ export default function Login(props) {
     const login = () => {
         
 
-        Axios.post("http://localhost:8266/api/auth/login", {
+        Axios.post("/api/auth/login", {
             email: username + "@hcmut.edu.vn",
             password: password,
         }).then((response) => {

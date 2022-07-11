@@ -20,7 +20,7 @@ export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdat
     useEffect(() => {
         console.log("reload data orders of current user")
         user.orders.map((orderid, index) => {
-            Axios.get(`http://localhost:8266/api/order/${orderid}`)
+            Axios.get(`/api/order/${orderid}`)
                 .then((response) => {
                     if (response.data.order.status !== "done") {
                         arrWait.push(response.data.order)

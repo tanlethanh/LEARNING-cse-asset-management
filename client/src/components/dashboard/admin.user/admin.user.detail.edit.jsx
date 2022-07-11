@@ -49,7 +49,7 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
 
         const handleYes = () => {
             if (infor === 'fullName') {
-                Axios.patch(`http://localhost:8266/api/user/${user._id}`, {
+                Axios.patch(`/api/user/${user._id}`, {
                     fullName: acceptInfo,
                     studentCode: "",
                     phoneNumber: "",
@@ -72,7 +72,7 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
                         }
                     })
             } else if (infor === 'email') {
-                Axios.patch(`http://localhost:8266/api/user/${user._id}`, {
+                Axios.patch(`/api/user/${user._id}`, {
                     fullName: "",
                     studentCode: "",
                     phoneNumber: "",
@@ -94,7 +94,7 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
                         }
                     })
             } else if (infor === 'studentCode') {
-                Axios.patch(`http://localhost:8266/api/user/${user._id}`, {
+                Axios.patch(`/api/user/${user._id}`, {
                     fullName: "",
                     studentCode: acceptInfo,
                     phoneNumber: "",
@@ -116,7 +116,7 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
                         }
                     })
             } else if (infor === 'phoneNumber') {
-                Axios.patch(`http://localhost:8266/api/user/${user._id}`, {
+                Axios.patch(`/api/user/${user._id}`, {
                     fullName: "",
                     studentCode: "",
                     phoneNumber: acceptInfo,
@@ -138,7 +138,7 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
                         }
                     })
             } else {
-                Axios.patch(`http://localhost:8266/api/user/${user._id}`, {
+                Axios.patch(`/api/user/${user._id}`, {
                     fullName: "",
                     studentCode: "",
                     phoneNumber: "",

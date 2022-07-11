@@ -78,7 +78,7 @@ export default function Waiting({
 
     const banPendingOrder = async () => {
 
-        Axios.delete(`http://localhost:8266/api/order/${idDeleteOrder}`, {
+        Axios.delete(`/api/order/${idDeleteOrder}`, {
         })
             .then(response => {
                 setAlertMess("Cancel order successfully!")
