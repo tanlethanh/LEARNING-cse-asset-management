@@ -39,6 +39,8 @@ const sess = {
     rolling: true, // maxAge depends on last response
 }
 
+// app.get('env') returns 'development' if NODE_ENV is not defined
+// process.env.NODE_ENV === "production"
 if (app.get('env') === 'production') {
     app.set('trust proxy', 1) // trust first proxy
     sess.cookie.secure = true // serve secure cookies
@@ -57,7 +59,6 @@ const usersRoute = require('./routers/router.user')
 const ordersRoute = require('./routers/router.order')
 
 app.get('/api/', isAuthenticated, async (req, res, next) => {
-    console.log(req.session.userId)
     res.json(req.session.userId)
 })
 app.use('/api/auth', authRoute)
@@ -80,6 +81,7 @@ app.use((err, req, res, next) => {
             message: err.message
         })
 })
+
 
 // exit program - close connection database
 process.on('SIGINT', () => async () => {

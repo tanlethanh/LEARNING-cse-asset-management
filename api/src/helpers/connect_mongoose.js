@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 setupMongoose = () => {
     // mongoose connection and disconnection
     mongoose
-        .connect(process.env.DATABASE, { serverSelectionTimeoutMS: 5000 })
+        .connect(process.env.DATABASE_URI || "mongodb://localhost:27017/assetDB", { serverSelectionTimeoutMS: 5000 })
         .then(() => {
             console.log('DB connection established')
         })
