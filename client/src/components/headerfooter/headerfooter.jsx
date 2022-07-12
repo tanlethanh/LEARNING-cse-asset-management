@@ -3,7 +3,7 @@ import '../../styles/headerfooter.css'
 import { useNavigate } from 'react-router-dom';
 import Cart from './cart';
 
-export function Header({ openCart, setOpenCart, openMenu, setOpenMenu }) {
+export function Header({ openCart, setOpenCart, openMenu, setOpenMenu, user }) {
     const navigate = useNavigate();
 
     function HamburgerMenu() {
@@ -33,6 +33,8 @@ export function Header({ openCart, setOpenCart, openMenu, setOpenMenu }) {
         )
     }
 
+    console.log(user)
+
     return (
         <header id="header" >
             <ul>
@@ -51,7 +53,7 @@ export function Header({ openCart, setOpenCart, openMenu, setOpenMenu }) {
 
                     <div className="nav-btn" onClick={() => {
                         navigate("../dashboard", { replace: true })
-                    }}>Dash board</div>
+                    }}>{user.email ? "Dash board" : "Login"}</div>
 
                     <a
                         className="checklist-header-nav nav-btn"

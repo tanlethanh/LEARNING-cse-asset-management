@@ -73,13 +73,10 @@
 
 /* login */
 .login_background {
-    top: 0;
+    top: var(--height-nav);
     left: 0;
-    z-index: 10;
+    z-index: 1;
     width: 100vw;
-    height: 100vh;
-    position: fixed;
-    background-color: rgba(200, 200, 200, 0.2);
     display: flex;
   /*  justify-content: center;*/
     align-items: center;

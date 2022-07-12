@@ -62,7 +62,7 @@ function App() {
                     setOpenCart(false)
                 }
             }}>
-                <Header openCart={openCart} setOpenCart={setOpenCart} openMenu={openMenu} setOpenMenu={setOpenMenu}/>
+                <Header openCart={openCart} setOpenCart={setOpenCart} openMenu={openMenu} setOpenMenu={setOpenMenu} user={user}/>
                 <Routes>
                     <Route
                         path="/"
