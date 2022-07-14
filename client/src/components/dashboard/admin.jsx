@@ -4,6 +4,7 @@ import Items from './admin.item/admin.item'
 import Users from './admin.user/admin.user'
 import Orders from './admin.order/admin.order'
 import { Route } from 'react-router';
+import '../../styles/waiting.css';
 
 export const dataContext = React.createContext()
 
@@ -16,7 +17,7 @@ export default function Admin({ setUser, user, setAdminData }) {
     const [changeItems, setChangeItems] = useState(false)
     const [changeUsers, setChangeUsers] = useState(false)
     const [changeOrders, setChangeOrders] = useState(false)
-
+    const [waitingLoad, setWaitingLoad] = useState(false)
 
     useEffect(()=>{
         console.log("data change")
@@ -31,26 +32,31 @@ export default function Admin({ setUser, user, setAdminData }) {
 
     useEffect(() => {
         console.log("get data of items in admin site")
+        setWaitingLoad(true)
         Axios.get("/api/item")
             .then((response) => {
                 if (response.data.items) {
                     setItems(response.data.items)
                 }
+                setWaitingLoad(false)
             })
     }, [changeItems])
 
     useEffect(() => {
         console.log("get data of users in admin site")
+        setWaitingLoad(true)
         Axios.get("/api/user")
             .then((response) => {
                 if (response.data.users) {
                     setUsers(response.data.users)
                 }
+                setWaitingLoad(false)
             })
     }, [changeUsers]) // Change users is called when we have updated infor of users in 'Users component'
 
     useEffect(() => {
         console.log("get data of orders in admin site")
+        setWaitingLoad(true)
         Axios.get("/api/order")
             .then((response) => {
                 if (response.data.orders) {
@@ -61,6 +67,7 @@ export default function Admin({ setUser, user, setAdminData }) {
                     }
                     setOrders(curOrders)
                 }
+                setWaitingLoad(false)
             })
     }, [changeOrders])
 
@@ -70,8 +77,15 @@ export default function Admin({ setUser, user, setAdminData }) {
 
     return (
         <dataContext.Provider value={{user, items, users, orders}}>
-
             <div className="admin_container">
+                {
+                    waitingLoad && 
+                    <body className="load">
+                        <div className="waiting-load">
+                            <span className="fa-solid fa-spinner rotate-around icon"></span>
+                        </div>
+                    </body>
+                }
                 <div id="content">
                     <div id="menu">
                         <h1 className="menu_title" >DASH BOARD</h1>

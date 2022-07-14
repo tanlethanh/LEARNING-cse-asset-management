@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Alert from '../../alert';
 import ConfirmPassword from '../../confirmPassword';
+import '../../../styles/waiting.css';
 
 export default function OrderSubmit({ orders, nameList, changeOrders, setChangeOrders, setConfirmPassword }) {
 
@@ -9,6 +10,7 @@ export default function OrderSubmit({ orders, nameList, changeOrders, setChangeO
     const [typeAlert, setTypeAlert] = useState("")
     const [alert, setAlert] = useState(false)
     const [alertMess, setAlertMess] = useState('')
+    const [waitingLoad, setWaitingLoad] = useState(false)
 
     const handleYes = (adminPassword) => {
         orders.map((order, index) => {
@@ -17,6 +19,7 @@ export default function OrderSubmit({ orders, nameList, changeOrders, setChangeO
                 if (order.status === 'ok') action = 'accept'
                 else if (order.status === 'denied') action = 'deny'
                 else if (order.status === 'done') action = 'confirm'
+                setWaitingLoad(true)
                 Axios.patch(`/api/order/${order._id}?action=${action}`, {
                     adminPassword: adminPassword
                 })
@@ -28,6 +31,7 @@ export default function OrderSubmit({ orders, nameList, changeOrders, setChangeO
                             setConfirmPassword(false)
                             setChangeOrders(!changeOrders)
                         }, 1000)
+                        setWaitingLoad(false)
                     })
                     .catch(error => {
 
@@ -79,6 +83,14 @@ export default function OrderSubmit({ orders, nameList, changeOrders, setChangeO
                     setOpen={setConfirmPassword}
                     callback={handleYes}
                 />
+            }
+            {
+                waitingLoad && 
+                <body className="load">
+                    <div className="waiting-load">
+                        <span className="fa-solid fa-spinner rotate-around icon"></span>
+                    </div>
+                </body>
             }
         </React.Fragment>
     )

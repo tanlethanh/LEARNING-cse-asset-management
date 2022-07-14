@@ -3,6 +3,7 @@ import Axios from "axios";
 import AvaiItem from './homepageItem/homeAvai';
 import UnavaiItem from './homepageItem/homeUnavai';
 import '../../styles/homepage.css';
+import '../../styles/waiting.css';
 
 export default function Homepage(props) {
 
@@ -14,8 +15,10 @@ export default function Homepage(props) {
     const [itemsAvaiRender, setItemsAvaiRender] = useState([])
     const [itemsUnavaiRender, setItemsUnavaiRender] = useState([])
     const [searchFirst, setSearchFirst] = useState(false)
+    const [waitingLoad, setWaitingLoad] = useState(false)
 
     useEffect(() => {
+        setWaitingLoad(true)
         Axios.get("/api/item")
             .then((response) => {
                 if (response.data.items) {
@@ -29,6 +32,7 @@ export default function Homepage(props) {
                         }
                     });
                 }
+                setWaitingLoad(false)
             });
 
     },[])
@@ -50,12 +54,20 @@ export default function Homepage(props) {
                     || item.category.toLowerCase().includes(query.toLowerCase())
                 )
             )
-            setSearchFirst(true)
+            setSearchFirst(false)
         }
     }, [query])
 
     return (
         <div>
+            {
+                waitingLoad && 
+                <body className="load">
+                    <div className="waiting-load">
+                        <span className="fa-solid fa-spinner rotate-around icon"></span>
+                    </div>
+                </body>
+            }
             <div className='homepage-container'>
                 <p className='homepage-title'><b>AVAILABLE DEVICE</b></p>
                 <div className="list-search">
