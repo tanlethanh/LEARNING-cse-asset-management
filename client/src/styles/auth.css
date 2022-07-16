@@ -75,7 +75,6 @@
 .login_background {
     top: var(--height-nav);
     left: 0;
-    z-index: 1;
     width: 100vw;
     display: flex;
   /*  justify-content: center;*/

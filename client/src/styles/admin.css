@@ -390,3 +390,10 @@
     width: 30px;
     margin-right: 10px;
 }
+
+/* responsive */
+@media only screen and (max-width: 1040px) {
+    #menu {
+       display: none;
+    }
+}

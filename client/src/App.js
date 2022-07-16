@@ -20,6 +20,8 @@ function App() {
     const [openCart, setOpenCart] = useState(false)
     const [openMenu, setOpenMenu] = useState(false)
     const [isUpdatedMainUser, setIsUpdatedMainUser] = useState(false)
+    const [currentList, setCurrentList] = useState('items')
+    const [currentTab, setCurrentTab] = useState('Current orders')
 
     // Change title of page when user is logged in
     useEffect(() => {
@@ -62,7 +64,17 @@ function App() {
                     setOpenCart(false)
                 }
             }}>
-                <Header openCart={openCart} setOpenCart={setOpenCart} openMenu={openMenu} setOpenMenu={setOpenMenu} user={user}/>
+                <Header 
+                    openCart={openCart} 
+                    setOpenCart={setOpenCart} 
+                    openMenu={openMenu} 
+                    setOpenMenu={setOpenMenu} 
+                    user={user}
+                    currentList={currentList}
+                    setCurrentList={setCurrentList}
+                    currentTab={currentTab}
+                    setCurrentTab={setCurrentTab}
+                />
                 <Routes>
                     <Route
                         path="/"
@@ -76,7 +88,15 @@ function App() {
                     <Route
                         path="/dashboard"
                         element={user.email ?
-                            <Dashboard setUser={setUser} user={user} adminSite={true} /> :
+                            <Dashboard 
+                                setUser={setUser} 
+                                user={user} 
+                                adminSite={true} 
+                                currentList={currentList}
+                                setCurrentList={setCurrentList}
+                                currentTab={currentTab}
+                                setCurrentTab={setCurrentTab}
+                            /> :
                             <Authpage setUser={setUser} />
                         }
 
@@ -84,7 +104,15 @@ function App() {
                     <Route
                         path="/dashboard/me"
                         element={user.email ?
-                            <Dashboard setUser={setUser} user={user} adminSite={false} /> :
+                            <Dashboard 
+                                setUser={setUser} 
+                                user={user} 
+                                adminSite={false}
+                                currentList={currentList}
+                                setCurrentList={setCurrentList}
+                                currentTab={currentTab}
+                                setCurrentTab={setCurrentTab}
+                            /> :
                             <Authpage setUser={setUser} />
                         }
 

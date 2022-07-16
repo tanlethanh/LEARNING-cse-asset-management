@@ -8,9 +8,8 @@ import '../../styles/waiting.css';
 
 export const dataContext = React.createContext()
 
-export default function Admin({ setUser, user, setAdminData }) {
+export default function Admin({ setUser, user, setAdminData, currentList, setCurrentList }) {
 
-    const [currentList, setCurrentList] = useState('items')
     const [items, setItems] = useState([])
     const [users, setUsers] = useState([])
     const [orders, setOrders] = useState({})

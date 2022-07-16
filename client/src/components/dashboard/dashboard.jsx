@@ -198,8 +198,19 @@ export default function Dashboard(props) {
             {editButton && <EditInfo />}
             {
                 props.user.isAdmin && props.adminSite ?
-                    <Admin setUser={props.setUser} user={props.user} setAdminData={setAdminData} /> :
-                    <Member setUser={props.setUser} user={props.user} />
+                    <Admin 
+                        setUser={props.setUser} 
+                        user={props.user} 
+                        setAdminData={setAdminData} 
+                        currentList={props.currentList} 
+                        setCurrentList={props.setCurrentList} 
+                    /> :
+                    <Member 
+                        setUser={props.setUser} 
+                        user={props.user} 
+                        currentTab={props.currentTab}
+                        setCurrentTab={props.setCurrentTab}
+                    />
             }
         </div>
 

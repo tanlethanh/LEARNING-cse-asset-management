@@ -8,12 +8,11 @@ import Returned from './member/memberReturn';
 import { AppContext } from '../../App';
 
 
-export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdatedCurrentUser }) {
+export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdatedCurrentUser, currentTab, setCurrentTab }) {
     const tabs = ['Current orders', 'Borrowing orders', 'Returned orders']
     const arrWait = []
     const arrBorrow = []
     const arrReturn = []
-    const [currentTab, setCurrentTab] = useState('Current orders')
     const [waitingList, setWaitingList] = useState([])
     const [borrowList, setBorrowList] = useState([])
     const [returnList, setReturnList] = useState([])
