@@ -15,6 +15,7 @@ export function Header({ openCart, setOpenCart, openMenu, setOpenMenu, user, cur
 
     function HamburgerMenu() {
         return(
+            <div className="hamburger-background">
             <div className="hamburger-container">
                 <div className="hamburger-item hamburger-item-border" onClick={() => {
                     setOpenMenu(false)
@@ -90,6 +91,7 @@ export function Header({ openCart, setOpenCart, openMenu, setOpenMenu, user, cur
                 </div>)
 
             )}
+            </div>
             </div>
         )
     }
