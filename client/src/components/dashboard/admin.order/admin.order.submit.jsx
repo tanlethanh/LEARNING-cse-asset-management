@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-import Alert from '../../alert';
-import ConfirmPassword from '../../confirmPassword';
+import Alert from '../../../helpers/alert';
+import ConfirmPassword from '../../../helpers/confirmPassword';
 import '../../../styles/waiting.css';
 
 export default function OrderSubmit({ orders, nameList, changeOrders, setChangeOrders, setConfirmPassword }) {
@@ -86,11 +86,11 @@ export default function OrderSubmit({ orders, nameList, changeOrders, setChangeO
             }
             {
                 waitingLoad && 
-                <body className="load">
+                <div className="load">
                     <div className="waiting-load">
                         <span className="fa-solid fa-spinner rotate-around icon"></span>
                     </div>
-                </body>
+                </div>
             }
         </React.Fragment>
     )

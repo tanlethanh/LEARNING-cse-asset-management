@@ -62,11 +62,11 @@ export default function Homepage(props) {
         <div>
             {
                 waitingLoad && 
-                <body className="load">
+                <div className="load">
                     <div className="waiting-load">
                         <span className="fa-solid fa-spinner rotate-around icon"></span>
                     </div>
-                </body>
+                </div>
             }
             <div className='homepage-container'>
                 <p className='homepage-title'><b>AVAILABLE DEVICE</b></p>

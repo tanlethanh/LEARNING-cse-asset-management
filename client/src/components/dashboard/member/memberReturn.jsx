@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import getFormattedDate from "../../../utils/formatDate"
-import Arrange, {arrangeList} from '../../arrange';
+import Arrange, {arrangeList} from '../../../helpers/arrange';
 
 export default function Returned({
     currentList,

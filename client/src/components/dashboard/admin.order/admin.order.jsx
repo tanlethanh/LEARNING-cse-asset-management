@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OrderSubmit from './admin.order.submit';
 import getFormattedDate from '../../../utils/formatDate';
-import Arrange, { arrangeList } from '../../arrange';
+import Arrange, { arrangeList } from '../../../helpers/arrange';
 import reverseName from '../../../utils/reverseName';
 
 export default function Orders({ orders, items, users, nameList, setChangeOrders, changeOrders }) {

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios'
-import ConfirmPassword from '../../confirmPassword';
-import Alert from '../../alert';
-import Arrange, { arrangeList } from '../../arrange';
+import ConfirmPassword from '../../../helpers/confirmPassword';
+import Alert from '../../../helpers/alert';
+import Arrange, { arrangeList } from '../../../helpers/arrange';
 import getFormattedDate from '../../../utils/formatDate';
 import reverseName from '../../../utils/reverseName';
 import '../../../styles/waiting.css'
@@ -145,11 +145,11 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
             }
             {
                 waitingLoad && 
-                <body className="load">
+                <div className="load">
                     <div className="waiting-load">
                         <span className="fa-solid fa-spinner rotate-around icon"></span>
                     </div>
-                </body>
+                </div>
             }
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
 import Axios from 'axios'
 import '../../styles/auth.css'
-import Alert from '../alert'
+import Alert from '../../helpers/alert'
 import isValidStudentCode from "../../utils/isValidStudentCode"
 import isValidPhoneNumber from "../../utils/isValidPhoneNumber"
 import isValidPassword from "../../utils/isValidPassword"

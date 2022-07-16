@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import getFormattedDate from "../../../utils/formatDate"
-import OrderPDF from '../../orderPDF';
-import Arrange, { arrangeList } from '../../arrange';
+import OrderPDF from '../../../helpers/orderPDF';
+import Arrange, { arrangeList } from '../../../helpers/arrange';
 
 export default function Borrow({
     currentList,

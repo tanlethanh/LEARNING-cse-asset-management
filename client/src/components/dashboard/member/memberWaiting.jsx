@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Axios from 'axios';
-import OrderPDF from '../../orderPDF';
+import OrderPDF from '../../../helpers/orderPDF';
 import getFormattedDate from "../../../utils/formatDate"
-import ConfirmNext from '../../confirmNext';
-import Alert from '../../alert';
+import ConfirmNext from '../../../helpers/confirmNext';
+import Alert from '../../../helpers/alert';
 import { AppContext } from '../../../App';
-import Arrange, { arrangeList } from '../../arrange';
+import Arrange, { arrangeList } from '../../../helpers/arrange';
 import '../../../styles/waiting.css'
 
 export default function Waiting({
@@ -137,11 +137,11 @@ export default function Waiting({
             }
             {
                 waitingLoad && 
-                <body className="load">
+                <div className="load">
                     <div className="waiting-load">
                         <span className="fa-solid fa-spinner rotate-around icon"></span>
                     </div>
-                </body>
+                </div>
             }
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>

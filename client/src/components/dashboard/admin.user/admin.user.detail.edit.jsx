@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-import Alert from '../../alert';
+import Alert from '../../../helpers/alert';
 import isValidStudentCode from "../../../utils/isValidStudentCode"
 import isValidPhoneNumber from "../../../utils/isValidPhoneNumber"
 import isValidPassword from "../../../utils/isValidPassword"
@@ -178,11 +178,11 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
             <div className='edit_info_background'>
                 {
                     waitingLoad && 
-                    <body className="load">
+                    <div className="load">
                         <div className="waiting-load">
                             <span className="fa-solid fa-spinner rotate-around icon"></span>
                         </div>
-                    </body>
+                    </div>
                 }
                 <div className='edit_info_container'>
                     <div className='edit_info_body'>
@@ -220,11 +220,11 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
             }
             {
                 waitingLoad && 
-                <body className="load">
+                <div className="load">
                     <div className="waiting-load">
                         <span className="fa-solid fa-spinner rotate-around icon"></span>
                     </div>
-                </body>
+                </div>
             }
             <div className='edit_info_container'>
 

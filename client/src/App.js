@@ -8,12 +8,19 @@ import Homepage from './components/homepage/homepage'
 import Authpage from './components/auth/authpage'
 import DetailUser from './components/dashboard/admin.user/admin.user.detail';
 import DetailItem from './components/dashboard/admin.item/admin.item.detail'
+import { getItems, getUsers, getOrders } from './fetchAPI/getAll';
 
 export const AppContext = React.createContext()
 
 function App() {
     // To ensure that use cookies and sessions
     Axios.defaults.withCredentials = true;
+
+    // all data
+    const [usersList, setUsersList] = useState([])
+    const [itemsList, setItemsList] = useState([])
+    const [ordersList, setOrdersList] = useState([])
+
 
     const [user, setUser] = useState({})
     const [cart, setCart] = useState([])
@@ -25,8 +32,45 @@ function App() {
 
     // Change title of page when user is logged in
     useEffect(() => {
+
+        if (user && user.isAdmin) {
+            Axios.get("/api/user")
+                .then((response) => {
+                    setUsersList(response.data.users)
+                })
+                .catch(err => {
+
+                })
+
+            Axios.get("/api/order")
+                .then((response) => {
+                    setOrdersList(response.data.orders)
+                })
+                .catch(err => {
+
+                })
+        }
+
+        if (itemsList.length == 0) {
+            Axios.get("/api/item")
+                .then((response) => {
+                    setItemsList(response.data.items)
+                })
+                .catch(err => {
+
+                })
+        }
+
         document.title = `Asset of ${user.fullName || 'me'}`
     }, [user])
+
+    useEffect(() => {
+        console.log("Items list: " + itemsList)
+        console.log("Orders list: " + ordersList)
+        console.log("Users list: " + usersList)
+
+    }, [itemsList, usersList, ordersList])
+
 
     // Check if user is logged in before
     useEffect(() => {
@@ -35,7 +79,8 @@ function App() {
                 if (response.data.user) {
                     setUser(response.data.user)
                 }
-            });
+            })
+            .catch(err => {})
 
     }, [isUpdatedMainUser])
 
@@ -45,7 +90,13 @@ function App() {
             setCart: setCart,
             isUpdatedMainUser: isUpdatedMainUser,
             setIsUpdatedMainUser: setIsUpdatedMainUser,
-            mainUser: user
+            mainUser: user,
+            itemsList: itemsList,
+            usersList: usersList,
+            ordersList: ordersList,
+            setItemsList: setItemsList,
+            setUsersList: setUsersList,
+            setOrdersList: setOrdersList
         }} >
             <div onClick={(e) => {
                 const currentClass = e.target.className
@@ -64,11 +115,11 @@ function App() {
                     setOpenCart(false)
                 }
             }}>
-                <Header 
-                    openCart={openCart} 
-                    setOpenCart={setOpenCart} 
-                    openMenu={openMenu} 
-                    setOpenMenu={setOpenMenu} 
+                <Header
+                    openCart={openCart}
+                    setOpenCart={setOpenCart}
+                    openMenu={openMenu}
+                    setOpenMenu={setOpenMenu}
                     user={user}
                     currentList={currentList}
                     setCurrentList={setCurrentList}
@@ -88,10 +139,10 @@ function App() {
                     <Route
                         path="/dashboard"
                         element={user.email ?
-                            <Dashboard 
-                                setUser={setUser} 
-                                user={user} 
-                                adminSite={true} 
+                            <Dashboard
+                                setUser={setUser}
+                                user={user}
+                                adminSite={true}
                                 currentList={currentList}
                                 setCurrentList={setCurrentList}
                                 currentTab={currentTab}
@@ -104,9 +155,9 @@ function App() {
                     <Route
                         path="/dashboard/me"
                         element={user.email ?
-                            <Dashboard 
-                                setUser={setUser} 
-                                user={user} 
+                            <Dashboard
+                                setUser={setUser}
+                                user={user}
                                 adminSite={false}
                                 currentList={currentList}
                                 setCurrentList={setCurrentList}

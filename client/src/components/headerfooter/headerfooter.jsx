@@ -94,8 +94,6 @@ export function Header({ openCart, setOpenCart, openMenu, setOpenMenu, user, cur
         )
     }
 
-    console.log(user)
-
     return (
         <header id="header" >
             <ul>
@@ -137,7 +135,7 @@ export function Header({ openCart, setOpenCart, openMenu, setOpenMenu, user, cur
                         }>
                         <i className="fa-solid fa-box-open"></i>
                     </a>
-                    <a className="hamburger-icon" onClick={()=> {setOpenMenu(!openMenu)}}><i class="fa-solid fa-bars"></i></a>
+                    <a className="hamburger-icon" onClick={()=> {setOpenMenu(!openMenu)}}><i className="fa-solid fa-bars"></i></a>
                     {openMenu && <HamburgerMenu />}
 
                 </li>

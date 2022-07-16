@@ -1,6 +1,6 @@
 import React from "react";
 import Chart from "react-google-charts";
-import { arrangeList } from "../arrange";
+import { arrangeList } from "../../helpers/arrange";
 
 const optionsItems = {
    //title: "Quantity of items in CSE-Asset",

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import Alert from '../alert'
+import Alert from '../../helpers/alert'
 
 export default function Login(props) {
     let navigate = useNavigate();

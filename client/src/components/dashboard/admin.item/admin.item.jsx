@@ -5,11 +5,11 @@ import ImageUploading from "react-images-uploading";
 import '../../../styles/admin.item.css';
 import '../../../styles/waiting.css';
 import convertValidName from '../../../utils/convertValidName';
-import Alert from '../../alert';
-import ConfirmPassword from '../../confirmPassword';
+import Alert from '../../../helpers/alert';
+import ConfirmPassword from '../../../helpers/confirmPassword';
 import { dataContext } from '../admin';
 import getFormattedDate from '../../../utils/formatDate';
-import Arrange, { arrangeList } from '../../arrange';
+import Arrange, { arrangeList } from '../../../helpers/arrange';
 
 export default function Items({ admin, items, setChangeItems, changeItems }) {
 
@@ -186,11 +186,11 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                 }
                 {
                     waitingLoad && 
-                    <body className="load">
+                    <div className="load">
                         <div className="waiting-load">
                             <span className="fa-solid fa-spinner rotate-around icon"></span>
                         </div>
-                    </body>
+                    </div>
                 }
                 {
                     openConfirmAdminPassword &&
@@ -377,11 +377,11 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                 }
                 {
                     waitingLoad && 
-                    <body className="load">
+                    <div className="load">
                         <div className="waiting-load">
                             <span className="fa-solid fa-spinner rotate-around icon"></span>
                         </div>
-                    </body>
+                    </div>
                 }
             </div>
         )

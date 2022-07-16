@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
-import Alert from "../alert";
+import Alert from "../../helpers/alert";
 import { AppContext } from "../../App";
 import '../../styles/cart.css'
 import DatePicker from 'react-datepicker'
@@ -90,11 +90,11 @@ export default function Cart(props) {
       <div className="checklist-submit-modal">
         {
           waitingLoad && 
-          <body className="load">
+          <div className="load">
             <div className="waiting-load">
               <span className="fa-solid fa-spinner rotate-around icon"></span>
             </div>
-          </body>
+          </div>
         }
         <div className="checklist-submit-modal-container">
           <div className="checklist-submit-modal-title">

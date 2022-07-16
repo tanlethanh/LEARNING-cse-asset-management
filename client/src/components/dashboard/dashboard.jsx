@@ -8,7 +8,7 @@ import '../../styles/waiting.css'
 import isValidPassword from '../../utils/isValidPassword';
 import Admin from './admin';
 import Member from './member';
-import Alert from '../alert';
+import Alert from '../../helpers/alert';
 import Statistic from './statistic';
 
 export default function Dashboard(props) {
@@ -97,11 +97,11 @@ export default function Dashboard(props) {
                 }
                 {
                     waitingLoad && 
-                    <body className="load">
+                    <div className="load">
                         <div className="waiting-load">
                             <span className="fa-solid fa-spinner rotate-around icon"></span>
                         </div>
-                    </body>
+                    </div>
                 }
                 <div className='change_password_container'>
 
@@ -157,11 +157,11 @@ export default function Dashboard(props) {
         <div className="dashboard_container">
             {
                 waitingLoad && 
-                <body className="load">
+                <div className="load">
                     <div className="waiting-load">
                         <span className="fa-solid fa-spinner rotate-around icon"></span>
                     </div>
-                </body>
+                </div>
             }
             <div id="information">
                 <div className="title">

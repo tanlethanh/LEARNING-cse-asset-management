@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
-import ConfirmPassword from '../../confirmPassword';
+import ConfirmPassword from '../../../helpers/confirmPassword';
 import ImageUploading from "react-images-uploading";
-import Alert from '../../alert';
+import Alert from '../../../helpers/alert';
 import convertValidName from '../../../utils/convertValidName';
-import Arrange, { arrangeList } from '../../arrange';
+import Arrange, { arrangeList } from '../../../helpers/arrange';
 import getFormattedDate from '../../../utils/formatDate';
 import '../../../styles/waiting.css';
 
@@ -233,11 +233,11 @@ export default function DetailItem() {
                 }
                 {
                     waitingLoad && 
-                    <body className="load">
+                    <div className="load">
                         <div className="waiting-load">
                             <span className="fa-solid fa-spinner rotate-around icon"></span>
                         </div>
-                    </body>
+                    </div>
                 }
                 <div className='item_add_container'>
 

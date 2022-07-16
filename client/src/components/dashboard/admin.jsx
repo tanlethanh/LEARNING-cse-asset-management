@@ -79,11 +79,11 @@ export default function Admin({ setUser, user, setAdminData, currentList, setCur
             <div className="admin_container">
                 {
                     waitingLoad && 
-                    <body className="load">
+                    <div className="load">
                         <div className="waiting-load">
                             <span className="fa-solid fa-spinner rotate-around icon"></span>
                         </div>
-                    </body>
+                    </div>
                 }
                 <div id="content">
                     <div id="menu">

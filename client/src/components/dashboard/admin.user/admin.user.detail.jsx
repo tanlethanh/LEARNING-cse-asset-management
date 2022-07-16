@@ -4,8 +4,8 @@ import Axios from 'axios';
 import Admin from '../admin';
 import Member from '../member';
 import EditInfo from './admin.user.detail.edit.jsx';
-import Alert from '../../alert';
-import ConfirmPassword from '../../confirmPassword';
+import Alert from '../../../helpers/alert';
+import ConfirmPassword from '../../../helpers/confirmPassword';
 
 export default function DetailUser({ admin }) {
 
@@ -119,11 +119,11 @@ export default function DetailUser({ admin }) {
                 }
                 {
                     waitingLoad && 
-                    <body className="load">
+                    <div className="load">
                         <div className="waiting-load">
                             <span className="fa-solid fa-spinner rotate-around icon"></span>
                         </div>
-                    </body>
+                    </div>
                 }
                 </div>
             )
@@ -194,11 +194,11 @@ export default function DetailUser({ admin }) {
                 }
                 {
                     waitingLoad && 
-                    <body className="load">
+                    <div className="load">
                         <div className="waiting-load">
                             <span className="fa-solid fa-spinner rotate-around icon"></span>
                         </div>
-                    </body>
+                    </div>
                 }
             </div>
         )

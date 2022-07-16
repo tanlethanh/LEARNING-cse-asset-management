@@ -46,11 +46,11 @@ export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdat
         <div id="content">
             {
                 waitingLoad && 
-                <body className="load">
+                <div className="load">
                     <div className="waiting-load">
                         <span className="fa-solid fa-spinner rotate-around icon"></span>
                     </div>
-                </body>
+                </div>
             }
             <div id="menu">
                 <h1 className="menu_title" >LIST</h1>
