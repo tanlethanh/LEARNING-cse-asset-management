@@ -3,35 +3,98 @@ import '../../styles/headerfooter.css'
 import { useNavigate } from 'react-router-dom';
 import Cart from './cart';
 
-export function Header({ openCart, setOpenCart, openMenu, setOpenMenu }) {
+export function Header({ openCart, setOpenCart, openMenu, setOpenMenu, user, currentList, setCurrentList, currentTab, setCurrentTab }) {
     const navigate = useNavigate();
+
+    const [isDashboard, setIsDashboard] = useState(false)
+    const tabs = ['Current orders', 'Borrowing orders', 'Returned orders']
+    
+    const handleClickButton = (curList) => {
+        setCurrentList(curList)
+    }
 
     function HamburgerMenu() {
         return(
             <div className="hamburger-container">
-                <div className="hamburger-item hamburger-border" onClick={() => {
+                <div className="hamburger-item hamburger-item-border" onClick={() => {
+                    setOpenMenu(false)
+                    setIsDashboard(false)
                     navigate("../", { replace: true })
                 }}>Home</div>
 
-                <div className="hamburger-item hamburger-border" onClick={() => {
+                <div className="hamburger-item" onClick={() => {
+                    setOpenMenu(false)
+                    setIsDashboard(true)
                     navigate("../dashboard", { replace: true })
-                }}>Dash board</div>
+                }}>{user.email ? "Dash board" : "Login"}</div>
 
-                <div className="hamburger-icon">
-                    <a
-                        className="checklist-header-nav hamburger-icon"
-                        onClick={
-                            (e) => {
-                                setOpenMenu(!openMenu)
-                                setOpenCart(!openCart)
-                            }
-                        }>
-                        <i className="fa-solid fa-box-open"></i>
-                    </a>
-                </div>
+                {isDashboard && (user.email && (user.isAdmin ?
+                <div id="hamburger-menu">
+                    <h3 className='menu_list_title'>Items, devices</h3>
+                    <button
+                        className={"hamburger_list_admin " + (currentList === "items" && "chosen")}
+                        onClick={() => handleClickButton("items")}
+                    >
+                        Items
+                    </button>
+
+                    <h3 className='menu_list_title'>Users</h3>
+                    <button
+                        className={"hamburger_list_admin " + (currentList === "users_register" && "chosen")}
+                        onClick={() => handleClickButton("users_register")}
+                    >
+                        Register users
+                    </button>
+
+                    <button
+                        className={"hamburger_list_admin " + (currentList === "users_all" && "chosen")}
+                        onClick={() => handleClickButton("users_all")}
+                    >
+                        Member
+                    </button>
+
+                    <h3 className='menu_list_title'>Oders</h3>
+                    <button
+                        className={"hamburger_list_admin " + (currentList === "orders_pending" && "chosen")}
+                        onClick={() => handleClickButton("orders_pending")}
+                    >
+                        Pending orders
+                    </button>
+
+                    <button
+                        className={"hamburger_list_admin " + (currentList === "orders_ok" && "chosen")}
+                        onClick={() => handleClickButton("orders_ok")}
+                    >
+                        Processing orders
+                    </button>
+
+                    <button
+                        className={"hamburger_list_admin " + (currentList === "orders_complete" && "chosen")}
+                        onClick={() => handleClickButton("orders_complete")}
+                    >
+                        Complete orders
+                    </button>
+
+                </div>:
+                <div id="hamburger-menu">
+                    <h3 className='menu_list_title'>LIST ORDER</h3>
+                    {tabs.map((tab, index) => (
+                        <button
+                            key={index}
+                            className={"hamburger_list_admin " + (currentTab === tab && "chosen")}
+                            onClick={() => { setCurrentTab(tab) }}
+                        >
+                            {tab}
+                        </button>
+                    ))}
+                </div>)
+
+            )}
             </div>
         )
     }
+
+    console.log(user)
 
     return (
         <header id="header" >
@@ -51,7 +114,7 @@ export function Header({ openCart, setOpenCart, openMenu, setOpenMenu }) {
 
                     <div className="nav-btn" onClick={() => {
                         navigate("../dashboard", { replace: true })
-                    }}>Dash board</div>
+                    }}>{user.email ? "Dash board" : "Login"}</div>
 
                     <a
                         className="checklist-header-nav nav-btn"
@@ -64,6 +127,16 @@ export function Header({ openCart, setOpenCart, openMenu, setOpenMenu }) {
                     </a>
                     {openCart && <Cart />}
 
+                    <a
+                        className="checklist-header-nav hamburger-icon"
+                        onClick={
+                            (e) => {
+                                openMenu && setOpenMenu(false)
+                                setOpenCart(!openCart)
+                            }
+                        }>
+                        <i className="fa-solid fa-box-open"></i>
+                    </a>
                     <a className="hamburger-icon" onClick={()=> {setOpenMenu(!openMenu)}}><i class="fa-solid fa-bars"></i></a>
                     {openMenu && <HamburgerMenu />}
 

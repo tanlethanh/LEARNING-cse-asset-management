@@ -5,6 +5,7 @@ import isValidStudentCode from "../../../utils/isValidStudentCode"
 import isValidPhoneNumber from "../../../utils/isValidPhoneNumber"
 import isValidPassword from "../../../utils/isValidPassword"
 import isValidHcmutEmail from "../../../utils/isValidHcmutEmail"
+import '../../../styles/waiting.css'
 
 export default function EditInfo({ user, infor, setInfor, editInforUser, setEditInforUser, isUpdated, setIsUpdated }) {
     const [acceptBox, setAcceptBox] = useState(false)
@@ -16,6 +17,7 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
     const [alertMess, setAlertMess] = useState('')
 
     const [changeInfo, setChangeInfo] = useState('')
+    const [waitingLoad, setWaitingLoad] = useState(false)
 
     const handleSaveButtonClick = () => {
         if (error == "valid") {
@@ -49,6 +51,7 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
 
         const handleYes = () => {
             if (infor === 'fullName') {
+                setWaitingLoad(true)
                 Axios.patch(`/api/user/${user._id}`, {
                     fullName: acceptInfo,
                     studentCode: "",
@@ -70,8 +73,10 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
                             setAlert(false)
                             setAlert(true)
                         }
+                        setWaitingLoad(false)
                     })
             } else if (infor === 'email') {
+                setWaitingLoad(true)
                 Axios.patch(`/api/user/${user._id}`, {
                     fullName: "",
                     studentCode: "",
@@ -92,8 +97,10 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
                             setAlert(false)
                             setAlert(true)
                         }
+                        setWaitingLoad(false)
                     })
             } else if (infor === 'studentCode') {
+                setWaitingLoad(true)
                 Axios.patch(`/api/user/${user._id}`, {
                     fullName: "",
                     studentCode: acceptInfo,
@@ -114,8 +121,10 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
                             setAlert(false)
                             setAlert(true)
                         }
+                        setWaitingLoad(false)
                     })
             } else if (infor === 'phoneNumber') {
+                setWaitingLoad(true)
                 Axios.patch(`/api/user/${user._id}`, {
                     fullName: "",
                     studentCode: "",
@@ -136,8 +145,10 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
                             setAlert(false)
                             setAlert(true)
                         }
+                        setWaitingLoad(false)
                     })
             } else {
+                setWaitingLoad(true)
                 Axios.patch(`/api/user/${user._id}`, {
                     fullName: "",
                     studentCode: "",
@@ -158,12 +169,21 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
                             setAlert(false)
                             setAlert(true)
                         }
+                        setWaitingLoad(false)
                     })
             }
         }
 
         return (
             <div className='edit_info_background'>
+                {
+                    waitingLoad && 
+                    <body className="load">
+                        <div className="waiting-load">
+                            <span className="fa-solid fa-spinner rotate-around icon"></span>
+                        </div>
+                    </body>
+                }
                 <div className='edit_info_container'>
                     <div className='edit_info_body'>
                         <label className='lable_body'>Please type your password!</label>
@@ -197,6 +217,14 @@ export default function EditInfo({ user, infor, setInfor, editInforUser, setEdit
                     alert={alert}
                     setAlert={setAlert}
                 />
+            }
+            {
+                waitingLoad && 
+                <body className="load">
+                    <div className="waiting-load">
+                        <span className="fa-solid fa-spinner rotate-around icon"></span>
+                    </div>
+                </body>
             }
             <div className='edit_info_container'>
 

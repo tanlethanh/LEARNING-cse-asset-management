@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ImageUploading from "react-images-uploading";
 import '../../../styles/admin.item.css';
+import '../../../styles/waiting.css';
 import convertValidName from '../../../utils/convertValidName';
 import Alert from '../../alert';
 import ConfirmPassword from '../../confirmPassword';
@@ -31,6 +32,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
     const [change, setChange] = useState(false)
     const [alert, setAlert] = useState(false)
     const [alertMess, setAlertMess] = useState('')
+    const [waitingLoad, setWaitingLoad] = useState(false)
 
     // use for fragment
     const maxLengthOfFragment = 10
@@ -118,6 +120,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                 image = images[0].data_url
             }
 
+            setWaitingLoad(true)
             Axios.post("/api/item", {
                 name: name,
                 quantity: quantity,
@@ -134,6 +137,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                         setAddItem(false)
                         setChangeItems(!changeItems)
                     }, 1000)
+                    setWaitingLoad(false)
                 })
                 .catch(error => {
 
@@ -157,6 +161,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                     setTimeout(() => {
                         setOpenConfirmAdminPassword(false)
                     }, 1000)
+                    setWaitingLoad(false)
                 })
         }
 
@@ -178,7 +183,14 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                         alert={alert}
                         setAlert={setAlert}
                     />
-
+                }
+                {
+                    waitingLoad && 
+                    <body className="load">
+                        <div className="waiting-load">
+                            <span className="fa-solid fa-spinner rotate-around icon"></span>
+                        </div>
+                    </body>
                 }
                 {
                     openConfirmAdminPassword &&
@@ -308,6 +320,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
         const [alertMess, setAlertMess] = useState('')
 
         const handleYes = (adminPassword) => {
+            setWaitingLoad(true)
             Axios.post(`/api/auth/login`, {
                 password: adminPassword,
                 email: admin.email
@@ -316,6 +329,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                     if (response.data.user) {
                         itemsRender.map((item, index) => {
                             if (item.deleteChosen === true) {
+                                setWaitingLoad(true)
                                 Axios.delete(`/api/item/${item._id}`)
                                     .then((response) => {
                                         if (index === items.length - 1) {
@@ -327,6 +341,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                                                 setChangeItems(!changeItems)
                                             }, 1000)
                                         }
+                                        setWaitingLoad(false)
                                     })
                             }
                         })
@@ -337,6 +352,7 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                         setTimeout(() => {
                             setAcceptDelete(false)
                         }, 1000)
+                        setWaitingLoad(false)
                     }
                 })
 
@@ -358,6 +374,14 @@ export default function Items({ admin, items, setChangeItems, changeItems }) {
                         setOpen={setAcceptDelete}
                         callback={handleYes}
                     />
+                }
+                {
+                    waitingLoad && 
+                    <body className="load">
+                        <div className="waiting-load">
+                            <span className="fa-solid fa-spinner rotate-around icon"></span>
+                        </div>
+                    </body>
                 }
             </div>
         )

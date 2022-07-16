@@ -7,6 +7,7 @@ import Alert from '../../alert';
 import convertValidName from '../../../utils/convertValidName';
 import Arrange, { arrangeList } from '../../arrange';
 import getFormattedDate from '../../../utils/formatDate';
+import '../../../styles/waiting.css';
 
 export default function DetailItem() {
     const { state } = useLocation()
@@ -14,6 +15,7 @@ export default function DetailItem() {
     const [item, setItem] = useState({})
     const [isUpdated, setIsUpdated] = useState(false)
     const { id } = useParams()
+    const [waitingLoad, setWaitingLoad] = useState(false)
 
     // for search
     const [query, setQuery] = useState("")
@@ -26,10 +28,12 @@ export default function DetailItem() {
     let ordersList = [...orders.pending, ...orders.ok, ...orders.complete]
 
     useEffect(() => {
+        setWaitingLoad(true)
         Axios.get(`/api/item/${id}`)
             .then((response) => {
                 console.log(response)
                 setItem(response.data.item)
+                setWaitingLoad(false)
             })
             .catch(error => {
                 console.log(error)
@@ -156,6 +160,7 @@ export default function DetailItem() {
                 image = images[0].data_url
             }
 
+            setWaitingLoad(true)
             Axios.patch(`/api/item/${item._id}`, {
                 name: name,
                 quantity: quantity,
@@ -172,6 +177,7 @@ export default function DetailItem() {
                         setOpenEditItem(false)
                         setIsUpdated(!isUpdated)
                     }, 1000)
+                    setWaitingLoad(false)
                 })
                 .catch(error => {
 
@@ -224,6 +230,14 @@ export default function DetailItem() {
                         setOpen={setOpenConfirmAdminPassword}
                         callback={EditItem}
                     />
+                }
+                {
+                    waitingLoad && 
+                    <body className="load">
+                        <div className="waiting-load">
+                            <span className="fa-solid fa-spinner rotate-around icon"></span>
+                        </div>
+                    </body>
                 }
                 <div className='item_add_container'>
 

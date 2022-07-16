@@ -5,6 +5,7 @@ import { AppContext } from "../../App";
 import '../../styles/cart.css'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
+import '../../styles/waiting.css';
 
 export default function Cart(props) {
   const { cart, setCart, isUpdatedMainUser, setIsUpdatedMainUser } = useContext(AppContext)
@@ -17,6 +18,7 @@ export default function Cart(props) {
 
   // For submit modal
   const [openModal, setOpenModal] = useState(false)
+  const [waitingLoad, setWaitingLoad] = useState(false)
 
   const handleRemove = (name) => {
     const newCart = cart.filter(itemInCart => itemInCart.name !== name)
@@ -51,6 +53,7 @@ export default function Cart(props) {
           setAlert(true)
         }
         if (item.isChosen && item.returnDate) {
+          setWaitingLoad(true)
           Axios.post("/api/order/", {
             "quantity": item.numberInCart.toString(10),
             "idItem": item._id,
@@ -62,6 +65,7 @@ export default function Cart(props) {
               setAlert(false)
               setAlert(true)
               setIsUpdatedMainUser(!isUpdatedMainUser)
+              setWaitingLoad(false)
             })
             .catch((error) => {
               if (error.response.data.status === 401) {
@@ -69,6 +73,7 @@ export default function Cart(props) {
                 setAlertMess("You are not logged in!")
                 setAlert(false)
                 setAlert(true)
+                setWaitingLoad(false)
               }
             })
         }
@@ -80,12 +85,17 @@ export default function Cart(props) {
     const handleClose = () => {
       setOpenModal(false)
     }
-
-
-
-
+    
     return (
       <div className="checklist-submit-modal">
+        {
+          waitingLoad && 
+          <body className="load">
+            <div className="waiting-load">
+              <span className="fa-solid fa-spinner rotate-around icon"></span>
+            </div>
+          </body>
+        }
         <div className="checklist-submit-modal-container">
           <div className="checklist-submit-modal-title">
             <h2>Hello title modal</h2>

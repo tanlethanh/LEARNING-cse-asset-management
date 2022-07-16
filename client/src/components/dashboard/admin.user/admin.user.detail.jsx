@@ -12,12 +12,15 @@ export default function DetailUser({ admin }) {
     const [user, setUser] = useState({})
     const [isUpdated, setIsUpdated] = useState(false)
     const { id } = useParams()
+    const [waitingLoad, setWaitingLoad] = useState(false)
 
     useEffect(() => {
+        setWaitingLoad(true)
         Axios.get(`/api/user/${id}`)
             .then(response => {
                 // console.log(response.data.user)
                 setUser(response.data.user)
+                setWaitingLoad(false)
             })
             .catch(error => {
                 // console.log(error)
@@ -48,6 +51,7 @@ export default function DetailUser({ admin }) {
     function HandlePermission({ user }) {
 
         function HandleYes(adminPassword) {
+            setWaitingLoad(true)
             Axios.patch(`/api/user/${user._id}?togglePermission=admin`, {
                 adminPassword: adminPassword
             })
@@ -59,6 +63,7 @@ export default function DetailUser({ admin }) {
                         setConfirmPermission(false);
                         setIsUpdated(!isUpdated)
                     }, 1000);
+                    setWaitingLoad(false)
                 })
                 .catch(error => {
 
@@ -112,13 +117,22 @@ export default function DetailUser({ admin }) {
                         callback={HandleYes}
                     />
                 }
-            </div>
-        )
+                {
+                    waitingLoad && 
+                    <body className="load">
+                        <div className="waiting-load">
+                            <span className="fa-solid fa-spinner rotate-around icon"></span>
+                        </div>
+                    </body>
+                }
+                </div>
+            )
     }
 
     function HandleDelete({ admin, user }) {
 
         function HandleYes(adminPassword) {
+            setWaitingLoad(true)
             Axios.post(`/api/auth/login`, {
                 password: adminPassword,
                 email: admin.email
@@ -135,6 +149,7 @@ export default function DetailUser({ admin }) {
                                 navigate("../dashboard", { replace: true })
                                 setConfirmDelete(false);
                             }, 1000);
+                            setWaitingLoad(false)
                         })
                         .catch((error) => {
                             setAlertMess(error.response.data.messages)
@@ -155,6 +170,7 @@ export default function DetailUser({ admin }) {
                             setConfirmDelete(false)
                         }, 1000)
                     }
+                    setWaitingLoad(false)
                 })
 
         }
@@ -175,6 +191,14 @@ export default function DetailUser({ admin }) {
                         setOpen={setConfirmDelete}
                         callback={HandleYes}
                     />
+                }
+                {
+                    waitingLoad && 
+                    <body className="load">
+                        <div className="waiting-load">
+                            <span className="fa-solid fa-spinner rotate-around icon"></span>
+                        </div>
+                    </body>
                 }
             </div>
         )

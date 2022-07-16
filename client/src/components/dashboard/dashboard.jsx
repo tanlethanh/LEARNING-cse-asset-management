@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import '../../styles/admin.css'
 import '../../styles/dashboard.css'
 import '../../styles/button.scss'
+import '../../styles/waiting.css'
 import isValidPassword from '../../utils/isValidPassword';
 import Admin from './admin';
 import Member from './member';
@@ -16,13 +17,16 @@ export default function Dashboard(props) {
 
     const [editButton, setEditButton] = useState(false)
     const [adminData, setAdminData] = useState({})
+    const [waitingLoad, setWaitingLoad] = useState(false)
 
     const handleLogoutButtonClick = () => {
+        setWaitingLoad(true)
         Axios.post("/api/auth/logout")
             .then((response) => {
                 console.log("Hello logout", response.data)
                 props.setUser({})
                 navigate("../dashboard", { replace: true })
+                setWaitingLoad(false)
             })
     }
 
@@ -39,6 +43,7 @@ export default function Dashboard(props) {
 
         const handleSaveButtonClick = () => {
             if (oldPassword !== '' && newPassword !== '' && oldPassword !== '') {
+                setWaitingLoad(true)
                 Axios.post("/api/auth/login", {
                     email: props.user.email,
                     password: oldPassword,
@@ -60,6 +65,7 @@ export default function Dashboard(props) {
                             setAlert(false)
                             setAlert(true)
                         }
+                        setWaitingLoad(false)
                     });
             } else {
                 setAlertMess("All fields must be valid!")
@@ -88,6 +94,14 @@ export default function Dashboard(props) {
                         alert={alert}
                         setAlert={setAlert}
                     />
+                }
+                {
+                    waitingLoad && 
+                    <body className="load">
+                        <div className="waiting-load">
+                            <span className="fa-solid fa-spinner rotate-around icon"></span>
+                        </div>
+                    </body>
                 }
                 <div className='change_password_container'>
 
@@ -141,6 +155,14 @@ export default function Dashboard(props) {
 
     return (
         <div className="dashboard_container">
+            {
+                waitingLoad && 
+                <body className="load">
+                    <div className="waiting-load">
+                        <span className="fa-solid fa-spinner rotate-around icon"></span>
+                    </div>
+                </body>
+            }
             <div id="information">
                 <div className="title">
                     <h1 className="name">
@@ -176,8 +198,19 @@ export default function Dashboard(props) {
             {editButton && <EditInfo />}
             {
                 props.user.isAdmin && props.adminSite ?
-                    <Admin setUser={props.setUser} user={props.user} setAdminData={setAdminData} /> :
-                    <Member setUser={props.setUser} user={props.user} />
+                    <Admin 
+                        setUser={props.setUser} 
+                        user={props.user} 
+                        setAdminData={setAdminData} 
+                        currentList={props.currentList} 
+                        setCurrentList={props.setCurrentList} 
+                    /> :
+                    <Member 
+                        setUser={props.setUser} 
+                        user={props.user} 
+                        currentTab={props.currentTab}
+                        setCurrentTab={props.setCurrentTab}
+                    />
             }
         </div>
 

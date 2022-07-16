@@ -6,6 +6,7 @@ import ConfirmNext from '../../confirmNext';
 import Alert from '../../alert';
 import { AppContext } from '../../../App';
 import Arrange, { arrangeList } from '../../arrange';
+import '../../../styles/waiting.css'
 
 export default function Waiting({
     currentList,
@@ -18,6 +19,7 @@ export default function Waiting({
     const [ordersRender, setOrdersRender] = useState(currentList)
     const [openConfirmNext, setOpenConfirmNext] = useState(false)
     const [idDeleteOrder, setIdDeleteOrder] = useState('')
+    const [waitingLoad, setWaitingLoad] = useState(false)
 
     // for search and arrange
     const [query, setQuery] = useState("")
@@ -77,7 +79,7 @@ export default function Waiting({
     }
 
     const banPendingOrder = async () => {
-
+        setWaitingLoad(true)
         Axios.delete(`/api/order/${idDeleteOrder}`, {
         })
             .then(response => {
@@ -91,7 +93,7 @@ export default function Waiting({
                         setIsUpdatedCurrentUser(!isUpdatedCurrentUser)
                     }
                 }, 1000)
-
+                setWaitingLoad(false)
             })
             .catch(error => {
                 console.log(error)
@@ -125,13 +127,22 @@ export default function Waiting({
                 />
 
             }
-            {openConfirmNext &&
+            {
+                openConfirmNext &&
                 <ConfirmNext
                     setOpen={setOpenConfirmNext}
                     callback={banPendingOrder}
                     message={"Are you sure to cancel this order?"}
-                />}
-
+                />
+            }
+            {
+                waitingLoad && 
+                <body className="load">
+                    <div className="waiting-load">
+                        <span className="fa-solid fa-spinner rotate-around icon"></span>
+                    </div>
+                </body>
+            }
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input

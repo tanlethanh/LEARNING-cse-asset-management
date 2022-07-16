@@ -79,14 +79,6 @@ export default function Login(props) {
 
                     <button type="submit" onClick={login}>Login</button>
 
-                    <button
-                        onClick={() => {
-                            props.setOpenLogin(false);
-                        }}
-                        id="cancelBtn"
-                    >
-                        Cancel
-                    </button>
 
                 </div>
 

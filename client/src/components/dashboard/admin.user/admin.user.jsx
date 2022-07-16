@@ -6,6 +6,7 @@ import Alert from '../../alert';
 import Arrange, { arrangeList } from '../../arrange';
 import getFormattedDate from '../../../utils/formatDate';
 import reverseName from '../../../utils/reverseName';
+import '../../../styles/waiting.css'
 
 export default function Users({ admin, users, enable, changeUsers, setChangeUsers }) {
     const navigate = useNavigate()
@@ -70,11 +71,14 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
             users[indexUser].doesToggle = true
         }
     }
+    
+    const [waitingLoad, setWaitingLoad] = useState(false)
 
     // callback after confirm password
     const handleYes = (adminPassword) => {
         const submitUsers = users.filter(user => user.enable === enable && user.doesToggle === true)
         submitUsers.map((user, index) => {
+            setWaitingLoad(true)
             Axios.patch(`/api/user/${user._id}?togglePermission=enable`, {
                 adminPassword: adminPassword
             })
@@ -88,6 +92,7 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                             setChangeUsers(!changeUsers)
                         }, 500)
                     }
+                    setWaitingLoad(false)
                 })
                 .catch(error => {
                     // console.log(error)
@@ -137,6 +142,14 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                     setOpen={setConfirmPassword}
                     callback={handleYes}
                 />
+            }
+            {
+                waitingLoad && 
+                <body className="load">
+                    <div className="waiting-load">
+                        <span className="fa-solid fa-spinner rotate-around icon"></span>
+                    </div>
+                </body>
             }
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>

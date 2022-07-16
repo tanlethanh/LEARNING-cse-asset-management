@@ -1,25 +1,27 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Axios from 'axios';
 import '../../styles/member.css';
+import '../../styles/waiting.css';
 import Waiting from './member/memberWaiting';
 import Borrow from './member/memberBorrow';
 import Returned from './member/memberReturn';
 import { AppContext } from '../../App';
 
 
-export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdatedCurrentUser }) {
+export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdatedCurrentUser, currentTab, setCurrentTab }) {
     const tabs = ['Current orders', 'Borrowing orders', 'Returned orders']
     const arrWait = []
     const arrBorrow = []
     const arrReturn = []
-    const [currentTab, setCurrentTab] = useState('Current orders')
     const [waitingList, setWaitingList] = useState([])
     const [borrowList, setBorrowList] = useState([])
     const [returnList, setReturnList] = useState([])
+    const [waitingLoad, setWaitingLoad] = useState(false)
 
     useEffect(() => {
         console.log("reload data orders of current user")
         user.orders.map((orderid, index) => {
+            setWaitingLoad(true)
             Axios.get(`/api/order/${orderid}`)
                 .then((response) => {
                     if (response.data.order.status !== "done") {
@@ -35,12 +37,21 @@ export default function Member({ user, setUser, isUpdatedCurrentUser, setIsUpdat
                         setBorrowList(arrBorrow)
                         setReturnList(arrReturn)
                     }
+                    setWaitingLoad(false)
                 });
         });
     }, [user]) // list of orders need to reload when this user has updated
 
     return (
         <div id="content">
+            {
+                waitingLoad && 
+                <body className="load">
+                    <div className="waiting-load">
+                        <span className="fa-solid fa-spinner rotate-around icon"></span>
+                    </div>
+                </body>
+            }
             <div id="menu">
                 <h1 className="menu_title" >LIST</h1>
                 {tabs.map((tab, index) => (
