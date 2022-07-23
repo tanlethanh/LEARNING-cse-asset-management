@@ -8,102 +8,95 @@ export function Header({
     setOpenCart
 }) {
     const navigate = useNavigate();
-<<<<<<< HEAD
+
     const { mainUser } = useContext(AppContext)
-=======
 
-    const [isDashboard, setIsDashboard] = useState(false)
-    const tabs = ['Current orders', 'Borrowing orders', 'Returned orders']
-    
-    const handleClickButton = (curList) => {
-        setCurrentList(curList)
-    }
+    // const handleClickButton = (curList) => {
+    //     setCurrentList(curList)
+    // }
 
-    function HamburgerMenu() {
-        return(
-            <div className="hamburger-background">
-            <div className="hamburger-container">
-                <div className="hamburger-item hamburger-item-border" onClick={() => {
-                    setOpenMenu(false)
-                    setIsDashboard(false)
-                    navigate("../", { replace: true })
-                }}>Home</div>
+    // function HamburgerMenu() {
+    //     return(
+    //         <div className="hamburger-background">
+    //         <div className="hamburger-container">
+    //             <div className="hamburger-item hamburger-item-border" onClick={() => {
+    //                 setOpenMenu(false)
+    //                 setIsDashboard(false)
+    //                 navigate("../", { replace: true })
+    //             }}>Home</div>
 
-                <div className="hamburger-item" onClick={() => {
-                    setOpenMenu(false)
-                    setIsDashboard(true)
-                    navigate("../dashboard", { replace: true })
-                }}>{user.email ? "Dash board" : "Login"}</div>
+    //             <div className="hamburger-item" onClick={() => {
+    //                 setOpenMenu(false)
+    //                 setIsDashboard(true)
+    //                 navigate("../dashboard", { replace: true })
+    //             }}>{user.email ? "Dash board" : "Login"}</div>
 
-                {isDashboard && (user.email && (user.isAdmin ?
-                <div id="hamburger-menu">
-                    <h3 className='menu_list_title'>Items, devices</h3>
-                    <button
-                        className={"hamburger_list_admin " + (currentList === "items" && "chosen")}
-                        onClick={() => handleClickButton("items")}
-                    >
-                        Items
-                    </button>
+    //             {isDashboard && (user.email && (user.isAdmin ?
+    //             <div id="hamburger-menu">
+    //                 <h3 className='menu_list_title'>Items, devices</h3>
+    //                 <button
+    //                     className={"hamburger_list_admin " + (currentList === "items" && "chosen")}
+    //                     onClick={() => handleClickButton("items")}
+    //                 >
+    //                     Items
+    //                 </button>
 
-                    <h3 className='menu_list_title'>Users</h3>
-                    <button
-                        className={"hamburger_list_admin " + (currentList === "users_register" && "chosen")}
-                        onClick={() => handleClickButton("users_register")}
-                    >
-                        Register users
-                    </button>
+    //                 <h3 className='menu_list_title'>Users</h3>
+    //                 <button
+    //                     className={"hamburger_list_admin " + (currentList === "users_register" && "chosen")}
+    //                     onClick={() => handleClickButton("users_register")}
+    //                 >
+    //                     Register users
+    //                 </button>
 
-                    <button
-                        className={"hamburger_list_admin " + (currentList === "users_all" && "chosen")}
-                        onClick={() => handleClickButton("users_all")}
-                    >
-                        Member
-                    </button>
+    //                 <button
+    //                     className={"hamburger_list_admin " + (currentList === "users_all" && "chosen")}
+    //                     onClick={() => handleClickButton("users_all")}
+    //                 >
+    //                     Member
+    //                 </button>
 
-                    <h3 className='menu_list_title'>Oders</h3>
-                    <button
-                        className={"hamburger_list_admin " + (currentList === "orders_pending" && "chosen")}
-                        onClick={() => handleClickButton("orders_pending")}
-                    >
-                        Pending orders
-                    </button>
+    //                 <h3 className='menu_list_title'>Oders</h3>
+    //                 <button
+    //                     className={"hamburger_list_admin " + (currentList === "orders_pending" && "chosen")}
+    //                     onClick={() => handleClickButton("orders_pending")}
+    //                 >
+    //                     Pending orders
+    //                 </button>
 
-                    <button
-                        className={"hamburger_list_admin " + (currentList === "orders_ok" && "chosen")}
-                        onClick={() => handleClickButton("orders_ok")}
-                    >
-                        Processing orders
-                    </button>
+    //                 <button
+    //                     className={"hamburger_list_admin " + (currentList === "orders_ok" && "chosen")}
+    //                     onClick={() => handleClickButton("orders_ok")}
+    //                 >
+    //                     Processing orders
+    //                 </button>
 
-                    <button
-                        className={"hamburger_list_admin " + (currentList === "orders_complete" && "chosen")}
-                        onClick={() => handleClickButton("orders_complete")}
-                    >
-                        Complete orders
-                    </button>
+    //                 <button
+    //                     className={"hamburger_list_admin " + (currentList === "orders_complete" && "chosen")}
+    //                     onClick={() => handleClickButton("orders_complete")}
+    //                 >
+    //                     Complete orders
+    //                 </button>
 
-                </div>:
-                <div id="hamburger-menu">
-                    <h3 className='menu_list_title'>LIST ORDER</h3>
-                    {tabs.map((tab, index) => (
-                        <button
-                            key={index}
-                            className={"hamburger_list_admin " + (currentTab === tab && "chosen")}
-                            onClick={() => { setCurrentTab(tab) }}
-                        >
-                            {tab}
-                        </button>
-                    ))}
-                </div>)
+    //             </div>:
+    //             <div id="hamburger-menu">
+    //                 <h3 className='menu_list_title'>LIST ORDER</h3>
+    //                 {tabs.map((tab, index) => (
+    //                     <button
+    //                         key={index}
+    //                         className={"hamburger_list_admin " + (currentTab === tab && "chosen")}
+    //                         onClick={() => { setCurrentTab(tab) }}
+    //                     >
+    //                         {tab}
+    //                     </button>
+    //                 ))}
+    //             </div>)
 
-            )}
-            </div>
-            </div>
-        )
-    }
-
-    console.log(user)
->>>>>>> f3938034d2770c2df8ec66858fd1c614915ef7ab
+    //         )}
+    //         </div>
+    //         </div>
+    //     )
+    // }
 
     return (
         <header id="header" >
