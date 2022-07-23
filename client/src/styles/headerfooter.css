@@ -126,6 +126,19 @@
     text-align: center;
 }
 
+.hamburger-background {
+    top: var(--height-nav);
+    left: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(192, 207, 250, 0.3);
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
 .hamburger-container {
     width: 300px;
     height: 100vh;
