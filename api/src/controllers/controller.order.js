@@ -8,14 +8,14 @@ exports.getAllOrder = async (req, res) => {
     if (await isAdmin(req.session.userId)) {
         try {
             const orders = await Order.find()
-            res.status(200).json({ status: 200, messages: "Get all of orders successfully!", orders })
+            res.status(200).json({ status: 200, message: "Get all of orders successfully!", orders })
         } catch (error) {
             console.error(error)
-            res.status(406).json({ status: 406, messages: error.message, orders: null })
+            res.status(406).json({ status: 406, message: error.message, orders: null })
         }
     }
     else {
-        res.status(403).json({ status: 403, messages: "Forbidden!", items: null })
+        res.status(403).json({ status: 403, message: "Forbidden!", items: null })
     }
 }
 
@@ -23,14 +23,14 @@ exports.getOrderById = async (req, res) => {
     try {
         const order = await Order.findById(mongoose.Types.ObjectId(req.params.id))
         if (!order) {
-            return res.status(404).json({ status: 404, messages: "Not found this order!", order: null })
+            return res.status(404).json({ status: 404, message: "Not found this order!", order: null })
         }
         else {
-            return res.status(200).json({ status: 200, messages: "Get order by id successfully!", order })
+            return res.status(200).json({ status: 200, message: "Get order by id successfully!", order })
         }
     } catch (error) {
         console.error(error)
-        return res.status(406).json({ status: 406, messages: error.message, order: null })
+        return res.status(406).json({ status: 406, message: error.message, order: null })
     }
 }
 
@@ -41,13 +41,13 @@ exports.createNewOrder = async (req, res) => {
         // Check existing item and number of available item
         const item = await Item.findById(req.body.idItem)
         if (!item) {
-            return res.status(400).json({ status: 400, messages: "Bad request, id of item is not valid", order: null })
+            return res.status(400).json({ status: 400, message: "Bad request, id of item is not valid", order: null })
         }
 
         if (item.available < req.body.quantity) {
             return res.status(201).json({
                 status: 201,
-                messages: "Number of available items is smaller than quantity which user want to borrow",
+                message: "Number of available items is smaller than quantity which user want to borrow",
                 order: null
             })
         }
@@ -70,11 +70,11 @@ exports.createNewOrder = async (req, res) => {
         // Update new order for user
         await User.findByIdAndUpdate(idUser, { $push: { orders: order._id } }, { new: true })
 
-        res.status(201).json({ status: 201, messages: "Add new order successfully!", order })
+        res.status(201).json({ status: 201, message: "Add new order successfully!", order })
 
     } catch (error) {
         console.error(error)
-        res.status(400).json({ status: 400, messages: error.message, order: null })
+        res.status(400).json({ status: 400, message: error.message, order: null })
     }
 
 }
@@ -86,12 +86,12 @@ exports.updateStateOrderByID = async (req, res) => {
             const order = await Order.findById(id)
 
             if (!order) {
-                return res.status(404).json({ status: 404, messages: "Not found this order!", order: null })
+                return res.status(404).json({ status: 404, message: "Not found this order!", order: null })
             }
 
             let updatedOrder = null
             if (!req.query) {
-                return res.status(400).json({ status: 400, messages: "Bad request", user: null })
+                return res.status(400).json({ status: 400, message: "Bad request", user: null })
             }
 
             // change state of order
@@ -100,7 +100,7 @@ exports.updateStateOrderByID = async (req, res) => {
                 if (order.status !== "pending") {
                     return res.status(400).json({
                         status: 400,
-                        messages: `State of this order is not \'pending\', action: ${req.query.action}`,
+                        message: `State of this order is not \'pending\', action: ${req.query.action}`,
                         order: null
                     })
                 }
@@ -116,7 +116,7 @@ exports.updateStateOrderByID = async (req, res) => {
                 if (order.status !== "pending") {
                     return res.status(400).json({
                         status: 400,
-                        messages: `status of this order is not \'pending\', action: ${req.query.action}`,
+                        message: `status of this order is not \'pending\', action: ${req.query.action}`,
                         order: null
                     })
                 }
@@ -124,13 +124,13 @@ exports.updateStateOrderByID = async (req, res) => {
                 // Check existing item and number of available item
                 const item = await Item.findById(order.idItem)
                 if (!item) {
-                    return res.status(400).json({ status: 400, messages: "Bad request, id of item is not valid", order: null })
+                    return res.status(400).json({ status: 400, message: "Bad request, id of item is not valid", order: null })
                 }
 
                 if (item.available < order.quantity) {
                     return res.status(201).json({
                         status: 201,
-                        messages: "Number of available items is smaller than quantity which user want to borrow",
+                        message: "Number of available items is smaller than quantity which user want to borrow",
                         order: null
                     })
                 }
@@ -153,7 +153,7 @@ exports.updateStateOrderByID = async (req, res) => {
                 if (order.status !== "ok") {
                     return res.status(400).json({
                         status: 400,
-                        messages: `status of this order is not \'ok\', action: ${req.query.action}`,
+                        message: `status of this order is not \'ok\', action: ${req.query.action}`,
                         order: null
                     })
                 }
@@ -173,24 +173,24 @@ exports.updateStateOrderByID = async (req, res) => {
                 updatedOrder = await Order.findByIdAndUpdate(id, { status: "done" }, { new: true })
             }
             else {
-                return res.status(400).json({ status: 400, messages: "Bad request", order: null })
+                return res.status(400).json({ status: 400, message: "Bad request", order: null })
             }
 
 
             // response
             res.status(201).json({
                 status: 201,
-                messages: `${req.query.action} order successfully!`,
+                message: `${req.query.action} order successfully!`,
                 user: updatedOrder
             })
 
         } catch (error) {
             // console.error(error)
-            res.status(400).json({ status: 400, messages: error.message, order: null })
+            res.status(400).json({ status: 400, message: error.message, order: null })
         }
     }
     else {
-        res.status(403).json({ status: 403, messages: "Forbidden!", order: null })
+        res.status(403).json({ status: 403, message: "Forbidden!", order: null })
     }
 }
 
@@ -199,10 +199,10 @@ exports.deleteOrderById = async (req, res) => {
         const user = await User.findOne({ _id: req.session.userId })
         const order = await Order.findById(req.params.id)
         if (!user) {
-            return res.status(404).json({ status: 404, messages: "User is not found!", user: null })
+            return res.status(404).json({ status: 404, message: "User is not found!", user: null })
         }
         if (!order) {
-            return res.status(404).json({ status: 404, messages: "Order is not found!", order: null })
+            return res.status(404).json({ status: 404, message: "Order is not found!", order: null })
         }
 
         // if this user is admin, we will delete any order
@@ -217,7 +217,7 @@ exports.deleteOrderById = async (req, res) => {
                 })
             }
 
-            return res.status(204).json({ status: 204, messages: "Delete order successfully!" })
+            return res.status(204).json({ status: 204, message: "Delete order successfully!" })
         }
         // if not, we just delete when this order belong to user and status is pending
         else {
@@ -235,18 +235,18 @@ exports.deleteOrderById = async (req, res) => {
                     console.log("hello")
                     await Order.findByIdAndDelete(order._id)
                     await User.findByIdAndUpdate(user._id, { $pull: { orders: order._id } })
-                    return res.status(204).json({ status: 204, messages: "Delete order successfully!" })
+                    return res.status(204).json({ status: 204, message: "Delete order successfully!" })
                 }
                 else {
-                    return res.status(400).json({ status: 400, messages: "Status of this order is not pending" })
+                    return res.status(400).json({ status: 400, message: "Status of this order is not pending" })
                 }
             }
             else {
-                return res.status(400).json({ status: 400, messages: "This order does not belong to user" })
+                return res.status(400).json({ status: 400, message: "This order does not belong to user" })
             }
         }
     } catch (error) {
-        return res.status(400).json({ status: 400, messages: error.message, order: null })
+        return res.status(400).json({ status: 400, message: error.message, order: null })
     }
 
 }

@@ -3,7 +3,7 @@ import '../../../styles/homepage.css';
 import { AppContext } from "../../../App";
 export default function AvaiItem({ item }) {
 
-    const {cart, setCart} = useContext(AppContext)
+    const { cart, setCart } = useContext(AppContext)
 
     const handleRegister = (item) => {
         if (cart.findIndex(itemInCart => itemInCart.name === item.name) === -1) {
@@ -13,6 +13,7 @@ export default function AvaiItem({ item }) {
     }
 
     const handleRemove = (item) => {
+        item.numberInCart = 0
         const newCart = cart.filter(itemInCart => itemInCart.name !== item.name)
         if (newCart !== cart) setCart(newCart)
     }
@@ -31,13 +32,14 @@ export default function AvaiItem({ item }) {
                 </ul>
 
                 {
-                    cart.findIndex(itemInCart => itemInCart.name === item.name) === -1 ?
-                        <button className='homepage_reg' onClick={() => { handleRegister(item) }}>
-                            REGISTER
-                        </button> :
+                    item.numberInCart && item.numberInCart !== 0 ?
                         <button className='homepage_added' onClick={() => { handleRemove(item) }}>
                             ADDED
+                        </button> :
+                        <button className='homepage_reg' onClick={() => { handleRegister(item) }}>
+                            REGISTER
                         </button>
+
                 }
 
             </div>

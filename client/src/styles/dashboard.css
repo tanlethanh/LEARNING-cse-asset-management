@@ -186,36 +186,11 @@ input[type="checkbox"] {
 #list {
     background-color: #fff;
     /* position: absolute; */
-    width: calc(100% - var(--width-menu));
+    /* width: calc(100% - var(--width-menu)); */
+    width: 100%;
     /* right: 0; */
     /* left: var(--width-menu); */
     
-}
-
-.list-search {
-    margin: 15px;
-    padding: 0 10px;
-    width: 200px;
-    height: 30px;
-    border-radius: 10px;
-    border: #000 solid 1px;
-    font-size: 1rem;
-
-    display: flex;
-    justify-content: center;
-}
-
-.list-search i {
-    display: flex;
-    align-items: center;
-}
-
-.list-search input {
-    border: none;
-}
-
-.list-search input:focus {
-    outline: none;
 }
 
 .list-item {

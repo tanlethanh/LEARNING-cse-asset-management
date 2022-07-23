@@ -16,9 +16,12 @@
     text-transform: uppercase;
 }
 
-#header .header-right {
+
+
+#header .header-center {
     position: absolute;
-    right: 20px;
+    left: 50%; 
+    transform: translate(-50%, 0);
 }
 
 .header-left {
@@ -57,6 +60,36 @@
 
 .header-left .text-logo-2 {
     color: #C0CFFA;
+}
+
+#header .header-right {
+    position: absolute;
+    right: 20px;
+    display: flex;
+
+}
+
+.nav-user-btn {
+    color: #fff;
+    text-decoration: none;
+    line-height: var(--height-nav);
+    padding: 0 24px;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.nav-user-btn p {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: none;
+    margin-right: 15px;
+}
+
+.nav-user-btn i {
+    font-size: 40px;
+    
 }
 
 .nav-btn {

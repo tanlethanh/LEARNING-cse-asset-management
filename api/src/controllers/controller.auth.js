@@ -12,15 +12,15 @@ exports.getAuth = async (req, res) => {
         const user = await User.findById(req.session.userId)
 
         if (!user) {
-            return res.status(404).json({ status: 404, messages: "Not found this user!", user: null })
+            return res.status(404).json({ status: 404, message: "Not found this user!", user: null })
         }
         else {
-            return res.status(200).json({ status: 200, messages: "Get user by id successfully!", user })
+            return res.status(200).json({ status: 200, message: "Get user by id successfully!", user })
         }
 
     } catch (error) {
         console.error(error)
-        return res.status(406).json({ status: 406, messages: error.message, user: null })
+        return res.status(406).json({ status: 406, message: error.message, user: null })
     }
 
 }
@@ -78,11 +78,11 @@ exports.login = async (req, res) => {
 
         const user = await User.findOne({ email: req.body.email })
         if (!user) {
-            return res.status(201).json({ status: 201, message: "User is not registered", user: null })
+            return res.status(400).json({ status: 400, message: "User is not registered", user: null })
         }
 
         if (user.enable == false) {
-            return res.status(201).json({ status: 201, message: "User is not enable", user: null })
+            return res.status(400).json({ status: 400, message: "User is not enable", user: null })
         }
 
         // compare password using bcrypt.compare, dont create new hash password to compare
@@ -108,7 +108,7 @@ exports.login = async (req, res) => {
 
         }
         else {
-            res.status(201).json({ status: 201, message: "Wrong password!", user: null })
+            res.status(400).json({ status: 400, message: "Wrong password!", user: null })
         }
 
 

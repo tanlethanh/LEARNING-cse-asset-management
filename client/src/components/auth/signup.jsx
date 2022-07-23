@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import { useNavigate } from 'react-router-dom'
 import Axios from 'axios'
 import '../../styles/auth.css'
@@ -8,6 +8,7 @@ import isValidPhoneNumber from "../../utils/isValidPhoneNumber"
 import isValidPassword from "../../utils/isValidPassword"
 import isValidHcmutEmail from "../../utils/isValidHcmutEmail"
 import convertValidName from "../../utils/convertValidName"
+import { AppContext } from "../../App"
 
 export default function Signup() {
     // use for information about the user
@@ -24,8 +25,7 @@ export default function Signup() {
     const [errorEmail, setErrorEmail] = useState("invalid")
 
     // to open and close the alert
-    const [alert, setAlert] = useState(false)
-    const [alertMess, setAlertMess] = useState('')
+    const { helpers } = useContext(AppContext)
 
     // to navigate to the dashboard
     const navigate = useNavigate()
@@ -38,9 +38,13 @@ export default function Signup() {
             isValidPassword(password) === false ||
             isValidHcmutEmail(email) === false
         ) {
-            setAlertMess("All fields must be valid!")
-            setAlert(false)
-            setAlert(true)
+            helpers.setAlert(
+                {
+                    type: "error",
+                    message: "All fields must be valid"
+                }
+            )
+            helpers.setOpenAlert(true)
         }
         else {
             Axios.post("/api/auth/register", {
@@ -52,13 +56,25 @@ export default function Signup() {
             })
                 .then((response) => {
                     if (response.data.user) {
-                        navigate("../", { replace: true })
+                        helpers.setAlert(
+                            {
+                                type: "warning",
+                                message: "Your account must be enable by admin!"
+                            }
+                        )
+                        helpers.setOpenAlert(true)
+                        navigate("../")
                     }
+
                 })
                 .catch((err) => {
-                    setAlertMess(err.response.data.message)
-                    setAlert(false)
-                    setAlert(true)
+                    helpers.setAlert(
+                        {
+                            type: "error",
+                            message: err.response.data.message
+                        }
+                    )
+                    helpers.setOpenAlert(true)
                 });
 
         }
@@ -119,14 +135,6 @@ export default function Signup() {
 
     return (
         <div className="signup_background_container_container">
-            {
-                <Alert
-                    type="error"
-                    message={alertMess}
-                    alert={alert}
-                    setAlert={setAlert}
-                />
-            }
             <div className="signup_background_container">
 
                 {/* left */}

@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import getFormattedDate from "../../../utils/formatDate"
-import Arrange, {arrangeList} from '../../../helpers/arrange';
+import React, { useState, useEffect, useContext } from 'react';
+import { AppContext } from '../../App';
+import getFormattedDate from '../../utils/formatDate';
+import OrderPDF from '../../helpers/orderPDF';
+import Arrange, { arrangeList } from '../../helpers/arrange';
 
-export default function Returned({
-    currentList,
-    setCurrentList
-}) {
 
-    const [ordersRender, setOrdersRender] = useState(currentList)
+export default function BorrowingOrders({ dataUser, orderList }) {
+
+    const [ordersRender, setOrdersRender] = useState(orderList)
 
     // for search and arrange
     const [query, setQuery] = useState("")
     const [arrangeKey, setArrangeKey] = useState({
-        column: "updatedAt",
+        column: "createdAt",
         arrange: "dec"
     })
 
     useEffect(() => {
 
         let type = "string"
-        if (arrangeKey.column === "createdAt" || arrangeKey.column === "updatedAt" || arrangeKey.column === "returnDate") {
+        if (arrangeKey.column === "updatedAt" || arrangeKey.column === "returnDate") {
             type = "date"
         }
         else if (arrangeKey.column === "quantity") {
@@ -27,12 +27,12 @@ export default function Returned({
         }
 
         if (query === "") {
-            setOrdersRender(arrangeList(currentList, arrangeKey.column, type, arrangeKey.arrange))
+            setOrdersRender(arrangeList(orderList, arrangeKey.column, type, arrangeKey.arrange))
         }
         else {
             setOrdersRender(
                 arrangeList(
-                    currentList.filter(order =>
+                    orderList.filter(order =>
                         order.nameItem.toLowerCase().includes(query.toLowerCase())
                         || order.categoryItem.toLowerCase().includes(query.toLowerCase())
                         || order.status.toLowerCase().includes(query.toLowerCase())
@@ -43,13 +43,12 @@ export default function Returned({
                 )
             )
         }
-    }, [currentList, query, arrangeKey])
-
+    }, [orderList, query, arrangeKey])
 
     // for fragment
     const [currentFragment, setCurrentFragment] = useState(0)
     const maxOfFragment = 10
-    const numberOfFragment = Math.ceil(currentList.length * 1.0 / maxOfFragment)
+    const numberOfFragment = Math.ceil(orderList.length * 1.0 / maxOfFragment)
     function prevFragment() {
         if (currentFragment > 0) setCurrentFragment(currentFragment - 1)
     }
@@ -83,11 +82,10 @@ export default function Returned({
                     <Arrange type="quantity" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
                 <div className="list-item-col">
-                    Created at
-                    <Arrange type="createdAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
+                    Download form
                 </div>
                 <div className="list-item-col">
-                    Confirm at
+                    Accept date
                     <Arrange type="updatedAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
                 <div className="list-item-col">
@@ -96,21 +94,27 @@ export default function Returned({
                 </div>
             </div>
 
-            {ordersRender.map((item, index) => (
+            {ordersRender.map((order, index) => (
                 index >= currentFragment * maxOfFragment && index < (currentFragment + 1) * maxOfFragment
                 &&
-                <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={item._id}>
-                    <div className="list-item-col item_name_col">{item.nameItem}</div>
-                    <div className="list-item-col item_category_col">{item.categoryItem}</div>
-                    <div className="list-item-col">{item.quantity}</div>
-                    <div className="list-item-col">
-                        {getFormattedDate(new Date(item.createdAt))}
+                <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={order._id}>
+                    <div className="list-item-col item_name_col">
+                        {order.nameItem}
+                    </div>
+                    <div className="list-item-col item_category_col">
+                        {order.categoryItem}
                     </div>
                     <div className="list-item-col">
-                        {getFormattedDate(new Date(item.updatedAt))}
+                        {order.quantity}
                     </div>
                     <div className="list-item-col">
-                        {getFormattedDate(new Date(item.returnDate))}
+                        <OrderPDF user={dataUser.infor} order={order} />
+                    </div>
+                    <div className="list-item-col">
+                        {getFormattedDate(new Date(order.updatedAt))}
+                    </div>
+                    <div className="list-item-col">
+                        {getFormattedDate(new Date(order.returnDate))}
                     </div>
                 </div>
             ))}
@@ -127,7 +131,7 @@ export default function Returned({
                         return (
                             <div className="list-number" key={index}>
                                 <button
-                                    className={index === currentFragment ? "chosen" : ""}
+                                    className={index === currentFragment && "chosen"}
                                     onClick={() => {
                                         setCurrentFragment(index)
                                     }}

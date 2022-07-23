@@ -1,0 +1,58 @@
+.edit_user_background {
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(200, 200, 200, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit_user_container {
+    width: 500px;
+    height: 550px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px 30px 20px;
+}
+
+.edit_user_container .edit_user_title {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 30px;
+    color: #48578E;
+}
+
+.edit_user_container .edit_user_body {
+    font-size: 1.2rem;
+    /* text-align: center; */
+    position: relative;
+    /* height: px; */
+    /* color: #48578E; */
+    margin-bottom: 50px;
+}
+
+.edit_user_container .edit_user_footer {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit_user_container .edit_user_footer button {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: #48578E;
+    color: white;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}

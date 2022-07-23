@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import getFormattedDate from "../../../utils/formatDate"
-import OrderPDF from '../../../helpers/orderPDF';
-import Arrange, { arrangeList } from '../../../helpers/arrange';
+import getFormattedDate from '../../utils/formatDate';
+import Arrange, { arrangeList } from '../../helpers/arrange';
 
-export default function Borrow({
-    currentList,
-    setCurrentList,
-    user
-}) {
+export default function ReturnedOrders({ dataUser, orderList }) {
 
-    const [ordersRender, setOrdersRender] = useState(currentList)
+    const [ordersRender, setOrdersRender] = useState(orderList)
 
     // for search and arrange
     const [query, setQuery] = useState("")
     const [arrangeKey, setArrangeKey] = useState({
-        column: "createdAt",
+        column: "updatedAt",
         arrange: "dec"
     })
 
     useEffect(() => {
 
         let type = "string"
-        if (arrangeKey.column === "updatedAt" || arrangeKey.column === "returnDate") {
+        if (arrangeKey.column === "createdAt" || arrangeKey.column === "updatedAt" || arrangeKey.column === "returnDate") {
             type = "date"
         }
         else if (arrangeKey.column === "quantity") {
@@ -29,12 +24,12 @@ export default function Borrow({
         }
 
         if (query === "") {
-            setOrdersRender(arrangeList(currentList, arrangeKey.column, type, arrangeKey.arrange))
+            setOrdersRender(arrangeList(orderList, arrangeKey.column, type, arrangeKey.arrange))
         }
         else {
             setOrdersRender(
                 arrangeList(
-                    currentList.filter(order =>
+                    orderList.filter(order =>
                         order.nameItem.toLowerCase().includes(query.toLowerCase())
                         || order.categoryItem.toLowerCase().includes(query.toLowerCase())
                         || order.status.toLowerCase().includes(query.toLowerCase())
@@ -45,12 +40,13 @@ export default function Borrow({
                 )
             )
         }
-    }, [currentList, query, arrangeKey])
+    }, [orderList, query, arrangeKey])
+
 
     // for fragment
     const [currentFragment, setCurrentFragment] = useState(0)
     const maxOfFragment = 10
-    const numberOfFragment = Math.ceil(currentList.length * 1.0 / maxOfFragment)
+    const numberOfFragment = Math.ceil(orderList.length * 1.0 / maxOfFragment)
     function prevFragment() {
         if (currentFragment > 0) setCurrentFragment(currentFragment - 1)
     }
@@ -84,10 +80,11 @@ export default function Borrow({
                     <Arrange type="quantity" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
                 <div className="list-item-col">
-                    Download form
+                    Created at
+                    <Arrange type="createdAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
                 <div className="list-item-col">
-                    Accept date
+                    Confirm at
                     <Arrange type="updatedAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
                 <div className="list-item-col">
@@ -96,27 +93,21 @@ export default function Borrow({
                 </div>
             </div>
 
-            {ordersRender.map((order, index) => (
+            {ordersRender.map((item, index) => (
                 index >= currentFragment * maxOfFragment && index < (currentFragment + 1) * maxOfFragment
                 &&
-                <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={order._id}>
-                    <div className="list-item-col item_name_col">
-                        {order.nameItem}
-                    </div>
-                    <div className="list-item-col item_category_col">
-                        {order.categoryItem}
+                <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={item._id}>
+                    <div className="list-item-col item_name_col">{item.nameItem}</div>
+                    <div className="list-item-col item_category_col">{item.categoryItem}</div>
+                    <div className="list-item-col">{item.quantity}</div>
+                    <div className="list-item-col">
+                        {getFormattedDate(new Date(item.createdAt))}
                     </div>
                     <div className="list-item-col">
-                        {order.quantity}
+                        {getFormattedDate(new Date(item.updatedAt))}
                     </div>
                     <div className="list-item-col">
-                        <OrderPDF user={user} order={order} />
-                    </div>
-                    <div className="list-item-col">
-                        {getFormattedDate(new Date(order.updatedAt))}
-                    </div>
-                    <div className="list-item-col">
-                        {getFormattedDate(new Date(order.returnDate))}
+                        {getFormattedDate(new Date(item.returnDate))}
                     </div>
                 </div>
             ))}
@@ -133,7 +124,7 @@ export default function Borrow({
                         return (
                             <div className="list-number" key={index}>
                                 <button
-                                    className={index === currentFragment && "chosen"}
+                                    className={index === currentFragment ? "chosen" : ""}
                                     onClick={() => {
                                         setCurrentFragment(index)
                                     }}

@@ -1,98 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../../styles/headerfooter.css'
 import { useNavigate } from 'react-router-dom';
-import Cart from './cart';
+import { AppContext } from '../../App';
 
-export function Header({ openCart, setOpenCart, openMenu, setOpenMenu, user, currentList, setCurrentList, currentTab, setCurrentTab }) {
+export function Header({
+    openCart,
+    setOpenCart
+}) {
     const navigate = useNavigate();
-
-    const [isDashboard, setIsDashboard] = useState(false)
-    const tabs = ['Current orders', 'Borrowing orders', 'Returned orders']
-    
-    const handleClickButton = (curList) => {
-        setCurrentList(curList)
-    }
-
-    function HamburgerMenu() {
-        return(
-            <div className="hamburger-container">
-                <div className="hamburger-item hamburger-item-border" onClick={() => {
-                    setOpenMenu(false)
-                    setIsDashboard(false)
-                    navigate("../", { replace: true })
-                }}>Home</div>
-
-                <div className="hamburger-item" onClick={() => {
-                    setOpenMenu(false)
-                    setIsDashboard(true)
-                    navigate("../dashboard", { replace: true })
-                }}>{user.email ? "Dash board" : "Login"}</div>
-
-                {isDashboard && (user.email && (user.isAdmin ?
-                <div id="hamburger-menu">
-                    <h3 className='menu_list_title'>Items, devices</h3>
-                    <button
-                        className={"hamburger_list_admin " + (currentList === "items" && "chosen")}
-                        onClick={() => handleClickButton("items")}
-                    >
-                        Items
-                    </button>
-
-                    <h3 className='menu_list_title'>Users</h3>
-                    <button
-                        className={"hamburger_list_admin " + (currentList === "users_register" && "chosen")}
-                        onClick={() => handleClickButton("users_register")}
-                    >
-                        Register users
-                    </button>
-
-                    <button
-                        className={"hamburger_list_admin " + (currentList === "users_all" && "chosen")}
-                        onClick={() => handleClickButton("users_all")}
-                    >
-                        Member
-                    </button>
-
-                    <h3 className='menu_list_title'>Oders</h3>
-                    <button
-                        className={"hamburger_list_admin " + (currentList === "orders_pending" && "chosen")}
-                        onClick={() => handleClickButton("orders_pending")}
-                    >
-                        Pending orders
-                    </button>
-
-                    <button
-                        className={"hamburger_list_admin " + (currentList === "orders_ok" && "chosen")}
-                        onClick={() => handleClickButton("orders_ok")}
-                    >
-                        Processing orders
-                    </button>
-
-                    <button
-                        className={"hamburger_list_admin " + (currentList === "orders_complete" && "chosen")}
-                        onClick={() => handleClickButton("orders_complete")}
-                    >
-                        Complete orders
-                    </button>
-
-                </div>:
-                <div id="hamburger-menu">
-                    <h3 className='menu_list_title'>LIST ORDER</h3>
-                    {tabs.map((tab, index) => (
-                        <button
-                            key={index}
-                            className={"hamburger_list_admin " + (currentTab === tab && "chosen")}
-                            onClick={() => { setCurrentTab(tab) }}
-                        >
-                            {tab}
-                        </button>
-                    ))}
-                </div>)
-
-            )}
-            </div>
-        )
-    }
+    const { mainUser } = useContext(AppContext)
 
     return (
         <header id="header" >
@@ -104,16 +20,43 @@ export function Header({ openCart, setOpenCart, openMenu, setOpenMenu, user, cur
                     <em className="text-logo-1">Asset</em>
                     <em className="text-logo-2">cse</em>
                 </li>
-                <li className="header-right">
-
+                <li className="header-center">
                     <div className="nav-btn" onClick={() => {
-                        navigate("../", { replace: true })
+                        navigate("/")
                     }}>Home</div>
 
-                    <div className="nav-btn" onClick={() => {
-                        navigate("../dashboard", { replace: true })
-                    }}>{user.email ? "Dash board" : "Login"}</div>
+                    {mainUser.infor.email ?
+                        <div className="nav-btn" onClick={() => {
+                            navigate("mylist")
+                        }}>My orders</div>
+                        :
+                        <div className="nav-btn" onClick={() => {
+                            navigate("login")
+                        }}>Log in</div>
+                    }
 
+                    {!mainUser.infor.email &&
+                        <div className="nav-btn" onClick={() => {
+                            navigate("signup")
+                        }}>Sign up</div>
+                    }
+
+                    {(mainUser.infor.isAdmin) && <div className="nav-btn" onClick={() => {
+                        navigate("dashboard")
+                    }}>Dash board</div>}
+                </li>
+                <li className="header-right">
+                    {mainUser.infor.email &&
+                        <a
+                            className="checklist-header-nav nav-user-btn"
+                            onClick={
+                                (e) => {
+                                    // setOpenCart(!openCart)
+                                }
+                            }>
+                            <p>{mainUser.infor.fullName}</p>
+                            <i className="fa-solid fa-circle-user"></i>
+                        </a>}
                     <a
                         className="checklist-header-nav nav-btn"
                         onClick={
@@ -123,20 +66,6 @@ export function Header({ openCart, setOpenCart, openMenu, setOpenMenu, user, cur
                         }>
                         <i className="fa-solid fa-box-open"></i>
                     </a>
-                    {openCart && <Cart />}
-
-                    <a
-                        className="checklist-header-nav hamburger-icon"
-                        onClick={
-                            (e) => {
-                                openMenu && setOpenMenu(false)
-                                setOpenCart(!openCart)
-                            }
-                        }>
-                        <i className="fa-solid fa-box-open"></i>
-                    </a>
-                    <a className="hamburger-icon" onClick={()=> {setOpenMenu(!openMenu)}}><i className="fa-solid fa-bars"></i></a>
-                    {openMenu && <HamburgerMenu />}
 
                 </li>
             </ul>
@@ -156,13 +85,13 @@ export function Footer() {
                 <div className="navi">
                     <h3 className="footer-title">Navigation</h3>
                     <div className="item item_btn" onClick={() => {
-                        navigate("../", { replace: true })
+                        navigate("../")
                     }}>
                         <i className="fa-solid fa-angle-right"></i>
                         <p>Home page</p>
                     </div>
                     <div className="item item_btn" onClick={() => {
-                        navigate("../dashboard", { replace: true })
+                        navigate("../dashboard")
                     }}>
                         <i className="fa-solid fa-angle-right"></i>
                         <p>Dash board </p>

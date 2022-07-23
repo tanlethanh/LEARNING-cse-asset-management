@@ -1,24 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
-import Alert from "../../helpers/alert";
-import { AppContext } from "../../App";
-import '../../styles/cart.css'
+import { AppContext } from "../App";
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
-import '../../styles/waiting.css';
+import '../styles/cart.css'
 
-export default function Cart(props) {
-  const { cart, setCart, isUpdatedMainUser, setIsUpdatedMainUser } = useContext(AppContext)
+export default function Cart() {
+  const { cart, setCart, helpers, mainUser } = useContext(AppContext)
   const [change, setChange] = useState(false)
-
-  // For alert
-  const [alert, setAlert] = useState(false)
-  const [alertMess, setAlertMess] = useState('')
-  const [typeAlert, setTypeAlert] = useState('')
 
   // For submit modal
   const [openModal, setOpenModal] = useState(false)
-  const [waitingLoad, setWaitingLoad] = useState(false)
 
   const handleRemove = (name) => {
     const newCart = cart.filter(itemInCart => itemInCart.name !== name)
@@ -45,39 +37,56 @@ export default function Cart(props) {
 
   function ModalSubmit() {
     const submitChecklist = () => {
+
       cart.map((item, index) => {
         if (item.isChosen && !item.returnDate) {
-          setTypeAlert("error")
-          setAlertMess("Chosen item must have return date!")
-          setAlert(false)
-          setAlert(true)
+          helpers.setAlert({
+            type: "error",
+            message: "Chosen item must have return date!"
+          })
+          helpers.setOpenAlert(true)
         }
         if (item.isChosen && item.returnDate) {
-          setWaitingLoad(true)
+
+          helpers.setOpenLoading(true)
+
           Axios.post("/api/order/", {
             "quantity": item.numberInCart.toString(10),
             "idItem": item._id,
             "returnDate": item.returnDate,
           })
             .then((response) => {
-              setTypeAlert("success")
-              setAlertMess("You can check new order in dashboard!")
-              setAlert(false)
-              setAlert(true)
-              setIsUpdatedMainUser(!isUpdatedMainUser)
-              setWaitingLoad(false)
+
+              mainUser.orders.push(response.data.order)
+              mainUser.setOrders([...mainUser.orders])
+              mainUser.infor.orders.push(response.data.order._id)
+
+              helpers.setOpenLoading(false)
+              helpers.setAlert({
+                type: "success",
+                message: "The order need to be accepted by admin, you can check this order in your orders! "
+              })
+              helpers.setOpenAlert(true)
+
+              // reset cart and item
+              setCart(cart.filter(item => !(item.isChosen && item.returnDate)))
+              item.isChosen = false
+              item.numberInCart = 0
+              item.returnDate = null
+              
+
             })
             .catch((error) => {
               if (error.response.data.status === 401) {
-                setTypeAlert("warning")
-                setAlertMess("You are not logged in!")
-                setAlert(false)
-                setAlert(true)
-                setWaitingLoad(false)
+                helpers.setOpenLoading(false)
+                helpers.setAlert({
+                  type: "warning",
+                  message: "You are not logged in!"
+                })
+                helpers.setOpenAlert(true)
               }
             })
         }
-        setCart(cart.filter(item => !(item.isChosen && item.returnDate)))
       })
 
       // setOpenModal(false)
@@ -85,17 +94,9 @@ export default function Cart(props) {
     const handleClose = () => {
       setOpenModal(false)
     }
-    
+
     return (
       <div className="checklist-submit-modal">
-        {
-          waitingLoad && 
-          <div className="load">
-            <div className="waiting-load">
-              <span className="fa-solid fa-spinner rotate-around icon"></span>
-            </div>
-          </div>
-        }
         <div className="checklist-submit-modal-container">
           <div className="checklist-submit-modal-title">
             <h2>Hello title modal</h2>
@@ -197,13 +198,6 @@ export default function Cart(props) {
 
   return (
     <div className="checklist-background">
-      <Alert
-        type={typeAlert}
-        message={alertMess}
-        alert={alert}
-        setAlert={setAlert}
-      />
-
       {
         openModal && <ModalSubmit />
       }

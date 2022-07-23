@@ -1,25 +1,18 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Axios from 'axios';
-import OrderPDF from '../../../helpers/orderPDF';
-import getFormattedDate from "../../../utils/formatDate"
-import ConfirmNext from '../../../helpers/confirmNext';
-import Alert from '../../../helpers/alert';
-import { AppContext } from '../../../App';
-import Arrange, { arrangeList } from '../../../helpers/arrange';
-import '../../../styles/waiting.css'
+import { AppContext } from '../../App';
+import OrderPDF from '../../helpers/orderPDF';
+import getFormattedDate from '../../utils/formatDate';
+import Arrange, { arrangeList } from '../../helpers/arrange';
+import ConfirmNext from '../../helpers/confirmNext';
 
-export default function Waiting({
-    currentList,
-    setCurrentList,
-    user,
-    isUpdatedCurrentUser,
-    setIsUpdatedCurrentUser,
-}) {
-    const { isUpdatedMainUser, setIsUpdatedMainUser, mainUser } = useContext(AppContext)
-    const [ordersRender, setOrdersRender] = useState(currentList)
+export default function CurrentOrders({ dataUser, orderList }) {
+
+    const { mainUser, helpers, data } = useContext(AppContext)
+
+    const [ordersRender, setOrdersRender] = useState(orderList)
     const [openConfirmNext, setOpenConfirmNext] = useState(false)
     const [idDeleteOrder, setIdDeleteOrder] = useState('')
-    const [waitingLoad, setWaitingLoad] = useState(false)
 
     // for search and arrange
     const [query, setQuery] = useState("")
@@ -39,12 +32,12 @@ export default function Waiting({
         }
 
         if (query === "") {
-            setOrdersRender(arrangeList(currentList, arrangeKey.column, type, arrangeKey.arrange))
+            setOrdersRender(arrangeList(orderList, arrangeKey.column, type, arrangeKey.arrange))
         }
         else {
             setOrdersRender(
                 arrangeList(
-                    currentList.filter(order =>
+                    orderList.filter(order =>
                         order.nameItem.toLowerCase().includes(query.toLowerCase())
                         || order.categoryItem.toLowerCase().includes(query.toLowerCase())
                         || order.status.toLowerCase().includes(query.toLowerCase())
@@ -55,17 +48,13 @@ export default function Waiting({
                 )
             )
         }
-    }, [currentList, query, arrangeKey])
+    }, [orderList, query, arrangeKey])
 
-    // for alert
-    const [alert, setAlert] = useState(false)
-    const [typeAlert, setTypeAlert] = useState("")
-    const [alertMess, setAlertMess] = useState('')
 
     // for fragment
     const [currentFragment, setCurrentFragment] = useState(0)
     const maxOfFragment = 10
-    const numberOfFragment = Math.ceil(currentList.length * 1.0 / maxOfFragment)
+    const numberOfFragment = Math.ceil(orderList.length * 1.0 / maxOfFragment)
     function prevFragment() {
         if (currentFragment > 0) setCurrentFragment(currentFragment - 1)
     }
@@ -79,39 +68,51 @@ export default function Waiting({
     }
 
     const banPendingOrder = async () => {
-        setWaitingLoad(true)
+        helpers.setOpenLoading(true)
         Axios.delete(`/api/order/${idDeleteOrder}`, {
         })
             .then(response => {
-                setAlertMess("Cancel order successfully!")
-                setTypeAlert("success")
-                setAlert(true)
-                setTimeout(() => {
-                    setOpenConfirmNext(false)
-                    if (mainUser._id === user._id) setIsUpdatedMainUser(!isUpdatedMainUser)
-                    else {
-                        setIsUpdatedCurrentUser(!isUpdatedCurrentUser)
-                    }
-                }, 1000)
-                setWaitingLoad(false)
+                // remove this order from list
+                let indexOrder = dataUser.orders.findIndex(order => order._id === idDeleteOrder)
+                dataUser.orders.splice(indexOrder, 1)
+                dataUser.setOrders([...dataUser.orders])
+
+                indexOrder = dataUser.infor.orders.findIndex(orderid => orderid === idDeleteOrder)
+                dataUser.infor.orders.splice(indexOrder, 1)
+                dataUser.setUser({...dataUser.infor})
+
+                indexOrder = data.orders.findIndex(order => order._id === idDeleteOrder)
+                data.orders.splice(indexOrder, 1)
+                data.setOrders([...dataUser.orders])
+
+
+                helpers.setAlert({
+                    type: "success",
+                    message: "Cancel order successfully!"
+                })
+                helpers.setOpenAlert(true)
+                helpers.setOpenLoading(false)
+                setOpenConfirmNext(false)
             })
             .catch(error => {
-                console.log(error)
+                let message = ''
                 if (error.response.status === 403) {
-                    setAlertMess("Your password is incorrect!")
+                    message = "Your password is incorrect!"
                 }
                 else if (error.response.status === 400) {
-                    setAlertMess(error.response.data.messages)
+                    message = error.response.data.message
                 }
                 else {
-                    setAlertMess("Cancel order failure, please check again!")
+                    message = "Cancel order failure, please check again!"
                 }
 
-                setTypeAlert("error")
-                setAlert(true)
-                setTimeout(() => {
-                    setOpenConfirmNext(false)
-                }, 1000)
+                helpers.setAlert({
+                    type: "error",
+                    message: message
+                })
+                helpers.setOpenAlert(true)
+                helpers.setOpenLoading(false)
+                setOpenConfirmNext(false)
             })
 
     }
@@ -119,29 +120,12 @@ export default function Waiting({
     return (
         <div>
             {
-                <Alert
-                    type={typeAlert}
-                    message={alertMess}
-                    alert={alert}
-                    setAlert={setAlert}
-                />
-
-            }
-            {
                 openConfirmNext &&
                 <ConfirmNext
                     setOpen={setOpenConfirmNext}
                     callback={banPendingOrder}
                     message={"Are you sure to cancel this order?"}
                 />
-            }
-            {
-                waitingLoad && 
-                <div className="load">
-                    <div className="waiting-load">
-                        <span className="fa-solid fa-spinner rotate-around icon"></span>
-                    </div>
-                </div>
             }
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>
@@ -203,7 +187,7 @@ export default function Waiting({
                         {getFormattedDate(new Date(order.returnDate))}
                     </div>
                     {order.status === "ok" &&
-                        <OrderPDF user={user} order={order} />}
+                        <OrderPDF user={dataUser.infor} order={order} />}
                     {order.status === "ok" &&
                         <div className="list-item-col"><i className="accept_status">Accepted</i></div>}
                     {order.status === "pending" &&

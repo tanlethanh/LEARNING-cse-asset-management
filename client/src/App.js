@@ -2,13 +2,17 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Axios from "axios";
 import { Header, Footer } from './components/headerfooter/headerfooter';
-import Signup from './components/auth/signup'
-import Dashboard from './components/dashboard/dashboard'
 import Homepage from './components/homepage/homepage'
-import Authpage from './components/auth/authpage'
-import DetailUser from './components/dashboard/admin.user/admin.user.detail';
-import DetailItem from './components/dashboard/admin.item/admin.item.detail'
-import { getItems, getUsers, getOrders } from './fetchAPI/getAll';
+import Signup from './components/auth/signup'
+import Login from './components/auth/login';
+import Admin from './components/admin/admin';
+import User from './components/user/user';
+import UserById from './components/user/userById';
+import ItemById from './components/item/itemById';
+import Cart from './components/cart';
+import Alert from './helpers/alert';
+import Loading from './helpers/loading';
+import './styles/app.css'
 
 export const AppContext = React.createContext()
 
@@ -16,27 +20,134 @@ function App() {
     // To ensure that use cookies and sessions
     Axios.defaults.withCredentials = true;
 
-    // all data
-    const [usersList, setUsersList] = useState([])
-    const [itemsList, setItemsList] = useState([])
-    const [ordersList, setOrdersList] = useState([])
+    // all of data need to render
+    const [items, setItems] = useState([])
+    const [orders, setOrders] = useState([])
+    const [users, setUsers] = useState([])
+    const data = {
+        items: items,
+        setItems: setItems,
+        users: users,
+        setUsers: setUsers,
+        orders: orders,
+        setOrders: setOrders
+    }
 
 
+    // data of main user
     const [user, setUser] = useState({})
+    const [ordersOfUser, setOrdersOfUser] = useState([])
+    const [isUpdatedInfor, setIsUpdatedInfor] = useState(false)
+    const [isUpdatedOrders, setIsUpdatedOrders] = useState(false)
+    const mainUser = {
+        infor: user,
+        setUser: setUser,
+        orders: ordersOfUser,
+        setOrders: setOrdersOfUser,
+        setIsUpdateInfor: setIsUpdatedInfor,
+        setIsUpdatedOrders: setIsUpdatedOrders
+    }
+
+    // helper
+    const [openAlert, setOpenAlert] = useState(false)
+    const [alert, setAlert] = useState({
+        type: "",
+        message: ""
+    })
+    const [openLoading, setOpenLoading] = useState(false)
+    const helpers = {
+        setAlert: setAlert,
+        setOpenLoading: setOpenLoading,
+        setOpenAlert: setOpenAlert
+    }
+
+
+    // cart
     const [cart, setCart] = useState([])
     const [openCart, setOpenCart] = useState(false)
-    const [openMenu, setOpenMenu] = useState(false)
-    const [isUpdatedMainUser, setIsUpdatedMainUser] = useState(false)
-    const [currentList, setCurrentList] = useState('items')
-    const [currentTab, setCurrentTab] = useState('Current orders')
 
-    // Change title of page when user is logged in
+
+    // toggle cart
+    const onClickToggleCart = (target) => {
+        const currentClass = target.className
+        const parentClass = target.parentNode.className
+        const parent2Class = target.parentNode.parentNode.className
+        if (
+            currentClass.split('-')[0] !== 'checklist'
+            && parentClass.split('-')[0] !== 'checklist'
+            && parent2Class.split('-')[0] !== 'checklist'
+            && currentClass.split('-')[0] !== 'react'
+            && parentClass.split('-')[0] !== 'react'
+            && parent2Class.split('-')[0] !== 'react'
+            && currentClass !== "homepage_reg"
+            && currentClass !== "homepage_added"
+        ) {
+            setOpenCart(false)
+        }
+    }
+
+    // Check if user is logged and get all of item for the first time
     useEffect(() => {
+        // Get all of items
+        if (data.items.length == 0) {
+            setOpenLoading(true)
+            Axios.get("/api/item")
+                .then((response) => {
+                    setItems(response.data.items)
+                    setOpenLoading(false)
+                })
+                .catch(err => {
+                    setOpenLoading(false)
+                })
+        }
 
-        if (user && user.isAdmin) {
+        Axios.get("/api/auth")
+            .then((response) => {
+                setUser(response.data.user)
+            })
+            .catch(err => { })
+    }, [])
+
+    // Update infor or order list of user
+    // fetch data orders of user when either the first time mount app or orders have updated
+    useEffect(() => {
+        if (user.enable && (ordersOfUser.length === 0 || isUpdatedOrders)) {
+            const orders = []
+            user.orders.map((orderid, index) => {
+                Axios.get(`/api/order/${orderid}`)
+                    .then((response) => {
+                        orders.push(response.data.order)
+                        // updated orders of use when get all of order complete
+                        if (index === user.orders.length - 1) {
+                            setOrdersOfUser(orders)
+                            setIsUpdatedOrders(false)
+                        }
+                    })
+                    .catch(() => {
+
+                    })
+            })
+        }
+
+        if (user.enable && isUpdatedInfor) {
+            Axios.get("/api/auth")
+                .then((response) => {
+                    setUser(response.data.user)
+                    setIsUpdatedOrders(false)
+                })
+                .catch(err => {})
+        }
+
+        document.title = `Asset of ${user.fullName || 'me'}`
+
+    }, [user, isUpdatedInfor, isUpdatedOrders])
+
+    // Fetch all of order, user for admin
+    useEffect(() => {
+        if (user.isAdmin) {
             Axios.get("/api/user")
                 .then((response) => {
-                    setUsersList(response.data.users)
+                    setUsers(response.data.users)
                 })
                 .catch(err => {
 
@@ -44,142 +155,47 @@ function App() {
 
             Axios.get("/api/order")
                 .then((response) => {
-                    setOrdersList(response.data.orders)
+                    setOrders(response.data.orders)
                 })
                 .catch(err => {
 
                 })
         }
 
-        if (itemsList.length == 0) {
-            Axios.get("/api/item")
-                .then((response) => {
-                    setItemsList(response.data.items)
-                })
-                .catch(err => {
-
-                })
-        }
-
-        document.title = `Asset of ${user.fullName || 'me'}`
     }, [user])
 
-    useEffect(() => {
-        console.log("Items list: " + itemsList)
-        console.log("Orders list: " + ordersList)
-        console.log("Users list: " + usersList)
-
-    }, [itemsList, usersList, ordersList])
-
-
-    // Check if user is logged in before
-    useEffect(() => {
-        Axios.get("/api/auth")
-            .then((response) => {
-                if (response.data.user) {
-                    setUser(response.data.user)
-                }
-            })
-            .catch(err => {})
-
-    }, [isUpdatedMainUser])
 
     return (
         <AppContext.Provider value={{
             cart: cart,
             setCart: setCart,
-            isUpdatedMainUser: isUpdatedMainUser,
-            setIsUpdatedMainUser: setIsUpdatedMainUser,
-            mainUser: user,
-            itemsList: itemsList,
-            usersList: usersList,
-            ordersList: ordersList,
-            setItemsList: setItemsList,
-            setUsersList: setUsersList,
-            setOrdersList: setOrdersList
+            mainUser: mainUser,
+            data: data,
+            helpers: helpers
+
         }} >
             <div onClick={(e) => {
-                const currentClass = e.target.className
-                const parentClass = e.target.parentNode.className
-                const parent2Class = e.target.parentNode.parentNode.className
-                if (
-                    currentClass.split('-')[0] !== 'checklist'
-                    && parentClass.split('-')[0] !== 'checklist'
-                    && parent2Class.split('-')[0] !== 'checklist'
-                    && currentClass.split('-')[0] !== 'react'
-                    && parentClass.split('-')[0] !== 'react'
-                    && parent2Class.split('-')[0] !== 'react'
-                    && currentClass !== "homepage_reg"
-                    && currentClass !== "homepage_added"
-                ) {
-                    setOpenCart(false)
-                }
+                onClickToggleCart(e.target)
             }}>
+
+                {openAlert && <Alert alert={alert} setOpenAlert={setOpenAlert} />}
+                {openLoading && <Loading />}
+                {openCart && <Cart />}
+
                 <Header
                     openCart={openCart}
                     setOpenCart={setOpenCart}
-                    openMenu={openMenu}
-                    setOpenMenu={setOpenMenu}
-                    user={user}
-                    currentList={currentList}
-                    setCurrentList={setCurrentList}
-                    currentTab={currentTab}
-                    setCurrentTab={setCurrentTab}
                 />
                 <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <Homepage />
-                        }
-                    />
-                    <Route
-                        path="/signup"
-                        element={<Signup />} />
-                    <Route
-                        path="/dashboard"
-                        element={user.email ?
-                            <Dashboard
-                                setUser={setUser}
-                                user={user}
-                                adminSite={true}
-                                currentList={currentList}
-                                setCurrentList={setCurrentList}
-                                currentTab={currentTab}
-                                setCurrentTab={setCurrentTab}
-                            /> :
-                            <Authpage setUser={setUser} />
-                        }
-
-                    />
-                    <Route
-                        path="/dashboard/me"
-                        element={user.email ?
-                            <Dashboard
-                                setUser={setUser}
-                                user={user}
-                                adminSite={false}
-                                currentList={currentList}
-                                setCurrentList={setCurrentList}
-                                currentTab={currentTab}
-                                setCurrentTab={setCurrentTab}
-                            /> :
-                            <Authpage setUser={setUser} />
-                        }
-
-                    />
-                    <Route
-                        path="/user/detail/:id"
-                        element={
-                            <DetailUser admin={user} />
-                        }
-                    />
-                    <Route
-                        path="/item/detail/:id"
-                        element={
-                            <DetailItem />
-                        }
-                    />
+                    <Route index element={<Homepage />} />
+                    <Route path="home" element={<Homepage />} />
+                    <Route path="login" element={<Login setUser={setUser} />} />
+                    <Route path="signup" element={<Signup />} />
+                    <Route path="mylist" element={<User dataUser={mainUser} />} >
+                    </Route>
+                    <Route path="dashboard" element={<Admin />} />
+                    <Route path="user/:id" element={<UserById />} />
+                    <Route path="item/:id" element={<ItemById />} />
                 </Routes>
                 <Footer />
             </div>

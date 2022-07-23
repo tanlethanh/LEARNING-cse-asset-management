@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Chart from "react-google-charts";
-import { arrangeList } from "../../helpers/arrange";
+import { arrangeList } from "../helpers/arrange";
+import { AppContext } from "../App";
 
 const optionsItems = {
-   //title: "Quantity of items in CSE-Asset",
-   titlePosition: 'none',
-    width: "50%", 
+    //title: "Quantity of items in CSE-Asset",
+    titlePosition: 'none',
+    width: "50%",
     height: "50%",
     hAxis: {
         title: "Quantity",
@@ -82,13 +83,15 @@ function getDataUsers(users) {
 }
 
 function getDataOrders(orders) {
-    const numPending = orders.pending.length
-    const numProcess = orders.ok.length
+    let numPending = 0
+    let numProcess = 0
     let numDenied = 0
     let numDone = 0
-    orders.complete.forEach((order) => {
+    orders.forEach(order => {
         if (order.status === "denied") numDenied++
         else if (order.status === "done") numDone++
+        else if (order.status === "pending") numPending++
+        else if (order.status === "ok") numProcess++
     })
     return [
         ["Orders", "Quantity"],
@@ -98,32 +101,51 @@ function getDataOrders(orders) {
         ["Process", numProcess]
     ]
 }
-export default function Statistic({ data }) {
-    if (Object.keys(data).length === 0 || Object.keys(data.orders).length === 0) {
+export default function Statistic({ chosenListInMenu }) {
+
+    const { data } = useContext(AppContext)
+
+    if (!chosenListInMenu) chosenListInMenu="items"
+
+    const typeList = chosenListInMenu.split("_")[0]
+
+    if (data[typeList].length === 0) return (
+        <div className='statistic_container'>
+        </div>
+    )
+
+    let dataStatistic
+    if (typeList === "items") {
+        dataStatistic = getDataItems(data.items)
+    }
+    else if (typeList === "users") {
+        dataStatistic = getDataUsers(data.users)
+    }
+    else if (typeList === "orders") {
+        dataStatistic = getDataOrders(data.orders)
+    }
+    else {
         return (
             <div className='statistic_container'>
             </div>
         )
     }
-    const typeList = data.currentList.split("_")[0]
-    const dataItems = getDataItems(data.items)
-    const dataUsers = getDataUsers(data.users)
-    const dataOrders = getDataOrders(data.orders)
+
     return (
         <div className="statistic_container">
             {typeList === "items" &&
                 <div className="statistic_content">
                     <h2 className="statistic_content_title">
-                        Statistic of orders
+                        Statistic of items
                     </h2>
                     <Chart
                         chartType="BarChart"
                         width="100%"
                         height="260px"
-                        data={dataItems}
+                        data={dataStatistic}
                         options={optionsItems}
                     />
-                    
+
                 </div>
             }
 
@@ -134,21 +156,21 @@ export default function Statistic({ data }) {
                     </h2>
                     <div className="statistic_content_users">
                         <p>
-                            Total:  {(dataUsers[2][1] + dataUsers[3][1] + dataUsers[1][1])}
+                            Total:  {(dataStatistic[2][1] + dataStatistic[3][1] + dataStatistic[1][1])}
                         </p>
                         <p>
-                            Admin: {dataUsers[1][1]}
+                            Admin: {dataStatistic[1][1]}
                         </p>
                         <p>
-                            Member: {dataUsers[2][1]}
+                            Member: {dataStatistic[2][1]}
                         </p>
                         <p>
-                            Register: {dataUsers[3][1]}
+                            Register: {dataStatistic[3][1]}
                         </p>
                     </div>
                     <Chart
                         chartType="PieChart"
-                        data={dataUsers}
+                        data={dataStatistic}
                         options={optionsUsers}
                         width={"100%"}
                         height={"200px"}
@@ -163,24 +185,24 @@ export default function Statistic({ data }) {
                     </h2>
                     <div className="statistic_content_users">
                         <p>
-                            Total:  {(dataOrders[1][1] + dataOrders[2][1] + dataOrders[3][1] + dataOrders[4][1])}
+                            Total:  {(dataStatistic[1][1] + dataStatistic[2][1] + dataStatistic[3][1] + dataStatistic[4][1])}
                         </p>
                         <p>
-                            Pending: {dataOrders[3][1]}
+                            Pending: {dataStatistic[3][1]}
                         </p>
                         <p>
-                            Denied: {dataOrders[2][1]}
+                            Denied: {dataStatistic[2][1]}
                         </p>
                         <p>
-                            In process: {dataOrders[4][1]}
+                            In process: {dataStatistic[4][1]}
                         </p>
                         <p>
-                            Done: {dataOrders[1][1]}
+                            Done: {dataStatistic[1][1]}
                         </p>
                     </div>
                     <Chart
                         chartType="PieChart"
-                        data={dataOrders}
+                        data={dataStatistic}
                         options={optionsUsers}
                         width={"100%"}
                         height={"200px"}

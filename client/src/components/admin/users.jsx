@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios'
-import ConfirmPassword from '../../../helpers/confirmPassword';
-import Alert from '../../../helpers/alert';
-import Arrange, { arrangeList } from '../../../helpers/arrange';
-import getFormattedDate from '../../../utils/formatDate';
-import reverseName from '../../../utils/reverseName';
-import '../../../styles/waiting.css'
+import ConfirmPassword from '../../helpers/confirmPassword';
+import Arrange, { arrangeList } from '../../helpers/arrange';
+import getFormattedDate from '../../utils/formatDate';
+import reverseName from '../../utils/reverseName';
+import { AppContext } from '../../App';
 
-export default function Users({ admin, users, enable, changeUsers, setChangeUsers }) {
+export default function Users({ enable }) {
+    console.log(enable)
+
+    const { data, helpers, mainUser } = useContext(AppContext)
+    const [usersRender, setUsersRender] = useState([])
     const navigate = useNavigate()
-    const [confirmPassword, setConfirmPassword] = useState(false)
-    const [usersRender, setUsersRender] = useState(users)
+
     // utils
-    const [typeAlert, setTypeAlert] = useState("")
-    const [alert, setAlert] = useState(false)
-    const [alertMess, setAlertMess] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState(false)
     const [query, setQuery] = useState("")
     const [arrangeKey, setArrangeKey] = useState({
         column: "updatedAt",
@@ -24,7 +24,7 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
 
     // use for fragment
     const maxLengthOfFragment = 10
-    const numOfFragment = Math.ceil(users.filter(user => user.enable === enable).length * 1.0 / maxLengthOfFragment)
+    const numOfFragment = Math.ceil(data.users.filter(user => user.enable === enable).length * 1.0 / maxLengthOfFragment)
     const [currentFragment, setCurrentFragment] = useState(0)
     function prevFragment() {
         if (currentFragment > 0) setCurrentFragment(currentFragment - 1)
@@ -33,8 +33,92 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
         if (currentFragment < numOfFragment - 1) setCurrentFragment(currentFragment + 1)
     }
 
-    useEffect(() => {
+    // handle when onclick checkbox
+    const handleChecked = (index) => {
+        if (usersRender[index].doesToggle) {
+            usersRender[index].doesToggle = !usersRender[index].doesToggle
+        }
+        else {
+            usersRender[index].doesToggle = true
+        }
+    }
 
+    // onClickSubmitButton
+    const onClickSubmitButton = () => {
+        if (usersRender.filter(user => user.doesToggle === true).length === 0) {
+            helpers.setAlert({
+                type: "warning",
+                message: "Nothing to submit"
+            })
+            helpers.setOpenAlert(true)
+        }
+        else {
+            setConfirmPassword(true)
+        }
+    }
+
+    // callback after confirm password
+    const handleYes = (adminPassword) => {
+        const submitUsers = usersRender.filter(user => user.doesToggle === true)
+        helpers.setOpenLoading(true)
+
+        let hasError = false
+        submitUsers.map((user, index) => {
+            if (!hasError) {
+                Axios.patch(`/api/user/${user._id}?togglePermission=enable`, {
+                    adminPassword: adminPassword
+                })
+                    .then((response) => {
+
+                        user.enable = !user.enable
+                        user.doesToggle = false
+
+                        if (index === submitUsers.length - 1) {
+                            data.setUsers([...data.users])
+                            helpers.setOpenLoading(false)
+
+                            helpers.setAlert({
+                                type: "success",
+                                message: "Set enable successfully!"
+                            })
+
+                            helpers.setOpenAlert(true)
+
+                            setConfirmPassword(false)
+                        }
+                    })
+                    .catch(error => {
+                        helpers.setOpenLoading(false)
+                        hasError = true
+                        const alert = {
+                            type: "error",
+                            message: ""
+                        }
+                        if (error.response.status === 403) {
+                            alert.message = "Your password is incorrect!"
+                        }
+                        else {
+                            alert.message = error.response.data.message
+                            setConfirmPassword(false)
+                        }
+
+                        if (index > 0) {
+                            data.setUsers([...data.users])
+                        }
+
+                        helpers.setAlert(alert)
+                        helpers.setOpenAlert(true)
+                    })
+            }
+
+        })
+    }
+
+    function openUserDetail(user) {
+        navigate("../user/" + user._id)
+    }
+
+    useEffect(() => {
         let type = "string"
         if (arrangeKey.column === "updatedAt") {
             type = "date"
@@ -44,112 +128,34 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
         }
 
         if (query === "") {
-            setUsersRender(arrangeList(users, arrangeKey.column, type, arrangeKey.arrange))
+            setUsersRender(arrangeList(
+                data.users.filter(user => user.enable === enable),
+                arrangeKey.column, type, arrangeKey.arrange
+            ))
         }
         else {
             setUsersRender(
                 arrangeList(
-                    users.filter(user =>
+                    data.users.filter(user => user.enable === enable && (
                         user.fullName.toLowerCase().includes(query.toLowerCase())
                         || user.email.toLowerCase().includes(query.toLowerCase())
                         || user.studentCode.toLowerCase().includes(query.toLowerCase())
                         || user.phoneNumber.toLowerCase().includes(query.toLowerCase())
-                        || getFormattedDate(new Date(user.updatedAt)).includes(query.toLowerCase())
+                        || getFormattedDate(new Date(user.updatedAt)).includes(query.toLowerCase()))
                     ), arrangeKey.column, type, arrangeKey.arrange
                 )
             )
         }
-    }, [users, query, arrangeKey])
-
-    // handle when onclick checkbox
-    function handleChecked(studentCode) {
-        const indexUser = users.findIndex(user => user.studentCode === studentCode)
-        if (users[indexUser].doesToggle) {
-            users[indexUser].doesToggle = !users[indexUser].doesToggle
-        }
-        else {
-            users[indexUser].doesToggle = true
-        }
-    }
-    
-    const [waitingLoad, setWaitingLoad] = useState(false)
-
-    // callback after confirm password
-    const handleYes = (adminPassword) => {
-        const submitUsers = users.filter(user => user.enable === enable && user.doesToggle === true)
-        submitUsers.map((user, index) => {
-            setWaitingLoad(true)
-            Axios.patch(`/api/user/${user._id}?togglePermission=enable`, {
-                adminPassword: adminPassword
-            })
-                .then((response) => {
-                    if (index === submitUsers.length - 1) {
-                        setAlertMess("Set enable successfully!")
-                        setTypeAlert("success")
-                        setAlert(true)
-                        setTimeout(() => {
-                            setConfirmPassword(false)
-                            setChangeUsers(!changeUsers)
-                        }, 500)
-                    }
-                    setWaitingLoad(false)
-                })
-                .catch(error => {
-                    // console.log(error)
-                    if (error.response.status === 403) {
-                        setAlertMess("Your password is incorrect!")
-                    }
-                    else if (error.response.status === 400) {
-                        setAlertMess(error.response.data.messages)
-                    }
-                    else {
-                        setAlertMess(error.response.data.messages)
-                    }
-                    setTypeAlert("error")
-                    setAlert(true)
-                    setTimeout(() => {
-                        setConfirmPassword(false)
-                    }, 500)
-                })
-
-        })
-    }
-
-    function openUserDetail(user) {
-        navigate("../user/detail/" + user._id, { state: { user: user } })
-    }
-
-
-    if (users.filter(user => user.enable === enable).length === 0) {
-        return (
-            <h1 className='no_content'>Empty list!</h1>
-        )
-    }
+    }, [data.users, query, arrangeKey])
 
     return (
         <div>
-            {
-                <Alert
-                    type={typeAlert}
-                    message={alertMess}
-                    alert={alert}
-                    setAlert={setAlert}
-                />
-            }
             {
                 confirmPassword &&
                 <ConfirmPassword
                     setOpen={setConfirmPassword}
                     callback={handleYes}
                 />
-            }
-            {
-                waitingLoad && 
-                <div className="load">
-                    <div className="waiting-load">
-                        <span className="fa-solid fa-spinner rotate-around icon"></span>
-                    </div>
-                </div>
             }
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>
@@ -162,7 +168,9 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                     }}
                 />
             </div>
-            <p className='dashboard_guide'>Node: You can click on name of user to see and edit the detail of user</p>
+            <p className='dashboard_guide'>
+                Node: You can click on name of user to see and edit the detail of user
+            </p>
 
             <div className="list-item-title">
                 <div className="list-item-col user_email_col">
@@ -189,14 +197,18 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                 </div>
             </div>
             {
-                usersRender.filter(user => user.enable === enable).map((user, index) => {
+                usersRender.map((user, index) => {
                     return (
                         (index >= currentFragment * maxLengthOfFragment
                             && index < (currentFragment + 1) * maxLengthOfFragment)
                         &&
                         <div
                             key={user._id}
-                            className={"list-item " + ((admin._id === user._id && "list-item-you") || (index % 2 === 0 && "list-item-odd"))}
+                            className={
+                                "list-item " +
+                                ((mainUser.infor._id === user._id && "list-item-you")
+                                    || (index % 2 === 0 && "list-item-odd"))
+                            }
                         >
                             <div className="list-item-col user_email_col">{user.email}</div>
                             <div
@@ -216,7 +228,7 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                                     <input
                                         type="checkbox"
                                         onChange={() => {
-                                            handleChecked(user.studentCode)
+                                            handleChecked(index)
                                         }}
                                         defaultChecked={user.doesToggle === true}
                                     />
@@ -226,17 +238,17 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                     )
                 })
             }
-            <div className="submit_button_container">
+            {usersRender.length > 0 && <div className="submit_button_container">
                 <button
                     type="submit"
                     className="submit_button"
-                    onClick={() => { setConfirmPassword(true) }}
+                    onClick={onClickSubmitButton}
                 >
                     Submit
                 </button>
 
-            </div>
-            <div className="list-end">
+            </div>}
+            {numOfFragment > 1 && <div className="list-end">
                 <div id="previous-number">
                     <button className="move-list" onClick={prevFragment}>Previous</button>
                 </div>
@@ -257,7 +269,7 @@ export default function Users({ admin, users, enable, changeUsers, setChangeUser
                 <div id="next-number">
                     <button className="move-list" onClick={nextFragment}>Next</button>
                 </div>
-            </div>
+            </div>}
         </div>
     )
 

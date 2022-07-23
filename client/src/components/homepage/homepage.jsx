@@ -1,73 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import Axios from "axios";
+import React, { useState, useEffect, useContext } from 'react';
 import AvaiItem from './homepageItem/homeAvai';
 import UnavaiItem from './homepageItem/homeUnavai';
 import '../../styles/homepage.css';
-import '../../styles/waiting.css';
+import { AppContext } from '../../App';
 
-export default function Homepage(props) {
+export default function Homepage() {
 
     const [avai, setAvai] = useState([])
     const [unavai, setUnavai] = useState([])
 
+    const { data } = useContext(AppContext)
+
     //search
     const [query, setQuery] = useState("")
-    const [itemsAvaiRender, setItemsAvaiRender] = useState([])
-    const [itemsUnavaiRender, setItemsUnavaiRender] = useState([])
-    const [searchFirst, setSearchFirst] = useState(false)
-    const [waitingLoad, setWaitingLoad] = useState(false)
+    const [unavaiRender, setUnavaiRender] = useState([])
+    const [avaiRender, setAvaiRender] = useState([])
 
     useEffect(() => {
-        setWaitingLoad(true)
-        Axios.get("/api/item")
-            .then((response) => {
-                if (response.data.items) {
-                    response.data.items.map((item, index) => {
-                        {
-                            if (item.available !== 0) {
-                                setAvai(avai => [...avai, item])
-                            } else {
-                                setUnavai(unavai => [...unavai, item])
-                            }
-                        }
-                    });
-                }
-                setWaitingLoad(false)
-            });
+        const avaiItems = []
+        const unavaiItems = []
+        data.items.map(item => {
+            if (item.available != 0) {
+                avaiItems.push(item)
+            }
+            else {
+                unavaiItems.push(item)
+            }
+        })
 
-    },[])
+        setAvai(avaiItems)
+        setUnavai(unavaiItems)
+        console.log(avai)
+        console.log(unavai)
+
+    }, [data.items])
 
     useEffect(() => {
         if (query === "") {
-            setSearchFirst(false)
+            setAvaiRender(avai)
+            setUnavaiRender(unavai)
         }
         else {
-            setItemsAvaiRender(
+            setAvaiRender(
                 avai.filter(item =>
                     item.name.toLowerCase().includes(query.toLowerCase())
                     || item.category.toLowerCase().includes(query.toLowerCase())
                 )
             )
-            setItemsUnavaiRender(
+            setUnavaiRender(
                 unavai.filter(item =>
                     item.name.toLowerCase().includes(query.toLowerCase())
                     || item.category.toLowerCase().includes(query.toLowerCase())
                 )
             )
-            setSearchFirst(false)
         }
-    }, [query])
+    }, [query, avai, unavai])
 
     return (
         <div>
-            {
-                waitingLoad && 
-                <div className="load">
-                    <div className="waiting-load">
-                        <span className="fa-solid fa-spinner rotate-around icon"></span>
-                    </div>
-                </div>
-            }
             <div className='homepage-container'>
                 <p className='homepage-title'><b>AVAILABLE DEVICE</b></p>
                 <div className="list-search">
@@ -81,15 +71,9 @@ export default function Homepage(props) {
 
                 <div className='homepage-item-container'>
                     <div className="homepage-card-container">
-                        {!searchFirst ? 
-                        avai.map((item) => {
+                        {avaiRender.map((item) => {
                             return (
-                                <AvaiItem item={item} key={item._id}/>
-                            )
-                        }):
-                        itemsAvaiRender.map((item) => {
-                            return (
-                                <AvaiItem item={item} key={item._id}/>
+                                <AvaiItem item={item} key={item._id} />
                             )
                         })}
                     </div>
@@ -97,37 +81,23 @@ export default function Homepage(props) {
 
                 <hr className='homepage-line'></hr>
 
-                {unavai.length > 0 && <p className='homepage-title un-title'>UNAVAILABLE DEVICE</p>}
+                {unavaiRender.length > 0 && <p className='homepage-title un-title'>UNAVAILABLE DEVICE</p>}
 
                 <div className='homepage-item-container'>
                     <div className="homepage-card-container">
-                        {!searchFirst ?
-                        unavai.map((item) => {
-                            return (
-                                <UnavaiItem
-                                    name={item.name}
-                                    available={item.available}
-                                    quantity={item.quantity}
-                                    category={item.category}
-                                    description={item.description}
-                                    image={item.image}
-                                    key={item._id}
-                                />
-                            )
-                        }):
-                        itemsUnavaiRender.map((item) => {
-                            return (
-                                <UnavaiItem
-                                    name={item.name}
-                                    available={item.available}
-                                    quantity={item.quantity}
-                                    category={item.category}
-                                    description={item.description}
-                                    image={item.image}
-                                    key={item._id}
-                                />
-                            )
-                        })}
+                        {unavaiRender.map((item) => {
+                                return (
+                                    <UnavaiItem
+                                        name={item.name}
+                                        available={item.available}
+                                        quantity={item.quantity}
+                                        category={item.category}
+                                        description={item.description}
+                                        image={item.image}
+                                        key={item._id}
+                                    />
+                                )
+                            })}
                     </div>
                 </div>
             </div>

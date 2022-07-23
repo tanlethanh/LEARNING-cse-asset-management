@@ -1,4 +1,19 @@
 /* admin */
+
+.toggle_admin {
+    font-size: 12px;
+    color: #212C58;
+    font-style: italic;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.delete_user {
+    color: #A30D11;
+    cursor: pointer;
+    font-size: 14px;
+}
+
 .isAdmin {
     color: green;
     font-size: 0.7em;
@@ -79,6 +94,18 @@
     background: #212C58 !important;
     color: #fff !important;
 }
+
+/* .admin_container #content {
+    margin-top: 0;
+}
+
+.item_detail_container #content {
+    margin-top: 0 !important;
+}
+
+.user_detail_container #content {
+    margin-top: 0 !important;
+} */
 
 .list-item-col.list_item_multiline {
     display: flex;
