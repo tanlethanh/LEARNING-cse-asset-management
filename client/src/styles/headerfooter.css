@@ -292,6 +292,22 @@
     margin-left: 20px;
 }
 
+.infor_user_container {
+    position: fixed;
+    right: 100px;
+    top: var(--height-nav);
+    background-color: #fff;
+    width: 20%;
+    height: 30%;
+    box-shadow: 5px 5px rgba(213, 208, 208, 0.7);
+}
+
+.log_out {
+    cursor: pointer;
+}
+
+
+
 /* responsive */
 @media only screen and (max-width: 1040px) {
     .hamburger-icon {

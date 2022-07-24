@@ -2,14 +2,28 @@ import React, { useContext, useState } from 'react';
 import '../../styles/headerfooter.css'
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
+import Axios from 'axios';
 
 export function Header({
     openCart,
     setOpenCart
 }) {
     const navigate = useNavigate();
-
+    const [openUserDetail, setOpenUserDetail] = useState(false)
     const { mainUser } = useContext(AppContext)
+
+    const logout = () => {
+        Axios.post("/api/auth/logout")
+            .then((res) => {
+                mainUser.setUser({})
+                mainUser.setOrders([])
+                navigate("../")
+            })
+            .catch((err) => {
+
+            })
+    }
+
 
     // const handleClickButton = (curList) => {
     //     setCurrentList(curList)
@@ -137,13 +151,21 @@ export function Header({
                     {mainUser.infor.email &&
                         <a
                             className="checklist-header-nav nav-user-btn"
-                            onClick={
+                            onMouseEnter={
                                 (e) => {
-                                    // setOpenCart(!openCart)
+                                    setOpenUserDetail(true)
                                 }
-                            }>
+                            }
+                            onMouseLeave={
+                                (e) => {
+                                    console.log(e)
+                                    setOpenUserDetail(false)
+                                }
+                            }
+                        >
                             <p>{mainUser.infor.fullName}</p>
                             <i className="fa-solid fa-circle-user"></i>
+
                         </a>}
                     <a
                         className="checklist-header-nav nav-btn"
@@ -157,6 +179,37 @@ export function Header({
 
                 </li>
             </ul>
+
+            {openUserDetail &&
+                <div
+                    className="infor_user_container"
+                    onMouseEnter={
+                        (e) => {
+                            setOpenUserDetail(true)
+                        }
+                    }
+                    onMouseLeave={
+                        (e) => {
+                            console.log(e)
+                            setOpenUserDetail(false)
+                        }
+                    }
+                >
+                    <p>{mainUser.infor.fullName}</p>
+                    <p>{mainUser.infor.email}</p>
+                    <p>{mainUser.infor.studentCode}</p>
+                    <div
+                        className='log_out'
+                        onClick={()=>{
+                            setOpenUserDetail(false)
+                            logout()
+                        }}
+                    >
+                        Log out
+                        <i className="fa-solid fa-right-from-bracket"></i>
+                    </div>
+                </div>}
+
         </header>
     )
 }
