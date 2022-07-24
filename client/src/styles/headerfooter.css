@@ -88,8 +88,7 @@
 }
 
 .nav-user-btn i {
-    font-size: 40px;
-    
+    font-size: 28px;
 }
 
 .nav-btn {
@@ -296,20 +295,66 @@
     position: fixed;
     right: 100px;
     top: var(--height-nav);
-    background-color: #fff;
-    width: 20%;
-    height: 30%;
-    box-shadow: 5px 5px rgba(213, 208, 208, 0.7);
+    color: #fff;
+    width: 370px;
+    height: 310px;
+    box-shadow: 0px 10px 10px rgba(157, 156, 156, 0.7);
+    background-color: #6F7DB0;
+    border-radius: 0px 0px 30px 30px;
+    z-index: 10;
+    box-sizing: border-box;
+    padding: 20px 30px 10px;
+}
+
+.infor_user_container i {
+    font-size: 24px;  
+    position: absolute;
+}
+
+.infor_user_container p {
+    display: inline-block;
+    margin-left: 39px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 85%;
+}
+
+.infor_user_container h2 {
+    border-bottom: 3px solid #d7d7d7;
+    border-radius: 2px;
+    padding-bottom: 10px;
+    text-align: center;
 }
 
 .log_out {
+    width: 130px;
+    height: 45px;
+    border: none;
+    display: block;
+    background-color: #fff;
+    color: #212C58;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 30px;
     cursor: pointer;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+}
+
+.log_out:hover {
+    cursor: pointer;
+    background-color: #212C58;
+    color: #fff
 }
 
 
 
 /* responsive */
-@media only screen and (max-width: 1040px) {
+/* @media only screen and (max-width: 1040px) {
     .hamburger-icon {
         display: inline-block;
     }
@@ -328,4 +373,4 @@
     .another {
         display: block;
     }
-}
+} */

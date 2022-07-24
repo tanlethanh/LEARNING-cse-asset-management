@@ -195,10 +195,25 @@ export function Header({
                         }
                     }
                 >
-                    <p>{mainUser.infor.fullName}</p>
-                    <p>{mainUser.infor.email}</p>
-                    <p>{mainUser.infor.studentCode}</p>
-                    <div
+                    <h2>{mainUser.infor.isAdmin ? "ADMIN" : "MEMBER"}</h2>
+                    <br/>
+                    <div>
+                        <i className="fa-solid fa-circle-user"></i>
+                        <p>{mainUser.infor.fullName}</p>
+                    </div>
+                    <div>
+                        <i className="fa-solid fa-envelope"></i>
+                        <p>{mainUser.infor.email}</p>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-id-card"></i>
+                        <p>{mainUser.infor.studentCode}</p>
+                    </div>
+                    <div>
+                        <i className="fa-solid fa-phone"></i>
+                        <p>{mainUser.infor.phoneNumber}</p>
+                    </div>
+                    <button
                         className='log_out'
                         onClick={()=>{
                             setOpenUserDetail(false)
@@ -206,8 +221,7 @@ export function Header({
                         }}
                     >
                         Log out
-                        <i className="fa-solid fa-right-from-bracket"></i>
-                    </div>
+                    </button>
                 </div>}
 
         </header>

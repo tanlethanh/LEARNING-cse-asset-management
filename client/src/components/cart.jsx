@@ -99,7 +99,7 @@ export default function Cart() {
       <div className="checklist-submit-modal">
         <div className="checklist-submit-modal-container">
           <div className="checklist-submit-modal-title">
-            <h2>Hello title modal</h2>
+            <h2>PLEASE SET RETURN DATE</h2>
           </div>
           <div className="checklist-submit-modal-content scrollChecklist">
             {cart.map((item, index) => {

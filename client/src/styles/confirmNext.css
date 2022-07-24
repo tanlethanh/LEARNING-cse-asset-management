@@ -55,18 +55,18 @@
 }
 
 .confirm_next_footer .yes_button {
-    background-color: #CD6200;
+    background-color: red;
     color: #fff;
 }
 
 .confirm_next_footer .yes_button:hover {
-    color: #CD6200;
+    color: red;
     background-color: #fff;
-    border: 1px solid #CD6200;
+    border: 1px solid red;
 }
 
 .confirm_next_footer .cancel_button {
-    background-color: rgba(200, 200, 200, 0.2);
+    background-color: rgb(200, 200, 200);
     color: gray;
 }
 
