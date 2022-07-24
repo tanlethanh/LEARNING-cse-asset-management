@@ -5,9 +5,10 @@ import ConfirmPassword from '../../helpers/confirmPassword';
 import { AppContext } from '../../App';
 import User from './user';
 import EditUserModal from './editUserModal';
-// import EditUserModal from '../user/editUserModal'
+import NotFoundPage from '../../helpers/notFoundPage';
+import BlankPage from '../../helpers/blankPage';
 
-export default function UserById({}) {
+export default function UserById({ }) {
 
     const navigate = useNavigate()
 
@@ -20,6 +21,7 @@ export default function UserById({}) {
     const [openEditUser, setOpenEditUser] = useState(false)
     const [confirmDelete, setConfirmDelete] = useState(false)
     const [confirmPermission, setConfirmPermission] = useState(false)
+    const [notFound, setNotFound] = useState(false)
 
     const dataUser = {
         infor: user,
@@ -34,6 +36,8 @@ export default function UserById({}) {
                 setUser(response.data.user)
             })
             .catch(error => {
+                setNotFound(true)
+                helpers.setOpenLoading(false)
             })
     }, [isUpdated])
 
@@ -136,8 +140,10 @@ export default function UserById({}) {
             })
     }
 
+    if (!mainUser.infor.isAdmin || notFound) return <NotFoundPage />
+    if (Object.keys(user).length === 0) return <BlankPage />
+
     return (
-        Object.keys(user).length > 0 &&
         <div className="dashboard_container">
             {confirmPermission && <ConfirmPassword setOpen={setConfirmPermission} callback={HandleAdminPermission} />}
             {confirmDelete && <ConfirmPassword setOpen={setConfirmDelete} callback={HandleDelete} />}

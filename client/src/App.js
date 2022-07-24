@@ -13,6 +13,7 @@ import Cart from './components/cart';
 import Alert from './helpers/alert';
 import Loading from './helpers/loading';
 import './styles/app.css'
+import NotFoundPage from './helpers/notFoundPage';
 
 export const AppContext = React.createContext()
 
@@ -101,11 +102,15 @@ function App() {
                 })
         }
 
+        setOpenLoading(true)
         Axios.get("/api/auth")
             .then((response) => {
                 setUser(response.data.user)
+                setOpenLoading(false)
             })
-            .catch(err => { })
+            .catch(err => {
+                setOpenLoading(false)
+            })
     }, [])
 
     // Update infor or order list of user
@@ -113,6 +118,7 @@ function App() {
     useEffect(() => {
         if (user.enable && (ordersOfUser.length === 0 || isUpdatedOrders)) {
             const orders = []
+            setOpenLoading(true)
             user.orders.map((orderid, index) => {
                 Axios.get(`/api/order/${orderid}`)
                     .then((response) => {
@@ -121,21 +127,26 @@ function App() {
                         if (index === user.orders.length - 1) {
                             setOrdersOfUser(orders)
                             setIsUpdatedOrders(false)
+                            setOpenLoading(false)
                         }
                     })
                     .catch(() => {
-
+                        setOpenLoading(false)
                     })
             })
         }
 
         if (user.enable && isUpdatedInfor) {
+            setOpenLoading(true)
             Axios.get("/api/auth")
                 .then((response) => {
                     setUser(response.data.user)
                     setIsUpdatedOrders(false)
+                    setOpenLoading(false)
                 })
-                .catch(err => {})
+                .catch(err => {
+                    setOpenLoading(false)
+                })
         }
 
         document.title = `Asset of ${user.fullName || 'me'}`
@@ -145,20 +156,24 @@ function App() {
     // Fetch all of order, user for admin
     useEffect(() => {
         if (user.isAdmin) {
+            setOpenLoading(true)
             Axios.get("/api/user")
                 .then((response) => {
                     setUsers(response.data.users)
+                    setOpenLoading(false)
                 })
                 .catch(err => {
-
+                    setOpenLoading(false)
                 })
 
+            setOpenLoading(true)
             Axios.get("/api/order")
                 .then((response) => {
                     setOrders(response.data.orders)
+                    setOpenLoading(false)
                 })
                 .catch(err => {
-
+                    setOpenLoading(false)
                 })
         }
 
@@ -196,6 +211,7 @@ function App() {
                     <Route path="dashboard" element={<Admin />} />
                     <Route path="user/:id" element={<UserById />} />
                     <Route path="item/:id" element={<ItemById />} />
+                    <Route path="*" element={<NotFoundPage />} />
                 </Routes>
                 <Footer />
             </div>

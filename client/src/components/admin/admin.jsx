@@ -8,6 +8,7 @@ import '../../styles/button.scss'
 import Items from './items';
 import Users from './users';
 import Orders from './orders';
+import NotFoundPage from '../../helpers/notFoundPage';
 
 export default function Admin() {
 
@@ -15,6 +16,8 @@ export default function Admin() {
     const [searchParams, setSearchParams] = useSearchParams()
     const tab = searchParams.get("tab")
     const type = searchParams.get("type")
+
+    if (!mainUser.infor.isAdmin) return <NotFoundPage />
 
     return (
         <div className="dashboard_container">

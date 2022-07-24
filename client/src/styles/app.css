@@ -24,3 +24,31 @@
 .list-search input:focus {
     outline: none;
 }
+
+.blank_page {
+    height: 100vh;
+    width: 100vw;
+    background-color: azure;
+}
+
+.content_not_found {
+    padding-top: var(--height-nav);
+    height: calc(100vh - var(--height-footer));
+    width: 100%;
+    background-color: #6F7DB0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.error {
+    font-size: 80px;
+    font-weight: 900;
+    color: #fff;
+}
+.error_content {
+    font-size: 25px;
+    font-weight: 700;
+    color: #fff;
+}

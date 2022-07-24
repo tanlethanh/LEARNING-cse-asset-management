@@ -4,6 +4,8 @@ import { useParams, useSearchParams } from 'react-router-dom'
 import { AppContext } from '../../App'
 import ListOfItem from './listOfItem';
 import EditItemModal from './editItemModal';
+import BlankPage from '../../helpers/blankPage';
+import NotFoundPage from '../../helpers/notFoundPage';
 
 export default function ItemById() {
 
@@ -11,9 +13,10 @@ export default function ItemById() {
     const [searchParams, setSearchParams] = useSearchParams()
     const typeTab = searchParams.get("type")
 
-    const { data, helpers } = useContext(AppContext)
+    const { data, helpers, mainUser } = useContext(AppContext)
 
     // for data of item
+    const [notFound, setNotFound] = useState(false)
     const [item, setItem] = useState({})
     const [isUpdated, setIsUpdated] = useState(false)
     const [currentBorrowerList, setCurrentBorrowerList] = useState([])
@@ -30,12 +33,8 @@ export default function ItemById() {
                 helpers.setOpenLoading(false)
             })
             .catch((error) => {
+                setNotFound(true)
                 helpers.setOpenLoading(false)
-                helpers.setAlert({
-                    type: "error",
-                    message: "Get item failure!"
-                })
-                helpers.setOpenAlert(true)
             })
 
     }, [isUpdated])
@@ -64,8 +63,10 @@ export default function ItemById() {
         setBorrowerList(all)
     }, [data.orders, item])
 
+    if (!mainUser.infor.isAdmin || notFound) return <NotFoundPage />
+
+    if (Object.keys(item).length === 0) return <BlankPage />
     return (
-        Object.keys(item).length > 0 &&
         <div className="dashboard_container item_detail_container">
 
             {openEditItem &&

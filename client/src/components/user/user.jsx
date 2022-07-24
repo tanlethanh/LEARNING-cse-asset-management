@@ -5,6 +5,7 @@ import BorrowingOrders from "./borrowingOrders"
 import CurrentOrders from "./currentOrders"
 import ReturnedOrders from "./returnedOrders"
 import '../../styles/member.css'
+import NotFoundPage from "../../helpers/notFoundPage"
 
 export default function User({ dataUser }) {
 
@@ -40,6 +41,9 @@ export default function User({ dataUser }) {
         setReturnedList(newReturnedList)
 
     }, [dataUser.orders]) // list of orders need to reload when this user has updated
+
+    if (!mainUser.infor.enable) return <NotFoundPage />
+
     return (
         <div className={(mainUser === dataUser) ? "temp_header" : ""}>
             <div id="content">
