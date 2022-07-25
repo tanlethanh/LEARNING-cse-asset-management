@@ -28,7 +28,7 @@
 
 #menu {
     background-color: #48578E;
-    width: var(--width-menu);
+    width: 600px;
     /* height: 100%; */
     /* position: absolute; */
     padding: 20px 15px;
@@ -48,7 +48,7 @@
 .menu_list_admin {
     border: none;
     /* position: absolute; */
-    width: 100%;
+    width: 200px;
     height: 35px;
     font-family: 'Poppins';
     font-weight: 500;
@@ -419,7 +419,7 @@
 }
 
 /* responsive */
-@media only screen and (max-width: 1040px) {
+@media only screen and (max-width: 1050px) {
     #menu {
        display: none;
     }

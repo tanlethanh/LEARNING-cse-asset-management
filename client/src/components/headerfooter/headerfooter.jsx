@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import '../../styles/headerfooter.css'
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
@@ -10,7 +11,12 @@ export function Header({
 }) {
     const navigate = useNavigate();
     const [openUserDetail, setOpenUserDetail] = useState(false)
+    const [navBarHidden, setNavBarHidden] = useState(false)
     const { mainUser } = useContext(AppContext)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [currentPage, setCurrentPage] = useState("mylist")
+    const tab = searchParams.get("tab")
+    const type = searchParams.get("type")
 
     const logout = () => {
         Axios.post("/api/auth/logout")
@@ -176,7 +182,19 @@ export function Header({
                         }>
                         <i className="fa-solid fa-box-open"></i>
                     </a>
-
+                </li>
+                <li className="hamburger_nav">
+                    <i className="fa-solid fa-bars hamburger-icon" onClick={() => {setNavBarHidden(!navBarHidden)}}></i>
+                    <a
+                        className="checklist-header-nav hamburger-cart"
+                        onClick={
+                            (e) => {
+                                setOpenCart(!openCart)
+                                setNavBarHidden(false)
+                            }
+                        }>
+                        <i className="fa-solid fa-box-open"></i>
+                    </a>
                 </li>
             </ul>
 
@@ -222,6 +240,165 @@ export function Header({
                     >
                         Log out
                     </button>
+                </div>}
+            
+            {navBarHidden &&
+                <div className='hamburger-background'>
+                    <div className="hamburger-container">
+                        <div className="hamburger-route">
+                            <button className="hamburger-route-button" onClick={() => {
+                                navigate("/");
+                                setNavBarHidden(false)
+                                setCurrentPage("/")
+                            }}>Home</button>
+
+                            {mainUser.infor.email ?
+                                <button className="hamburger-route-button" onClick={() => {
+                                    navigate("mylist");
+                                    setNavBarHidden(false)
+                                    setCurrentPage("mylist")
+                                }}>My orders</button>
+                                :
+                                <button className="hamburger-route-button" onClick={() => {
+                                    navigate("login");
+                                    setNavBarHidden(false)
+                                }}>Log in</button>
+                            }
+
+                            {!mainUser.infor.email &&
+                                <button className="hamburger-route-button" onClick={() => {
+                                    navigate("signup");
+                                    setNavBarHidden(false)
+                                }}>Sign up</button>
+                            }
+
+                            {(mainUser.infor.isAdmin) && <button className="hamburger-route-button" onClick={() => {
+                                navigate("dashboard");
+                                setNavBarHidden(false)
+                                setCurrentPage("dashboard")
+                            }}>Dash board</button>}
+                        </div>
+                        {mainUser.infor.email &&<div className="hamburger-user-detail">
+                            <div>
+                                <i className="fa-solid fa-circle-user"></i>
+                                <p>{mainUser.infor.fullName}</p>
+                            </div>
+                            <div>
+                                <i className="fa-solid fa-envelope"></i>
+                                <p>{mainUser.infor.email}</p>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-id-card"></i>
+                                <p>{mainUser.infor.studentCode}</p>
+                            </div>
+                            <div>
+                                <i className="fa-solid fa-phone"></i>
+                                <p>{mainUser.infor.phoneNumber}</p>
+                            </div>
+                        </div>}
+
+                        {(mainUser.infor.email &&currentPage=="dashboard") &&
+                        <div className="hamburger-user-detail">
+                            <h2 className="menu_title" >DASH BOARD</h2>
+
+                            <h3 className='menu_list_title'>Items, devices</h3>
+                            <button
+                                className={"hamburger_list_admin " + ((tab === "items" || !tab) && "chosen")}
+                                onClick={() => setSearchParams({
+                                    tab: "items"
+                                })}
+                            >
+                                Items
+                            </button>
+
+                            <h3 className='menu_list_title'>Users</h3>
+                            <button
+                                className={"hamburger_list_admin " + (tab === "users" && type === "register" && "chosen")}
+                                onClick={() => setSearchParams({
+                                    tab: "users",
+                                    type: "register"
+                                })}
+                            >
+                                Register users
+                            </button>
+
+                            <button
+                                className={"hamburger_list_admin " + (tab === "users" && type === "member" && "chosen")}
+                                onClick={() => setSearchParams({
+                                    tab: "users",
+                                    type: "member"
+                                })}
+                            >
+                                Member
+                            </button>
+
+                            <h3 className='menu_list_title'>Oders</h3>
+                            <button
+                                className={"hamburger_list_admin " + (tab === "orders" && type === "pending" && "chosen")}
+                                onClick={() => setSearchParams({
+                                    tab: "orders",
+                                    type: "pending"
+                                })}
+                            >
+                                Pending orders
+                            </button>
+
+                            <button
+                                className={"hamburger_list_admin " + (tab === "orders" && type === "accepted" && "chosen")}
+                                onClick={() => setSearchParams({
+                                    tab: "orders",
+                                    type: "accepted"
+                                })}
+                            >
+                                Processing orders
+                            </button>
+
+                            <button
+                                className={"hamburger_list_admin " + (tab === "orders" && type === "complete" && "chosen")}
+                                onClick={() => setSearchParams({
+                                    tab: "orders",
+                                    type: "complete"
+                                })}
+                            >
+                                Complete orders
+                            </button>
+
+                        </div>}
+
+                        {(mainUser.infor.email && currentPage=="mylist") &&
+                        <div className="hamburger-user-detail">
+                            <h2 className="menu_title" >LIST</h2>
+                            <button
+                                className={(tab === "current" || !tab) ? "hamburger_list_admin chosen" : "hamburger_list_admin"}
+                                onClick={() => { setSearchParams({ tab: "current" }) }}
+                            >
+                                Current list
+                            </button>
+                            <button
+                                className={tab === "borrowing" ? "hamburger_list_admin chosen" : "hamburger_list_admin"}
+                                onClick={() => { setSearchParams({ tab: "borrowing" }) }}
+                            >
+                                Borrowing list
+                            </button>
+                            <button
+                                className={tab === "returned" ? "hamburger_list_admin chosen" : "hamburger_list_admin"}
+                                onClick={() => { setSearchParams({ tab: "returned" }) }}
+                            >
+                                Returned list
+                            </button>
+                        </div>}
+
+                        {mainUser.infor.email && <button
+                            className='hamburger_log_out'
+                            onClick={()=>{
+                                setOpenUserDetail(false)
+                                setCurrentPage("mylist")
+                                logout()
+                            }}
+                        >
+                            Log out
+                        </button>}
+                    </div>
                 </div>}
 
         </header>

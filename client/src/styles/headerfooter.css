@@ -115,41 +115,120 @@
 
 .hamburger-icon {
     display: none;
+    position: absolute;
+    right: 40px;
+    top: 28%;
     color: #fff;
-    text-decoration: none;
-    font-size: 30px !important;
-    font-weight: 700;
-    line-height: var(--height-nav);
-    padding: 0 24px;
+    font-size: 30px;
     cursor: pointer;
-    text-align: center;
+}
+
+.hamburger-cart{
+    display: none;
+    position: absolute;
+    right: 100px;
+    top: 25%;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
 }
 
 .hamburger-background {
+    display: none;
     top: var(--height-nav);
     left: 0;
     z-index: 10;
     width: 100vw;
     height: 100vh;
     position: fixed;
-    background-color: rgba(192, 207, 250, 0.3);
-    display: flex;
-    /* justify-content: center; */
-    align-items: center;
+    background-color: rgba(132, 130, 130, 0.303);
+    backdrop-filter: blur(0.3rem);
 }
 
 .hamburger-container {
-    width: 300px;
+    width: 360px;
     height: 100vh;
     background-color:rgba(72, 87, 142, 0.7);
+    float: right;
     backdrop-filter: blur(0.8rem);
-    position: fixed;
-    top: 70px;
-    right: 0;
-    border: none;
     z-index: 10;
-    color: #000;
-    display: none;
+    color: #fff; 
+    padding: 15px 20px;
+}
+
+.hamburger-user-detail {
+    border-bottom: 3px solid #d7d7d7;
+    border-radius: 3px;
+    margin-top: 10px;
+}
+
+.hamburger-user-detail p {
+    padding: 0px 10px;
+    display: inline-block;
+    margin-left: 30px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.hamburger-user-detail i {
+    font-size: 18px;  
+    position: absolute;
+    left: calc(20px + 10px);
+}
+
+.hamburger-user-detail h2 {
+    border-bottom: 3px solid #d7d7d7;
+    border-radius: 3px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.hamburger-user-detail h3 {
+    padding: 0px 10px;
+}
+
+.hamburger-route {
+    border-bottom: 3px solid #d7d7d7;
+    border-radius: 3px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hamburger-route-button {
+    width: 100px;
+    height: 40px;
+    border: none;
+    margin-bottom: 10px;
+    background-color: #fff;
+    color: #212C58;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: all 0.1s linear;
+}
+
+.hamburger-route-button:first-child{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.hamburger-route-button:last-child{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.hamburger-route-button:hover {
+    cursor: pointer;
+    background-color: #48578E;
+    color: #fff
 }
 
 .hamburger-item {
@@ -196,10 +275,38 @@
 }
 
 .hamburger_list_admin.chosen {
-    background: #fff !important;
+    background: #fff;
     border-radius: 15px;
     color: #212C58;
 }
+
+.hamburger_log_out {
+    width: 100px;
+    height: 40px;
+    border: none;
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 5px;
+    transform: translateX(-50%);
+    background-color: #fff;
+    color: #212C58;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+}
+
+.hamburger_log_out:hover {
+    cursor: pointer;
+    background-color: #212C58;
+    color: #fff
+}
+
+
 
 
 /* Footer section */
@@ -354,12 +461,15 @@
 
 
 /* responsive */
-/* @media only screen and (max-width: 1040px) {
+ @media only screen and (max-width: 1050px) {
+    .hamburger-cart{
+        display: block;
+    }
     .hamburger-icon {
-        display: inline-block;
+        display: block;
     }
 
-    .hamburger-container {
+    .hamburger-background{
         display: block;
     }
 
@@ -367,10 +477,7 @@
         display: none;
     }
 
-    .navi {
+    .nav-user-btn {
         display: none;
     }
-    .another {
-        display: block;
-    }
-} */
+} 
