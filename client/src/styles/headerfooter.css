@@ -156,6 +156,14 @@
     padding: 15px 20px 85px;
     overflow-y: scroll;
     overflow-x: hidden;
+    animation: slideright 0.4s linear;
+    position: fixed;
+    right: 0;
+}
+
+@keyframes slideright {
+    from {right: -360px}
+    to {right:0px}
 }
 
 .hamburger-container::-webkit-scrollbar {
