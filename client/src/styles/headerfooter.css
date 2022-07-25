@@ -153,12 +153,12 @@
     backdrop-filter: blur(0.8rem);
     z-index: 10;
     color: #fff; 
-    padding: 15px 20px 85px;
+    padding: 10px 20px 100px;
     overflow-y: scroll;
     overflow-x: hidden;
     animation: slideright 0.4s linear;
-    position: fixed;
-    right: 0;
+    position: absolute;
+    right: 0px;
 }
 
 @keyframes slideright {
