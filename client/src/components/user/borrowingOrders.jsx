@@ -57,7 +57,7 @@ export default function BorrowingOrders({ dataUser, orderList }) {
     }
 
     return (
-        <div>
+        <div className='borrowing_list'>
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input
@@ -69,26 +69,26 @@ export default function BorrowingOrders({ dataUser, orderList }) {
                 />
             </div>
             <div className="list-item list-item-title">
-                <div className="list-item-col item_name_col">
+                <div className="list-item-col user_name_col">
                     Item
                     <Arrange type="nameItem" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col item_category_col">
+                <div className="list-item-col user_category_col">
                     Category
                     <Arrange type="categoryItem" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col">
+                <div className="list-item-col user_quantity_col">
                     Quantity
                     <Arrange type="quantity" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col">
-                    Download form
+                <div className="list-item-col user_download_col">
+                    Download
                 </div>
-                <div className="list-item-col">
+                <div className="list-item-col user_acceptDate_col">
                     Accept date
                     <Arrange type="updatedAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col">
+                <div className="list-item-col user_returnDate_col">
                     Return date
                     <Arrange type="returnDate" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
@@ -98,22 +98,22 @@ export default function BorrowingOrders({ dataUser, orderList }) {
                 index >= currentFragment * maxOfFragment && index < (currentFragment + 1) * maxOfFragment
                 &&
                 <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={order._id}>
-                    <div className="list-item-col item_name_col">
+                    <div className="list-item-col user_name_col">
                         {order.nameItem}
                     </div>
-                    <div className="list-item-col item_category_col">
+                    <div className="list-item-col user_category_col">
                         {order.categoryItem}
                     </div>
-                    <div className="list-item-col">
+                    <div className="list-item-col user_quantity_col">
                         {order.quantity}
                     </div>
-                    <div className="list-item-col">
+                    <div className="list-item-col user_download_col">
                         <OrderPDF user={dataUser.infor} order={order} />
                     </div>
-                    <div className="list-item-col">
+                    <div className="list-item-col user_acceptDate_col">
                         {getFormattedDate(new Date(order.updatedAt))}
                     </div>
-                    <div className="list-item-col">
+                    <div className="list-item-col user_returnDate_col">
                         {getFormattedDate(new Date(order.returnDate))}
                     </div>
                 </div>

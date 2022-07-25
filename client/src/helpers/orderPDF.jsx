@@ -2,7 +2,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import '../styles/pdf.css'
 
-const OrderPDF = ({ user, order }) => {
+const OrderPDF = ({ user, order, className }) => {
 
     const exportPDF = () => {
         const input = document.getElementById("pdf")
@@ -16,7 +16,7 @@ const OrderPDF = ({ user, order }) => {
     }
 
     return (
-        <div className="list-item-col">
+        <div className={"list-item-col " + className}>
             <i onClick={exportPDF} className="fa-solid fa-download accept"></i>
             <div
                 id="pdf"
