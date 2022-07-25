@@ -9,7 +9,7 @@
     border: none;
     z-index: 2;
     color: #000;
-    animation: dropdown 0.8s ease-in;
+    animation: dropdown 0.5s ease-out;
 }
 
 @keyframes dropdown {
@@ -172,6 +172,9 @@
     align-items: center;
     flex-direction: column;
     padding: 40px 30px;
+}
+
+.checklist-submit-modal-container.first{
     animation: fadeIn .6s, slideIn .6s linear;
 }
 
@@ -194,7 +197,7 @@
     }
   }
   
-  @keyframes fadeIn {
+@keyframes fadeIn {
     0% {
       opacity: 0;
     }

@@ -8,6 +8,7 @@ import '../styles/cart.css'
 export default function Cart() {
   const { cart, setCart, helpers, mainUser } = useContext(AppContext)
   const [change, setChange] = useState(false)
+  const [firstOpenModal, setFirstOpenModal] = useState(false)
 
   // For submit modal
   const [openModal, setOpenModal] = useState(false)
@@ -33,6 +34,7 @@ export default function Cart() {
 
   const handleNextButton = () => {
     setOpenModal(true)
+    setFirstOpenModal(true)
   }
 
   function ModalSubmit() {
@@ -93,11 +95,13 @@ export default function Cart() {
     }
     const handleClose = () => {
       setOpenModal(false)
+      setFirstOpenModal(false)
     }
+    console.log(firstOpenModal)
 
     return (
       <div className="checklist-submit-modal">
-        <div className="checklist-submit-modal-container">
+        <div className={"checklist-submit-modal-container "+ (firstOpenModal && "first")}>
           <div className="checklist-submit-modal-title">
             <h2>PLEASE SET RETURN DATE</h2>
           </div>
@@ -165,6 +169,7 @@ export default function Cart() {
                           item.isChosen = !item.isChosen
                         }
                         setChange(!change)
+                        firstOpenModal && setFirstOpenModal(false)
                       }
                     }></input>
                   </div>
