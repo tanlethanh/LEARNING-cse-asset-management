@@ -1,4 +1,4 @@
-import '../styles/waiting.css'
+
 
 export default function Loading() {
     return (

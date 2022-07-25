@@ -4,7 +4,6 @@ import { arrangeList } from "../helpers/arrange";
 import { AppContext } from "../App";
 
 const optionsItems = {
-    //title: "Quantity of items in CSE-Asset",
     titlePosition: 'none',
     width: "50%",
     height: "50%",

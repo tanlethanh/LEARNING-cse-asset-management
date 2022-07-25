@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import Statistic from "../statistic"
 import { AppContext } from '../../App';
-import '../../styles/admin.css'
-import '../../styles/dashboard.css'
-import '../../styles/button.scss'
+import NotFoundPage from '../../helpers/notFoundPage';
+import Statistic from "../statistic"
 import Items from './items';
 import Users from './users';
 import Orders from './orders';
-import NotFoundPage from '../../helpers/notFoundPage';
+import '../../styles/admin.css'
+import '../../styles/button.scss'
 
 export default function Admin() {
 

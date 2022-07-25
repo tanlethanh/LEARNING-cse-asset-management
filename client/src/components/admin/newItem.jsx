@@ -106,12 +106,12 @@ export default function NewItem({ setOpenAddItem }) {
 
                 <div className='item_add_body'>
                     <div className='item_add_body_left'>
-                        <label className='lable_body'>Name of item</label>
+                        <label className='label_body'>Name of item</label>
                         <input className='input_body' type="text" onChange={e => {
                             setName(convertValidName(e.target.value))
                         }} />
 
-                        <label className='lable_body'>Quantity</label>
+                        <label className='label_body'>Quantity</label>
                         <p className={"signup_input_" + errorQuantity}>
                             {(errorQuantity === 'valid') && "Quantity is valid!"}
                             {(errorQuantity === 'invalid') && "Quantity must be a positive number."}
@@ -120,7 +120,7 @@ export default function NewItem({ setOpenAddItem }) {
                             setQuantity(e.target.value)
                         }} />
 
-                        <label className='lable_body'>Category</label>
+                        <label className='label_body'>Category</label>
                         <select className='input_body' name="e" onChange={e => {
                             setCategory(e.target.value)
                         }} >
@@ -132,7 +132,7 @@ export default function NewItem({ setOpenAddItem }) {
                             <option value="Đồ dùng văn phòng">Đồ dùng văn phòng</option>
                         </select>
 
-                        <label className='lable_body'>Description</label>
+                        <label className='label_body'>Description</label>
                         <textarea className='input_body input_des' onChange={e => {
                             setDescription(e.target.value)
                         }} ></textarea>
@@ -140,7 +140,7 @@ export default function NewItem({ setOpenAddItem }) {
 
                     {/* For adding image */}
                     <div className='item_add_body_right'>
-                        <label className='lable_body'>Image</label>
+                        <label className='label_body'>Image</label>
                         <ImageUploading
                             value={images}
                             onChange={(imageList, addUpdateIndex) => {

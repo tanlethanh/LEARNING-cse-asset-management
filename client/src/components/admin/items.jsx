@@ -6,7 +6,6 @@ import NewItem from './newItem'
 import ConfirmPassword from '../../helpers/confirmPassword';
 import Arrange, { arrangeList } from '../../helpers/arrange';
 import getFormattedDate from '../../utils/formatDate';
-import '../../styles/admin.item.css';
 
 export default function Items() {
 
@@ -122,12 +121,10 @@ export default function Items() {
         }
 
         return (
-            <div className='item_delete_background'>
-                <ConfirmPassword
-                    setOpen={setAcceptDelete}
-                    callback={handleYes}
-                />
-            </div>
+            <ConfirmPassword
+                setOpen={setAcceptDelete}
+                callback={handleYes}
+            />
         )
     }
 

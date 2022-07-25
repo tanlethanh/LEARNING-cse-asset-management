@@ -4,7 +4,6 @@ import { useSearchParams } from "react-router-dom"
 import BorrowingOrders from "./borrowingOrders"
 import CurrentOrders from "./currentOrders"
 import ReturnedOrders from "./returnedOrders"
-import '../../styles/member.css'
 import NotFoundPage from "../../helpers/notFoundPage"
 
 export default function User({ dataUser }) {

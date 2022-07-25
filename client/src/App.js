@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Axios from "axios";
 import { Header, Footer } from './components/headerfooter/headerfooter';
@@ -12,8 +12,9 @@ import ItemById from './components/item/itemById';
 import Cart from './components/cart';
 import Alert from './helpers/alert';
 import Loading from './helpers/loading';
-import './styles/app.css'
 import NotFoundPage from './helpers/notFoundPage';
+import './styles/app.css'
+import './styles/auth.css'
 
 export const AppContext = React.createContext()
 
@@ -149,7 +150,13 @@ function App() {
                 })
         }
 
-        document.title = `Asset of ${user.fullName || 'me'}`
+        if (user.fullName) {
+            const names = user.fullName.split(' ')
+            document.title = 'CSE Asset - ' + names[names.length - 1]
+        }
+        else {
+            document.title = 'CSE Asset'
+        }
 
     }, [user, isUpdatedInfor, isUpdatedOrders])
 
