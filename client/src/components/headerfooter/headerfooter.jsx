@@ -121,7 +121,7 @@ export function Header({
     return (
         <header id="header" >
             <ul>
-                <li className="header-left">
+                <li className="header-left" onClick={()=> {navigate("/")}}>
                     <div className='header-logo'>
                         <img src="/small_logo.png" alt="image" />
                     </div>
@@ -224,7 +224,7 @@ export function Header({
                         <p>{mainUser.infor.email}</p>
                     </div>
                     <div>
-                        <i class="fa-solid fa-id-card"></i>
+                        <i className="fa-solid fa-id-card"></i>
                         <p>{mainUser.infor.studentCode}</p>
                     </div>
                     <div>
@@ -288,7 +288,7 @@ export function Header({
                                 <p>{mainUser.infor.email}</p>
                             </div>
                             <div>
-                                <i class="fa-solid fa-id-card"></i>
+                                <i className="fa-solid fa-id-card"></i>
                                 <p>{mainUser.infor.studentCode}</p>
                             </div>
                             <div>

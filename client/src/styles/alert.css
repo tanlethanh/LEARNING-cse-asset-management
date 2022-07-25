@@ -36,10 +36,14 @@
     display: inline-block;
     margin-top: 10px;
     margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .alert_content_message {
     display: inline-block;
+    font-size: 16px;
+    font-weight: 400;
 }
 
 .alert_container.success {

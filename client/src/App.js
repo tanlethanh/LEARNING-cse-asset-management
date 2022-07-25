@@ -149,7 +149,13 @@ function App() {
                 })
         }
 
-        document.title = `Asset of ${user.fullName || 'me'}`
+        if (user.fullName) {
+            const names = user.fullName.split(' ')
+            document.title = 'CSE Asset - ' + names[names.length - 1]
+        }
+        else {
+            document.title = 'CSE Asset'
+        }
 
     }, [user, isUpdatedInfor, isUpdatedOrders])
 
