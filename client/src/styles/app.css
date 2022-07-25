@@ -181,8 +181,6 @@ input[type="checkbox"] {
 
 .statistic_content_title {
     height: 10%;
-    /* width: 100%; */
-    /* text-align: center; */
     margin: 10px 20px 0;
 }
 
@@ -520,7 +518,6 @@ input[type="checkbox"] {
     min-height: 40px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
 }
 
 .list-item:hover {

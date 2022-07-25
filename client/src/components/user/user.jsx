@@ -5,6 +5,7 @@ import BorrowingOrders from "./borrowingOrders"
 import CurrentOrders from "./currentOrders"
 import ReturnedOrders from "./returnedOrders"
 import NotFoundPage from "../../helpers/notFoundPage"
+import '../../styles/user.css'
 
 export default function User({ dataUser }) {
 

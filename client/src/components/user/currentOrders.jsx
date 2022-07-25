@@ -79,7 +79,7 @@ export default function CurrentOrders({ dataUser, orderList }) {
 
                 indexOrder = dataUser.infor.orders.findIndex(orderid => orderid === idDeleteOrder)
                 dataUser.infor.orders.splice(indexOrder, 1)
-                dataUser.setUser({...dataUser.infor})
+                dataUser.setUser({ ...dataUser.infor })
 
                 indexOrder = data.orders.findIndex(order => order._id === idDeleteOrder)
                 data.orders.splice(indexOrder, 1)
@@ -118,7 +118,7 @@ export default function CurrentOrders({ dataUser, orderList }) {
     }
 
     return (
-        <div>
+        <div className='current_orders'>
             {
                 openConfirmNext &&
                 <ConfirmNext
@@ -139,30 +139,30 @@ export default function CurrentOrders({ dataUser, orderList }) {
             </div>
 
             <div className="list-item list-item-title">
-                <div className="list-item-col item_name_col">
+                <div className="list-item-col user_name_col">
                     Item
                     <Arrange type="nameItem" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col item_category_col">
+                <div className="list-item-col user_category_col">
                     Category
                     <Arrange type="categoryItem" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col">
+                <div className="list-item-col user_quantity_col">
                     Quantity
                     <Arrange type="quantity" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col">
+                <div className="list-item-col user_createdAt_col">
                     Created at
                     <Arrange type="createdAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col">
+                <div className="list-item-col user_returnDate_col">
                     Return date
                     <Arrange type="returnDate" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col">
+                <div className="list-item-col user_action_col">
                     Action
                 </div>
-                <div className="list-item-col">
+                <div className="list-item-col user_status_col">
                     Status
                     <Arrange type="status" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
@@ -173,25 +173,28 @@ export default function CurrentOrders({ dataUser, orderList }) {
                 index >= currentFragment * maxOfFragment && index < (currentFragment + 1) * maxOfFragment
                 &&
                 <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={order._id}>
-                    <div className="list-item-col item_name_col">
+                    <div className="list-item-col user_name_col">
                         {order.nameItem}
                     </div>
-                    <div className="list-item-col item_category_col">
-                        {order.categoryItem}</div>
-                    <div className="list-item-col">{order.quantity}
+                    <div className="list-item-col user_category_col">
+                        {order.categoryItem}
                     </div>
-                    <div className="list-item-col">
+                    <div className="list-item-col user_quantity_col">
+                        {order.quantity}
+                    </div>
+                    <div className="list-item-col user_createdAt_col">
                         {getFormattedDate(new Date(order.createdAt))}
                     </div>
-                    <div className="list-item-col">
+                    <div className="list-item-col user_returnDate_col">
                         {getFormattedDate(new Date(order.returnDate))}
                     </div>
                     {order.status === "ok" &&
-                        <OrderPDF user={dataUser.infor} order={order} />}
+                        <OrderPDF user={dataUser.infor} order={order} className="user_action_col"/>}
                     {order.status === "ok" &&
-                        <div className="list-item-col"><i className="accept_status">Accepted</i></div>}
+                        <div className="list-item-col user_status_col" ><i className="accept_status">Accepted</i></div>}
+
                     {order.status === "pending" &&
-                        <div className="list-item-col">
+                        <div className="list-item-col user_action_col">
                             <i
                                 className="fa-solid fa-ban pending"
                                 onClick={() => {
@@ -200,12 +203,12 @@ export default function CurrentOrders({ dataUser, orderList }) {
                             ></i>
                         </div>}
                     {order.status === "pending" &&
-                        <div className="list-item-col"><i className="pending_status">Pending</i></div>}
+                        <div className="list-item-col user_status_col"><i className="pending_status">Pending</i></div>}
 
                     {order.status === "denied" &&
-                        <div className="list-item-col"><i className="fa-solid fa-download"></i></div>}
+                        <div className="list-item-col user_action_col"><i className="fa-solid fa-download"></i></div>}
                     {order.status === "denied" &&
-                        <div className="list-item-col"><i className="denied_status">Denied</i></div>}
+                        <div className="list-item-col user_status_col"><i className="denied_status">Denied</i></div>}
                 </div>
             ))}
 
