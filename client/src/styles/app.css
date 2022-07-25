@@ -275,6 +275,8 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
     padding: 20px 50px;
+    animation: zoomin 0.2s linear;
+    
 }
 
 .confirm_next_container .confirm_next_body {
@@ -351,6 +353,12 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
     padding: 20px 50px;
+    animation: zoomin 0.2s linear;
+}
+
+@keyframes zoomin {
+    from {transform: scale(0);}
+    to {transform: scale(1);}
 }
 
 .confirm_password_container .confirm_password_body {
@@ -867,6 +875,7 @@ input[type="checkbox"] {
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 10px 30px 20px;
+    animation: fadeIn .6s, slideIn .6s linear;
 }
 
 .edit_user_container .edit_user_title {
