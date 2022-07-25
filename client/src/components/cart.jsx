@@ -39,7 +39,7 @@ export default function Cart() {
 
   function ModalSubmit() {
     const submitChecklist = () => {
-
+      firstOpenModal && setFirstOpenModal(false)
       cart.map((item, index) => {
         if (item.isChosen && !item.returnDate) {
           helpers.setAlert({
@@ -97,7 +97,6 @@ export default function Cart() {
       setOpenModal(false)
       setFirstOpenModal(false)
     }
-    console.log(firstOpenModal)
 
     return (
       <div className="checklist-submit-modal">
