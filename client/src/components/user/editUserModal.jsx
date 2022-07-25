@@ -3,7 +3,6 @@ import ConfirmPassword from '../../helpers/confirmPassword';
 import convertValidName from '../../utils/convertValidName';
 import Axios from 'axios'
 import { AppContext } from '../../App';
-import '../../styles/edit.css'
 
 export default function EditUserModal({
     user,
@@ -69,26 +68,26 @@ export default function EditUserModal({
 
                 <div className='edit_user_body'>
                     <div className='edit_user_body_left'>
-                        <label className='lable_body'>Email</label>
+                        <label className='label_body'>Email</label>
                         <input className='input_body' type="text" placeholder={user.email} onChange={e => {
                             setEmail(e.target.value)
                         }} />
-                        <label className='lable_body'>Full name</label>
+                        <label className='label_body'>Full name</label>
                         <input className='input_body' type="text" placeholder={user.fullName} onChange={e => {
                             setFullName(convertValidName(e.target.value))
                         }} />
 
-                        <label className='lable_body'>Student Code</label>
+                        <label className='label_body'>Student Code</label>
                         <input className='input_body' type="text" placeholder={user.studentCode} onChange={e => {
                             setStudentCode(e.target.value)
                         }} />
 
-                        <label className='lable_body'>Phone Number</label>
+                        <label className='label_body'>Phone Number</label>
                         <input className='input_body' type="text" placeholder={user.phoneNumber} onChange={e => {
                             setPhoneNumber(e.target.value)
                         }} />
 
-                        <label className='lable_body'>Password</label>
+                        <label className='label_body'>Password</label>
                         <input className='input_body' type="text" placeholder="********" onChange={e => {
                             setPassword(e.target.value)
                         }} />

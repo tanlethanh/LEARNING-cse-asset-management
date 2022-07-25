@@ -169,12 +169,16 @@ export default function UserById({ }) {
 
                 <div className="detail">
                     <ul className="list-infor">
-                        <button
-                            className="button-edit"
-                            onClick={() => { setOpenEditUser(true) }}
-                        >
-                            <i className="fa-solid fa-pen-to-square"></i>
-                        </button>
+
+
+                        <h3>Information
+                            <button
+                                className="button-edit"
+                                onClick={() => { setOpenEditUser(true) }}
+                            >
+                                <i className="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </h3>
 
                         <li className="item-infor edit-user">
                             Email: {user.email}

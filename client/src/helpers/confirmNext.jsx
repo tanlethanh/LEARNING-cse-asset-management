@@ -1,6 +1,3 @@
-import React from 'react'
-import "../styles/confirmNext.css"
-
 export default function ConfirmNext({ setOpen, message, callback }) {
 
     return (
@@ -11,8 +8,8 @@ export default function ConfirmNext({ setOpen, message, callback }) {
                     "alignItems": "center"
                 }}>
                     {message
-                        ? <label className='lable_body'>{message}</label>
-                        : <label className='lable_body'>Are you sure to continue?</label>
+                        ? <label className='label_body'>{message}</label>
+                        : <label className='label_body'>Are you sure to continue?</label>
                     }
                 </div>
 
@@ -21,7 +18,7 @@ export default function ConfirmNext({ setOpen, message, callback }) {
                         Yes
                     </button>
 
-                    <button className='button cancel_button' onClick={() => { setOpen(false) }}>
+                    <button className='button no_button' onClick={() => { setOpen(false) }}>
                         No
                     </button>
                 </div>

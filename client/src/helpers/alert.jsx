@@ -1,6 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import '../styles/alert.css'
-
 export default function Alert({ alert, setOpenAlert }) {
 
     if (alert &&

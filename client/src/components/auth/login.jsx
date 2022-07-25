@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom'
 import Axios from 'axios'
-import '../../styles/auth.css'
 import { AppContext } from '../../App'
 
 
