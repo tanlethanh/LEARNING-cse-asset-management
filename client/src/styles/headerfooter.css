@@ -156,7 +156,7 @@
     padding: 10px 20px 85px;
     overflow-y: scroll;
     overflow-x: hidden;
-    animation: slideright 0.4s linear;
+    animation: slideright 0.4s ease-out;
     position: absolute;
     right: 0px;
 }
@@ -493,6 +493,10 @@
 
     .hamburger-background{
         display: block;
+    }
+
+    .navi {
+        display: none;
     }
 
     .nav-btn {
