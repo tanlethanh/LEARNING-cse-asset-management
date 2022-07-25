@@ -8,14 +8,14 @@
     justify-content: left;
 }
 
-.current_orders .user_quantity_col {}
+.current_orders .user_quantity_col {
+    width: 80px;
+}
 
 .current_orders .user_createdAt_col {
-    width: 160px;
 }
 
 .current_orders .user_returnDate_col {
-    width: 160px;
 }
 
 .current_orders .user_action_col {
@@ -23,36 +23,63 @@
 }
 
 .current_orders .user_status_col {
-    width: 100px;
+
 }
 
-.borrowing_list .user_name_col {
+.borrowing_orders .user_name_col {
     width: 300px;
 }
 
-.borrowing_list .user_category_col {
+.borrowing_orders .user_category_col {
     width: 250px;
     justify-content: left;
 }
 
-.borrowing_list .user_quantity_col {}
+.returned_orders .user_name_col {
+    width: 300px;
+}
+.returned_orders .user_category_col {
+    width: 250px;
+    justify-content: left;
+}
+.returned_orders .user_quantity_col {
+    width: 100px;
+}
+.returned_orders .user_createdAt_col {
 
-.borrowing_list .user_download_col {
+}
+.returned_orders .user_confirmAt_col {
+
+}
+.returned_orders .user_returnDate_col {
+
+}
+
+
+.borrowing_orders .user_quantity_col {}
+
+.borrowing_orders .user_download_col {
     width: 160px;
 }
 
-.borrowing_list .user_acceptDate_col {
+.borrowing_orders .user_acceptDate_col {
     width: 160px;
 }
 
-.borrowing_list .user_returnDate_col {
+.borrowing_orders .user_returnDate_col {
     width: 160px;
 }
 
 @media only screen and (max-width: 1400px) {
 
-    .borrowing_list .user_download_col {
+    .borrowing_orders .user_download_col {
         width: 80px;
+    }
+    .returned_orders .user_name_col {
+        width: 250px;
+    }
+    .returned_orders .user_category_col {
+        width: 200px;
     }
 }
 
@@ -61,7 +88,7 @@
         width: 230px;
     }
 
-    .borrowing_list .user_name_col {
+    .borrowing_orders .user_name_col {
         width: 230px;
     }
 
@@ -73,7 +100,11 @@
         display: none;
     }
 
-    .borrowing_list .user_category_col {
+    .borrowing_orders .user_category_col {
+        display: none;
+    }
+
+    .returned_orders .user_category_col {
         display: none;
     }
     
@@ -89,7 +120,11 @@
         width: 200px;
     }
 
-    .borrowing_list .user_acceptDate_col {
+    .borrowing_orders .user_acceptDate_col {
+        display: none;
+    }
+
+    .returned_orders .user_createdAt_col {
         display: none;
     }
 }
@@ -103,10 +138,6 @@
         display: none;
     }
 
-    .current_orders .user_quantity_col {
-        width: 80px;
-    }
-
     .current_orders .user_action_col {
         width: 50px;
     }
@@ -115,11 +146,22 @@
         width: 130px;
     }
 
-    .borrowing_list .user_quantity_col {
+    .borrowing_orders .user_quantity_col {
         width: 80px;
     }
 
-    .borrowing_list .user_name_col {
+    .borrowing_orders .user_name_col {
+        width: 200px;
+    }
+
+    .returned_orders .user_confirmAt_col {
+        width: 140px;
+    }
+
+    .returned_orders .user_returnDate_col {
+        width: 140px;
+    }
+    .returned_orders .user_name_col {
         width: 200px;
     }
 }

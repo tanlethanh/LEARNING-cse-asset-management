@@ -172,7 +172,7 @@ export default function Users({ enable }) {
                 Node: You can click on name of user to see and edit the detail of user
             </p>
 
-            <div className="list-item-title">
+            <div className="list-item list-item-title">
                 <div className="list-item-col user_email_col">
                     Email
                     <Arrange type="email" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />

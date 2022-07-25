@@ -57,7 +57,7 @@ export default function BorrowingOrders({ dataUser, orderList }) {
     }
 
     return (
-        <div className='borrowing_list'>
+        <div className='borrowing_orders'>
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input

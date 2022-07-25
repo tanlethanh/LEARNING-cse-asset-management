@@ -68,7 +68,7 @@ export default function ListOfItem({ list }) {
 
             <div className="list-content">
                 <div className="list-item list-item-title">
-                    <div className="list-item-col">
+                    <div className="list-item-col item_name_col">
                         Borrower
                         <Arrange type="nameUser" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                     </div>
@@ -77,11 +77,11 @@ export default function ListOfItem({ list }) {
                         <Arrange type="quantity" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                     </div>
                     <div className="list-item-col">
-                        Created date
+                        Created at
                         <Arrange type="createdAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                     </div>
                     <div className="list-item-col">
-                        Acceped date
+                        Updated at
                         <Arrange type="updatedAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                     </div>
                     <div className="list-item-col">
@@ -98,7 +98,7 @@ export default function ListOfItem({ list }) {
                                 index < (currentFragment + 1) * maxLengthOfFragment
                             ) &&
                             <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={index}>
-                                <div className="list-item-col">
+                                <div className="list-item-col item_name_col">
                                     {reverseName(order.nameUser)}
                                 </div>
                                 <div className="list-item-col list_item_multiline">

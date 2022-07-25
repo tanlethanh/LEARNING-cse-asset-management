@@ -169,7 +169,7 @@ export default function Items() {
                 Node: You can click on name of item to see and edit the detail of item
             </p>
 
-            <div className="list-item-title">
+            <div className="list-item list-item-title">
                 <div className="list-item-col item_name_col" title="Nhấp vào tên item để biết thêm chi tiết về item">
                     Name of item
                     <Arrange type="name" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
