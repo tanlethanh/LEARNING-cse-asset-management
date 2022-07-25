@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Chart from "react-google-charts";
+import { Chart } from "react-google-charts";
 import { arrangeList } from "../helpers/arrange";
 import { AppContext } from "../App";
 
@@ -104,7 +104,7 @@ export default function Statistic({ chosenListInMenu }) {
 
     const { data } = useContext(AppContext)
 
-    if (!chosenListInMenu) chosenListInMenu="items"
+    if (!chosenListInMenu) chosenListInMenu = "items"
 
     const typeList = chosenListInMenu.split("_")[0]
 

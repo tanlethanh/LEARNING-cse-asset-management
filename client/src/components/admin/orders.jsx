@@ -78,7 +78,6 @@ export default function Orders({ status }) {
                     .then(response => {
                         order.status = order.nextStatus
                         order.nextStatus = null
-                        console.log(response.data)
                         helpers.setAlert({
                             type: "success",
                             message: response.data.message

@@ -8,7 +8,6 @@ import reverseName from '../../utils/reverseName';
 import { AppContext } from '../../App';
 
 export default function Users({ enable }) {
-    console.log(enable)
 
     const { data, helpers, mainUser } = useContext(AppContext)
     const [usersRender, setUsersRender] = useState([])

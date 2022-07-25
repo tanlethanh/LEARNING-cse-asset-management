@@ -4,7 +4,6 @@ const { isAdmin, isAdminWithPassword } = require('../helpers/isAdmin.js')
 const mongoose = require('mongoose')
 
 exports.getAllItems = async (req, res) => {
-    console.log("Get all items")
 
     try {
         const items = await Item.find()
@@ -17,7 +16,6 @@ exports.getAllItems = async (req, res) => {
 }
 
 exports.getItemById = async (req, res) => {
-    console.log("Get item By Id")
     try {
         const item = await Item.findById(mongoose.Types.ObjectId(req.params.id))
         if (!item) {
@@ -33,7 +31,6 @@ exports.getItemById = async (req, res) => {
 }
 
 exports.addNewItem = async (req, res) => {
-    console.log("Add new item")
     if (await isAdminWithPassword(req.session.userId, req.body.adminPassword)) {
         try {
 

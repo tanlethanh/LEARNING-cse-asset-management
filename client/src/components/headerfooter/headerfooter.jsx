@@ -76,7 +76,6 @@ export function Header({
                             }
                             onMouseLeave={
                                 (e) => {
-                                    console.log(e)
                                     setOpenUserDetail(false)
                                 }
                             }
@@ -120,7 +119,6 @@ export function Header({
                     }
                     onMouseLeave={
                         (e) => {
-                            console.log(e)
                             setOpenUserDetail(false)
                         }
                     }

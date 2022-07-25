@@ -232,7 +232,6 @@ exports.deleteOrderById = async (req, res) => {
 
             if (doesOrderBelongUser) {
                 if (order.status === 'pending') {
-                    console.log("hello")
                     await Order.findByIdAndDelete(order._id)
                     await User.findByIdAndUpdate(user._id, { $pull: { orders: order._id } })
                     return res.status(204).json({ status: 204, message: "Delete order successfully!" })

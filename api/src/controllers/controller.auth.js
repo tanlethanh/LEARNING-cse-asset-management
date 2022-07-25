@@ -8,7 +8,6 @@ const saltRounds = 10;
 exports.getAuth = async (req, res) => {
 
     try {
-        console.log(req.session.userId)
         const user = await User.findById(req.session.userId)
 
         if (!user) {
@@ -49,8 +48,6 @@ exports.register = async (req, res) => {
 
     } catch (error) {
         let errorMess = "Register failed"
-
-        console.log(error)
 
         if (error.code == 11000) {
             if (error.keyValue.email && error.keyValue.studentCode) {
@@ -95,7 +92,6 @@ exports.login = async (req, res) => {
             await req.session.regenerate(function (err) {
                 if (err) next(err)
                 // store user information in session, typically a user id
-                console.log(user._id)
                 req.session.userId = user._id
 
                 // save the session before redirection to ensure page
@@ -142,7 +138,6 @@ exports.logout = async (req, res) => {
 exports.changePassword = async (req, res) => {
     try {
         // create new hash password
-        console.log(req.body.newPassword)
         const hashPassword = await bcrypt.hash(req.body.newPassword, saltRounds)
 
         const user = await User.findOneAndUpdate(

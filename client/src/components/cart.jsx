@@ -97,7 +97,6 @@ export default function Cart() {
       setOpenModal(false)
       setFirstOpenModal(false)
     }
-    console.log(firstOpenModal)
 
     return (
       <div className="checklist-submit-modal">

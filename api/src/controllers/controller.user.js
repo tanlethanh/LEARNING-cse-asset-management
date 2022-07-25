@@ -35,7 +35,6 @@ exports.getAllUsers = async (req, res) => {
 }
 exports.getUserById = async (req, res) => {
     if (await isAdmin(req.session.userId)) {
-        console.log("Get user By Id")
         try {
             const user = await User.findById(mongoose.Types.ObjectId(req.params.id))
             if (!user) {
@@ -126,7 +125,6 @@ exports.updateUserById = async (req, res, next) => {
     }
 }
 exports.deleteUserById = async (req, res) => {
-    console.log("delete user by id")
     if (await isAdmin(req.session.userId)) {
         try {
             if (String(req.session.userId) === String(req.params.id)) {
@@ -148,7 +146,6 @@ exports.deleteUserById = async (req, res) => {
             // console.log(orders)
 
             for (let i = 0; i < orders.length; i++) {
-                console.log("loop")
                 if (orders[i].status === 'ok') {
                     return res.status(400).json({
                         status: 400,

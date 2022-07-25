@@ -30,8 +30,7 @@ export default function Homepage() {
 
         setAvai(avaiItems)
         setUnavai(unavaiItems)
-        console.log(avai)
-        console.log(unavai)
+
 
     }, [data.items])
 
