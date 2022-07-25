@@ -8,8 +8,15 @@
     right: 0;
     border: none;
     z-index: 2;
-    color: #000
+    color: #000;
+    animation: dropdown 0.8s ease-in;
 }
+
+@keyframes dropdown {
+    from {top: -510px}
+    to {top: 60px}
+}
+
 
 .scrollChecklist {
     overflow-y: scroll;
@@ -164,7 +171,36 @@
     justify-content: top;
     align-items: center;
     flex-direction: column;
-    padding: 40px 30px; 
+    padding: 40px 30px;
+    animation: fadeIn .6s, slideIn .6s linear;
+}
+
+@keyframes slideIn {
+    0% {
+      transform: translateY(400px);
+      animation-timing-function: ease-out;
+    }
+    60% {
+      transform: translateY(-30px);
+      animation-timing-function: ease-in;
+    }
+    80% {
+      transform: translateY(10px);
+      animation-timing-function: ease-out;
+    }
+    100% {
+      transform: translateY(0px);
+      animation-timing-function: ease-in;
+    }
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
 }
 
 
