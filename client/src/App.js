@@ -198,7 +198,9 @@ function App() {
         }} >
             <div onClick={(e) => {
                 onClickToggleCart(e.target)
-            }}>
+            }}
+                id="App"
+            >
 
                 {openAlert && <Alert alert={alert} setOpenAlert={setOpenAlert} />}
                 {openLoading && <Loading />}

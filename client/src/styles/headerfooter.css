@@ -138,7 +138,7 @@
     top: var(--height-nav);
     left: 0;
     z-index: 10;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     position: fixed;
     background-color: rgba(132, 130, 130, 0.303);
@@ -311,7 +311,7 @@
 
 /* Footer section */
 .footer {
-    width: 100vw;
+    width: 100%;
     height: var(--height-footer);
     background-color: #212C58;
     color: #fff;
@@ -461,7 +461,7 @@
 
 
 /* responsive */
- @media only screen and (max-width: 1050px) {
+ @media only screen and (max-width: 1200px) {
     .hamburger-cart{
         display: block;
     }

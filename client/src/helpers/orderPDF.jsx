@@ -21,7 +21,6 @@ const OrderPDF = ({ user, order }) => {
             <div
                 id="pdf"
                 style={{
-                    fontFamily: "Roboto Slab",
                     position: "fixed",
                     left: "100vw",
                     width: "790px",
