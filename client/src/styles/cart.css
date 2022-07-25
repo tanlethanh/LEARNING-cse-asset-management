@@ -172,6 +172,9 @@
     align-items: center;
     flex-direction: column;
     padding: 40px 30px;
+}
+
+.checklist-submit-modal-container.first{
     animation: fadeIn .6s, slideIn .6s linear;
 }
 
