@@ -160,7 +160,7 @@ export default function CurrentOrders({ dataUser, orderList }) {
                     <Arrange type="returnDate" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
                 <div className="list-item-col">
-                    Permission
+                    Action
                 </div>
                 <div className="list-item-col">
                     Status

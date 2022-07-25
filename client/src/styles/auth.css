@@ -1,6 +1,6 @@
 .authpage_container {
     position: relative;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background-color: #6171A9;
     top: 0;
@@ -191,7 +191,7 @@
 .signup_background_container_container {
     position: relative;
     margin-top: var(--height-nav);
-    width: 100vw;
+    width: 100%;
     height: calc(100vh - var(--height-nav));
     display: flex;
     justify-content: center;
