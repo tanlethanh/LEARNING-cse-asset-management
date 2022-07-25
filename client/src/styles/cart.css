@@ -65,10 +65,14 @@
 }
 
 .checklist-note {
+    width: 270px;
     left: 20px;
     top: 10px;
     position: relative;
     font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .checklist-button {

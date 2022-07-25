@@ -13,8 +13,9 @@ export default function Cart() {
   // For submit modal
   const [openModal, setOpenModal] = useState(false)
 
-  const handleRemove = (name) => {
-    const newCart = cart.filter(itemInCart => itemInCart.name !== name)
+  const handleRemove = (item) => {
+    item.numberInCart = 0
+    const newCart = cart.filter(itemInCart => itemInCart.name !== item.name)
     if (newCart !== cart) setCart(newCart)
   }
 
@@ -114,7 +115,7 @@ export default function Cart() {
                       {item.name}
                     </div>
                     <div className="checklist-card-top-right">
-                      <button className="checklist-button trash" onClick={() => { handleRemove(item._id) }}>
+                      <button className="checklist-button trash" onClick={() => { handleRemove(item) }}>
                         <i className="fa-solid fa-trash-can"></i></button>
                       {item.numberInCart < item.available &&
                         <button className="checklist-button" onClick={() => { handleIncrease(index) }}>
@@ -216,7 +217,7 @@ export default function Cart() {
               <div className="checklist-card" key={item._id}>
                 <p className="checklist-name">{item.name}</p>
                 <p className="checklist-note">Note: {item.description}</p>
-                <button className="checklist-button trash" onClick={() => { handleRemove(item.name) }}>
+                <button className="checklist-button trash" onClick={() => { handleRemove(item) }}>
                   <i className="fa-solid fa-trash-can"></i></button>
                 {
                   item.numberInCart < item.available &&

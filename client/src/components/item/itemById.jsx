@@ -85,7 +85,7 @@ export default function ItemById() {
                         {item.name}
                     </h1>
                     <h2 className="description">
-                        {item.description}
+                        {item.category}
                     </h2>
                 </div>
                 <div className="detail item_detail">
