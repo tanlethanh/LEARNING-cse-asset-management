@@ -31,11 +31,6 @@
     background: none;
 }
 
-#checkList::-webkit-scrollbar-thumb:hover {
-    background: white;
-    border-radius: 10px;
-}
-
 .checklist-title {
     font-weight: 900;
     font-size: 25px;

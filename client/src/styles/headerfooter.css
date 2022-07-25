@@ -153,7 +153,21 @@
     backdrop-filter: blur(0.8rem);
     z-index: 10;
     color: #fff; 
-    padding: 15px 20px;
+    padding: 15px 20px 85px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.hamburger-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.hamburger-container:-webkit-scrollbar-track {
+    background: none;
+}
+
+.hamburger-container::-webkit-scrollbar-thumb {
+    background: none;
 }
 
 .hamburger-user-detail {

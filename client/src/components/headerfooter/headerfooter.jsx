@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import '../../styles/headerfooter.css'
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
@@ -14,9 +14,9 @@ export function Header({
     const [navBarHidden, setNavBarHidden] = useState(false)
     const { mainUser } = useContext(AppContext)
     const [searchParams, setSearchParams] = useSearchParams()
-    const [currentPage, setCurrentPage] = useState("mylist")
     const tab = searchParams.get("tab")
     const type = searchParams.get("type")
+    let location = useLocation()
 
     const logout = () => {
         Axios.post("/api/auth/logout")
@@ -29,94 +29,6 @@ export function Header({
 
             })
     }
-
-
-    // const handleClickButton = (curList) => {
-    //     setCurrentList(curList)
-    // }
-
-    // function HamburgerMenu() {
-    //     return(
-    //         <div className="hamburger-background">
-    //         <div className="hamburger-container">
-    //             <div className="hamburger-item hamburger-item-border" onClick={() => {
-    //                 setOpenMenu(false)
-    //                 setIsDashboard(false)
-    //                 navigate("../", { replace: true })
-    //             }}>Home</div>
-
-    //             <div className="hamburger-item" onClick={() => {
-    //                 setOpenMenu(false)
-    //                 setIsDashboard(true)
-    //                 navigate("../dashboard", { replace: true })
-    //             }}>{user.email ? "Dash board" : "Login"}</div>
-
-    //             {isDashboard && (user.email && (user.isAdmin ?
-    //             <div id="hamburger-menu">
-    //                 <h3 className='menu_list_title'>Items, devices</h3>
-    //                 <button
-    //                     className={"hamburger_list_admin " + (currentList === "items" && "chosen")}
-    //                     onClick={() => handleClickButton("items")}
-    //                 >
-    //                     Items
-    //                 </button>
-
-    //                 <h3 className='menu_list_title'>Users</h3>
-    //                 <button
-    //                     className={"hamburger_list_admin " + (currentList === "users_register" && "chosen")}
-    //                     onClick={() => handleClickButton("users_register")}
-    //                 >
-    //                     Register users
-    //                 </button>
-
-    //                 <button
-    //                     className={"hamburger_list_admin " + (currentList === "users_all" && "chosen")}
-    //                     onClick={() => handleClickButton("users_all")}
-    //                 >
-    //                     Member
-    //                 </button>
-
-    //                 <h3 className='menu_list_title'>Oders</h3>
-    //                 <button
-    //                     className={"hamburger_list_admin " + (currentList === "orders_pending" && "chosen")}
-    //                     onClick={() => handleClickButton("orders_pending")}
-    //                 >
-    //                     Pending orders
-    //                 </button>
-
-    //                 <button
-    //                     className={"hamburger_list_admin " + (currentList === "orders_ok" && "chosen")}
-    //                     onClick={() => handleClickButton("orders_ok")}
-    //                 >
-    //                     Processing orders
-    //                 </button>
-
-    //                 <button
-    //                     className={"hamburger_list_admin " + (currentList === "orders_complete" && "chosen")}
-    //                     onClick={() => handleClickButton("orders_complete")}
-    //                 >
-    //                     Complete orders
-    //                 </button>
-
-    //             </div>:
-    //             <div id="hamburger-menu">
-    //                 <h3 className='menu_list_title'>LIST ORDER</h3>
-    //                 {tabs.map((tab, index) => (
-    //                     <button
-    //                         key={index}
-    //                         className={"hamburger_list_admin " + (currentTab === tab && "chosen")}
-    //                         onClick={() => { setCurrentTab(tab) }}
-    //                     >
-    //                         {tab}
-    //                     </button>
-    //                 ))}
-    //             </div>)
-
-    //         )}
-    //         </div>
-    //         </div>
-    //     )
-    // }
 
     return (
         <header id="header" >
@@ -249,14 +161,12 @@ export function Header({
                             <button className="hamburger-route-button" onClick={() => {
                                 navigate("/");
                                 setNavBarHidden(false)
-                                setCurrentPage("/")
                             }}>Home</button>
 
                             {mainUser.infor.email ?
                                 <button className="hamburger-route-button" onClick={() => {
                                     navigate("mylist");
                                     setNavBarHidden(false)
-                                    setCurrentPage("mylist")
                                 }}>My orders</button>
                                 :
                                 <button className="hamburger-route-button" onClick={() => {
@@ -275,7 +185,6 @@ export function Header({
                             {(mainUser.infor.isAdmin) && <button className="hamburger-route-button" onClick={() => {
                                 navigate("dashboard");
                                 setNavBarHidden(false)
-                                setCurrentPage("dashboard")
                             }}>Dash board</button>}
                         </div>
                         {mainUser.infor.email &&<div className="hamburger-user-detail">
@@ -297,7 +206,8 @@ export function Header({
                             </div>
                         </div>}
 
-                        {(mainUser.infor.email &&currentPage=="dashboard") &&
+
+                        {(mainUser.infor.email && location.pathname=="/dashboard") &&
                         <div className="hamburger-user-detail">
                             <h2 className="menu_title" >DASH BOARD</h2>
 
@@ -365,9 +275,9 @@ export function Header({
 
                         </div>}
 
-                        {(mainUser.infor.email && currentPage=="mylist") &&
+                        {(mainUser.infor.email && (location.pathname=="/mylist" || location.pathname.indexOf("/user")==0)) &&
                         <div className="hamburger-user-detail">
-                            <h2 className="menu_title" >LIST</h2>
+                            <h2 className="menu_title" >MY ORDER LIST</h2>
                             <button
                                 className={(tab === "current" || !tab) ? "hamburger_list_admin chosen" : "hamburger_list_admin"}
                                 onClick={() => { setSearchParams({ tab: "current" }) }}
@@ -388,11 +298,34 @@ export function Header({
                             </button>
                         </div>}
 
+                        {(mainUser.infor.email && location.pathname.indexOf("/item")==0) &&
+                        <div className="hamburger-user-detail">
+                            <h2 className="menu_title" >LIST</h2>
+                            <button
+                                className={(tab === "current" || !tab) ? "hamburger_list_admin chosen" : "hamburger_list_admin"}
+                                onClick={() => { setSearchParams({ type: "current" }) }}
+                            >
+                                Current borrower
+                            </button>
+                            <button
+                                className={(tab === "done") ? "hamburger_list_admin chosen" : "hamburger_list_admin"}
+                                onClick={() => { setSearchParams({ type: "done" }) }}
+                            >
+                                Old borrower
+                            </button>
+                            <button
+                                className={(tab === "all") ? "hamburger_list_admin chosen" : "hamburger_list_admin"}
+                                onClick={() => { setSearchParams({ type: "all" }) }}
+                            >
+                                All of borrower
+                            </button>
+                        </div>}
+
                         {mainUser.infor.email && <button
                             className='hamburger_log_out'
                             onClick={()=>{
                                 setOpenUserDetail(false)
-                                setCurrentPage("mylist")
+                                setNavBarHidden(false)
                                 logout()
                             }}
                         >
