@@ -526,6 +526,7 @@ input[type="checkbox"] {
     min-height: 40px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .list-item:hover {
@@ -550,7 +551,7 @@ input[type="checkbox"] {
 }
 
 .list-item-col {
-    width: 130px;
+    width: 160px;
     padding: 0 15px;
     /* flex-grow: 1; */
     /* flex-shrink: 0; */

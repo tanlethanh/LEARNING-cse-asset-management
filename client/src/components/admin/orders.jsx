@@ -173,7 +173,7 @@ export default function Orders({ status }) {
                 Node: You can click on name of item or user to see and edit the detail of item or user
             </p>
 
-            <div className="list-item-title">
+            <div className="list-item list-item-title">
                 <div className="list-item-col order_name_item">
                     Name of item
                     <Arrange type="nameItem" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
@@ -194,7 +194,7 @@ export default function Orders({ status }) {
                     <Arrange type="nameUser" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
                 <div className="list-item-col">
-                    {status === 'pending' && "Accept or denied"}
+                    {status === 'pending' && "Accept/Deny"}
                     {status === 'accepted' && "Confirm return"}
                     {status === 'complete' && "Status"}
                 </div>
@@ -216,7 +216,7 @@ export default function Orders({ status }) {
                             </div>
 
                             <div className="list-item-col order_quantity">{order.quantity}</div>
-                            <div className="list-item-col order_updated_date">
+                            <div className="list-item-col order_updated_date ">
                                 {status === 'pending' && getFormattedDate(new Date(order.updatedAt))}
                                 {status === 'accepted' && getFormattedDate(new Date(order.updatedAt))}
                                 {status === 'complete' && getFormattedDate(new Date(order.updatedAt))}

@@ -127,7 +127,7 @@
 
 /* For User page */
 .user_email_col {
-    width: 300px !important;
+    width: 250px !important;
     flex-grow: 1 !important;
     text-align: left !important;
     justify-content: left !important;
@@ -137,7 +137,7 @@
 .user_name_col {
     text-align: left !important;
     justify-content: left !important;
-    width: 160px;
+    width: 230px !important;
     cursor: pointer;
 }
 
@@ -157,6 +157,10 @@
 }
 
 .order_quantity {}
+
+.order_updated_date {
+    width: 200px !important;
+}
 
 .order_return_date {}
 
@@ -216,4 +220,25 @@
     #menu {
        display: none;
     }
+}
+
+@media only screen and (max-width: 1400px) {
+
+}
+
+@media only screen and (max-width: 1200px) {
+
+}
+
+/*display mobile when the browser window is 991px width or less*/
+@media only screen and (max-width: 970px) {
+
+}
+
+@media only screen and (max-width: 720px) {
+
+}
+
+@media only screen and (max-width: 520px) {
+
 }

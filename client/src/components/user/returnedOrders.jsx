@@ -55,7 +55,7 @@ export default function ReturnedOrders({ dataUser, orderList }) {
     }
 
     return (
-        <div>
+        <div className='returned_orders'>
             <div className="list-search">
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input
@@ -67,27 +67,27 @@ export default function ReturnedOrders({ dataUser, orderList }) {
                 />
             </div>
             <div className="list-item list-item-title">
-                <div className="list-item-col item_name_col">
+                <div className="list-item-col user_name_col">
                     Item
                     <Arrange type="nameItem" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col item_category_col">
+                <div className="list-item-col user_category_col">
                     Category
                     <Arrange type="categoryItem" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col">
+                <div className="list-item-col user_quantity_col">
                     Quantity
                     <Arrange type="quantity" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col">
+                <div className="list-item-col user_createdAt_col">
                     Created at
                     <Arrange type="createdAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col">
+                <div className="list-item-col user_confirmAt_col">
                     Confirm at
                     <Arrange type="updatedAt" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
-                <div className="list-item-col">
+                <div className="list-item-col user_returnDate_col">
                     Return date
                     <Arrange type="returnDate" arrangeKey={arrangeKey} setArrangeKey={setArrangeKey} />
                 </div>
@@ -97,16 +97,16 @@ export default function ReturnedOrders({ dataUser, orderList }) {
                 index >= currentFragment * maxOfFragment && index < (currentFragment + 1) * maxOfFragment
                 &&
                 <div className={"list-item " + (index % 2 === 0 && "list-item-odd")} key={item._id}>
-                    <div className="list-item-col item_name_col">{item.nameItem}</div>
-                    <div className="list-item-col item_category_col">{item.categoryItem}</div>
-                    <div className="list-item-col">{item.quantity}</div>
-                    <div className="list-item-col">
+                    <div className="list-item-col user_name_col">{item.nameItem}</div>
+                    <div className="list-item-col user_category_col">{item.categoryItem}</div>
+                    <div className="list-item-col user_quantity_col">{item.quantity}</div>
+                    <div className="list-item-col user_createdAt_col">
                         {getFormattedDate(new Date(item.createdAt))}
                     </div>
-                    <div className="list-item-col">
+                    <div className="list-item-col user_confirmAt_col">
                         {getFormattedDate(new Date(item.updatedAt))}
                     </div>
-                    <div className="list-item-col">
+                    <div className="list-item-col user_returnDate_col">
                         {getFormattedDate(new Date(item.returnDate))}
                     </div>
                 </div>
